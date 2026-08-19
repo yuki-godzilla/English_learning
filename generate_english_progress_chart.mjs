@@ -115,12 +115,12 @@ const graphRows = measuredMetrics.map((metric, metricIndex) => {
 }).join("");
 
 const legend = plottedSessions.map((session, index) => {
-  // Keep the full history visible without letting the newest labels run off
-  // the right edge.  Three compact entries sit on the first line, then the
-  // final two on a second line above the L1–L5 scale.
+  // Keep the full history visible without letting the newest labels overlap
+  // or run off the right edge. Three compact entries sit on each line above
+  // the L1-L5 scale.
   const positions = [
     [570, 292], [805, 292], [1040, 292],
-    [690, 326], [965, 326]
+    [570, 326], [805, 326], [1040, 326]
   ];
   const [x, y] = positions[index] ?? [570 + (index % 3) * 235, 326];
   const label = index === 0 ? "開始" : index === plottedSessions.length - 1 ? "今回" : index === plottedSessions.length - 2 ? "前回" : `履歴S${session.session}`;
