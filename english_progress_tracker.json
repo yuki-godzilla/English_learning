@@ -1,0 +1,189 @@
+{
+  "methodology": {
+    "name": "Exam-informed, evidence-based English conversation tracking",
+    "status": "Historical baseline for Sessions 1-3",
+    "disclaimer": "This is a personal learning record based on Daily Notes and transcript excerpts, not a standardized English proficiency test.",
+    "comparison_rule": "Do not publish retrospective quantitative counts unless the sessions used comparable tasks and equivalent data coverage.",
+    "design_references": [
+      "TOEIC: combine a level descriptor with an abilities-measured breakdown",
+      "IELTS Speaking: separate fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation",
+      "TOEFL iBT Speaking: consider delivery, language use, and topic development",
+      "Cambridge English Speaking: consider grammar and vocabulary, discourse management, pronunciation, interactive communication, and global achievement",
+      "CEFR and ACTFL: use observable can-do-style descriptions of effective real-life language use"
+    ]
+  },
+  "rubric_levels": {
+    "1": "Strong support",
+    "2": "Supported",
+    "3": "Mostly independent",
+    "4": "Independent",
+    "5": "Flexible"
+  },
+  "metric_rubrics": {
+    "Task achievement": {
+      "1": "語や短句が中心で、課題を進めるには継続的な促しが必要。",
+      "2": "簡単な質問には答えられるが、理由や例には頻繁な支援が必要。",
+      "3": "身近な話題で結論と理由を伝え、支援があれば例やまとめも加えられる。",
+      "4": "結論・理由・例・まとめを自力で完結できる。",
+      "5": "複雑・未知の話題でも目的に合わせて柔軟かつ詳しく展開できる。"
+    },
+    "Fluency & coherence": {
+      "1": "長い停止が多く、発話の継続に強い支援が必要。",
+      "2": "短い句で話し、停止・繰り返し・言い直しが頻繁。",
+      "3": "詰まりや言い直しがあっても、意味のつながりを保って話を続けられる。",
+      "4": "小さなためらいで、一貫したまとまりのある発話を継続できる。",
+      "5": "複雑な内容でも自然なペースと構成で柔軟に話せる。"
+    },
+    "Lexical resource": {
+      "1": "ごく基本的な単語・定型句に限られる。",
+      "2": "身近な語彙は使えるが、語探しが多く支援を要する。",
+      "3": "身近な話題に必要な語彙を使い、確認・言い換えで意図を伝えられる。",
+      "4": "幅のある語彙を文脈に合わせて選び、柔軟に言い換えられる。",
+      "5": "微妙な意味差や自然な連語を含め、正確かつ柔軟に語彙を運用できる。"
+    },
+    "Grammar control": {
+      "1": "語や断片が中心で、誤りにより意味が不明瞭になりやすい。",
+      "2": "単純な文型を使えるが、誤りの理解に支援が必要なことが多い。",
+      "3": "単純な文と一部の複雑な文を使い、誤りがあっても意味は明確。",
+      "4": "複数の文型を使い、伝達を妨げる誤りが少ない。",
+      "5": "幅広い文型を柔軟かつ高い正確さで使える。"
+    },
+    "Interaction & repair": {
+      "1": "相手の促しに強く依存し、確認や言い直しが難しい。",
+      "2": "応答はできるが、自発的な展開や修復には支援が必要。",
+      "3": "意味を確認し、支援があれば言い直しや会話の継続ができる。",
+      "4": "自発的に質問・確認・言い直しを行い、話題を展開できる。",
+      "5": "相手に合わせてターンを調整し、含意や微妙なずれも柔軟に修復できる。"
+    },
+    "Pronunciation": {
+      "1": "理解が難しい箇所が多く、頻繁な聞き返し・反復が必要。",
+      "2": "身近な語句は理解可能だが、音・強勢・リズムに継続的な支援が必要。",
+      "3": "概ね理解可能だが、強勢・リズム・つながりが時折理解を妨げる。",
+      "4": "意味チャンク・強勢・つながりが安定し、軽微な問題だけが残る。",
+      "5": "複雑な発話でも明瞭で自然な韻律を一貫して使える。"
+    }
+  },
+  "qualitative_metrics": [
+    "Task achievement",
+    "Fluency & coherence",
+    "Lexical resource",
+    "Grammar control",
+    "Interaction & repair",
+    "Pronunciation"
+  ],
+  "sessions": [
+    {
+      "session": 1,
+      "date": "2026-08-08",
+      "task": "Travel narrative",
+      "task_ja": "旅行の振り返り",
+      "data_coverage": "Daily Notes and selected transcript excerpts",
+      "ratings": {
+        "Task achievement": 3,
+        "Fluency & coherence": 2,
+        "Lexical resource": 2,
+        "Grammar control": 2,
+        "Interaction & repair": 3,
+        "Pronunciation": null
+      },
+      "evidence_quote": "I'm want to talking about my travel.",
+      "evidence_note_ja": "意味は伝わり話を続けられた一方、動詞形・冠詞・時制・語順では支援が必要だった。",
+      "evidence_note": "Meaning was clear and the story continued, but verb form, articles, tense, and word order often required support."
+    },
+    {
+      "session": 2,
+      "date": "2026-08-15",
+      "task": "Technical article discussion",
+      "task_ja": "技術記事ディスカッション",
+      "data_coverage": "Daily Notes and selected transcript excerpts",
+      "ratings": {
+        "Task achievement": 3,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 3,
+        "Pronunciation": null
+      },
+      "evidence_quote": "When the coding / spans multiple features / Luna starts to feel limited.",
+      "evidence_note_ja": "技術的な話題と未知語を文脈で扱い、Daily Noteでは音読リズムの改善が記録された。",
+      "evidence_note": "Handled a technical topic and unfamiliar terms in context; the Daily Note records improved reading rhythm."
+    },
+    {
+      "session": 3,
+      "date": "2026-08-16",
+      "task": "Interview preparation",
+      "task_ja": "面接準備",
+      "data_coverage": "Daily Notes and realtime transcript excerpts",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "evidence_quote": "I have three priorities ... I want to create results for the company.",
+      "evidence_note_ja": "複雑な面接テーマを継続し、理由を説明しながら語の違いも自発的に確認できた。",
+      "evidence_note": "Sustained a complex interview topic, explained reasons, and proactively clarified results, outcomes, concrete, and tangible."
+    },
+    {
+      "session": 4,
+      "date": "2026-08-17",
+      "task": "AI energy discussion and career narrative",
+      "task_ja": "AI・データセンターの議論とキャリア説明",
+      "data_coverage": "Daily Notes and realtime transcript excerpts; no comparable 60-second benchmark",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "evidence_quote": "These days, I can understand English in English in my mind. I don't need to translate English into Japanese in my mind.",
+      "evidence_note_ja": "AI・エネルギー・開発プロセス・キャリアを自分の言葉で長く説明し、語が出ない場面でも言い換えと確認で会話を修復した。自己申告では英語を日本語に訳さず理解する感覚が増えた。一方、長い説明では構成と文法の安定が次の課題。前回比は5指標とも維持で、根拠のないレベル上昇は付けない。",
+      "evidence_note": "Explained AI, energy, development processes, and career goals at length, repairing gaps through paraphrase and clarification. Self-reported more direct processing in English. Longer answers still need clearer structure and more stable grammar. All five observed ratings remain unchanged from the previous session; no unsupported increase is assigned."
+    },
+    {
+      "session": 5,
+      "date": "2026-08-18",
+      "task": "Relaxed conversation before an interview",
+      "task_ja": "面接前のリラックス英会話",
+      "data_coverage": "Realtime transcript excerpts; no comparable 60-second benchmark and no reliable audio analysis",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "evidence_quote": "I tend to get too focused on work, so I want to change my mind by the atmosphere.",
+      "evidence_note_ja": "面接前でも、気分転換の方法、Bon Odori、音楽、ミステリー小説、Dragon Questについて、好みと理由を自分の言葉で説明した。未知語は意味を確認し、誤解は自分から訂正して会話を続けた。今回はリラックス会話で共通60秒課題を行っていないため、5つの文字起こし評価は前回から維持とし、発音は音声を直接評価できないためN/Aとする。",
+      "evidence_note": "Before the interview, explained personal preferences and reasons across relaxation, Bon Odori, music, mystery novels, and Dragon Quest. Asked about new words and corrected misunderstandings independently. No comparable benchmark was used, so the five transcript-supported ratings remain steady; pronunciation is N/A because audio was not directly measured."
+    }
+  ],
+  "benchmark_protocol": {
+    "task": "One comparable 60-second response in every conversation session",
+    "response_structure": [
+      "main point",
+      "reason",
+      "example",
+      "conclusion"
+    ],
+    "quantitative_metrics": [
+      "independent completion rate",
+      "idea units completed out of four",
+      "important corrections per 100 words",
+      "learned-expression reuse rate",
+      "filled pauses per 100 words",
+      "words per minute and pauses over one second only when audio measurement is available"
+    ],
+    "evidence_requirements": [
+      "preserve the benchmark response excerpt",
+      "record whether wording was spontaneous or produced after a model",
+      "explain every rubric change with a quote or counted metric",
+      "show data coverage and do not compare unavailable metrics"
+    ]
+  }
+}

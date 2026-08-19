@@ -8,6 +8,9 @@ output/
 English - English talking session.html
 English - English talking session_files/
 
+# Workstation-specific one-off document helper with absolute local paths
+append_interview_research.py
+
 # OS files
 .DS_Store
 Thumbs.db

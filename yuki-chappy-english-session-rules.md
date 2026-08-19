@@ -1,14 +1,16 @@
 # English Conversation Session & Daily Note Rules — Yuki × Chappy
 
-> Englishプロジェクトの英会話セッション、英語力評価、Google Docsレポート、Study Banks、PDF・メール配布を別環境へ引き継ぐための正本ルール。<br>
+> Englishプロジェクトの英会話セッション、英語力評価、Google Docsレポート、Study Banks、PDF・メール配布を別環境へ引き継ぐための可搬版ルール。<br>
 > 最終照合日: 2026-08-19<br>
 > 照合元: 既存ルールMarkdown、およびGoogle Docs「Daily English Learning Notes by Yuki × Chappy」の実装内容
 
 ## 0. このファイルの扱い
 
-- 別PC・別セッションでは、このファイルをEnglishプロジェクトの参考情報として最初に読み込む。
+- Codexでは、同じフォルダにある `AGENTS.md` を運用上の正本として最初に読み込む。本ファイルは別PC・別ツールへ運用を持ち運ぶための可搬版である。
+- 優先順位は `その場のYukiの明示指示 → AGENTS.md → 本ファイル` とする。競合時は本ファイルの古い記述で `AGENTS.md` を上書きしない。
 - このファイルは、会話、評価、Daily Note作成、Study Banks、PDF、メールまでの一連の運用を定義する。
 - **その場でYukiが明示した指示を常に最優先**する。
+- ルール変更時は `AGENTS.md` を先に更新し、その差分を本ファイルへ同期する。両方の最終更新日と優先順位も確認する。
 - Google Docsの実データが、このファイルより後に更新されている場合は、実データを確認して差分を反映する。
 - 実行できていないDocs編集、PDF作成、メール送信を完了扱いにしない。
 - 能力・接続・権限が不足している場合は、推測で完了を装わず、未完了部分を明示する。
@@ -191,7 +193,7 @@ AI・IT・クラウド・ソフトウェアを中心にしつつ、投資、日�
 4. 英語力評価・成長グラフ
 5. Google Docs再読
 6. PDF作成・全ページ確認
-7. 既定宛先へセッションサマリー付きメールを送信（送信直前にYukiの最終確認を得る）
+7. Yukiが「メールして」「私に送って」と明示した場合、認証済みGmailの自分宛てへセッションサマリー付きメールを送信
 
 - 文書本文の構成順は、**Daily Notes → Expression Bank → Vocabulary Bank → Pronunciation & Speaking Bank → その日の英語力評価**とする。Session IndexとLearning Toolsはナビゲーションとして扱い、Daily Note内へ正式な評価セクションを重複配置しない。
 
@@ -210,8 +212,8 @@ AI・IT・クラウド・ソフトウェアを中心にしつつ、投資、日�
 | Google Drive / Google Docs | `Daily English Learning Notes by Yuki × Chappy` | 既存文書を継続利用し、同名の新規文書を作らない |
 | Google Docs Document ID | `1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc` | 接続時はタイトルだけでなくIDも照合する |
 | Google Docs URL | <https://docs.google.com/document/d/1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc/edit> | 編集前にタイトル・最新セッション・Revisionを確認する |
-| Gmail送信元 | `yukicourage0609@gmail.com` | 直近の成功実績で確認された送信元。認証済みアカウントと一致するか送信前に確認する |
-| 学習ログ送信先 | `yuki0609python@gmail.com` | Yukiが指定した個人メインの送付先。明示指示なしに別アドレスへ切り替えない |
+| Gmail送信元 | 認証済みGmailの `me` | 直近の成功履歴で実アドレスを確認する。現在確認済みの自分宛てアドレスは `yukicourage0609@gmail.com` |
+| 学習ログ送信先 | 認証済みGmailの `me` | 自分宛てを既定とし、過去の別アドレスへ推測で切り替えない。Yukiが明示した場合だけ変更する |
 | 日時基準 | `Asia/Tokyo` / JST（UTC+9） | セッション開始時と記録作成前に日付・曜日・時刻を再確認する |
 
 ### 10.2 標準出力名
@@ -586,9 +588,10 @@ Google Docsの編集後は、本文を読むだけでなく、実際のページ
 ### 19.1 送信条件
 
 - **継続指示:** セッションレポートを作成したときは、毎回メール送信までを標準ワークフローに含める。
-- 宛先・件名・本文サマリー・添付を準備し、送信ボタンを押す直前にYukiの最終確認を得る。確認後に送信する。
+- Yukiが「メールして」「私に送って」と明示した発話を送信許可として扱い、確認済み成果物を自分宛てへ直接送信する。送信直前の追加確認は不要とする。
+- 明示的な送信依頼がない場合は、メール案や成果物を準備しても送信しない。
 - 認証済みGmailの自分宛てを既定とする。
-- **既定の学習ログ送付先:** `yuki0609python@gmail.com`
+- **既定の学習ログ送付先:** 認証済みGmailの `me`（現在確認済み: `yukicourage0609@gmail.com`）
 - 送信前に直近の成功履歴と認証済みアカウントで宛先を確認する。
 - 別アドレスの履歴があっても、明示指示なしに切り替えない。
 
@@ -701,8 +704,9 @@ Google Docsの編集後は、本文を読むだけでなく、実際のページ
 - [ ] PDF化した
 - [ ] PDF全ページを画像で確認した
 - [ ] 文字切れ、表崩れ、画像欠け、不自然な改ページがない
-- [ ] 既定宛先 `yuki0609python@gmail.com` と認証済み送信元を確認した
-- [ ] 内容サマリー、件名、リンク、添付を準備し、送信直前にYukiの最終確認を得た
+- [ ] 認証済みGmailの `me` と直近の成功履歴で自分宛てアドレスを確認した
+- [ ] Yukiから「メールして」「私に送って」などの明示的な送信依頼がある
+- [ ] 内容サマリー、件名、リンク、添付を準備した
 - [ ] Google Docsリンク、最新版PDF、グラフPNGを添付した
 - [ ] 送信後に宛先、件名、添付を確認した
 - [ ] 実行結果を確認してから完了と伝えた
@@ -711,17 +715,32 @@ Google Docsの編集後は、本文を読むだけでなく、実際のページ
 
 最低限、次を同じEnglishプロジェクトへ設定する。
 
-1. 本Markdownファイル
-2. Google DocsのURLとDocument ID
-3. Google Driveへの接続
-4. Gmailへの接続
-5. 日本時間を基準にする指示
-6. 音声を直接評価できない場合のPronunciation=N/Aルール
-7. PDF全ページ確認後にのみ配布完了とするルール
-8. 接続先一覧に記載したDocs ID、Gmail送信元・送信先、日時基準
+1. `AGENTS.md`（Codex向け運用上の正本）
+2. 本Markdownファイル（可搬版ルール）
+3. `.codex/config.toml`
+4. `english_progress_tracker.json`
+5. `generate_english_progress_chart.mjs`
+6. Google DocsのURLとDocument ID
+7. Google Driveへの接続
+8. Gmailへの接続
+9. 日本時間を基準にする指示
+10. 音声を直接評価できない場合のPronunciation=N/Aルール
+11. PDF全ページ確認後にのみ配布完了とするルール
+12. 接続先一覧に記載したDocs ID、Gmailの `me`、日時基準
+
+### 22.1 Gitリポジトリでの同期
+
+- リポジトリ: `https://github.com/yuki-godzilla/English_learning.git`
+- 既定ブランチ: `main`
+- 作業開始前にリモートとの差分を確認し、必要に応じて `git pull --rebase` で最新化する。
+- ルール競合時は `AGENTS.md` を優先し、双方の有用な追加事項を手動で統合する。自動的に片方を破棄しない。
+- `tmp/`、`output/`、認証情報、Cookie、APIキー、個人情報を含む一時資料はコミットしない。
+- push、Pull Request作成、公開範囲の変更は、Yukiが明示的に依頼した場合だけ実行する。
 
 新しい環境で最初に行う確認:
 
+- `main` が `origin/main` を追跡していることを確認する。
+- `AGENTS.md` と本ファイルの優先順位・最終更新日を確認する。
 - Google Docsを読み取り、最新セッション数、Session Index、Study Banks、評価グラフを確認する。
-- このMarkdownと実レポートに差分があれば、Yukiへ明示し、実レポートを根拠に更新する。
+- ルールと実レポートに差分があれば、運用ルールは `AGENTS.md`、学習記録はGoogle Docsを根拠として整理する。
 - 接続や権限を確認できるまで、編集・送信を完了扱いにしない。

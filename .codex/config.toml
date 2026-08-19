@@ -1,0 +1,14 @@
+# English Learning project defaults
+# These settings apply when this project is trusted and opened in Codex.
+
+# Keep English conversations, nuanced feedback, and technical discussion
+# high-quality without the latency of the flagship model.
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+model_verbosity = "medium"
+
+# Match Chappy's friendly, conversational role defined in AGENTS.md.
+personality = "friendly"
+
+# The session rules require current news and changing facts to be verified.
+web_search = "live"
