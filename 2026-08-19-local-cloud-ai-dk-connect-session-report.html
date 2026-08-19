@@ -1,0 +1,288 @@
+<h1 id="2026年8月19日水ローカルaiクラウドaiとai駆動開発">｜2026年8月19日（水）ローカルAI・クラウドAIとAI駆動開発</h1>
+<blockquote>
+<p><strong>Session 6 / Recorded session window:</strong> 09:02–10:00 JST<br />
+<strong>主な話題:</strong> Local AI / Cloud AI / Hybrid AI、Foundry Local、AI投資支援アプリ、Daikin・DK-Connect、AI駆動開発<br />
+<strong>評価上の注意:</strong> 本レポートは文字起こしを根拠とする。Pronunciation、WPM、1秒超のポーズは直接計測していないため評価しない。共通60秒課題は未実施のため、新しい定量スコアは作成しない。</p>
+</blockquote>
+<h2 id="今日の要点--today-at-a-glance">今日の要点 / Today at a Glance</h2>
+<p>Yukiは、ローカルAIとクラウドAIの使い分けについて、個人開発と業務の両面から詳しく議論した。自宅にはLLM実行用に構築した高性能PCがあり、個人データや単純な処理にはローカルAI、複雑なコーディング・高度なreasoning・最新情報の検索にはクラウドAIが適しているという結論に至った。</p>
+<p>個人開発では、企業分析、銘柄スクリーニング、ポートフォリオ管理、投資判断支援を扱う投資支援アプリを開発している。Ollamaは通常のチャットには十分だが、LangGraphを使ったagentic workflowでは、入力を通常チャットとエージェントタスクに振り分ける最初のrouting判断が不安定になる場合があると説明した。</p>
+<p>業務面では、DaikinのIT開発ソリューション部門で、DK-Connectに関連するIoTシステム開発、結合テスト、システムテストに関わっていることを共有した。AIの対象をテスト工程だけに限定せず、要件・設計・実装・レビュー・テスト・リリース・保守を含む開発ライフサイクル全体へ広げたいという構想を説明した。組織へ提案する際の最優先の価値は、反復作業の削減と生産性向上による<strong>コスト削減</strong>である。</p>
+<p>また、音声会話の実音声から発音を評価し、セッションレポートへ反映できる機能をOpenAI Supportへ要望として送信した。AI-assisted supportからは、現在のVoice Modeには音素精度、stress、intonation、linkingなどを実音声から直接採点する文書化された機能はない、という説明があった。要望は送信済みだが、製品チームによる検討や実装は約束されていない。</p>
+<h2 id="話題別メモ--topic-notes">話題別メモ / Topic Notes</h2>
+<h3 id="1-local-aicloud-aihybrid-ai">1. Local AI・Cloud AI・Hybrid AI</h3>
+<ul>
+<li>Yukiの第一優先は<strong>速度</strong>。</li>
+<li>自宅の高性能GPU・CPU搭載PCは、個人用途のローカルLLM実行に向いている。</li>
+<li>ローカルAIが向く用途:
+<ul>
+<li>個人情報・投資メモ・機密データ</li>
+<li>単純なチャット、要約、抽出</li>
+<li>オフライン処理、低遅延が必要な処理</li>
+</ul></li>
+<li>クラウドAIが向く用途:
+<ul>
+<li>複雑なコーディング</li>
+<li>深いreasoningや複数段階の検証</li>
+<li>最新情報を使う検索・調査</li>
+<li>高性能モデルを必要とするagentic workflow</li>
+</ul></li>
+<li>結論は、単純・機密タスクをローカル、難しいタスクをクラウドへ送る<strong>hybrid architecture</strong>。</li>
+</ul>
+<h3 id="2-microsoft-foundry-local">2. Microsoft Foundry Local</h3>
+<p>Microsoftの公式記事を使い、Foundry Localの特徴を確認した。</p>
+<ul>
+<li>AIモデルをユーザーのデバイス上で実行できる。</li>
+<li>データをデバイス内へ保ち、オフラインでも利用できる。</li>
+<li>ネットワーク遅延とクラウドのper-token costを抑えられる。</li>
+<li>GPU、NPU、CPUを検出し、利用可能なhardware accelerationを自動選択する。</li>
+<li>ローカル用途向けに最適化されたモデルカタログとOpenAI-compatible APIを提供する。</li>
+</ul>
+<p><strong>Source:</strong> <a href="https://learn.microsoft.com/en-us/azure/foundry-local/what-is-foundry-local">Microsoft Learn — What is Foundry Local?</a></p>
+<h3 id="3-投資支援アプリとagent-routing">3. 投資支援アプリとAgent Routing</h3>
+<p>Yukiの投資支援アプリは、企業分析、銘柄スクリーニング、ポートフォリオ管理、投資判断支援を扱う。OllamaによるローカルLLMはチャット用途では十分だが、agentic taskか通常チャットかを判断するrouterの精度が安定しない場合がある。</p>
+<p>今回整理した改善案:</p>
+<ol type="1">
+<li>RouterをLangGraphの最初に置く。</li>
+<li>出力を <code>CHAT</code> / <code>AGENT</code> とconfidenceに限定する。</li>
+<li>実際に誤分類した入力を保存し、few-shot examplesとevaluation setへ使う。</li>
+<li>tool use、fresh data、複数action、外部状態の変更が必要ならagent候補とする。</li>
+<li>confidenceが低い場合は、clarificationまたはcloud modelへrouting判断だけをfallbackする。</li>
+<li>数値、価格、財務比率は検証済みデータとdeterministic codeを正本にし、LLMは説明・比較・シナリオ整理を担当する。</li>
+</ol>
+<h3 id="4-daikindk-connectai駆動開発">4. Daikin・DK-Connect・AI駆動開発</h3>
+<p>YukiはDaikinのIT開発ソリューション部門に所属し、DK-Connectに関連するIoTシステムの結合テスト・システムテストに関わっている。AI initiativeはテスト自動化だけでなく、開発工程全体を対象とする。</p>
+<p>想定できる支援領域:</p>
+<ul>
+<li>Requirements: 要件の分類、曖昧さ検出、traceability支援</li>
+<li>Design: 設計案の比較、interface・failure modeのレビュー</li>
+<li>Implementation: code generation、review、refactoring、documentation</li>
+<li>Testing: test-case generation、coverage分析、log analysis、defect triage</li>
+<li>Release / Operations: release note、incident summary、knowledge retrieval</li>
+<li>Management: 反復作業時間、lead time、defect数、rework costの可視化</li>
+</ul>
+<p>提案時の第一のbusiness valueは<strong>lower cost</strong>。ただし、単なるAI導入数ではなく、削減時間、開発lead time、defect escape、rework、運用工数などで効果を測る必要がある。</p>
+<h3 id="5-trustworthy-ai--nist-ai-rmf">5. Trustworthy AI / NIST AI RMF</h3>
+<p>投資支援アプリの信頼性を考えるため、NISTの英語記事を次の学習ソースとして選んだ。AIのrisk management、testing、monitoring、data qualityを、個人開発と業務の両方へ応用できる。</p>
+<p><strong>Source:</strong> <a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST — AI Risk Management Framework</a></p>
+<h2 id="役立つ英語--useful-english">役立つ英語 / Useful English</h2>
+<h3 id="natural--conversational-と-formal--professional">Natural / Conversational と Formal / Professional</h3>
+<table>
+<thead>
+<tr>
+<th>目的</th>
+<th>Natural / Conversational</th>
+<th>Formal / Professional</th>
+<th>ポイント</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>具体的に聞く</td>
+<td><strong>Could you explain that more specifically?</strong></td>
+<td><strong>Could you provide a more concrete example?</strong></td>
+<td>会話では <code>specifically</code> が自然。<code>concretely</code> は可能だが、より硬く抽象的に響く場合がある。</td>
+</tr>
+<tr>
+<td>PCの説明</td>
+<td><strong>I built a high-spec PC for running LLMs.</strong></td>
+<td><strong>I built a high-performance workstation for local LLM inference.</strong></td>
+<td><code>high-end PC</code> も自然。</td>
+</tr>
+<tr>
+<td>Hybrid方針</td>
+<td><strong>For simple tasks, I’ll use local AI. For complex tasks, I’ll use cloud AI.</strong></td>
+<td><strong>We use a hybrid architecture that routes workloads according to privacy, latency, and model-capability requirements.</strong></td>
+<td>会話では短い2文が明確。</td>
+</tr>
+<tr>
+<td>業務の説明</td>
+<td><strong>I’m involved in IoT system development for DK-Connect.</strong></td>
+<td><strong>I’m involved in the development and system-level testing of IoT services related to DK-Connect.</strong></td>
+<td><code>be involved in</code> は担当・関与を自然に表す。</td>
+</tr>
+<tr>
+<td>AI提案</td>
+<td><strong>I’m leading an initiative to integrate AI into our software-development process.</strong></td>
+<td><strong>I’m proposing an organization-wide initiative to integrate AI across the software-development lifecycle.</strong></td>
+<td>日本語の「テーマ」は、この文脈では <code>theme</code> より <code>initiative</code> / <code>project</code> が自然。</td>
+</tr>
+<tr>
+<td>効果</td>
+<td><strong>AI can make our work more efficient and effective.</strong></td>
+<td><strong>The initiative aims to improve operational efficiency and development effectiveness.</strong></td>
+<td><code>efficient</code> は時間・労力、<code>effective</code> は成果。</td>
+</tr>
+<tr>
+<td>コスト</td>
+<td><strong>Cost reduction is our top priority.</strong></td>
+<td><strong>Cost reduction is our primary business objective because the department closely manages development expenditure.</strong></td>
+<td><code>be conscious of development costs</code> も自然。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="今回の重要チャンク">今回の重要チャンク</h3>
+<ul>
+<li><strong>My goal is to use AI across the entire development lifecycle—not just testing—to make our work more efficient and effective.</strong></li>
+<li><strong>Cost reduction is our top priority because our department is highly conscious of development costs.</strong></li>
+<li><strong>Ollama is sufficient for ordinary chat, but it is not yet reliable enough for complex agentic workflows.</strong></li>
+<li><strong>The routing works in some cases, but not in others.</strong></li>
+<li><strong>All of the above.</strong></li>
+<li><strong>Do you know what I’ve been working on recently?</strong></li>
+</ul>
+<h3 id="word-choice-team-と-theme">Word choice: team と theme</h3>
+<ul>
+<li><strong>team</strong> /tiːm/: チーム、班</li>
+<li><strong>theme</strong> /θiːm/: テーマ、主題</li>
+<li>日本語の「業務テーマ」は、英語では文脈に応じて <strong>initiative</strong>, <strong>project</strong>, <strong>focus</strong>, <strong>topic</strong> が自然。</li>
+</ul>
+<p>Practice:</p>
+<blockquote>
+<p><strong>Our team is working on an AI initiative for the entire development lifecycle.</strong></p>
+</blockquote>
+<h2 id="yukiの意見結論--yukis-takeaways">Yukiの意見・結論 / Yuki’s Takeaways</h2>
+<ol type="1">
+<li>現状では、YukiにとってクラウドAIが複雑な仕事の第一選択である。</li>
+<li>ローカルAIは速度、プライバシー、個人用途、単純タスクで価値がある。</li>
+<li>高性能PCがあっても、複雑なcoding、reasoning、search、agentic workflowではクラウドAIが優位。</li>
+<li>投資支援アプリでは、検証済みデータ・計算とLLMの説明能力を分離する必要がある。</li>
+<li>業務のAI initiativeはテストだけでなく、開発ライフサイクル全体を対象とする。</li>
+<li>組織への提案では、コスト削減を最初のbusiness caseにする。</li>
+</ol>
+<h2 id="今回の英会話評価--english-performance">今回の英会話評価 / English Performance</h2>
+<h3 id="overall">Overall</h3>
+<p><strong>L3 / Mostly independent。Interaction &amp; repairではL4相当の行動が明確に見られた。</strong></p>
+<p>Yukiは、local/cloud AI、Ollama、LangGraph、agent routing、投資支援、IoT testing、AI-driven developmentという複雑な技術・業務テーマについて、自分の経験と判断を結び付けて会話を継続した。語を探すpauseやrestartは多かったが、意味がずれたときに自分から止めて説明し直し、会話の方向、訂正量、記事の選び方、レポート要件を明確に調整できた。</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th style="text-align: right;">Level</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task achievement</td>
+<td style="text-align: right;"><strong>L3</strong></td>
+<td>結論と理由を伝え、個人開発・業務の例を詳しく説明した。要点の英文化やまとめには支援を利用した。</td>
+</tr>
+<tr>
+<td>Fluency &amp; coherence</td>
+<td style="text-align: right;"><strong>L3</strong></td>
+<td>pause、filler、restartがあっても、技術的な説明を中断せず、意味のつながりを保った。</td>
+</tr>
+<tr>
+<td>Lexical resource</td>
+<td style="text-align: right;"><strong>L3</strong></td>
+<td>Ollama、LangGraph、agentic task、integration test、system test、development lifecycleなど、必要な技術語彙を使用した。日常的な接続表現やregisterの選択では支援を利用した。</td>
+</tr>
+<tr>
+<td>Grammar control</td>
+<td style="text-align: right;"><strong>L3</strong></td>
+<td>語形、冠詞、前置詞、比較表現に誤りがあっても、ほとんどの場合は意味が明確だった。</td>
+</tr>
+<tr>
+<td>Interaction &amp; repair</td>
+<td style="text-align: right;"><strong>L4</strong></td>
+<td>誤解を即座に修正し、<code>team/theme</code>、<code>reasoning/inference</code>、訂正量、話題変更、記事・レポート要件を自発的に調整した。</td>
+</tr>
+<tr>
+<td>Pronunciation</td>
+<td style="text-align: right;"><strong>N/A</strong></td>
+<td>信頼できる直接音声の分析・計測がないため評価しない。文字起こしから推定しない。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>自分の個人開発と実務を、抽象的なAI議論へ具体的に結び付けた。</li>
+<li>分からない語やニュアンスをその場で確認した。</li>
+<li>意図と違う返答に対し、会話を止めて適切にrepairできた。</li>
+<li>AI initiativeの目的を、技術だけでなくcost reductionというbusiness valueへ結び付けた。</li>
+</ul>
+<h3 id="next-focus">Next Focus</h3>
+<ul>
+<li>最初に一文で結論を置き、その後に理由と具体例を一つずつ加える。</li>
+<li>技術説明では、<code>Current state → Problem → Proposed approach → Expected benefit</code> の4段構成を使う。</li>
+<li><code>efficient / efficiency / effective</code>、<code>specific / specifically / concrete</code> の品詞とregisterを使い分ける。</li>
+<li>次回、AI initiativeについて共通60秒課題を実施し、<code>main point → reason → example → conclusion</code> を同条件で記録する。</li>
+</ul>
+<h2 id="学習バンク更新--study-banks-update">学習バンク更新 / Study Banks Update</h2>
+<h3 id="expression-bank--新規追加候補">Expression Bank — 新規追加候補</h3>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Meaning / Usage / Example</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>My goal is to use AI across the entire development lifecycle—not just testing—to make our work more efficient and effective.</strong></td>
+<td>AI initiativeのscopeと目的を一文で説明する。</td>
+<td>2026-08-19</td>
+</tr>
+<tr>
+<td><strong>Cost reduction is our top priority because our department is highly conscious of development costs.</strong></td>
+<td>組織提案のbusiness rationaleを説明する。</td>
+<td>2026-08-19</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vocabulary-bank--新規追加候補">Vocabulary Bank — 新規追加候補</h3>
+<table>
+<thead>
+<tr>
+<th>Word / IPA / POS</th>
+<th>Meaning / Collocation / Example</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>initiative</strong> /ɪˈnɪʃ.ə.t̬ɪv/ noun</td>
+<td><strong>Meaning:</strong> 組織的な新しい取り組み。 <strong>Collocation:</strong> launch / lead / propose an initiative. <strong>Example:</strong> I’m leading an initiative to integrate AI into our development process.</td>
+<td>2026-08-19</td>
+</tr>
+<tr>
+<td><strong>specifically</strong> /spəˈsɪf.ɪ.kəl.i/ adverb</td>
+<td><strong>Meaning:</strong> 具体的に、特定して。日常会話では <code>concretely</code> より自然な場合が多い。 <strong>Example:</strong> Could you explain that more specifically?</td>
+<td>2026-08-19</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pronunciation--speaking-bank--新規追加候補">Pronunciation &amp; Speaking Bank — 新規追加候補</h3>
+<table>
+<thead>
+<tr>
+<th>Word / Chunk</th>
+<th>Speaking &amp; Focus</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>team /tiːm/ vs theme /θiːm/</strong></td>
+<td><code>/t/</code> と <code>/θ/</code> の対比。 <strong>Practice:</strong> Our team is working on an AI theme. ※今回は発音を採点せず、練習チャンクとしてのみ登録する。</td>
+<td>2026-08-19</td>
+</tr>
+</tbody>
+</table>
+<h2 id="次回--next-steps">次回 / Next Steps</h2>
+<ol type="1">
+<li>AI initiativeを30秒で説明するprofessional pitchを作る。</li>
+<li>その後、同じ内容を自然な会話表現へ言い換える。</li>
+<li>60秒課題: <strong>How should Daikin use AI across the development lifecycle while controlling cost and risk?</strong></li>
+<li>投資支援アプリのrouterについて、正分類例と誤分類例を各3件用意する。</li>
+<li>NIST AI RMFから、investment-support appとDK-Connectの両方に使えるrisk-control項目を選ぶ。</li>
+</ol>
+<h2 id="sources--references">Sources / References</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/foundry-local/what-is-foundry-local">Microsoft Learn — What is Foundry Local?</a></li>
+<li><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST — AI Risk Management Framework</a></li>
+</ul>
+<h2 id="visual--figure">Visual / Figure</h2>
+<p><img src="./assets/2026-08-19-hybrid-ai-comparison.png" alt="Local AI、Cloud AI、Hybrid AIの使い分け" /></p>
+<p><em>Figure: Yukiの用途に合わせたLocal AI / Cloud AI / Hybrid AIの使い分け。会話内容と上記公式記事を基に作成。</em></p>

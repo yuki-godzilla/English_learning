@@ -1,0 +1,13 @@
+# Temporary browser exports, render checks, and local caches
+tmp/
+
+# Generated deliverables; the Google Doc is the source of truth
+output/
+
+# Large one-off browser capture and its downloaded assets
+English - English talking session.html
+English - English talking session_files/
+
+# OS files
+.DS_Store
+Thumbs.db
