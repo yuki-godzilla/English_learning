@@ -1,7 +1,7 @@
 # ｜2026年8月19日（水）ローカルAI・クラウドAIとAI駆動開発
 
-> **Session 6 / Recorded session window:** 09:02–10:00 JST  
-> **主な話題:** Local AI / Cloud AI / Hybrid AI、Foundry Local、AI投資支援アプリ、Daikin・DK-Connect、AI駆動開発  
+> **Session 6 / Recorded session window:** 09:02–10:00 JST
+> **主な話題:** Local AI / Cloud AI / Hybrid AI、Foundry Local、AI投資支援アプリ、企業向けIoT、AI駆動開発
 > **評価上の注意:** 本レポートは文字起こしを根拠とする。Pronunciation、WPM、1秒超のポーズは直接計測していないため評価しない。共通60秒課題は未実施のため、新しい定量スコアは作成しない。
 
 ## 今日の要点 / Today at a Glance
@@ -10,7 +10,7 @@ Yukiは、ローカルAIとクラウドAIの使い分けについて、個人開
 
 個人開発では、企業分析、銘柄スクリーニング、ポートフォリオ管理、投資判断支援を扱う投資支援アプリを開発している。Ollamaは通常のチャットには十分だが、LangGraphを使ったagentic workflowでは、入力を通常チャットとエージェントタスクに振り分ける最初のrouting判断が不安定になる場合があると説明した。
 
-業務面では、DaikinのIT開発ソリューション部門で、DK-Connectに関連するIoTシステム開発、結合テスト、システムテストに関わっていることを共有した。AIの対象をテスト工程だけに限定せず、要件・設計・実装・レビュー・テスト・リリース・保守を含む開発ライフサイクル全体へ広げたいという構想を説明した。組織へ提案する際の最優先の価値は、反復作業の削減と生産性向上による**コスト削減**である。
+業務面では、勤務先のソフトウェア開発部門で、企業向けIoTプラットフォームの開発・テストに関わっていることを共有した。AIの対象をテスト工程だけに限定せず、要件・設計・実装・レビュー・テスト・リリース・保守を含む開発ライフサイクル全体へ広げたいという構想を説明した。組織へ提案する際の最優先の価値は、反復作業の削減と生産性向上による**コスト削減**である。
 
 また、音声会話の実音声から発音を評価し、セッションレポートへ反映できる機能をOpenAI Supportへ要望として送信した。AI-assisted supportからは、現在のVoice Modeには音素精度、stress、intonation、linkingなどを実音声から直接採点する文書化された機能はない、という説明があった。要望は送信済みだが、製品チームによる検討や実装は約束されていない。
 
@@ -56,9 +56,9 @@ Yukiの投資支援アプリは、企業分析、銘柄スクリーニング、�
 5. confidenceが低い場合は、clarificationまたはcloud modelへrouting判断だけをfallbackする。
 6. 数値、価格、財務比率は検証済みデータとdeterministic codeを正本にし、LLMは説明・比較・シナリオ整理を担当する。
 
-### 4. Daikin・DK-Connect・AI駆動開発
+### 4. 企業向けIoT・AI駆動開発
 
-YukiはDaikinのIT開発ソリューション部門に所属し、DK-Connectに関連するIoTシステムの結合テスト・システムテストに関わっている。AI initiativeはテスト自動化だけでなく、開発工程全体を対象とする。
+Yukiは勤務先のソフトウェア開発部門で、企業向けIoTプラットフォームの開発・テストに関わっている。AI initiativeはテスト自動化だけでなく、開発工程全体を対象とする。
 
 想定できる支援領域:
 
@@ -86,7 +86,7 @@ YukiはDaikinのIT開発ソリューション部門に所属し、DK-Connectに�
 | 具体的に聞く | **Could you explain that more specifically?** | **Could you provide a more concrete example?** | 会話では `specifically` が自然。`concretely` は可能だが、より硬く抽象的に響く場合がある。 |
 | PCの説明 | **I built a high-spec PC for running LLMs.** | **I built a high-performance workstation for local LLM inference.** | `high-end PC` も自然。 |
 | Hybrid方針 | **For simple tasks, I’ll use local AI. For complex tasks, I’ll use cloud AI.** | **We use a hybrid architecture that routes workloads according to privacy, latency, and model-capability requirements.** | 会話では短い2文が明確。 |
-| 業務の説明 | **I’m involved in IoT system development for DK-Connect.** | **I’m involved in the development and system-level testing of IoT services related to DK-Connect.** | `be involved in` は担当・関与を自然に表す。 |
+| 業務の説明 | **I’m involved in developing an enterprise IoT platform.** | **I’m involved in the development and system-level testing of an enterprise IoT platform.** | `be involved in` は担当・関与を自然に表す。 |
 | AI提案 | **I’m leading an initiative to integrate AI into our software-development process.** | **I’m proposing an organization-wide initiative to integrate AI across the software-development lifecycle.** | 日本語の「テーマ」は、この文脈では `theme` より `initiative` / `project` が自然。 |
 | 効果 | **AI can make our work more efficient and effective.** | **The initiative aims to improve operational efficiency and development effectiveness.** | `efficient` は時間・労力、`effective` は成果。 |
 | コスト | **Cost reduction is our top priority.** | **Cost reduction is our primary business objective because the department closely manages development expenditure.** | `be conscious of development costs` も自然。 |
@@ -176,9 +176,9 @@ Yukiは、local/cloud AI、Ollama、LangGraph、agent routing、投資支援、I
 
 1. AI initiativeを30秒で説明するprofessional pitchを作る。
 2. その後、同じ内容を自然な会話表現へ言い換える。
-3. 60秒課題: **How should Daikin use AI across the development lifecycle while controlling cost and risk?**
+3. 60秒課題: **How should an enterprise use AI across the development lifecycle while controlling cost and risk?**
 4. 投資支援アプリのrouterについて、正分類例と誤分類例を各3件用意する。
-5. NIST AI RMFから、investment-support appとDK-Connectの両方に使えるrisk-control項目を選ぶ。
+5. NIST AI RMFから、investment-support appと企業向けIoTプラットフォームの両方に使えるrisk-control項目を選ぶ。
 
 ## Sources / References
 
@@ -189,4 +189,4 @@ Yukiは、local/cloud AI、Ollama、LangGraph、agent routing、投資支援、I
 
 ![Local AI、Cloud AI、Hybrid AIの使い分け](./assets/2026-08-19-hybrid-ai-comparison.png)
 
-*Figure: Yukiの用途に合わせたLocal AI / Cloud AI / Hybrid AIの使い分け。会話内容と上記公式記事を基に作成。*
+*Figure: 個人開発と企業向けIoTの用途に合わせたLocal AI / Cloud AI / Hybrid AIの使い分け。会話内容と上記公式記事を基に作成。*

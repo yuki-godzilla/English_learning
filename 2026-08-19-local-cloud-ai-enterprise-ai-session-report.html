@@ -1,13 +1,13 @@
 <h1 id="2026年8月19日水ローカルaiクラウドaiとai駆動開発">｜2026年8月19日（水）ローカルAI・クラウドAIとAI駆動開発</h1>
 <blockquote>
 <p><strong>Session 6 / Recorded session window:</strong> 09:02–10:00 JST<br />
-<strong>主な話題:</strong> Local AI / Cloud AI / Hybrid AI、Foundry Local、AI投資支援アプリ、Daikin・DK-Connect、AI駆動開発<br />
+<strong>主な話題:</strong> Local AI / Cloud AI / Hybrid AI、Foundry Local、AI投資支援アプリ、企業向けIoT、AI駆動開発<br />
 <strong>評価上の注意:</strong> 本レポートは文字起こしを根拠とする。Pronunciation、WPM、1秒超のポーズは直接計測していないため評価しない。共通60秒課題は未実施のため、新しい定量スコアは作成しない。</p>
 </blockquote>
 <h2 id="今日の要点--today-at-a-glance">今日の要点 / Today at a Glance</h2>
 <p>Yukiは、ローカルAIとクラウドAIの使い分けについて、個人開発と業務の両面から詳しく議論した。自宅にはLLM実行用に構築した高性能PCがあり、個人データや単純な処理にはローカルAI、複雑なコーディング・高度なreasoning・最新情報の検索にはクラウドAIが適しているという結論に至った。</p>
 <p>個人開発では、企業分析、銘柄スクリーニング、ポートフォリオ管理、投資判断支援を扱う投資支援アプリを開発している。Ollamaは通常のチャットには十分だが、LangGraphを使ったagentic workflowでは、入力を通常チャットとエージェントタスクに振り分ける最初のrouting判断が不安定になる場合があると説明した。</p>
-<p>業務面では、DaikinのIT開発ソリューション部門で、DK-Connectに関連するIoTシステム開発、結合テスト、システムテストに関わっていることを共有した。AIの対象をテスト工程だけに限定せず、要件・設計・実装・レビュー・テスト・リリース・保守を含む開発ライフサイクル全体へ広げたいという構想を説明した。組織へ提案する際の最優先の価値は、反復作業の削減と生産性向上による<strong>コスト削減</strong>である。</p>
+<p>業務面では、勤務先のソフトウェア開発部門で、企業向けIoTプラットフォームの開発・テストに関わっていることを共有した。AIの対象をテスト工程だけに限定せず、要件・設計・実装・レビュー・テスト・リリース・保守を含む開発ライフサイクル全体へ広げたいという構想を説明した。組織へ提案する際の最優先の価値は、反復作業の削減と生産性向上による<strong>コスト削減</strong>である。</p>
 <p>また、音声会話の実音声から発音を評価し、セッションレポートへ反映できる機能をOpenAI Supportへ要望として送信した。AI-assisted supportからは、現在のVoice Modeには音素精度、stress、intonation、linkingなどを実音声から直接採点する文書化された機能はない、という説明があった。要望は送信済みだが、製品チームによる検討や実装は約束されていない。</p>
 <h2 id="話題別メモ--topic-notes">話題別メモ / Topic Notes</h2>
 <h3 id="1-local-aicloud-aihybrid-ai">1. Local AI・Cloud AI・Hybrid AI</h3>
@@ -50,8 +50,8 @@
 <li>confidenceが低い場合は、clarificationまたはcloud modelへrouting判断だけをfallbackする。</li>
 <li>数値、価格、財務比率は検証済みデータとdeterministic codeを正本にし、LLMは説明・比較・シナリオ整理を担当する。</li>
 </ol>
-<h3 id="4-daikindk-connectai駆動開発">4. Daikin・DK-Connect・AI駆動開発</h3>
-<p>YukiはDaikinのIT開発ソリューション部門に所属し、DK-Connectに関連するIoTシステムの結合テスト・システムテストに関わっている。AI initiativeはテスト自動化だけでなく、開発工程全体を対象とする。</p>
+<h3 id="4-企業向けiotai駆動開発">4. 企業向けIoT・AI駆動開発</h3>
+<p>Yukiは勤務先のソフトウェア開発部門で、企業向けIoTプラットフォームの開発・テストに関わっている。AI initiativeはテスト自動化だけでなく、開発工程全体を対象とする。</p>
 <p>想定できる支援領域:</p>
 <ul>
 <li>Requirements: 要件の分類、曖昧さ検出、traceability支援</li>
@@ -97,8 +97,8 @@
 </tr>
 <tr>
 <td>業務の説明</td>
-<td><strong>I’m involved in IoT system development for DK-Connect.</strong></td>
-<td><strong>I’m involved in the development and system-level testing of IoT services related to DK-Connect.</strong></td>
+<td><strong>I’m involved in developing an enterprise IoT platform.</strong></td>
+<td><strong>I’m involved in the development and system-level testing of an enterprise IoT platform.</strong></td>
 <td><code>be involved in</code> は担当・関与を自然に表す。</td>
 </tr>
 <tr>
@@ -274,9 +274,9 @@
 <ol type="1">
 <li>AI initiativeを30秒で説明するprofessional pitchを作る。</li>
 <li>その後、同じ内容を自然な会話表現へ言い換える。</li>
-<li>60秒課題: <strong>How should Daikin use AI across the development lifecycle while controlling cost and risk?</strong></li>
+<li>60秒課題: <strong>How should an enterprise use AI across the development lifecycle while controlling cost and risk?</strong></li>
 <li>投資支援アプリのrouterについて、正分類例と誤分類例を各3件用意する。</li>
-<li>NIST AI RMFから、investment-support appとDK-Connectの両方に使えるrisk-control項目を選ぶ。</li>
+<li>NIST AI RMFから、investment-support appと企業向けIoTプラットフォームの両方に使えるrisk-control項目を選ぶ。</li>
 </ol>
 <h2 id="sources--references">Sources / References</h2>
 <ul>
@@ -285,4 +285,4 @@
 </ul>
 <h2 id="visual--figure">Visual / Figure</h2>
 <p><img src="./assets/2026-08-19-hybrid-ai-comparison.png" alt="Local AI、Cloud AI、Hybrid AIの使い分け" /></p>
-<p><em>Figure: Yukiの用途に合わせたLocal AI / Cloud AI / Hybrid AIの使い分け。会話内容と上記公式記事を基に作成。</em></p>
+<p><em>Figure: 個人開発と企業向けIoTの用途に合わせたLocal AI / Cloud AI / Hybrid AIの使い分け。会話内容と上記公式記事を基に作成。</em></p>

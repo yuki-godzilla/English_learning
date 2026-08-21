@@ -165,8 +165,8 @@
     {
       "session": 6,
       "date": "2026-08-19",
-      "task": "Local and cloud AI discussion and AI-driven development",
-      "task_ja": "ローカル・クラウドAIとAI駆動開発の議論",
+      "task": "Local and cloud AI discussion and enterprise AI-driven development",
+      "task_ja": "ローカル・クラウドAIと企業向けAI駆動開発の議論",
       "data_coverage": "Session report based on realtime transcript excerpts; no comparable 60-second benchmark and no reliable direct audio analysis",
       "ratings": {
         "Task achievement": 3,
@@ -178,8 +178,8 @@
       },
       "evidence_quote": "The routing works in some cases, but not in others.",
       "evidence_quote_origin": "Transcript-supported expression preserved in the Session 6 report",
-      "evidence_note_ja": "ローカル／クラウドAI、LangGraphのrouting、投資支援アプリ、DK-Connect、開発ライフサイクル全体へのAI導入を、自分の経験と判断に結び付けて説明した。誤解や語の選択を自発的に修正し、対話・言い直しではL4相当の行動を示した。一方、共通60秒課題は未実施で、長い説明の構成と文法の安定には引き続き支援が必要なため、5つの文字起こし評価は根拠のある範囲で維持する。発音は音声を直接評価できないためN/Aとする。",
-      "evidence_note": "Connected local/cloud AI, LangGraph routing, an investment-support app, DK-Connect, and lifecycle-wide AI adoption to personal experience and judgment. Proactively repaired misunderstandings and word choice, showing L4 interaction and repair. No comparable 60-second task was used, and longer explanations still need support for structure and grammatical stability, so the five transcript-supported ratings remain evidence-bounded. Pronunciation is N/A because audio was not directly measured."
+      "evidence_note_ja": "ローカル／クラウドAI、LangGraphのrouting、投資支援アプリ、企業向けIoTプラットフォーム、開発ライフサイクル全体へのAI導入を、自分の経験と判断に結び付けて説明した。誤解や語の選択を自発的に修正し、対話・言い直しではL4相当の行動を示した。一方、共通60秒課題は未実施で、長い説明の構成と文法の安定には引き続き支援が必要なため、5つの文字起こし評価は根拠のある範囲で維持する。発音は音声を直接評価できないためN/Aとする。",
+      "evidence_note": "Connected local/cloud AI, LangGraph routing, an investment-support app, an enterprise IoT platform, and lifecycle-wide AI adoption to personal experience and judgment. Proactively repaired misunderstandings and word choice, showing L4 interaction and repair. No comparable 60-second task was used, and longer explanations still need support for structure and grammatical stability, so the five transcript-supported ratings remain evidence-bounded. Pronunciation is N/A because audio was not directly measured."
     }
   ],
   "benchmark_protocol": {
