@@ -3,6 +3,10 @@ tmp/
 
 # Generated deliverables; the Google Doc is the source of truth
 output/
+node_modules/
+.env
+.env.*
+!.env.example
 
 # Large one-off browser capture and its downloaded assets
 English - English talking session.html
