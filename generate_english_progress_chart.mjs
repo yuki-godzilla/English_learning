@@ -12,7 +12,6 @@ const data = JSON.parse(await readFile(path.join(root, "english_progress_tracker
 const outputPath = path.join(root, "output", "english-growth-evidence-dashboard.png");
 
 const width = 1400;
-const height = 980;
 const left = 52;
 const right = 1348;
 const escapeXml = (value) => String(value)
@@ -23,14 +22,53 @@ const escapeXml = (value) => String(value)
 const text = (x, y, value, attributes = "") => `<text x="${x}" y="${y}" ${attributes}>${escapeXml(value)}</text>`;
 
 const sessions = data.sessions;
+const metrics = data.qualitative_metrics;
+const isRating = (value) => Number.isInteger(value) && value >= 1 && value <= 5;
+
+if (!Array.isArray(sessions) || sessions.length < 2) {
+  throw new Error("english_progress_tracker.json must contain at least two sessions.");
+}
+if (!Array.isArray(metrics) || metrics.length === 0) {
+  throw new Error("english_progress_tracker.json must define qualitative_metrics.");
+}
+for (const [sessionIndex, session] of sessions.entries()) {
+  if (!session || !Number.isInteger(session.session) || typeof session.date !== "string" || !session.ratings) {
+    throw new Error(`Session at index ${sessionIndex} is missing required fields.`);
+  }
+  for (const metric of metrics) {
+    const rating = session.ratings[metric];
+    if (rating != null && !isRating(rating)) {
+      throw new Error(`Session ${session.session} has an invalid ${metric} rating: ${rating}`);
+    }
+  }
+}
+for (let index = 1; index < sessions.length; index += 1) {
+  if (sessions[index].session <= sessions[index - 1].session || sessions[index].date < sessions[index - 1].date) {
+    throw new Error("Sessions must be ordered from oldest to newest with increasing session numbers.");
+  }
+}
+
 // Keep every completed session visible.  The visual hierarchy is carried by
 // marker treatment, not by dropping history from the evidence line.
 const plottedSessions = sessions;
-const metrics = data.qualitative_metrics;
-const measuredMetrics = metrics.filter((metric) => sessions.some((session) => session.ratings[metric] != null));
-const improvedFromFirst = measuredMetrics.filter((metric) => sessions.at(-1).ratings[metric] > sessions[0].ratings[metric]).length;
-const improvedFromPrevious = measuredMetrics.filter((metric) => sessions.at(-1).ratings[metric] > sessions.at(-2).ratings[metric]).length;
-const steadyFromPrevious = measuredMetrics.filter((metric) => sessions.at(-1).ratings[metric] === sessions.at(-2).ratings[metric]).length;
+const currentSession = sessions.at(-1);
+const previousSession = sessions.at(-2);
+const measuredMetrics = metrics.filter((metric) => isRating(currentSession.ratings[metric]));
+const firstComparableMetrics = measuredMetrics.filter((metric) => isRating(sessions[0].ratings[metric]));
+const previousComparableMetrics = measuredMetrics.filter((metric) => isRating(previousSession.ratings[metric]));
+const countChange = (comparableMetrics, referenceSession, direction) => comparableMetrics.filter((metric) => {
+  const delta = currentSession.ratings[metric] - referenceSession.ratings[metric];
+  return direction === "up" ? delta > 0 : direction === "down" ? delta < 0 : delta === 0;
+}).length;
+const improvedFromFirst = countChange(firstComparableMetrics, sessions[0], "up");
+const declinedFromFirst = countChange(firstComparableMetrics, sessions[0], "down");
+const improvedFromPrevious = countChange(previousComparableMetrics, previousSession, "up");
+const steadyFromPrevious = countChange(previousComparableMetrics, previousSession, "steady");
+const declinedFromPrevious = countChange(previousComparableMetrics, previousSession, "down");
+
+if (measuredMetrics.length === 0) {
+  throw new Error("The latest session has no measured qualitative metrics to plot.");
+}
 
 const metricJa = {
   "Task achievement": "課題達成",
@@ -46,15 +84,21 @@ const currentGuide = {
   "Lexical resource": ["確認・言い換えで伝達", "Clarify or paraphrase"],
   "Grammar control": ["誤りがあっても明確", "Meaning stays clear"],
   "Interaction & repair": ["自発的に確認・修復", "Clarify and self-repair"],
-  "Pronunciation": ["信頼できる音声を未計測", "Reliable audio required"]
+  "Pronunciation": ["音声根拠で明瞭さを確認", "Use direct audio evidence"]
 };
 
 const plotLeft = 330;
 const plotRight = 970;
 const scaleStep = (plotRight - plotLeft) / 4;
 const xForLevel = (level) => plotLeft + (level - 1) * scaleStep;
-const chartTop = 450;
 const rowHeight = 91;
+const legendColumns = 3;
+const legendRows = Math.ceil(plottedSessions.length / legendColumns);
+const legendStartY = 292;
+const legendRowGap = 34;
+const chartTop = 382 + legendRows * legendRowGap;
+const footerStartY = chartTop + measuredMetrics.length * rowHeight - 12;
+const height = Math.max(980, footerStartY + 85);
 const marker = (sessionIndex, totalSessions, x, y) => {
   const isStart = sessionIndex === 0;
   const isCurrent = sessionIndex === totalSessions - 1;
@@ -97,32 +141,53 @@ const graphRows = measuredMetrics.map((metric, metricIndex) => {
     ${text(left + 18, centerY + 24, metric, 'class="metric-en"')}
     <line x1="${plotLeft}" y1="${centerY}" x2="${plotRight}" y2="${centerY}" stroke="#b8c4d4" stroke-width="3"/>`;
   const spread = Math.min(22, Math.max(0, (ratings.length - 1) * 5));
-  const offsets = ratings.map((_, index) => ratings.length === 1
+  const offsetForIndex = (index) => ratings.length === 1
     ? 0
-    : -spread + (index * (spread * 2 / (ratings.length - 1))));
-  const points = ratings.map((rating, index) => ({x:xForLevel(rating),y:centerY + offsets[index],index}));
-  const current = ratings.at(-1);
-  const delta = current - ratings[0];
-  const recentDelta = current - ratings.at(-2);
-  const recentLabel = recentDelta > 0 ? `↑ 前回比 +${recentDelta}` : "→ 前回比 ±0";
-  const recentClass = recentDelta > 0 ? "change-up" : "change-steady";
+    : -spread + (index * (spread * 2 / (ratings.length - 1)));
+  const points = ratings
+    .map((rating, index) => isRating(rating)
+      ? {x:xForLevel(rating), y:centerY + offsetForIndex(index), index, rating}
+      : null)
+    .filter(Boolean);
+  const lineSegments = points.slice(1).map((point, index) => {
+    const previousPoint = points[index];
+    if (point.index !== previousPoint.index + 1) return "";
+    return `<line x1="${previousPoint.x}" y1="${previousPoint.y}" x2="${point.x}" y2="${point.y}" stroke="#475569" stroke-width="4" stroke-linecap="round"/>`;
+  }).join("");
+  const current = currentSession.ratings[metric];
+  const first = sessions[0].ratings[metric];
+  const previous = previousSession.ratings[metric];
+  const delta = isRating(first) ? current - first : null;
+  const recentDelta = isRating(previous) ? current - previous : null;
+  const recentLabel = recentDelta == null
+    ? "前回比 N/A"
+    : recentDelta > 0
+      ? `↑ 前回比 +${recentDelta}`
+      : recentDelta < 0
+        ? `↓ 前回比 ${recentDelta}`
+        : "→ 前回比 ±0";
+  const recentClass = recentDelta == null || recentDelta === 0
+    ? "change-steady"
+    : recentDelta > 0
+      ? "change-up"
+      : "change-down";
+  const firstLabel = delta == null ? "初回比 N/A" : `初回比 ${delta > 0 ? "+" : ""}${delta}`;
+  const guide = currentGuide[metric]?.[0] ?? "根拠に基づく現在評価";
   return `${common}
-    <polyline points="${points.map((point) => `${point.x},${point.y}`).join(" ")}" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-    ${points.map((point) => marker(point.index, points.length, point.x, point.y)).join("")}
+    ${lineSegments}
+    ${points.map((point) => marker(point.index, plottedSessions.length, point.x, point.y)).join("")}
     ${text(1010, centerY - 6, `現在 L${current}`, 'class="current"')}
     ${text(1110, centerY - 6, recentLabel, `class="${recentClass}"`)}
-    ${text(1010, centerY + 23, `初回比 ${delta > 0 ? "+" : ""}${delta}｜${currentGuide[metric][0]}`, 'class="guide-ja"')}`;
+    ${text(1010, centerY + 23, `${firstLabel}｜${guide}`, 'class="guide-ja"')}`;
 }).join("");
 
 const legend = plottedSessions.map((session, index) => {
-  // Keep the full history visible without letting the newest labels overlap
-  // or run off the right edge. Three compact entries sit on each line above
-  // the L1-L5 scale.
-  const positions = [
-    [570, 292], [805, 292], [1040, 292],
-    [570, 326], [805, 326], [1040, 326]
-  ];
-  const [x, y] = positions[index] ?? [570 + (index % 3) * 235, 326];
+  // Keep the complete history in a three-column grid and move the chart down
+  // as rows are added, so Session 7+ cannot overlap earlier legend entries.
+  const column = index % legendColumns;
+  const row = Math.floor(index / legendColumns);
+  const x = 570 + column * 235;
+  const y = legendStartY + row * legendRowGap;
   const label = index === 0 ? "開始" : index === plottedSessions.length - 1 ? "今回" : index === plottedSessions.length - 2 ? "前回" : `履歴S${session.session}`;
   return `${marker(index, plottedSessions.length, x, y - 6)}${text(x + 16, y, `${label} 第${session.session}回 ${session.date.slice(5).replace("-", "/")}`, 'class="legend"')}`;
 }).join("");
@@ -146,6 +211,7 @@ const svg = `
     .current { font-size: 21px; font-weight: 700; }
     .change-up { font-size: 17px; font-weight: 700; fill: #15803d; }
     .change-steady { font-size: 17px; font-weight: 700; fill: #475569; }
+    .change-down { font-size: 17px; font-weight: 700; fill: #b45309; }
     .guide-ja { font-size: 17px; font-weight: 700; fill: #334155; }
     .foot { font-size: 18px; fill: #475569; }
   </style>
@@ -156,15 +222,15 @@ const svg = `
 
   <rect x="${left}" y="145" width="${right - left}" height="62" rx="12" fill="#eaf6ff"/>
   ${text(left + 20, 172, "観察ベースライン / OBSERVED BASELINE", 'class="summary-kicker"')}
-  ${text(left + 20, 197, `第1回→第${sessions.at(-1).session}回: 5項目中 ${improvedFromFirst}項目が向上　｜　直近: ${improvedFromPrevious}項目向上・${steadyFromPrevious}項目維持`, 'class="summary"')}
+  ${text(left + 20, 197, `第1回→第${currentSession.session}回: ${firstComparableMetrics.length}項目中 ${improvedFromFirst}向上・${declinedFromFirst}低下　｜　直近: ${improvedFromPrevious}向上・${steadyFromPrevious}維持・${declinedFromPrevious}低下`, 'class="summary"')}
 
   ${text(left, 264, "技能別の推移 / Skill progression", 'class="section"')}
   ${legend}
   ${axis}
   ${text(1010, chartTop - 38, "現在地 / Current", 'class="summary-kicker"')}
   ${graphRows}
-  ${text(left, 895, "L1 強い支援　｜　L2 支援あり　｜　L3 ほぼ自立　｜　L4 自立　｜　L5 柔軟", 'class="foot"')}
-  ${text(left, 927, "発音: N/A（信頼できる音声を未計測）　※観察記録であり、資格・試験の公式スコアではありません。", 'class="foot"')}
+  ${text(left, footerStartY, "L1 強い支援　｜　L2 支援あり　｜　L3 ほぼ自立　｜　L4 自立　｜　L5 柔軟", 'class="foot"')}
+  ${text(left, footerStartY + 32, isRating(currentSession.ratings.Pronunciation) ? `発音: L${currentSession.ratings.Pronunciation}（直接音声の根拠あり）　※資格・試験の公式スコアではありません。` : "発音: N/A（信頼できる音声を未計測）　※資格・試験の公式スコアではありません。", 'class="foot"')}
 </svg>`;
 
 await mkdir(path.dirname(outputPath), { recursive: true });
