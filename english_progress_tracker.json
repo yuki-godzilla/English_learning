@@ -184,9 +184,9 @@
     {
       "session": 7,
       "date": "2026-08-23",
-      "task": "Energy strategy and laser fusion discussion",
-      "task_ja": "エネルギー戦略とレーザー核融合の議論",
-      "data_coverage": "Daily Notes and realtime transcript excerpts; no comparable 60-second benchmark and no reliable direct audio analysis",
+      "task": "Daigas Group energy strategy, electrification, and laser-fusion research",
+      "task_ja": "Daigas Groupのエネルギー戦略・電化・レーザー核融合研究",
+      "data_coverage": "Realtime transcript excerpts; no comparable 60-second benchmark and no reliable direct audio analysis",
       "ratings": {
         "Task achievement": 4,
         "Fluency & coherence": 3,
@@ -195,9 +195,10 @@
         "Interaction & repair": 4,
         "Pronunciation": null
       },
-      "evidence_quote": "Electrification is not automatically decarbonization.",
-      "evidence_note_ja": "電化と脱炭素の違い、安定供給との両立、レーザー核融合の高速点火研究を、自分の経験と社会的な動機へ結び付けて説明した。直接音声は計測していないため、発音はN/Aとする。",
-      "evidence_note": "Explained the distinction between electrification and decarbonisation, reliable supply, and fast-ignition laser-fusion research by connecting technical detail to social impact. Pronunciation is N/A because direct audio was not measured."
+      "evidence_quote": "In short time, plasma behaves as particle. But in long term, the plasma behaves as a fluid.",
+      "evidence_quote_origin": "Spontaneous explanation in the realtime transcript",
+      "evidence_note_ja": "Daigas Groupの脱炭素方針、電化と発電時CO2のトレードオフ、レーザー核融合のfast ignition、粒子・流体シミュレーション、実験用ターゲット設計を、自分の研究経験と社会的な動機へ結び付けて詳しく説明した。専門語を確認しながら意味を保ち、訂正が多すぎることも自発的に指摘して会話方針を修復した。共通60秒課題は未実施のため定量値は追加せず、発音は直接音声を計測していないためN/Aとする。",
+      "evidence_note": "Explained Daigas Group's decarbonization strategy, the trade-off between electrification and power-generation emissions, fast ignition in laser fusion, particle and fluid simulations, and experimental target design, connecting research experience to societal motivation. Preserved meaning while checking technical vocabulary and independently repaired the conversation when feedback became excessive. No comparable 60-second task was used, so no quantitative values are added; pronunciation is N/A because audio was not directly measured."
     },
     {
       "session": 8,
