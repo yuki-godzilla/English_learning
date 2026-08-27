@@ -9,6 +9,8 @@ Yuki × Chappy の英会話学習記録・運用ルール・共有用アセッ�
 - `.codex/config.toml`: モデルと推論強度などのプロジェクト設定
 - `english_progress_tracker.json`: 根拠付き英語力評価の履歴
 - `generate_english_progress_chart.mjs`: 成長グラフの生成手順
+- `scripts/pronunciation-recording.ps1`: Windowsサウンド レコーダーの起動と新規録音の回収補助
+- `pronunciation-benchmark.md`: 発音評価用の約60秒共通音読課題
 - `package.json` / `package-lock.json`: グラフ生成に必要なNode.js依存関係
 - `.nvmrc`: 動作確認済みNode.js LTSバージョン
 - `20xx-xx-xx-*-session-report.md`: セッションごとのMarkdown記録
@@ -27,6 +29,20 @@ npm test
 ```
 
 生成物は `output/english-growth-evidence-dashboard.png` です。`output/` は再生成可能な成果物としてGit管理しません。Node.js 20.9.0以上であれば現在の`sharp`の必要条件を満たしますが、別PCでは`.nvmrc`のLTS版を優先します。
+
+## 発音評価の録音導線
+
+Yukiが「発音を評価してほしい」と伝えた場合、ChappyはWindowsのサウンド レコーダーを開き、評価対象の英文を提示します。対象指定がなければ `pronunciation-benchmark.md` の共通音読課題を使います。録音開始・停止はYukiが操作し、停止後に「録音完了」と伝えます。その後、Chappyが新規録音の特定と回収を行います。
+
+補助コマンドは次の3つです。通常はYukiではなくChappyが実行します。
+
+```powershell
+npm run pronunciation:status
+npm run pronunciation:start
+npm run pronunciation:collect
+```
+
+録音の一時コピーと検出状態は `tmp/pronunciation-recordings/` に置き、Git管理しません。録音ファイルが存在するだけでは発音評価済みとせず、直接音声を処理できる分析手段で確認できた場合だけPronunciationを評価します。文字起こししか取得できない場合は `N/A / 音声未計測` を維持します。
 
 ## 情報管理
 

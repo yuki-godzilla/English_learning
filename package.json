@@ -7,7 +7,10 @@
   "scripts": {
     "build:chart": "node generate_english_progress_chart.mjs",
     "check": "node --check generate_english_progress_chart.mjs",
-    "test": "npm run check && npm run build:chart"
+    "test": "npm run check && npm run build:chart",
+    "pronunciation:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation-recording.ps1 -Action Status",
+    "pronunciation:start": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation-recording.ps1 -Action Start",
+    "pronunciation:collect": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation-recording.ps1 -Action Collect"
   },
   "engines": {
     "node": ">=20.9.0"
