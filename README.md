@@ -10,6 +10,9 @@ Yuki × Chappy の英会話学習記録・運用ルール・共有用アセッ�
 - `english_progress_tracker.json`: 根拠付き英語力評価の履歴
 - `generate_english_progress_chart.mjs`: 成長グラフの生成手順
 - `scripts/pronunciation-recording.ps1`: Windowsサウンド レコーダーの起動と新規録音の回収補助
+- `scripts/setup-pronunciation.ps1`: PCごとのローカル音声分析環境の構築
+- `scripts/analyze-pronunciation.py`: 録音のローカル音響・音声認識分析
+- `requirements-pronunciation.txt` / `requirements-pronunciation.lock.txt`: ローカル音声分析の直接依存と再現用固定版
 - `pronunciation-benchmark.md`: 発音評価用の約60秒共通音読課題
 - `package.json` / `package-lock.json`: グラフ生成に必要なNode.js依存関係
 - `.nvmrc`: 動作確認済みNode.js LTSバージョン
@@ -34,15 +37,29 @@ npm test
 
 Yukiが「発音を評価してほしい」と伝えた場合、ChappyはWindowsのサウンド レコーダーを開き、評価対象の英文を提示します。対象指定がなければ `pronunciation-benchmark.md` の共通音読課題を使います。録音開始・停止はYukiが操作し、停止後に「録音完了」と伝えます。その後、Chappyが新規録音の特定と回収を行います。
 
-補助コマンドは次の3つです。通常はYukiではなくChappyが実行します。
+補助コマンドは次の5つです。通常はYukiではなくChappyが実行します。
 
 ```powershell
+npm run pronunciation:setup
 npm run pronunciation:status
 npm run pronunciation:start
 npm run pronunciation:collect
+npm run pronunciation:analyze
 ```
 
-録音の一時コピーと検出状態は `tmp/pronunciation-recordings/` に置き、Git管理しません。録音ファイルが存在するだけでは発音評価済みとせず、直接音声を処理できる分析手段で確認できた場合だけPronunciationを評価します。文字起こししか取得できない場合は `N/A / 音声未計測` を維持します。
+`pronunciation:setup` はプロジェクト専用の `.venv-pronunciation/` を作成し、`faster-whisper small.en`、Praatによる音響分析、PyAVによる音声デコードをローカルへ準備します。モデルを含む依存関係は数百MB規模になるためGitへ入れず、各PCで初回だけ構築します。PyAVが録音形式を直接デコードするため、システム版FFmpegは必須ではありません。既存のデコーダーで読めない形式が確認された場合だけ、FFmpegを追加します。
+
+容量や処理速度を優先する別PCでは、`scripts/setup-pronunciation.ps1 -Model base.en` または `-Model tiny.en` を指定できます。選択したモデルはGit対象外の環境状態に保存され、そのPCの `status` と `analyze` が同じモデルを使います。
+
+録音の一時コピー、モデル、検出状態、分析結果は `tmp/pronunciation-recordings/` または `tmp/pronunciation-models/` に置き、Git管理しません。ローカル分析では録音品質、文字起こしに基づく明瞭度の補助指標、話速、ポーズ、ピッチ変化を実測します。音声認識の信頼度だけでは母音・子音、単語強勢、linking、native-likenessを確定評価せず、対応できない観点はN/Aにします。
+
+### 別PC・機能不足時のフォールバック
+
+- Windowsサウンド レコーダーがあるPCでは、従来どおり自動起動と新規録音の回収を使います。
+- サウンド レコーダーがないPCでは、任意の録音アプリで保存したファイルを `tmp/pronunciation-recordings/inbox/` へ入れるか、`pronunciation-recording.ps1 -Action Collect -AudioPath <file>` で明示指定します。
+- サウンド レコーダーがインストール済みでも使えない場合は、`-ForceManualCapture` で同じ手動回収へ切り替えられます。
+- ローカル環境を構築できない場合も録音導線は維持し、直接分析できない観点は `N/A / 音声分析手段なし` とします。推測採点はしません。
+- 外部の音声対応サービスは自動フォールバックにしません。録音の外部送信、費用、利用目的を説明し、Yukiがその都度明示承認した場合だけ使います。
 
 ## 情報管理
 

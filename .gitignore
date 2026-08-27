@@ -4,6 +4,9 @@ tmp/
 # Generated deliverables; the Google Doc is the source of truth
 output/
 node_modules/
+.venv-pronunciation/
+__pycache__/
+*.pyc
 .env
 .env.*
 !.env.example
