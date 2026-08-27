@@ -180,6 +180,42 @@
       "evidence_quote_origin": "Transcript-supported expression preserved in the Session 6 report",
       "evidence_note_ja": "ローカル／クラウドAI、LangGraphのrouting、投資支援アプリ、企業向けIoTプラットフォーム、開発ライフサイクル全体へのAI導入を、自分の経験と判断に結び付けて説明した。誤解や語の選択を自発的に修正し、対話・言い直しではL4相当の行動を示した。一方、共通60秒課題は未実施で、長い説明の構成と文法の安定には引き続き支援が必要なため、5つの文字起こし評価は根拠のある範囲で維持する。発音は音声を直接評価できないためN/Aとする。",
       "evidence_note": "Connected local/cloud AI, LangGraph routing, an investment-support app, an enterprise IoT platform, and lifecycle-wide AI adoption to personal experience and judgment. Proactively repaired misunderstandings and word choice, showing L4 interaction and repair. No comparable 60-second task was used, and longer explanations still need support for structure and grammatical stability, so the five transcript-supported ratings remain evidence-bounded. Pronunciation is N/A because audio was not directly measured."
+    },
+    {
+      "session": 7,
+      "date": "2026-08-23",
+      "task": "Energy strategy and laser fusion discussion",
+      "task_ja": "エネルギー戦略とレーザー核融合の議論",
+      "data_coverage": "Daily Notes and realtime transcript excerpts; no comparable 60-second benchmark and no reliable direct audio analysis",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "evidence_quote": "Electrification is not automatically decarbonization.",
+      "evidence_note_ja": "電化と脱炭素の違い、安定供給との両立、レーザー核融合の高速点火研究を、自分の経験と社会的な動機へ結び付けて説明した。直接音声は計測していないため、発音はN/Aとする。",
+      "evidence_note": "Explained the distinction between electrification and decarbonisation, reliable supply, and fast-ignition laser-fusion research by connecting technical detail to social impact. Pronunciation is N/A because direct audio was not measured."
+    },
+    {
+      "session": 8,
+      "date": "2026-08-27",
+      "task": "AI data centres, electricity infrastructure and microgrids",
+      "task_ja": "AIデータセンター・電力インフラ・マイクログリッドの議論",
+      "data_coverage": "Realtime conversation plus a direct 59.8-second English reading recording; pronunciation evidence is limited to recording intelligibility, pace, and audio quality rather than a standardized phonetic assessment",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": 3
+      },
+      "evidence_quote": "I think converting fossil fuels into electricity can be wasteful.",
+      "evidence_note_ja": "AIデータセンターの電力需要、送電網、マイクログリッド、一次エネルギー、電化と脱炭素の関係について、自分の疑問と見解をつないで議論した。約60秒の直接録音は文章全体が安定して認識され、音割れは確認されなかった。発音はL3（概ね明瞭）として初めて記録するが、音素単位の標準化採点ではない。",
+      "evidence_note": "Connected AI data-centre demand, grids, microgrids, primary energy, and the difference between electrification and decarbonisation to a personal viewpoint. A direct one-minute recording was intelligible throughout and showed no clipping. Pronunciation is recorded conservatively at L3 for overall intelligibility; this is not a standardized phonetic score."
     }
   ],
   "benchmark_protocol": {

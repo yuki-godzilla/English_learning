@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Microgrid supporting a data centre</title>
+  <desc id="desc">A main electricity grid and local solar, battery, and generator resources supply a microgrid that supports a data centre.</desc>
+  <style>
+    text{font-family:Arial,'Yu Gothic',sans-serif;fill:#102a43}.title{font-size:54px;font-weight:700}.label{font-size:34px;font-weight:700}.small{font-size:25px;fill:#486581}.box{stroke:#2f80a8;stroke-width:5;rx:26}.line{stroke:#334e68;stroke-width:12;fill:none;stroke-linecap:round}.arrow{fill:#334e68}
+  </style>
+  <rect width="1600" height="900" fill="#ffffff"/>
+  <text x="800" y="80" text-anchor="middle" class="title">How a microgrid can support a data centre</text>
+  <text x="800" y="120" text-anchor="middle" class="small">Main grid + local resources + smart controls</text>
+  <rect x="80" y="310" width="310" height="190" class="box" fill="#e8f1ff"/>
+  <text x="235" y="390" text-anchor="middle" class="label">Main grid</text>
+  <text x="235" y="430" text-anchor="middle" class="small">Transmission and</text><text x="235" y="462" text-anchor="middle" class="small">distribution network</text>
+  <rect x="610" y="250" width="380" height="310" class="box" fill="#e6f8ee"/>
+  <text x="800" y="340" text-anchor="middle" class="label">Microgrid controller</text>
+  <text x="800" y="385" text-anchor="middle" class="small">Balances supply, storage,</text><text x="800" y="417" text-anchor="middle" class="small">and flexible demand</text>
+  <rect x="1210" y="310" width="310" height="190" class="box" fill="#fff3e4"/>
+  <text x="1365" y="390" text-anchor="middle" class="label">Data centre</text>
+  <text x="1365" y="430" text-anchor="middle" class="small">Servers, GPUs, cooling</text>
+  <path d="M390 405 H610 M990 405 H1210" class="line"/><path d="M580 385 l30 20 -30 20z M1180 385 l30 20 -30 20z" class="arrow"/>
+  <rect x="420" y="650" width="250" height="130" class="box" fill="#fffbea"/><text x="545" y="710" text-anchor="middle" class="label">Solar / wind</text><text x="545" y="746" text-anchor="middle" class="small">Local generation</text>
+  <rect x="675" y="650" width="250" height="130" class="box" fill="#f3e8ff"/><text x="800" y="710" text-anchor="middle" class="label">Battery</text><text x="800" y="746" text-anchor="middle" class="small">Peak-demand support</text>
+  <rect x="930" y="650" width="250" height="130" class="box" fill="#e8f1ff"/><text x="1055" y="700" text-anchor="middle" class="label">Local</text><text x="1055" y="738" text-anchor="middle" class="label">generator</text><text x="1055" y="770" text-anchor="middle" class="small">Backup power</text>
+  <path d="M545 650 V560 M800 650 V560 M1055 650 V560" class="line"/>
+  <text x="800" y="855" text-anchor="middle" class="small">Microgrids can reduce peak pressure and improve resilience; they complement, not replace, grid expansion.</text>
+</svg>
