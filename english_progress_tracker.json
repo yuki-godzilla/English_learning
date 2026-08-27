@@ -219,6 +219,166 @@
       "evidence_note": "Connected AI data-centre demand, grids, microgrids, primary energy, and the difference between electrification and decarbonisation to a personal viewpoint. A direct one-minute recording was intelligible throughout and showed no clipping. Pronunciation is recorded conservatively at L3 for overall intelligibility; this is not a standardized phonetic score."
     }
   ],
+  "test_score_estimates": {
+    "methodology_version": "1.0",
+    "status": "Non-official learning estimates, not standardized test results or guaranteed score conversions",
+    "as_of_session": 8,
+    "as_of_date": "2026-08-27",
+    "official_scales_checked_on": "2026-08-28",
+    "evidence_boundary": "Current evidence is strongest for spontaneous conversation and one direct reading recording. Reading, listening, and writing have not been measured under standardized timed conditions.",
+    "history_policy": "Prediction history starts with Session 8. Do not backfill earlier sessions. Keep user-reported actual results visually and structurally separate from estimates.",
+    "historical_results": [
+      {
+        "test_id": "toeic_lr",
+        "score": 850,
+        "date_label_ja": "約6年前",
+        "date_label_en": "approximately six years ago",
+        "exact_date_known": false,
+        "source": "user-reported actual result"
+      }
+    ],
+    "definitions": {
+      "toeic_lr": {
+        "label_ja": "TOEIC L&R",
+        "label_en": "Listening & Reading",
+        "scale_min": 10,
+        "scale_max": 990,
+        "unit": "score",
+        "skill_scope": "Listening and Reading"
+      },
+      "toeic_speaking": {
+        "label_ja": "TOEIC Speaking",
+        "label_en": "Speaking",
+        "scale_min": 0,
+        "scale_max": 200,
+        "unit": "score",
+        "skill_scope": "Speaking"
+      },
+      "toeic_writing": {
+        "label_ja": "TOEIC Writing",
+        "label_en": "Writing",
+        "scale_min": 0,
+        "scale_max": 200,
+        "unit": "score",
+        "skill_scope": "Writing"
+      },
+      "ielts_speaking": {
+        "label_ja": "IELTS Speaking",
+        "label_en": "Speaking band",
+        "scale_min": 0,
+        "scale_max": 9,
+        "unit": "band",
+        "skill_scope": "Speaking"
+      },
+      "toefl_speaking": {
+        "label_ja": "TOEFL iBT Speaking",
+        "label_en": "2026 section scale",
+        "scale_min": 1,
+        "scale_max": 6,
+        "unit": "band",
+        "skill_scope": "Speaking",
+        "scale_note": "The 1-6 scale introduced on January 21, 2026 is used. A legacy 0-30 comparison is display-only."
+      },
+      "cambridge_speaking": {
+        "label_ja": "Cambridge English",
+        "label_en": "Speaking scale",
+        "scale_min": 80,
+        "scale_max": 230,
+        "unit": "Cambridge English Scale",
+        "skill_scope": "Speaking"
+      },
+      "cefr_oral": {
+        "label_ja": "CEFR 会話",
+        "label_en": "Oral interaction",
+        "scale_min": 1,
+        "scale_max": 6,
+        "unit": "ordered level",
+        "skill_scope": "Spoken interaction",
+        "ordinal_labels": ["A1", "A2", "B1", "B2", "C1", "C2"]
+      },
+      "actfl_speaking": {
+        "label_ja": "ACTFL Speaking",
+        "label_en": "Speaking proficiency",
+        "scale_min": 1,
+        "scale_max": 10,
+        "unit": "ordered level",
+        "skill_scope": "Speaking",
+        "ordinal_labels": ["Novice Low", "Novice Mid", "Novice High", "Intermediate Low", "Intermediate Mid", "Intermediate High", "Advanced Low", "Advanced Mid", "Advanced High", "Superior"]
+      }
+    },
+    "estimate_sessions": [
+      {
+        "session": 8,
+        "date": "2026-08-27",
+        "estimates": {
+          "toeic_lr": {
+            "low": 820,
+            "mid": 860,
+            "high": 900,
+            "display": "820–900 / 990",
+            "confidence": "medium-low",
+            "comment_ja": "長めの記事を読み、要点と背景を議論できる水準。過去実績850は有力な参考だが、現在の時間制限付きL&Rは未測定。"
+          },
+          "toeic_speaking": {
+            "low": 140,
+            "mid": 150,
+            "high": 160,
+            "display": "140–160 / 200",
+            "confidence": "medium",
+            "comment_ja": "複雑な話題でも意見・理由・専門例をつなげられる。pause、文法の安定、長い回答の構成が次の得点源。"
+          },
+          "toeic_writing": {
+            "low": 140,
+            "mid": 150,
+            "high": 160,
+            "display": "140–160 / 200",
+            "confidence": "low",
+            "comment_ja": "意見と根拠を作る力はあるが、直接の時間制限付きWriting課題がなく、会話からの暫定予測。"
+          },
+          "ielts_speaking": {
+            "low": 5.5,
+            "mid": 6,
+            "high": 6.5,
+            "display": "Band 5.5–6.5",
+            "confidence": "medium",
+            "comment_ja": "長いターンと専門話題への対応は可能。hesitationと複雑文の誤りが残るため、中心予測はBand 6。"
+          },
+          "toefl_speaking": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "3.5–4.0 / 6（旧尺度目安 18–22 / 30）",
+            "confidence": "medium-low",
+            "comment_ja": "B1上位〜B2相当の会話展開。実試験の統合型課題と時間制限は未測定。"
+          },
+          "cambridge_speaking": {
+            "low": 155,
+            "mid": 162.5,
+            "high": 170,
+            "display": "155–170（B1上位〜B2）",
+            "confidence": "medium-low",
+            "comment_ja": "意見交換と自発的な修復は強い。流暢さ・文法・語彙の一貫性を上げるとB2帯が安定する。"
+          },
+          "cefr_oral": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "B1+–B2",
+            "confidence": "medium",
+            "comment_ja": "関心分野では理由と具体例を伴う議論を継続でき、誤解を自力で修復できる。"
+          },
+          "actfl_speaking": {
+            "low": 6,
+            "mid": 6.5,
+            "high": 7,
+            "display": "Intermediate High–Advanced Low",
+            "confidence": "medium-low",
+            "comment_ja": "connected discourseへの移行が見える一方、時制・構成・流暢さの安定は今後の確認点。"
+          }
+        }
+      }
+    ]
+  },
   "benchmark_protocol": {
     "task": "One comparable 60-second response in every conversation session",
     "response_structure": [

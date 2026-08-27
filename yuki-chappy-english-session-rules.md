@@ -2,7 +2,7 @@
 
 > このファイルは、Englishプロジェクトにおける英会話セッション、学習記録、英語力評価、成果物共有の正式な継続運用ルールである。
 > 最終更新: 2026-08-28
-> 文書バージョン: 2.3
+> 文書バージョン: 2.4
 
 ## 0. ルールの優先順位と完了条件
 
@@ -365,7 +365,7 @@ Google Docsの末尾に `English Growth & Evaluation` セクションを1つだ�
 
 ### 評価設計
 
-- 評価は英語資格の結果票を参考にするが、公式スコアや資格レベルへの換算は行わない。
+- L1〜L5評価は英語資格の結果票を参考にした独自の観察指標であり、公式スコアへの換算として扱わない。一方、Yukiが明示的に希望した場合は、学習意欲と受験計画のための **非公式な予測レンジ** を別枠で示してよい。
 - 参照する代表例はTOEIC、IELTS、TOEFL iBT、Cambridge English、CEFR / ACTFLまでとし、細分化しすぎない。
 - 採用する観点は、複数の試験・基準で重なる次の6項目に限定する: Task achievement、Fluency & coherence、Lexical resource、Grammar control、Interaction & repair、Pronunciation。
 - TOEICの `Score Descriptors + Abilities Measured` の考え方を参考に、全体プロフィールと技能別内訳を併記する。
@@ -376,17 +376,24 @@ Google Docsの末尾に `English Growth & Evaluation` セクションを1つだ�
 - セッションは色だけで区別せず、記号・回数・日付に加えて `開始 / 前回 / 今回` を直接表示する。各技能は `現在レベル → 前回比 → 初回比と行動根拠` の順に読めるようにする。
 - 成長グラフから過去セッションを省略・置換しない。全セッションを時系列の推移線として残し、`開始` は白抜き丸、通常の過去回は控えめなグレー丸、`前回` は青い四角、`今回` は緑のひし形で階層を付ける。これにより履歴を保持しながら、現在・前回・初回の比較を最も読みやすくする。
 - グラフはGoogle Docsの実掲載幅とPDFで読める文字サイズを基準に作る。生成画像単体で読めても、縮小掲載時に小さくなる注記・英語サブ表記・凡例は削減または拡大する。
-- 評価セクションの表示順は `視覚化評価 → 今回の英会話評価コメント → 指標目安（参考）` とする。日々の確認ではグラフと評価コメントを主役にし、L1〜L5の詳細表は控えめな配色の参照資料として後置する。
+- 評価セクションの表示順は `視覚化評価 → 今回の英会話評価コメント → 資格スコア予測（学習用） → 指標目安（参考）` とする。日々の確認ではグラフと評価コメントを主役にし、資格スコア予測は動機付けの補助、L1〜L5の詳細表は控えめな配色の参照資料として後置する。
 - グラフ各行には現在レベルと短い行動目安を併記し、Docsには6指標それぞれについて `L1〜L5` の全段階を日本語メイン・英語サブで示す詳細表を置く。グラフは推移の把握、表は評価根拠の確認に使い分ける。
 - 色には意味を持たせる。L1〜L2は支援領域の淡い暖色、L3は移行領域の淡い青、L4〜L5は自立領域の淡い緑とする。セッション系列は `開始・基準=グレー、前回=青、今回=緑` を基本とし、回数が増えても役割ごとの配色を維持する。色だけに依存せず、記号・回数・日付・レベル値も併記する。
 - 文字色・背景色・表・グラフは同じ意味体系で統一する。本文は十分なコントラストを確保し、英語サブ表記は日本語本文より小さなグレー文字にする。評価グラフは明確な色分けを保つ一方、詳細指標表は淡色背景と落ち着いた文字色にして主役になりすぎないようにする。装飾色を増やし過ぎず、アクセントはネイビー、青、緑、暖色の4系統を基本とする。
 - IELTS・Cambridgeの技能別観点、TOEFLの課題達成・伝達・言語使用、CEFR / ACTFLのCan-do型記述を補助的に参照する。
+- 資格スコア予測は、`テスト種別 / 予測レンジ / 英語力の目安 / 根拠・確度` をネイティブ表で示す。TOEICは `Listening & Reading`、`Speaking`、`Writing` を分離し、IELTS・TOEFL iBT・Cambridge English・CEFR / ACTFLは現在の根拠が会話中心ならSpeakingまたはoral interactionだけを予測する。未実施の技能を総合点として見せない。
+- 予測値は一点断定ではなくレンジを基本とし、グラフ上の代表点はレンジ中央の表示用値に限定する。実際の受験結果、自己申告の過去実績、Chappyの予測を見た目とデータ上で区別する。日付が「約6年前」のように曖昧な実績へ正確な年月日を付けない。
+- Reading、Listening、Writing、発音を直接測っていない場合は確度を下げ、その理由を表に明記する。文字起こしの成功だけでListeningやPronunciationの能力を推定しない。過去のTOEIC実績は参考根拠には使えるが、現在の点数としてそのまま転記しない。
+- 予測推移は予測運用を開始した回から蓄積し、過去セッションへ予測値を遡及入力しない。同じ根拠で更新できない回は空欄または据え置き理由を記録し、見かけの推移を作らない。試験制度や尺度が変わった場合は方法版と尺度を記録し、既存点を無断で換算・上書きしない。
+- 複数試験のグラフは満点や尺度が異なるため、同じ縦軸へ点数を混在させない。試験ごとの小さな推移図または明確に分離した軸を使い、予測レンジ、代表点、実績点、確度、対象技能を表示する。CEFR / ACTFLは点数ではなく順序尺度であることを明記する。
 - 参考一次情報:
-  - TOEIC: https://www.iibc-global.org/toeic/test/lr/guide04.html
-  - IELTS Speaking: https://ielts.org/cdn/ielts-guides/ielts-speaking-key-assessment-criteria.pdf
-  - TOEFL iBT Speaking: https://www.eu.ets.org/toefl/test-takers/ibt/about/content/speaking.html
-  - Cambridge English Speaking: https://www.cambridgeenglish.org/Images/735390-b1-preliminary-teacher-guide-assessing-speaking.pdf
-  - ACTFL Proficiency Guidelines: https://www.actfl.org/proficiency-guidelines-overview
+  - TOEIC L&R: https://www.iibc-global.org/english/toeic/test/lr/guide05/guide05_01/score_descriptor.html
+  - TOEIC S&W: https://www.iibc-global.org/english/toeic/test/sw/guide05/guide05_01/score_descriptor.html
+  - IELTS Speaking: https://ielts.org/cdn/ielts-guides/ielts-speaking-band-descriptors.pdf
+  - TOEFL iBT scores: https://www.ets.org/toefl/test-takers/ibt/scores/understand-scores.html
+  - Cambridge English Scale: https://www.cambridgeenglish.org/exams-and-tests/qualifications/results/
+  - CEFR descriptors: https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors
+  - ACTFL Proficiency Guidelines 2024: https://www.actfl.org/uploads/files/general/Resources-Publications/ACTFL_Proficiency_Guidelines_2024.pdf
 
 ### 更新手順
 
@@ -401,8 +408,8 @@ Google Docsの末尾に `English Growth & Evaluation` セクションを1つだ�
 7. Yukiが発音評価を明示した場合は、第7節のローカル録音導線を使い、録音回収後に直接音声を処理できるか確認する。発音、発話速度、1秒超のポーズは、信頼できる音声を直接評価・計測できる場合だけ記録する。
 8. 録音を直接処理できた場合は、課題種別、録音時間、分析方法、録音品質、評価根拠を記録する。音読と自由発話、練習用と評価用を区別し、比較条件が違う回の前回比を作らない。
 9. セッションの根拠が文字起こしのみ、録音ファイルが読めない、または直接音声を扱える分析手段がない場合は、レポート・Daily Note・英語力グラフから **Pronunciation の評価、レベル、前回比、成長コメントを除外する**。理由に応じて `N/A / 音声未計測`、`N/A / 録音読取不可`、`N/A / 音声分析手段なし` と明記し、文字起こしが成功した事実を発音の良さの根拠として扱わない。
-10. 今回の記録を追加した後に `generate_english_progress_chart.mjs` を1回実行し、既存履歴をそのまま使って `output/english-growth-evidence-dashboard.png` を再生成する。通常回は今回の表示、前回・初回との接続、Docs / PDF実寸だけを確認し、過去履歴の再評価やグラフ設計変更を同時に行わない。
-11. Google Docs末尾の評価文と既存画像を更新し、画像を重複追加しない。評価グラフの時間軸だけは、推移を読むため左から右へ古い順とする。
+10. 今回の記録を追加した後に `generate_english_progress_chart.mjs` を1回実行し、既存履歴をそのまま使って `output/english-growth-evidence-dashboard.png` と `output/english-test-score-estimate-trends.png` を再生成する。通常回は今回の表示、前回・初回との接続、Docs / PDF実寸だけを確認し、過去履歴の再評価やグラフ設計変更を同時に行わない。
+11. Google Docs末尾の評価文と既存画像を更新し、画像を重複追加しない。評価グラフの時間軸だけは、推移を読むため左から右へ古い順とする。資格予測を更新しない回は既存の最終予測を残し、更新日と対象セッションを明記する。
 12. メールにはGoogle Docsと同じ最新版ダッシュボードを添付し、良かった点、今後伸ばす点、前回との差を根拠つきで簡潔に書く。
 
 Sessions 1〜3は、Daily Notesと保存済み文字起こしによる定性ベースラインとして扱う。共通60秒課題による定量比較は、同じ条件で計測できたセッションから開始する。

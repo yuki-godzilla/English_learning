@@ -10,6 +10,7 @@ const sharp = require("sharp");
 const root = path.dirname(fileURLToPath(import.meta.url));
 const data = JSON.parse(await readFile(path.join(root, "english_progress_tracker.json"), "utf8"));
 const outputPath = path.join(root, "output", "english-growth-evidence-dashboard.png");
+const testEstimateOutputPath = path.join(root, "output", "english-test-score-estimate-trends.png");
 
 const width = 1400;
 const left = 52;
@@ -236,3 +237,152 @@ const svg = `
 await mkdir(path.dirname(outputPath), { recursive: true });
 await sharp(Buffer.from(svg)).png().toFile(outputPath);
 console.log(outputPath);
+
+const estimateData = data.test_score_estimates;
+if (!estimateData || !Array.isArray(estimateData.estimate_sessions) || estimateData.estimate_sessions.length === 0) {
+  throw new Error("english_progress_tracker.json must define test_score_estimates.estimate_sessions.");
+}
+
+const estimateDefinitions = estimateData.definitions ?? {};
+const estimateSessions = estimateData.estimate_sessions;
+const estimateMetricOrder = [
+  "toeic_lr",
+  "toeic_speaking",
+  "toeic_writing",
+  "ielts_speaking",
+  "toefl_speaking",
+  "cambridge_speaking",
+  "cefr_oral",
+  "actfl_speaking"
+];
+const confidenceJa = {
+  high: "高",
+  medium: "中",
+  "medium-low": "中〜低",
+  low: "低"
+};
+const latestEstimateSession = estimateSessions.at(-1);
+for (const metricId of estimateMetricOrder) {
+  const definition = estimateDefinitions[metricId];
+  if (!definition || !Number.isFinite(definition.scale_min) || !Number.isFinite(definition.scale_max) || definition.scale_max <= definition.scale_min) {
+    throw new Error(`Invalid test score definition: ${metricId}`);
+  }
+  const latestEstimate = latestEstimateSession.estimates?.[metricId];
+  if (!latestEstimate || !Number.isFinite(latestEstimate.low) || !Number.isFinite(latestEstimate.mid) || !Number.isFinite(latestEstimate.high)) {
+    throw new Error(`Latest test score estimate is missing: ${metricId}`);
+  }
+  if (latestEstimate.low > latestEstimate.mid || latestEstimate.mid > latestEstimate.high) {
+    throw new Error(`Test score estimate range is not ordered: ${metricId}`);
+  }
+}
+
+const estimateWidth = 1400;
+const estimatePanelWidth = 632;
+const estimatePanelHeight = 286;
+const estimateLeft = 52;
+const estimateColumnGap = 32;
+const estimateTop = 204;
+const estimateHeight = estimateTop + Math.ceil(estimateMetricOrder.length / 2) * estimatePanelHeight + 76;
+const estimateText = (x, y, value, attributes = "") => `<text x="${x}" y="${y}" ${attributes}>${escapeXml(value)}</text>`;
+const ordinalEdgeLabel = (definition, edge) => {
+  const labels = definition.ordinal_labels;
+  if (!Array.isArray(labels) || labels.length === 0) return String(edge === "min" ? definition.scale_min : definition.scale_max);
+  return edge === "min" ? labels[0] : labels.at(-1);
+};
+const shortDate = (date) => String(date).slice(5).replace("-", "/");
+
+const estimatePanels = estimateMetricOrder.map((metricId, metricIndex) => {
+  const definition = estimateDefinitions[metricId];
+  const latest = latestEstimateSession.estimates[metricId];
+  const column = metricIndex % 2;
+  const row = Math.floor(metricIndex / 2);
+  const panelX = estimateLeft + column * (estimatePanelWidth + estimateColumnGap);
+  const panelY = estimateTop + row * estimatePanelHeight;
+  const plotLeftLocal = panelX + 78;
+  const plotRightLocal = panelX + estimatePanelWidth - 32;
+  const plotTopLocal = panelY + 124;
+  const plotBottomLocal = panelY + 218;
+  const scoreY = (value) => {
+    const ratio = (value - definition.scale_min) / (definition.scale_max - definition.scale_min);
+    return plotBottomLocal - Math.max(0, Math.min(1, ratio)) * (plotBottomLocal - plotTopLocal);
+  };
+  const predictionPoints = estimateSessions
+    .map((session) => ({ session, estimate: session.estimates?.[metricId] }))
+    .filter(({ estimate }) => estimate && Number.isFinite(estimate.mid));
+  const actualPoints = (estimateData.historical_results ?? [])
+    .filter((result) => result.test_id === metricId && Number.isFinite(result.score))
+    .map((result) => ({ actual: result }));
+  const timeline = [...actualPoints, ...predictionPoints];
+  const xForPoint = (index) => timeline.length === 1
+    ? (plotLeftLocal + plotRightLocal) / 2
+    : plotLeftLocal + index * (plotRightLocal - plotLeftLocal) / (timeline.length - 1);
+  const predictionStart = actualPoints.length;
+  const predictionLine = predictionPoints.slice(1).map((point, index) => {
+    const previous = predictionPoints[index];
+    const x1 = xForPoint(predictionStart + index);
+    const x2 = xForPoint(predictionStart + index + 1);
+    return `<line x1="${x1}" y1="${scoreY(previous.estimate.mid)}" x2="${x2}" y2="${scoreY(point.estimate.mid)}" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>`;
+  }).join("");
+  const actualMarks = actualPoints.map(({ actual }, index) => {
+    const x = xForPoint(index);
+    const y = scoreY(actual.score);
+    return `
+      <rect x="${x - 8}" y="${y - 8}" width="16" height="16" rx="3" fill="#ffffff" stroke="#475569" stroke-width="4"/>
+      ${estimateText(x, plotBottomLocal + 24, actual.date_label_ja, 'class="estimate-axis" text-anchor="middle"')}
+      ${estimateText(x, plotBottomLocal + 44, `実績 ${actual.score}`, 'class="estimate-actual" text-anchor="middle"')}`;
+  }).join("");
+  const predictionMarks = predictionPoints.map(({ session, estimate }, index) => {
+    const x = xForPoint(predictionStart + index);
+    const lowY = scoreY(estimate.low);
+    const midY = scoreY(estimate.mid);
+    const highY = scoreY(estimate.high);
+    return `
+      <line x1="${x}" y1="${highY}" x2="${x}" y2="${lowY}" stroke="#16a34a" stroke-width="8" stroke-linecap="round" opacity="0.55"/>
+      <line x1="${x - 10}" y1="${highY}" x2="${x + 10}" y2="${highY}" stroke="#15803d" stroke-width="3"/>
+      <line x1="${x - 10}" y1="${lowY}" x2="${x + 10}" y2="${lowY}" stroke="#15803d" stroke-width="3"/>
+      <path d="M ${x} ${midY - 11} L ${x + 11} ${midY} L ${x} ${midY + 11} L ${x - 11} ${midY} Z" fill="#16a34a"/>
+      ${estimateText(x, plotBottomLocal + 24, `S${session.session} ${shortDate(session.date)}`, 'class="estimate-axis" text-anchor="middle"')}`;
+  }).join("");
+  const minLabel = ordinalEdgeLabel(definition, "min");
+  const maxLabel = ordinalEdgeLabel(definition, "max");
+  return `
+    <rect x="${panelX}" y="${panelY}" width="${estimatePanelWidth}" height="${estimatePanelHeight - 16}" rx="16" fill="${row % 2 === 0 ? "#f8fbff" : "#fbfcfe"}" stroke="#d7e1ec" stroke-width="2"/>
+    ${estimateText(panelX + 22, panelY + 38, definition.label_ja, 'class="estimate-panel-title"')}
+    ${estimateText(panelX + 22, panelY + 64, definition.label_en, 'class="estimate-panel-subtitle"')}
+    ${estimateText(panelX + estimatePanelWidth - 22, panelY + 94, latest.display, 'class="estimate-current" text-anchor="end"')}
+    ${estimateText(panelX + estimatePanelWidth - 22, panelY + 66, `確度 ${confidenceJa[latest.confidence] ?? latest.confidence}`, 'class="estimate-confidence" text-anchor="end"')}
+    <line x1="${plotLeftLocal}" y1="${plotBottomLocal}" x2="${plotRightLocal}" y2="${plotBottomLocal}" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="${plotLeftLocal}" y1="${plotTopLocal}" x2="${plotLeftLocal}" y2="${plotBottomLocal}" stroke="#94a3b8" stroke-width="2"/>
+    ${estimateText(plotLeftLocal - 12, plotTopLocal + 7, maxLabel, 'class="estimate-scale" text-anchor="end"')}
+    ${estimateText(plotLeftLocal - 12, plotBottomLocal + 7, minLabel, 'class="estimate-scale" text-anchor="end"')}
+    ${predictionLine}${actualMarks}${predictionMarks}
+  `;
+}).join("");
+
+const estimateSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="${estimateWidth}" height="${estimateHeight}" viewBox="0 0 ${estimateWidth} ${estimateHeight}">
+  <style>
+    text { font-family: "Yu Gothic", Meiryo, Arial, Helvetica, sans-serif; fill: #0f172a; }
+    .estimate-title { font-size: 44px; font-weight: 700; }
+    .estimate-subtitle { font-size: 23px; fill: #475569; }
+    .estimate-note { font-size: 18px; fill: #64748b; }
+    .estimate-panel-title { font-size: 25px; font-weight: 700; }
+    .estimate-panel-subtitle { font-size: 16px; fill: #64748b; }
+    .estimate-current { font-size: 22px; font-weight: 700; fill: #15803d; }
+    .estimate-confidence { font-size: 16px; font-weight: 700; fill: #475569; }
+    .estimate-axis { font-size: 15px; fill: #475569; }
+    .estimate-actual { font-size: 15px; font-weight: 700; fill: #334155; }
+    .estimate-scale { font-size: 14px; fill: #64748b; }
+    .estimate-foot { font-size: 17px; fill: #475569; }
+  </style>
+  <rect width="${estimateWidth}" height="${estimateHeight}" fill="#ffffff"/>
+  ${estimateText(estimateLeft, 56, "資格スコア予測の推移（学習用）", 'class="estimate-title"')}
+  ${estimateText(estimateLeft, 90, "Estimated Test-Score Trends — learning reference only", 'class="estimate-subtitle"')}
+  ${estimateText(estimateLeft, 124, `予測履歴は第${estimateSessions[0].session}回から開始。過去回へ推測値を遡及入力せず、実績（□）と予測レンジ（緑）を区別します。`, 'class="estimate-note"')}
+  ${estimateText(estimateLeft, 153, "試験ごとに固有の尺度を使用。TOEFL iBTは2026年1月導入の1–6尺度、CEFR / ACTFLは順序レベルです。", 'class="estimate-note"')}
+  ${estimatePanels}
+  ${estimateText(estimateLeft, estimateHeight - 34, "◆ 予測レンジの中央表示値　｜　縦線 予測レンジ　｜　□ 自己申告の実績　※公式試験結果・合格保証ではありません。", 'class="estimate-foot"')}
+</svg>`;
+
+await sharp(Buffer.from(estimateSvg)).png().toFile(testEstimateOutputPath);
+console.log(testEstimateOutputPath);
