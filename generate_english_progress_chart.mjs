@@ -14,6 +14,7 @@ const testEstimateOutputPath = path.join(root, "output", "english-test-score-est
 const trackedAssetRoot = path.join(root, "assets", "generated");
 const trackedGrowthPath = path.join(trackedAssetRoot, "english-growth-evidence-dashboard.png");
 const trackedEstimatePath = path.join(trackedAssetRoot, "english-test-score-estimate-trends.png");
+const publishTrackedAssets = process.argv.includes("--publish-assets");
 
 const width = 1400;
 const left = 52;
@@ -260,9 +261,11 @@ const svg = `
 </svg>`;
 
 await mkdir(path.dirname(outputPath), { recursive: true });
-await mkdir(trackedAssetRoot, { recursive: true });
 await sharp(Buffer.from(svg)).png().toFile(outputPath);
-await copyFile(outputPath, trackedGrowthPath);
+if (publishTrackedAssets) {
+  await mkdir(trackedAssetRoot, { recursive: true });
+  await copyFile(outputPath, trackedGrowthPath);
+}
 console.log(outputPath);
 
 const estimateData = data.test_score_estimates;
@@ -434,5 +437,7 @@ const estimateSvg = `
 </svg>`;
 
 await sharp(Buffer.from(estimateSvg)).png().toFile(testEstimateOutputPath);
-await copyFile(testEstimateOutputPath, trackedEstimatePath);
+if (publishTrackedAssets) {
+  await copyFile(testEstimateOutputPath, trackedEstimatePath);
+}
 console.log(testEstimateOutputPath);

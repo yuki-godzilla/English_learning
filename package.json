@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build:chart": "node generate_english_progress_chart.mjs",
+    "build:chart:publish": "node generate_english_progress_chart.mjs --publish-assets",
     "check": "node --check generate_english_progress_chart.mjs",
     "journal:build": "node scripts/build-github-journal.mjs",
     "journal:check": "node scripts/build-github-journal.mjs --check",

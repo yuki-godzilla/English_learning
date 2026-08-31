@@ -2,7 +2,7 @@
 
 > このファイルは、Englishプロジェクトにおける英会話セッション、学習記録、英語力評価、成果物共有の正式な継続運用ルールである。
 > 最終更新: 2026-08-31
-> 文書バージョン: 3.7
+> 文書バージョン: 3.8
 
 ## 0. ルールの優先順位と完了条件
 
@@ -276,7 +276,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - Study Banks: `learning-records/banks/`
 - 定量評価: `english_progress_tracker.json`
 - 再生成可能なグラフ・PDF: `output/`。原則としてGit管理しない。
-- GitHub Journal表示用グラフ: `assets/generated/english-growth-evidence-dashboard.png`、`assets/generated/english-test-score-estimate-trends.png`。同じ評価JSONから再生成するGit追跡済み派生物とし、画像プライバシーレビューのハッシュを更新した回だけcommitする。
+- GitHub Journal表示用グラフ: `assets/generated/english-growth-evidence-dashboard.png`、`assets/generated/english-test-score-estimate-trends.png`。同じ評価JSONから `npm run build:chart:publish` で明示的に再生成するGit追跡済み派生物とし、画像を直接確認してプライバシーレビューのハッシュを更新した回だけcommitする。通常の `npm run build:chart` とCIは `output/` だけを生成し、OS間のPNGエンコード差で追跡画像を変えない。
 - Learning Siteの設定・生成手順: `mkdocs.yml`、`site-overrides/`、`site-theme/`、`scripts/build-learning-site.mjs`、`scripts/validate-learning-site.mjs`。
 - Learning Siteの生成中間物・完成物: `.generated-site-docs/`、`site/`。Git管理せず、各PCまたはCIで再生成する。
 - 一時Session Package・録音・分析中間物: `tmp/`。Git管理しない。
@@ -438,7 +438,7 @@ Daily Noteを作成した後、その日の会話から再利用価値の高い�
 7. Yukiが発音評価を明示した場合は、第7節のローカル録音導線を使い、録音回収後に直接音声を処理できるか確認する。発音、発話速度、1秒超のポーズは、信頼できる音声を直接評価・計測できる場合だけ記録する。
 8. 録音を直接処理できた場合は、課題種別、録音時間、分析方法、録音品質、評価根拠を記録する。音読と自由発話、練習用と評価用を区別し、比較条件が違う回の前回比を作らない。
 9. セッションの根拠が文字起こしのみ、録音ファイルが読めない、または直接音声を扱える分析手段がない場合は、レポート・Daily Note・英語力グラフから **Pronunciation の評価、レベル、前回比、成長コメントを除外する**。理由に応じて `N/A / 音声未計測`、`N/A / 録音読取不可`、`N/A / 音声分析手段なし` と明記し、文字起こしが成功した事実を発音の良さの根拠として扱わない。
-10. 今回の評価データを変更した場合だけ `generate_english_progress_chart.mjs` を1回実行し、既存履歴をそのまま使って `output/` の2画像と、GitHub表示用の `assets/generated/` の2画像を再生成する。Current Snapshot表・資格スコア表を同じJSONと一致させ、画像を直接確認してから `docs/image-privacy-review.json` のハッシュを更新する。通常回は今回の表示、前回・初回との接続、Pronunciationの最終実測、スマホ幅だけを確認し、過去履歴の再評価やグラフ設計変更を同時に行わない。
+10. 今回の評価データを変更した場合だけ `npm run build:chart:publish` を1回実行し、既存履歴をそのまま使って `output/` とGitHub表示用 `assets/generated/` の各2画像を再生成する。Current Snapshot表・資格スコア表を同じJSONと一致させ、画像を直接確認してから `docs/image-privacy-review.json` のハッシュを更新する。通常回とCIの `npm run build:chart` は `output/` だけを再生成する。今回の表示、前回・初回との接続、Pronunciationの最終実測、スマホ幅だけを確認し、過去履歴の再評価やグラフ設計変更を同時に行わない。
 11. 月別Daily Notesへ今回の評価コメントと必要な画像参照を追加する。評価グラフの時間軸は左から右へ古い順とし、資格予測を更新しない回は既存の最終予測をJSON上で維持する。
 12. PDFまたはメールが依頼された場合は、同じMarkdownと最新版ダッシュボードから生成し、良かった点、今後伸ばす点、前回との差を根拠つきで簡潔に示す。
 
