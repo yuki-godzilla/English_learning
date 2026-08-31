@@ -1,6 +1,17 @@
 # English Learning
 
-Yuki × Chappy の英会話学習記録・運用ルール・共有用アセットを、PC間で同期するためのリポジトリです。
+Yuki × Chappyの英会話学習記録・運用ルール・共有用アセットを、GitでPC間同期し、GitHub Mobileから見返すためのリポジトリです。
+
+## スマホから読む
+
+- [最新セッション](learning-records/latest.md)
+- [全セッションのIndex](learning-records/session-index.md)
+- [2026年8月のDaily Notes](learning-records/daily-notes/2026-08.md)
+- [🔵 Expression Bank](learning-records/banks/expression-bank.md)
+- [🟢 Vocabulary Bank](learning-records/banks/vocabulary-bank.md)
+- [🟣 Pronunciation & Speaking Bank](learning-records/banks/pronunciation-speaking-bank.md)
+
+GitHubアプリまたはスマホブラウザでは、Markdownが見出し・箇条書き・表・画像・リンクを含む整形済みドキュメントとして表示されます。通常の見返しにはGitHubを使い、PDFは印刷、オフライン閲覧、メール添付など必要な場合だけローカル生成します。
 
 ## 収録対象
 
@@ -16,11 +27,38 @@ Yuki × Chappy の英会話学習記録・運用ルール・共有用アセッ�
 - `pronunciation-benchmark.md`: 発音評価用の約60秒共通音読課題
 - `package.json` / `package-lock.json`: グラフ生成に必要なNode.js依存関係
 - `.nvmrc`: 動作確認済みNode.js LTSバージョン
-- `20xx-xx-xx-*-session-report.md`: セッションごとのMarkdown記録
-- `20xx-xx-xx-*-session-report.html`: 共有用HTMLレポート
+- `learning-records/latest.md`: 最新セッションへのスマホ用入口
+- `learning-records/session-index.md`: 全セッションのIndex
+- `learning-records/daily-notes/YYYY-MM.md`: 月別Daily Notesの正本
+- `learning-records/banks/*.md`: Expression / Vocabulary / Pronunciation & Speaking Bank
+- `scripts/validate-learning-records.mjs`: 相対リンク、固定アンカー、session ID、Bank重複、空Source、個人情報の検証
 - `assets/`: グラフ・比較図などの再利用アセット
 
-ルールの優先順位は `Yukiのその場の明示指示 → AGENTS.md → 可搬版ルール` です。Google Docs「Daily English Learning Notes by Yuki × Chappy」は学習記録の正本として継続利用します。
+ルールの優先順位は `Yukiのその場の明示指示 → AGENTS.md → 可搬版ルール` です。学習記録の正本は `learning-records/` のMarkdownと `english_progress_tracker.json` です。Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026年8月31日以降、過去記録のアーカイブとして扱い、通常セッションでは更新しません。
+
+## 学習記録の更新
+
+Daily Notesは1セッション1ファイルではなく、月単位でまとめます。当月ファイル内では新しいセッションほど上に置き、固定アンカーを使ってIndexとBankからリンクします。
+
+```text
+learning-records/
+├─ latest.md
+├─ session-index.md
+├─ daily-notes/
+│  └─ 2026-08.md
+└─ banks/
+   ├─ expression-bank.md
+   ├─ vocabulary-bank.md
+   └─ pronunciation-speaking-bank.md
+```
+
+ローカル検証は次のコマンドで実行します。
+
+```powershell
+npm run records:check
+```
+
+この検証は、固定アンカーと相対リンク、セッションIDの重複、月別ファイルの日付順、Bankの重複キー、Sourceリンク、個人メールアドレス、ワークステーション固有の絶対パスを確認します。
 
 ## グラフ生成環境
 
@@ -63,7 +101,7 @@ npm run pronunciation:analyze
 
 ## 情報管理
 
-Gitで追跡するファイルには、個人メールアドレス、認証情報、所属を特定できる部署名、非公開の製品・案件名を記録しません。業務の学習文脈は `勤務先 / employer`、`企業向けIoTサービス / enterprise IoT service` のような匿名表現を使います。具体的な情報をアクセス制御されたGoogle Docsに残す場合は、会社の情報管理規程とYukiの判断を優先します。
+Gitで追跡するファイルには、個人メールアドレス、認証情報、ローカル絶対パス、所属を特定できる部署名、非公開の製品・案件名を記録しません。業務の学習文脈は `勤務先 / employer`、`企業向けIoTサービス / enterprise IoT service` のような匿名表現を使います。
 
 ## 別PCでの開始
 
@@ -76,12 +114,14 @@ git pull --rebase
 作業後は次の順で同期します。
 
 ```powershell
+npm run records:check
+npm test
 git pull --rebase
 git status
 git diff
-git add AGENTS.md yuki-chappy-english-session-rules.md README.md
-git commit -m "Update English learning records"
+git add AGENTS.md yuki-chappy-english-session-rules.md README.md learning-records scripts/validate-learning-records.mjs package.json package-lock.json
+git commit -m "docs(english): update learning records"
 git push
 ```
 
-コミット対象は変更内容に応じて選び、`git add .` で個人資料を一括追加しない方針です。`tmp/`、`output/`、`node_modules/`、認証情報、個人情報を含む一時資料は同期対象外です。pushやPull Request作成は、Yukiが明示的に依頼した場合だけ行います。
+コミット対象は変更内容に応じて選び、`git add .` で個人資料を一括追加しません。`tmp/`、`output/`、`node_modules/`、認証情報、個人情報を含む一時資料は同期対象外です。通常の学習記録は検証後に`origin/main`へpushしてPC間共有します。force push、Pull Request作成、公開範囲変更はYukiが明示的に依頼した場合だけ行います。

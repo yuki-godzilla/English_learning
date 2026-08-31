@@ -217,6 +217,25 @@
       "evidence_quote": "I think converting fossil fuels into electricity can be wasteful.",
       "evidence_note_ja": "AIデータセンターの電力需要、送電網、マイクログリッド、一次エネルギー、電化と脱炭素の関係について、自分の疑問と見解をつないで議論した。約60秒の直接録音は文章全体が安定して認識され、音割れは確認されなかった。発音はL3（概ね明瞭）として初めて記録するが、音素単位の標準化採点ではない。",
       "evidence_note": "Connected AI data-centre demand, grids, microgrids, primary energy, and the difference between electrification and decarbonisation to a personal viewpoint. A direct one-minute recording was intelligible throughout and showed no clipping. Pronunciation is recorded conservatively at L3 for overall intelligibility; this is not a standardized phonetic score."
+    },
+    {
+      "session": 9,
+      "date": "2026-08-28",
+      "task": "Everyday escape, Godzilla symbolism, and monster spectacle",
+      "task_ja": "日常からの小さな逃避・Godzillaの象徴性・怪獣スペクタクルの議論",
+      "data_coverage": "Realtime transcript excerpts and a source article read in the browser; no comparable 60-second benchmark and no reliable direct audio analysis",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "evidence_quote": "When I am kid, monster battle was very, very attractive for me. For now, I can consider many thing of Godzilla. I can feel the history, I can consider the fear of nuclear war.",
+      "evidence_quote_origin": "Spontaneous reflection in the realtime transcript",
+      "evidence_note_ja": "ホテルで日常から離れる感覚を説明した後、Godzillaの怪獣バトル、核不安、戦争と戦後日本の記憶という複数の側面を、自分の子どもの頃の見方と現在の解釈を対比しながら議論した。語の意味や質問の意図を自発的に確認し、会話の進め方も調整できた。共通60秒課題は未実施で、発音を直接評価できる新規録音もないため、定量値は追加せず、PronunciationはN/Aとする。",
+      "evidence_note": "After describing a hotel stay as a break from routine, discussed Godzilla through monster battles, nuclear fear, war, and postwar Japanese memory, contrasting a childhood view with a current interpretation. Independently checked word meanings and question intent, and adjusted the conversation's direction. No comparable 60-second task or new directly assessed recording was available, so no quantitative metrics are added and pronunciation is N/A."
     }
   ],
   "test_score_estimates": {
