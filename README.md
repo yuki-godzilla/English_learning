@@ -2,27 +2,19 @@
 
 > 話したことを、次に話せる英語へ。
 
-## 今日は何をする？
+## English Journal
 
-[**▶ 続きから学ぶ**](learning-records/latest.md)
+[**📖 一冊のジャーナルを開く**](learning-records/journal.md)
 
-最新セッションを30秒で思い出し、5分復習と60秒スピーキングへ進む。
+目次から、今日の復習・全9セッション・成長評価・表現・語彙・発音へ移動できます。
 
-[**⏱ 5分だけ復習する**](learning-records/latest.md#five-minute-review)
+## すぐに始める
 
-今日使える表現を、答えを見る前に思い出す。
-
-[**📈 成長・評価を見る**](learning-records/growth.md)
-
-今できていること、次の課題、評価セッションの履歴を確認する。
-
-[**🗂 全セッションを見る**](learning-records/session-index.md)
-
-9回すべての会話を、古い記録も含めて直接開く。
+[▶ 続きから学ぶ](learning-records/latest.md) · [⏱ 5分復習](learning-records/journal.md#journal-five-minute-review) · [📈 成長・評価](learning-records/journal.md#journal-growth)
 
 ## 英語を探す
 
-[表現](learning-records/banks/expression-bank.md) · [語彙](learning-records/banks/vocabulary-bank.md) · [発音・スピーキング](learning-records/banks/pronunciation-speaking-bank.md)
+[表現](learning-records/journal.md#journal-expression-bank) · [語彙](learning-records/journal.md#journal-vocabulary-bank) · [発音・スピーキング](learning-records/journal.md#journal-speaking-bank)
 
 <details>
 <summary>記録の仕組み・運用情報</summary>

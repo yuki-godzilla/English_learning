@@ -6,6 +6,7 @@ const root = process.cwd();
 const recordsRoot = path.join(root, "learning-records");
 const migrationSnapshot = "learning-records/archive/google-docs-final-2026-08-31.md";
 const requiredFiles = [
+  "journal.md",
   "latest.md",
   "growth.md",
   "session-index.md",
@@ -260,6 +261,27 @@ for (const session of catalogSessions) {
 }
 if (!growthMarkdown.includes("これは会話記録に根拠を置く学習用の評価です。")) {
   errors.push("Growth page is missing its non-official evaluation disclaimer");
+}
+
+const journalMarkdown = contentByFile.get(path.join(recordsRoot, "journal.md")) ?? "";
+const journalAnchors = anchors(journalMarkdown);
+for (const session of catalogSessions) {
+  if (!journalAnchors.has(session.source_anchor)) {
+    errors.push(`GitHub Journal is missing Session ${session.session_number}`);
+  }
+}
+for (const anchor of [
+  "journal-contents",
+  "journal-five-minute-review",
+  "journal-sessions",
+  "journal-growth",
+  "journal-expression-bank",
+  "journal-vocabulary-bank",
+  "journal-speaking-bank",
+]) {
+  if (!journalAnchors.has(anchor)) {
+    errors.push(`GitHub Journal is missing section anchor: ${anchor}`);
+  }
 }
 
 for (const bankName of [

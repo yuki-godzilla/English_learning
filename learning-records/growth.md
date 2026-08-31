@@ -1,6 +1,6 @@
 # 英語力の成長・評価 / Growth & Evaluation
 
-[**▶ 続きから学ぶ**](latest.md) · [**⏱ 5分復習**](latest.md#five-minute-review) · [**🗂 全セッション**](session-index.md) · [表現](banks/expression-bank.md) · [語彙](banks/vocabulary-bank.md) · [発音・スピーキング](banks/pronunciation-speaking-bank.md)
+[**📖 English Journal**](journal.md) · [**▶ 続きから学ぶ**](latest.md) · [**⏱ 5分復習**](journal.md#journal-five-minute-review) · [**🗂 全セッション**](journal.md#journal-sessions)
 
 > これは会話記録に根拠を置く学習用の評価です。公式試験の結果やスコア保証ではありません。
 

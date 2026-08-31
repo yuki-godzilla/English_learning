@@ -1,6 +1,6 @@
 # 🟢 Vocabulary Bank
 
-[**▶ 続きから学ぶ**](../latest.md) · [**📈 成長・評価**](../growth.md) · [**🗂 全セッション**](../session-index.md) · [Expression Bank](expression-bank.md) · [Pronunciation & Speaking Bank](pronunciation-speaking-bank.md)
+[**📖 English Journal**](../journal.md) · [**▶ 続きから学ぶ**](../latest.md) · [**📈 成長・評価**](../journal.md#journal-growth) · [Expression Bank](expression-bank.md) · [Pronunciation & Speaking Bank](pronunciation-speaking-bank.md)
 
 <a id="2026-08-28"></a>
 

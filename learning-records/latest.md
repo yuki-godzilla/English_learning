@@ -2,7 +2,7 @@
 
 > 読むだけで終わらず、まず思い出してから答えを開きます。
 
-[**📈 成長・評価**](growth.md) · [**🗂 全セッション**](session-index.md) · [表現](banks/expression-bank.md) · [語彙](banks/vocabulary-bank.md) · [発音・スピーキング](banks/pronunciation-speaking-bank.md)
+[**📖 English Journal**](journal.md) · [**📈 成長・評価**](journal.md#journal-growth) · [**🗂 全セッション**](journal.md#journal-sessions)
 
 ## 1. 最新セッションを30秒で振り返る
 
