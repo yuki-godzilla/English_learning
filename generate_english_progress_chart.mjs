@@ -261,19 +261,41 @@ const confidenceJa = {
   "medium-low": "中〜低",
   low: "低"
 };
-const latestEstimateSession = estimateSessions.at(-1);
+for (const [sessionIndex, session] of estimateSessions.entries()) {
+  if (!Number.isInteger(session.session) || typeof session.date !== "string" || !session.estimates) {
+    throw new Error(`Test-score estimate session at index ${sessionIndex} is missing required fields.`);
+  }
+  if (sessionIndex > 0) {
+    const previous = estimateSessions[sessionIndex - 1];
+    if (session.session <= previous.session || session.date < previous.date) {
+      throw new Error("Test-score estimate sessions must be ordered from oldest to newest.");
+    }
+  }
+}
+const currentEstimateSession = estimateSessions.at(-1);
+if (estimateData.as_of_session !== currentEstimateSession.session || estimateData.as_of_date !== currentEstimateSession.date) {
+  throw new Error("test_score_estimates as_of_session/as_of_date must match the latest estimate session.");
+}
+const latestEstimateByMetric = new Map();
 for (const metricId of estimateMetricOrder) {
   const definition = estimateDefinitions[metricId];
   if (!definition || !Number.isFinite(definition.scale_min) || !Number.isFinite(definition.scale_max) || definition.scale_max <= definition.scale_min) {
     throw new Error(`Invalid test score definition: ${metricId}`);
   }
-  const latestEstimate = latestEstimateSession.estimates?.[metricId];
+  const latestEstimateSession = [...estimateSessions]
+    .reverse()
+    .find((session) => session.estimates?.[metricId]);
+  const latestEstimate = latestEstimateSession?.estimates?.[metricId];
   if (!latestEstimate || !Number.isFinite(latestEstimate.low) || !Number.isFinite(latestEstimate.mid) || !Number.isFinite(latestEstimate.high)) {
     throw new Error(`Latest test score estimate is missing: ${metricId}`);
   }
   if (latestEstimate.low > latestEstimate.mid || latestEstimate.mid > latestEstimate.high) {
     throw new Error(`Test score estimate range is not ordered: ${metricId}`);
   }
+  if (!currentEstimateSession.estimates?.[metricId] && !currentEstimateSession.not_updated?.[metricId]) {
+    throw new Error(`Latest test-score session needs an estimate or not_updated reason: ${metricId}`);
+  }
+  latestEstimateByMetric.set(metricId, { session: latestEstimateSession, estimate: latestEstimate });
 }
 
 const estimateWidth = 1400;
@@ -293,7 +315,7 @@ const shortDate = (date) => String(date).slice(5).replace("-", "/");
 
 const estimatePanels = estimateMetricOrder.map((metricId, metricIndex) => {
   const definition = estimateDefinitions[metricId];
-  const latest = latestEstimateSession.estimates[metricId];
+  const { session: latestMetricSession, estimate: latest } = latestEstimateByMetric.get(metricId);
   const column = metricIndex % 2;
   const row = Math.floor(metricIndex / 2);
   const panelX = estimateLeft + column * (estimatePanelWidth + estimateColumnGap);
@@ -349,7 +371,7 @@ const estimatePanels = estimateMetricOrder.map((metricId, metricIndex) => {
     <rect x="${panelX}" y="${panelY}" width="${estimatePanelWidth}" height="${estimatePanelHeight - 16}" rx="16" fill="${row % 2 === 0 ? "#f8fbff" : "#fbfcfe"}" stroke="#d7e1ec" stroke-width="2"/>
     ${estimateText(panelX + 22, panelY + 38, definition.label_ja, 'class="estimate-panel-title"')}
     ${estimateText(panelX + 22, panelY + 64, definition.label_en, 'class="estimate-panel-subtitle"')}
-    ${estimateText(panelX + estimatePanelWidth - 22, panelY + 94, latest.display, 'class="estimate-current" text-anchor="end"')}
+    ${estimateText(panelX + estimatePanelWidth - 22, panelY + 94, `${latest.display}（S${latestMetricSession.session}）`, 'class="estimate-current" text-anchor="end"')}
     ${estimateText(panelX + estimatePanelWidth - 22, panelY + 66, `確度 ${confidenceJa[latest.confidence] ?? latest.confidence}`, 'class="estimate-confidence" text-anchor="end"')}
     <line x1="${plotLeftLocal}" y1="${plotBottomLocal}" x2="${plotRightLocal}" y2="${plotBottomLocal}" stroke="#94a3b8" stroke-width="2"/>
     <line x1="${plotLeftLocal}" y1="${plotTopLocal}" x2="${plotLeftLocal}" y2="${plotBottomLocal}" stroke="#94a3b8" stroke-width="2"/>
@@ -378,7 +400,7 @@ const estimateSvg = `
   <rect width="${estimateWidth}" height="${estimateHeight}" fill="#ffffff"/>
   ${estimateText(estimateLeft, 56, "資格スコア予測の推移（学習用）", 'class="estimate-title"')}
   ${estimateText(estimateLeft, 90, "Estimated Test-Score Trends — learning reference only", 'class="estimate-subtitle"')}
-  ${estimateText(estimateLeft, 124, `予測履歴は第${estimateSessions[0].session}回から開始。過去回へ推測値を遡及入力せず、実績（□）と予測レンジ（緑）を区別します。`, 'class="estimate-note"')}
+  ${estimateText(estimateLeft, 124, `予測履歴は第${estimateSessions[0].session}回から開始。根拠のある試験種別だけを更新し、各パネルに最新Sessionを表示します。`, 'class="estimate-note"')}
   ${estimateText(estimateLeft, 153, "試験ごとに固有の尺度を使用。TOEFL iBTは2026年1月導入の1–6尺度、CEFR / ACTFLは順序レベルです。", 'class="estimate-note"')}
   ${estimatePanels}
   ${estimateText(estimateLeft, estimateHeight - 34, "◆ 予測レンジの中央表示値　｜　縦線 予測レンジ　｜　□ 自己申告の実績　※公式試験結果・合格保証ではありません。", 'class="estimate-foot"')}

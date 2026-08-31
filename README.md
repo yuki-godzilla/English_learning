@@ -75,7 +75,7 @@ npm ci
 npm test
 ```
 
-生成物は `output/english-growth-evidence-dashboard.png` です。`output/` は再生成可能な成果物としてGit管理しません。Node.js 20.9.0以上であれば現在の`sharp`の必要条件を満たしますが、別PCでは`.nvmrc`のLTS版を優先します。
+生成物は `output/english-growth-evidence-dashboard.png` と `output/english-test-score-estimate-trends.png` です。資格スコア予測グラフは、その回に根拠のある試験種別だけを更新し、未測定の技能には見かけの推移を追加しません。`output/` は再生成可能な成果物としてGit管理しません。Node.js 20.9.0以上であれば現在の`sharp`の必要条件を満たしますが、別PCでは`.nvmrc`のLTS版を優先します。
 
 ## 発音評価の録音導線
 
