@@ -3,6 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const recordsRoot = path.join(root, "learning-records");
+const migrationSnapshot = "learning-records/archive/google-docs-final-2026-08-31.md";
 const requiredFiles = [
   "latest.md",
   "session-index.md",
@@ -88,6 +89,7 @@ for (const file of recordFiles) {
 }
 
 for (const [file, markdown] of contentByFile) {
+  if (relative(file) === migrationSnapshot) continue;
   for (const target of linkTargets(markdown)) {
     if (/^(?:https?:|mailto:)/i.test(target)) continue;
     const { file: linkedFile, fragment } = splitTarget(target);
@@ -116,6 +118,7 @@ for (const [file, markdown] of contentByFile) {
 
 const sessionIds = new Map();
 for (const [file, markdown] of contentByFile) {
+  if (relative(file) === migrationSnapshot) continue;
   const sessions = [
     ...markdown.matchAll(/<!--\s*session-meta:\s*(\{.*?\})\s*-->/g),
   ];

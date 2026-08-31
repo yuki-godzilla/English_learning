@@ -1,6 +1,6 @@
 # Session Index
 
-[最新セッション](latest.md) · [Expression Bank](banks/expression-bank.md) · [Vocabulary Bank](banks/vocabulary-bank.md) · [Pronunciation & Speaking Bank](banks/pronunciation-speaking-bank.md)
+[最新セッション](latest.md) · [Google Docs移行時点の全文（Session 1〜9）](archive/google-docs-final-2026-08-31.md) · [Expression Bank](banks/expression-bank.md) · [Vocabulary Bank](banks/vocabulary-bank.md) · [Pronunciation & Speaking Bank](banks/pronunciation-speaking-bank.md)
 
 ## 2026年8月
 

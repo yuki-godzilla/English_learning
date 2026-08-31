@@ -8,13 +8,13 @@
 
 - その場のYukiの明示的な指示を最優先し、本ファイルは指示がない部分の既定動作として適用する。
 - リポジトリ内では、この `AGENTS.md` をCodexが直接参照する**運用上の正本**とする。`yuki-chappy-english-session-rules.md` は別PC・別ツール向けの可搬版であり、内容が競合する場合は `AGENTS.md` を優先する。
-- 学習記録の正本は、本リポジトリの `learning-records/` 配下に置くローカルMarkdownと `english_progress_tracker.json` とする。PC間共有はGitのpull / commit / pushで行う。
+- 学習記録の正本は、本リポジトリの `learning-records/` 配下に置くローカルMarkdownと `english_progress_tracker.json` とする。PC間共有はGitのpull / commit / pushで行う。Google Docsから移行したSession 1〜9の全文は `learning-records/archive/google-docs-final-2026-08-31.md` を固定スナップショットとし、通常更新用の構造化Markdownと区別する。
 - 可搬版は `AGENTS.md` の配布用ミラーとして扱い、規範となるルール本文は同一に保つ。環境固有のメールアドレス、認証情報、Cookie、APIキーはどちらのルールファイルにも直接記載しない。
 - 会話中は学習記録の作成より会話の自然さを優先し、終了が明示された後に記録作業へ移る。
 - セッション後の通常作業は `日時確認 → Git同期確認 → Session Package → 月別Daily Notes → Session Index / latest → Study Banks差分更新 → 英語力評価・グラフ → ローカル検証 → Git差分確認 → commit / push` の順で行う。
 - 「ローカル記録完了」とは、対象Markdownと評価データへの反映、Index・Sourceリンク・Bank重複・プライバシーの検証、必要なテストまで確認できた状態を指す。「PC間共有完了」とは、さらにcommitとpushの成功を確認できた状態を指す。
 - 毎回の英会話終了時は、当月Daily Notes、Session Index、latest、Expression Bank、Vocabulary Bank、Pronunciation & Speaking Bank、英語力評価・グラフ、Source・相対リンク、Git差分を順に確認する。該当しないBankや評価項目は無理に増やさず、各Bankを「追加」「既存項目の強化」「該当なし」のいずれかとしてSession Packageへ記録する。
-- Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026-08-31以降、過去記録を読むためのアーカイブとする。通常セッションでは更新せず、YukiがGoogle Docs形式を明示的に求めた場合だけ、ローカル正本から共有用コピーを作成する。Google Docsの状態は通常の完了条件に含めない。
+- Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026-08-31にSession 9までの完成確認とMarkdown移行を行った。以後は移行元アーカイブとし、通常セッションでは更新しない。YukiがGoogle Docs形式を明示的に求めた場合だけ、ローカル正本から共有用コピーを作成する。Google Docsの状態は通常の完了条件に含めない。
 - PDFとメールは通常回の必須工程にしない。YukiがPDF、印刷、オフライン閲覧、メール送信を明示的に求めた回だけ第12節の検証を行う。
 - 一部の工程を実行できない場合は、未完了の工程と理由を明示し、実行済みのように扱わない。
 
@@ -273,7 +273,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - 一時Session Package・録音・分析中間物: `tmp/`。Git管理しない。
 - 新しいDaily Note、Index、latest、Bankの日付ブロックは新しいものほど上に置く。
 - **Index / latest更新は必須の完了ゲート**とする。新しいDaily Noteを追加したら、短縮タイトルと固定アンカーへの相対リンクを追加し、リンク先ファイルとアンカーが実在することを検証する。
-- Google Docs「Daily English Learning Notes by Yuki × Chappy」（Document ID: `1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc`）は移行前のアーカイブとして保持する。削除せず、通常回では編集しない。
+- Google Docs「Daily English Learning Notes by Yuki × Chappy」（Document ID: `1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc`）は移行元アーカイブとして保持する。2026-08-31に完成確認した内容は `learning-records/archive/google-docs-final-2026-08-31.md` と同ディレクトリの画像を移行基準とし、Google Docs本体は削除せず通常回では編集しない。
 
 ### Daily Noteに含める内容
 
@@ -578,6 +578,7 @@ v3.0導入後の次の3セッションでは、`ニュース・URL確認 / Sessi
   - `learning-records/latest.md` / `session-index.md`: スマホと全履歴の入口
   - `learning-records/daily-notes/YYYY-MM.md`: 月別Daily Notesの正本
   - `learning-records/banks/*.md`: 3 Study Banksの正本
+  - `learning-records/archive/google-docs-final-2026-08-31.md` / `assets/`: Session 1〜9の固定移行スナップショット
   - `scripts/validate-learning-records.mjs`: 構造・リンク・重複の検証手順
 - `tmp/`、`output/`、認証情報、Cookie、APIキー、個人情報を含む一時資料、再生成できるPDF・グラフはコミットしない。
 - 作業開始前にリモートとの差分を確認し、必要に応じて `git pull --rebase` で最新化する。競合時は自動的にどちらかを破棄せず、`AGENTS.md` の現行ルールと各ファイルの更新内容を比較して統合する。

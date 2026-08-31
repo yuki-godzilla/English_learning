@@ -7,6 +7,7 @@ Yuki × Chappyの英会話学習記録・運用ルール・共有用アセット
 - [最新セッション](learning-records/latest.md)
 - [全セッションのIndex](learning-records/session-index.md)
 - [2026年8月のDaily Notes](learning-records/daily-notes/2026-08.md)
+- [Google Docs移行時点の全文（Session 1〜9）](learning-records/archive/google-docs-final-2026-08-31.md)
 - [🔵 Expression Bank](learning-records/banks/expression-bank.md)
 - [🟢 Vocabulary Bank](learning-records/banks/vocabulary-bank.md)
 - [🟣 Pronunciation & Speaking Bank](learning-records/banks/pronunciation-speaking-bank.md)
@@ -31,10 +32,11 @@ GitHubアプリまたはスマホブラウザでは、Markdownが見出し・箇
 - `learning-records/session-index.md`: 全セッションのIndex
 - `learning-records/daily-notes/YYYY-MM.md`: 月別Daily Notesの正本
 - `learning-records/banks/*.md`: Expression / Vocabulary / Pronunciation & Speaking Bank
+- `learning-records/archive/google-docs-final-2026-08-31.md`: 完成版Google Docsから取得したSession 1〜9の固定移行スナップショット
 - `scripts/validate-learning-records.mjs`: 相対リンク、固定アンカー、session ID、Bank重複、空Source、個人情報の検証
 - `assets/`: グラフ・比較図などの再利用アセット
 
-ルールの優先順位は `Yukiのその場の明示指示 → AGENTS.md → 可搬版ルール` です。学習記録の正本は `learning-records/` のMarkdownと `english_progress_tracker.json` です。Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026年8月31日以降、過去記録のアーカイブとして扱い、通常セッションでは更新しません。
+ルールの優先順位は `Yukiのその場の明示指示 → AGENTS.md → 可搬版ルール` です。学習記録の正本は `learning-records/` のMarkdownと `english_progress_tracker.json` です。Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026年8月31日にSession 9までの完成確認を行い、その全文を`learning-records/archive/google-docs-final-2026-08-31.md`へ固定保存しました。以後、Google Docsは移行元アーカイブとして扱い、通常セッションでは更新しません。
 
 ## 学習記録の更新
 
@@ -44,6 +46,10 @@ Daily Notesは1セッション1ファイルではなく、月単位でまとめ�
 learning-records/
 ├─ latest.md
 ├─ session-index.md
+├─ archive/
+│  ├─ README.md
+│  ├─ google-docs-final-2026-08-31.md
+│  └─ assets/
 ├─ daily-notes/
 │  └─ 2026-08.md
 └─ banks/
