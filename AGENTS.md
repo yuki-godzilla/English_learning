@@ -2,7 +2,7 @@
 
 > このファイルは、Englishプロジェクトにおける英会話セッション、学習記録、英語力評価、成果物共有の正式な継続運用ルールである。
 > 最終更新: 2026-08-31
-> 文書バージョン: 3.6
+> 文書バージョン: 3.7
 
 ## 0. ルールの優先順位と完了条件
 
@@ -271,11 +271,12 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - Session Catalog: `learning-records/session-catalog.json`。Session番号・日付・タイトル・学習用要点・正本リンクを1件ずつ持つ、全セッション導線の機械可読な正本。
 - Session Index: `learning-records/session-index.md`
 - スマホ用最新導線: `learning-records/latest.md`
-- 成長・評価の閲覧導線: `learning-records/growth.md`。評価JSONを直接見せず、現在地・測定範囲・次の課題・全評価セッションへのリンクを人が読める形で示す。
+- 成長・評価の閲覧導線: `learning-records/growth.md`。評価JSONを直接見せず、できるようになったこと、6指標のCurrent Snapshot表、Pronunciationの最終実測、全セッション成長グラフ、次の課題、評価履歴、資格スコア表・推移グラフを人が読める形で示す。
 - GitHubアプリ用の一冊版: `learning-records/journal.md`。`scripts/build-github-journal.mjs` で正本から生成し、目次、5分復習、全セッション、成長・評価、3 Bankを同じ文書内に置く。
 - Study Banks: `learning-records/banks/`
 - 定量評価: `english_progress_tracker.json`
 - 再生成可能なグラフ・PDF: `output/`。原則としてGit管理しない。
+- GitHub Journal表示用グラフ: `assets/generated/english-growth-evidence-dashboard.png`、`assets/generated/english-test-score-estimate-trends.png`。同じ評価JSONから再生成するGit追跡済み派生物とし、画像プライバシーレビューのハッシュを更新した回だけcommitする。
 - Learning Siteの設定・生成手順: `mkdocs.yml`、`site-overrides/`、`site-theme/`、`scripts/build-learning-site.mjs`、`scripts/validate-learning-site.mjs`。
 - Learning Siteの生成中間物・完成物: `.generated-site-docs/`、`site/`。Git管理せず、各PCまたはCIで再生成する。
 - 一時Session Package・録音・分析中間物: `tmp/`。Git管理しない。
@@ -318,7 +319,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - 各セッションは `30秒で振り返る → 今すぐ復習 → セッション記録 → 前後のセッション` の順とする。本文の全文性は維持しつつ、要約とactive recallを先に置く。
 - Study Banksの正本は既存Markdown表のまま維持するが、閲覧面では1項目1カードへ変換し、英語・日本語の専用絞り込み欄を付ける。サイト全体検索はセッションを中心とし、Bank内検索と役割を分ける。
 - 画像は1セッション0〜2点を目安とし、概念理解、比較、根拠データ、成長確認に役立つ場合だけ使う。装飾だけの画像を追加しない。関連本文の近くに置き、alt、短いキャプション、出典を付け、スマホでは横にはみ出さずタップで原寸確認できるようにする。
-- 成長画面は `実際にできた行動 → L1〜L5のCurrent Snapshot → Pronunciationの測定有無 → グラフ → 資格スコア目安` の順で示す。未測定を能力低下として見せず、テスト種別ごとに最後に根拠が得られたSessionを表示する。
+- Learning SiteとGitHub Journalの成長画面は `実際にできた行動 → L1〜L5のCurrent Snapshot表 → Pronunciationの測定有無と最終実測Session → 全セッション成長グラフ → 次の課題 → 評価履歴 → 資格スコア表・推移グラフ` の順で示す。未測定を能力低下として見せず、指標・テスト種別ごとに最後に根拠が得られたSessionを表示する。
 - ライト／ダークの両テーマで本文・カード・グラフ・画像のコントラストを確保する。データ画像は透明背景に依存せず、明るい画像面を確保する。
 - `AGENTS.md`、可搬版ルール、`english_progress_tracker.json`、固定アーカイブ、生の運用チェックリスト、ローカルパスをLearning Siteのナビゲーションと検索対象に入れない。
 - Learning Siteは正本から自動生成し、生成ページを手で修正しない。通常回は変更範囲の生成と自動検証を行い、閲覧構造・CSS・生成ロジック・画像配置を変更した回だけ、スマホ幅とPC幅でブラウザ確認する。
@@ -398,12 +399,12 @@ Daily Noteを作成した後、その日の会話から再利用価値の高い�
 - 採用する観点は、複数の試験・基準で重なる次の6項目に限定する: Task achievement、Fluency & coherence、Lexical resource、Grammar control、Interaction & repair、Pronunciation。
 - TOEICの `Score Descriptors + Abilities Measured` の考え方を参考に、全体プロフィールと技能別内訳を併記する。
 - 評価セクションとダッシュボードは日本語を主表示、英語を補助表示とする。学習根拠となるYukiの発言引用は英語原文を残す。
-- 成長の主表示は表だけにせず、各セッションの位置と変化が一目で分かるグラフとする。表は指標の目安を確認する補助資料として使う。
+- 成長の主表示は表だけにせず、各セッションの位置と変化が一目で分かるグラフとする。Current Snapshot表は現在の6指標と根拠を確認する補助資料として必ず併記し、資格スコアは試験別の表と尺度を分離した推移グラフを組み合わせる。
 - グラフには推移の判断に必要な情報だけを置き、L1〜L5の詳細説明を重複掲載しない。詳細な基準は後続の `指標目安（参考）` 表へ分離する。
 - セッション凡例・画像高・比較件数は履歴数から動的に計算し、第7回以降も凡例やグラフが重ならないようにする。評価対象数やPronunciationの注記を固定文字列にせず、`english_progress_tracker.json` の計測有無から生成する。
 - セッションは色だけで区別せず、記号・回数・日付に加えて `開始 / 前回 / 今回` を直接表示する。各技能は `現在レベル → 前回比 → 初回比と行動根拠` の順に読めるようにする。
 - 成長グラフから過去セッションを省略・置換しない。全セッションを時系列の推移線として残し、`開始` は白抜き丸、通常の過去回は控えめなグレー丸、`前回` は青い四角、`今回` は緑のひし形で階層を付ける。これにより履歴を保持しながら、現在・前回・初回の比較を最も読みやすくする。
-- グラフはLearning Siteのスマホ幅と必要時のPDF実寸で読める文字サイズを基準に作る。縮小時に読めなくなる注記・英語サブ表記・凡例は削減または拡大する。
+- グラフはGitHubアプリとLearning Siteのスマホ幅、必要時のPDF実寸で読める文字サイズを基準に作る。GitHubでは画像をタップして原寸表示できるリンクを付け、縮小時に読めなくなる注記・英語サブ表記・凡例は削減または拡大する。
 - 評価の表示順は `今回の英会話評価コメント → 視覚化評価 → 資格スコア予測（学習用、更新時のみ） → 指標目安へのリンク` とする。日々の確認では今回の根拠と行動目標を主役にする。
 - グラフ各行には現在レベルと短い行動目安を併記する。L1〜L5の全基準を毎月ファイルへ重複掲載せず、READMEまたは専用の評価基準ファイルへ1か所だけ置く。
 - 色には意味を持たせる。L1〜L2は支援領域の淡い暖色、L3は移行領域の淡い青、L4〜L5は自立領域の淡い緑とする。セッション系列は `開始・基準=グレー、前回=青、今回=緑` を基本とし、回数が増えても役割ごとの配色を維持する。色だけに依存せず、記号・回数・日付・レベル値も併記する。
@@ -437,7 +438,7 @@ Daily Noteを作成した後、その日の会話から再利用価値の高い�
 7. Yukiが発音評価を明示した場合は、第7節のローカル録音導線を使い、録音回収後に直接音声を処理できるか確認する。発音、発話速度、1秒超のポーズは、信頼できる音声を直接評価・計測できる場合だけ記録する。
 8. 録音を直接処理できた場合は、課題種別、録音時間、分析方法、録音品質、評価根拠を記録する。音読と自由発話、練習用と評価用を区別し、比較条件が違う回の前回比を作らない。
 9. セッションの根拠が文字起こしのみ、録音ファイルが読めない、または直接音声を扱える分析手段がない場合は、レポート・Daily Note・英語力グラフから **Pronunciation の評価、レベル、前回比、成長コメントを除外する**。理由に応じて `N/A / 音声未計測`、`N/A / 録音読取不可`、`N/A / 音声分析手段なし` と明記し、文字起こしが成功した事実を発音の良さの根拠として扱わない。
-10. 今回の評価データを変更した場合だけ `generate_english_progress_chart.mjs` を1回実行し、既存履歴をそのまま使って `output/english-growth-evidence-dashboard.png` と `output/english-test-score-estimate-trends.png` を再生成する。通常回は今回の表示、前回・初回との接続、スマホ幅だけを確認し、過去履歴の再評価やグラフ設計変更を同時に行わない。
+10. 今回の評価データを変更した場合だけ `generate_english_progress_chart.mjs` を1回実行し、既存履歴をそのまま使って `output/` の2画像と、GitHub表示用の `assets/generated/` の2画像を再生成する。Current Snapshot表・資格スコア表を同じJSONと一致させ、画像を直接確認してから `docs/image-privacy-review.json` のハッシュを更新する。通常回は今回の表示、前回・初回との接続、Pronunciationの最終実測、スマホ幅だけを確認し、過去履歴の再評価やグラフ設計変更を同時に行わない。
 11. 月別Daily Notesへ今回の評価コメントと必要な画像参照を追加する。評価グラフの時間軸は左から右へ古い順とし、資格予測を更新しない回は既存の最終予測をJSON上で維持する。
 12. PDFまたはメールが依頼された場合は、同じMarkdownと最新版ダッシュボードから生成し、良かった点、今後伸ばす点、前回との差を根拠つきで簡潔に示す。
 
@@ -609,7 +610,7 @@ v3.0導入後の次の3セッションでは、`ニュース・URL確認 / Sessi
   - `site-overrides/` / `site-theme/`: 学習者向けナビゲーション、レスポンシブ表示、テーマ
   - `scripts/build-learning-site.mjs` / `run-mkdocs.mjs` / `validate-learning-site.mjs`: 正本からの生成・ビルド・検証手順
   - `.github/workflows/learning-site.yml`: 自動検証と明示操作時だけのPages公開手順
-- `tmp/`、`output/`、`.generated-site-docs/`、`site/`、認証情報、Cookie、APIキー、個人情報を含む一時資料、再生成できるPDF・グラフはコミットしない。
+- `tmp/`、`output/`、`.generated-site-docs/`、`site/`、認証情報、Cookie、APIキー、個人情報を含む一時資料、再生成できるPDF・グラフはコミットしない。ただしGitHub Journalで表示する `assets/generated/` の検証済み2画像は例外としてcommitする。
 - 作業開始前にリモートとの差分を確認し、必要に応じて `git pull --rebase` で最新化する。競合時は自動的にどちらかを破棄せず、`AGENTS.md` の現行ルールと各ファイルの更新内容を比較して統合する。
 - ルール変更は `AGENTS.md` を先に編集し、可搬版、README、必要な設定・スクリプトへ差分を反映する。両ルールの最終更新日と優先順位の記述も確認する。
 - コミット前に `git status` と `git diff` で、意図したファイルだけが対象であること、認証情報や個人資料が含まれないことを確認する。

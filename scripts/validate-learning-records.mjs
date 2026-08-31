@@ -16,6 +16,14 @@ const requiredFiles = [
 ];
 
 const errors = [];
+let tracker;
+let trackerText = "";
+try {
+  trackerText = await fs.readFile(path.join(root, "english_progress_tracker.json"), "utf8");
+  tracker = JSON.parse(trackerText);
+} catch {
+  errors.push("Missing or invalid english_progress_tracker.json");
+}
 
 async function walk(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -262,6 +270,70 @@ for (const session of catalogSessions) {
 if (!growthMarkdown.includes("これは会話記録に根拠を置く学習用の評価です。")) {
   errors.push("Growth page is missing its non-official evaluation disclaimer");
 }
+const requiredGrowthSections = [
+  "## できるようになったこと",
+  "## Current Snapshot",
+  "## 発音の測定状況",
+  "## 成長グラフ",
+  "## 次に伸ばすこと",
+  "## 評価セッションを開く",
+  "## 資格スコアの学習用目安",
+  "## 評価の読み方",
+];
+let previousGrowthSection = -1;
+for (const section of requiredGrowthSections) {
+  const position = growthMarkdown.indexOf(section);
+  if (position < 0) errors.push(`Growth page is missing section: ${section}`);
+  else if (position <= previousGrowthSection) errors.push(`Growth page section is out of order: ${section}`);
+  previousGrowthSection = Math.max(previousGrowthSection, position);
+}
+for (const image of [
+  "../assets/generated/english-growth-evidence-dashboard.png",
+  "../assets/generated/english-test-score-estimate-trends.png",
+]) {
+  if (!growthMarkdown.includes(`](${image})`)) {
+    errors.push(`Growth page is missing generated image: ${image}`);
+  }
+}
+for (const metric of [
+  "Task achievement",
+  "Fluency & coherence",
+  "Lexical resource",
+  "Grammar control",
+  "Interaction & repair",
+  "Pronunciation",
+]) {
+  if (!growthMarkdown.includes(`| **${metric}** |`)) {
+    errors.push(`Growth page Current Snapshot is missing metric: ${metric}`);
+  }
+}
+const latestTrackerSession = tracker?.sessions?.at(-1);
+if (latestTrackerSession) {
+  for (const metric of tracker.qualitative_metrics ?? []) {
+    const rating = latestTrackerSession.ratings?.[metric];
+    const expected = rating == null
+      ? `| **${metric}** | **N/A`
+      : `| **${metric}** | **L${rating} /`;
+    if (!growthMarkdown.includes(expected)) {
+      errors.push(`Growth page Current Snapshot is stale for ${metric}`);
+    }
+  }
+}
+const latestEstimateByTest = new Map();
+for (const session of tracker?.test_score_estimates?.estimate_sessions ?? []) {
+  for (const [testId, estimate] of Object.entries(session.estimates ?? {})) {
+    latestEstimateByTest.set(testId, { session: session.session, estimate });
+  }
+}
+for (const [testId, { session, estimate }] of latestEstimateByTest) {
+  const label = tracker.test_score_estimates.definitions?.[testId]?.label_ja ?? testId;
+  if (!growthMarkdown.includes(label) || !growthMarkdown.includes(`**${estimate.display}**`)) {
+    errors.push(`Growth page qualification table is stale for ${testId}`);
+  }
+  if (!growthMarkdown.includes(`| Session ${session} |`)) {
+    errors.push(`Growth page qualification table is missing the evidence session for ${testId}`);
+  }
+}
 
 const journalMarkdown = contentByFile.get(path.join(recordsRoot, "journal.md")) ?? "";
 const journalAnchors = anchors(journalMarkdown);
@@ -281,6 +353,14 @@ for (const anchor of [
 ]) {
   if (!journalAnchors.has(anchor)) {
     errors.push(`GitHub Journal is missing section anchor: ${anchor}`);
+  }
+}
+for (const image of [
+  "../assets/generated/english-growth-evidence-dashboard.png",
+  "../assets/generated/english-test-score-estimate-trends.png",
+]) {
+  if (!journalMarkdown.includes(`](${image})`)) {
+    errors.push(`GitHub Journal is missing generated growth image: ${image}`);
   }
 }
 
@@ -310,7 +390,6 @@ for (const bankName of [
   }
 }
 
-const trackerText = await fs.readFile(path.join(root, "english_progress_tracker.json"), "utf8");
 const rootReportFiles = (await fs.readdir(root, { withFileTypes: true }))
   .filter((entry) => entry.isFile() && /session-report\.html?$/i.test(entry.name))
   .map((entry) => path.join(root, entry.name));

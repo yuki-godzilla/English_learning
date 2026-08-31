@@ -28,6 +28,14 @@
       "sha256": "5cba543ac484dbfd58e52d241d99f6ea70d1ccb6912778218c73f09a44c3d08e"
     },
     {
+      "path": "assets/generated/english-growth-evidence-dashboard.png",
+      "sha256": "69a939cf673ce1984a72b8b8e77f2b92739040970acc48359d34b2bbdb9c4907"
+    },
+    {
+      "path": "assets/generated/english-test-score-estimate-trends.png",
+      "sha256": "6e8b0aba55f6d57def78e767874f6b63e7ed68e2120bfae7fea81279613c1de0"
+    },
+    {
       "path": "learning-records/archive/assets/electricity-demand-chart.png",
       "sha256": "99f4088e2d5c7539e4987b1d9fd9cc17c468cdb0ff89c0595dcfd1ccba4a5df9"
     },

@@ -1,7 +1,7 @@
 /** Generate a graph-first, bilingual English growth dashboard for Docs and email. */
 
 import { createRequire } from "node:module";
-import { mkdir, readFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -11,6 +11,9 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const data = JSON.parse(await readFile(path.join(root, "english_progress_tracker.json"), "utf8"));
 const outputPath = path.join(root, "output", "english-growth-evidence-dashboard.png");
 const testEstimateOutputPath = path.join(root, "output", "english-test-score-estimate-trends.png");
+const trackedAssetRoot = path.join(root, "assets", "generated");
+const trackedGrowthPath = path.join(trackedAssetRoot, "english-growth-evidence-dashboard.png");
+const trackedEstimatePath = path.join(trackedAssetRoot, "english-test-score-estimate-trends.png");
 
 const width = 1400;
 const left = 52;
@@ -54,9 +57,12 @@ for (let index = 1; index < sessions.length; index += 1) {
 const plottedSessions = sessions;
 const currentSession = sessions.at(-1);
 const previousSession = sessions.at(-2);
-const measuredMetrics = metrics.filter((metric) => isRating(currentSession.ratings[metric]));
-const firstComparableMetrics = measuredMetrics.filter((metric) => isRating(sessions[0].ratings[metric]));
-const previousComparableMetrics = measuredMetrics.filter((metric) => isRating(previousSession.ratings[metric]));
+const currentMeasuredMetrics = metrics.filter((metric) => isRating(currentSession.ratings[metric]));
+const plottedMetrics = metrics.filter((metric) =>
+  sessions.some((session) => isRating(session.ratings[metric])),
+);
+const firstComparableMetrics = currentMeasuredMetrics.filter((metric) => isRating(sessions[0].ratings[metric]));
+const previousComparableMetrics = currentMeasuredMetrics.filter((metric) => isRating(previousSession.ratings[metric]));
 const countChange = (comparableMetrics, referenceSession, direction) => comparableMetrics.filter((metric) => {
   const delta = currentSession.ratings[metric] - referenceSession.ratings[metric];
   return direction === "up" ? delta > 0 : direction === "down" ? delta < 0 : delta === 0;
@@ -67,7 +73,7 @@ const improvedFromPrevious = countChange(previousComparableMetrics, previousSess
 const steadyFromPrevious = countChange(previousComparableMetrics, previousSession, "steady");
 const declinedFromPrevious = countChange(previousComparableMetrics, previousSession, "down");
 
-if (measuredMetrics.length === 0) {
+if (currentMeasuredMetrics.length === 0) {
   throw new Error("The latest session has no measured qualitative metrics to plot.");
 }
 
@@ -98,7 +104,7 @@ const legendRows = Math.ceil(plottedSessions.length / legendColumns);
 const legendStartY = 292;
 const legendRowGap = 34;
 const chartTop = 382 + legendRows * legendRowGap;
-const footerStartY = chartTop + measuredMetrics.length * rowHeight - 12;
+const footerStartY = chartTop + plottedMetrics.length * rowHeight - 12;
 const height = Math.max(980, footerStartY + 85);
 const marker = (sessionIndex, totalSessions, x, y) => {
   const isStart = sessionIndex === 0;
@@ -120,14 +126,14 @@ const levelLabels = [
 const axis = levelLabels.map(([level, ja, en]) => {
   const x = xForLevel(level);
   return `
-    <line x1="${x}" y1="${chartTop - 23}" x2="${x}" y2="${chartTop + rowHeight * measuredMetrics.length - 20}" stroke="#cbd5e1" stroke-width="2"/>
+    <line x1="${x}" y1="${chartTop - 23}" x2="${x}" y2="${chartTop + rowHeight * plottedMetrics.length - 20}" stroke="#cbd5e1" stroke-width="2"/>
     ${text(x, chartTop - 86, `L${level}`, 'class="axis-level" text-anchor="middle"')}
     ${text(x, chartTop - 60, ja, 'class="axis-ja" text-anchor="middle"')}
     ${text(x, chartTop - 37, en, 'class="axis-en" text-anchor="middle"')}
   `;
 }).join("");
 
-const graphRows = measuredMetrics.map((metric, metricIndex) => {
+const graphRows = plottedMetrics.map((metric, metricIndex) => {
   const centerY = chartTop + metricIndex * rowHeight + 26;
   const ratings = plottedSessions.map((session) => session.ratings[metric]);
   const rowFill = metricIndex % 2 ? "#ffffff" : "#f8fafc";
@@ -158,10 +164,15 @@ const graphRows = measuredMetrics.map((metric, metricIndex) => {
   const current = currentSession.ratings[metric];
   const first = sessions[0].ratings[metric];
   const previous = previousSession.ratings[metric];
-  const delta = isRating(first) ? current - first : null;
-  const recentDelta = isRating(previous) ? current - previous : null;
-  const recentLabel = recentDelta == null
-    ? "前回比 N/A"
+  const lastMeasured = [...plottedSessions]
+    .reverse()
+    .find((session) => isRating(session.ratings[metric]));
+  const delta = isRating(current) && isRating(first) ? current - first : null;
+  const recentDelta = isRating(current) && isRating(previous) ? current - previous : null;
+  const recentLabel = !isRating(current)
+    ? "今回 N/A"
+    : recentDelta == null
+      ? "前回比 N/A"
     : recentDelta > 0
       ? `↑ 前回比 +${recentDelta}`
       : recentDelta < 0
@@ -172,13 +183,20 @@ const graphRows = measuredMetrics.map((metric, metricIndex) => {
     : recentDelta > 0
       ? "change-up"
       : "change-down";
-  const firstLabel = delta == null ? "初回比 N/A" : `初回比 ${delta > 0 ? "+" : ""}${delta}`;
-  const guide = currentGuide[metric]?.[0] ?? "根拠に基づく現在評価";
+  const firstLabel = delta == null ? "比較なし" : `初回比 ${delta > 0 ? "+" : ""}${delta}`;
+  const guide = !isRating(current) && metric === "Pronunciation"
+    ? "直接音声がある回だけ更新"
+    : currentGuide[metric]?.[0] ?? "根拠に基づく現在評価";
+  const currentLabel = isRating(current)
+    ? `現在 L${current}`
+    : lastMeasured
+      ? `最終 S${lastMeasured.session} L${lastMeasured.ratings[metric]}`
+      : "未測定";
   return `${common}
     ${lineSegments}
     ${points.map((point) => marker(point.index, plottedSessions.length, point.x, point.y)).join("")}
-    ${text(1010, centerY - 6, `現在 L${current}`, 'class="current"')}
-    ${text(1110, centerY - 6, recentLabel, `class="${recentClass}"`)}
+    ${text(1010, centerY - 6, currentLabel, 'class="current"')}
+    ${text(1160, centerY - 6, recentLabel, `class="${recentClass}"`)}
     ${text(1010, centerY + 23, `${firstLabel}｜${guide}`, 'class="guide-ja"')}`;
 }).join("");
 
@@ -231,11 +249,20 @@ const svg = `
   ${text(1010, chartTop - 38, "現在地 / Current", 'class="summary-kicker"')}
   ${graphRows}
   ${text(left, footerStartY, "L1 強い支援　｜　L2 支援あり　｜　L3 ほぼ自立　｜　L4 自立　｜　L5 柔軟", 'class="foot"')}
-  ${text(left, footerStartY + 32, isRating(currentSession.ratings.Pronunciation) ? `発音: L${currentSession.ratings.Pronunciation}（直接音声の根拠あり）　※資格・試験の公式スコアではありません。` : "発音: N/A（信頼できる音声を未計測）　※資格・試験の公式スコアではありません。", 'class="foot"')}
+  ${text(left, footerStartY + 32, (() => {
+    const latestPronunciation = [...sessions].reverse().find((session) => isRating(session.ratings.Pronunciation));
+    return isRating(currentSession.ratings.Pronunciation)
+      ? `発音: L${currentSession.ratings.Pronunciation}（直接音声の根拠あり）　※資格・試験の公式スコアではありません。`
+      : latestPronunciation
+        ? `発音: 今回N/A／最終 S${latestPronunciation.session} L${latestPronunciation.ratings.Pronunciation}（直接音声）　※公式スコアではありません。`
+        : "発音: N/A（信頼できる音声を未計測）　※資格・試験の公式スコアではありません。";
+  })(), 'class="foot"')}
 </svg>`;
 
 await mkdir(path.dirname(outputPath), { recursive: true });
+await mkdir(trackedAssetRoot, { recursive: true });
 await sharp(Buffer.from(svg)).png().toFile(outputPath);
+await copyFile(outputPath, trackedGrowthPath);
 console.log(outputPath);
 
 const estimateData = data.test_score_estimates;
@@ -407,4 +434,5 @@ const estimateSvg = `
 </svg>`;
 
 await sharp(Buffer.from(estimateSvg)).png().toFile(testEstimateOutputPath);
+await copyFile(testEstimateOutputPath, trackedEstimatePath);
 console.log(testEstimateOutputPath);
