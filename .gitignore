@@ -1,9 +1,12 @@
 # Temporary browser exports, render checks, and local caches
 tmp/
 
-# Generated deliverables; the Google Doc is the source of truth
+# Generated deliverables; local Markdown and JSON are the source of truth
 output/
 node_modules/
+.venv-site/
+.generated-site-docs/
+site/
 .venv-pronunciation/
 __pycache__/
 *.pyc

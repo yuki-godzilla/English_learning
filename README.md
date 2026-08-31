@@ -1,87 +1,55 @@
-# English Learning
+# Yuki × Chappy English Journal
 
-Yuki × Chappy の英会話学習記録・運用ルール・共有用アセットを、PC間で同期するためのリポジトリです。
+> 話したことを、次に話せる英語へ。
 
-## 収録対象
+英会話の内容を「保存する」だけでなく、読み返し、思い出し、もう一度話し、成長を実感するための学習記録です。
 
-- `AGENTS.md`: Codexが直接参照する運用上の正本ルール
-- `yuki-chappy-english-session-rules.md`: 別PC・別ツール向けの可搬版ルール
-- `.codex/config.toml`: モデルと推論強度などのプロジェクト設定
-- `english_progress_tracker.json`: 根拠付き英語力評価の履歴
-- `generate_english_progress_chart.mjs`: 成長グラフの生成手順
-- `scripts/pronunciation-recording.ps1`: Windowsサウンド レコーダーの起動と新規録音の回収補助
-- `scripts/setup-pronunciation.ps1`: PCごとのローカル音声分析環境の構築
-- `scripts/analyze-pronunciation.py`: 録音のローカル音響・音声認識分析
-- `requirements-pronunciation.txt` / `requirements-pronunciation.lock.txt`: ローカル音声分析の直接依存と再現用固定版
-- `pronunciation-benchmark.md`: 発音評価用の約60秒共通音読課題
-- `package.json` / `package-lock.json`: グラフ生成に必要なNode.js依存関係
-- `.nvmrc`: 動作確認済みNode.js LTSバージョン
-- `20xx-xx-xx-*-session-report.md`: セッションごとのMarkdown記録
-- `20xx-xx-xx-*-session-report.html`: 共有用HTMLレポート
-- `assets/`: グラフ・比較図などの再利用アセット
+## Learning Site
 
-ルールの優先順位は `Yukiのその場の明示指示 → AGENTS.md → 可搬版ルール` です。Google Docs「Daily English Learning Notes by Yuki × Chappy」は学習記録の正本として継続利用します。
+学習者向けの画面を、リポジトリ内の正本Markdownと評価データから自動生成します。
 
-## グラフ生成環境
+- **ホーム** — 最新の続き、今回できたこと、今日の5分復習
+- **セッション** — 全セッションを新しい順に表示し、30秒の要約から本文へ進む
+- **5分復習** — 答えを開くactive recall、表現・語彙・スピーキングの検索
+- **成長** — 行動の根拠、L1〜L5、Pronunciationの測定有無、資格スコア目安
+- **資料** — セッションで実際に参照した記事と公式情報
 
-Node.js 24.19.0 LTSを動作確認基準とし、`sharp`を使って評価ダッシュボードを生成します。Node.jsを用意した後、次の順で実行します。
+公開用サイトは構築・検証済みですが、**GitHub Pagesの初回公開はまだ行っていません**。公開するとリポジトリ内容がWebサイトとして見つけやすくなるため、Yukiの明示承認後に手動デプロイします。`noindex`は検索掲載を控える指示であり、アクセス制御や非公開化ではありません。
+
+> **公開範囲:** リポジトリがPublicの場合、Learning Siteとは別に、Git管理中の正本と過去コミットも閲覧可能です。現在ファイルの匿名化だけでは過去履歴は消えないため、スマホ公開前に「正本リポジトリをPrivateにする」または「匿名化した公開用リポジトリを分離する」かを決めます。
+
+## 今すぐGitHubで読む
+
+Pages公開前のフォールバックです。
+
+1. [最新セッション](learning-records/latest.md)
+2. [セッションIndex](learning-records/session-index.md)
+3. [Expression Bank](learning-records/banks/expression-bank.md)
+4. [Vocabulary Bank](learning-records/banks/vocabulary-bank.md)
+5. [Pronunciation & Speaking Bank](learning-records/banks/pronunciation-speaking-bank.md)
+
+## ローカルでLearning Siteを開く
+
+初回だけNode.jsとPython依存を準備し、その後は次のコマンドで起動します。
 
 ```powershell
 npm ci
-npm test
+py -m venv .venv-site
+.\.venv-site\Scripts\python.exe -m pip install --requirement requirements-site.txt
+npm run site:serve
 ```
 
-生成物は `output/english-growth-evidence-dashboard.png` です。`output/` は再生成可能な成果物としてGit管理しません。Node.js 20.9.0以上であれば現在の`sharp`の必要条件を満たしますが、別PCでは`.nvmrc`のLTS版を優先します。
-
-## 発音評価の録音導線
-
-Yukiが「発音を評価してほしい」と伝えた場合、ChappyはWindowsのサウンド レコーダーを開き、評価対象の英文を提示します。対象指定がなければ `pronunciation-benchmark.md` の共通音読課題を使います。録音開始・停止はYukiが操作し、停止後に「録音完了」と伝えます。その後、Chappyが新規録音の特定と回収を行います。
-
-補助コマンドは次の5つです。通常はYukiではなくChappyが実行します。
+ブラウザで `http://127.0.0.1:8000/` を開きます。自動検証は次の1コマンドです。
 
 ```powershell
-npm run pronunciation:setup
-npm run pronunciation:status
-npm run pronunciation:start
-npm run pronunciation:collect
-npm run pronunciation:analyze
+npm run site:check
 ```
 
-`pronunciation:setup` はプロジェクト専用の `.venv-pronunciation/` を作成し、`faster-whisper small.en`、Praatによる音響分析、PyAVによる音声デコードをローカルへ準備します。モデルを含む依存関係は数百MB規模になるためGitへ入れず、各PCで初回だけ構築します。PyAVが録音形式を直接デコードするため、システム版FFmpegは必須ではありません。既存のデコーダーで読めない形式が確認された場合だけ、FFmpegを追加します。
+## 正本と生成物
 
-容量や処理速度を優先する別PCでは、`scripts/setup-pronunciation.ps1 -Model base.en` または `-Model tiny.en` を指定できます。選択したモデルはGit対象外の環境状態に保存され、そのPCの `status` と `analyze` が同じモデルを使います。
+- 正本: `learning-records/` のMarkdown、`english_progress_tracker.json`
+- Git管理用の匿名化済み固定移行資料: `learning-records/archive/google-docs-final-2026-08-31.md`
+- 閲覧面の設定: `mkdocs.yml`、`site-theme/`、`site-overrides/`
+- 生成物: `.generated-site-docs/`、`site/`（Git管理しない）
 
-録音の一時コピー、モデル、検出状態、分析結果は `tmp/pronunciation-recordings/` または `tmp/pronunciation-models/` に置き、Git管理しません。ローカル分析では録音品質、文字起こしに基づく明瞭度の補助指標、話速、ポーズ、ピッチ変化を実測します。音声認識の信頼度だけでは母音・子音、単語強勢、linking、native-likenessを確定評価せず、対応できない観点はN/Aにします。
-
-### 別PC・機能不足時のフォールバック
-
-- Windowsサウンド レコーダーがあるPCでは、従来どおり自動起動と新規録音の回収を使います。
-- サウンド レコーダーがないPCでは、任意の録音アプリで保存したファイルを `tmp/pronunciation-recordings/inbox/` へ入れるか、`pronunciation-recording.ps1 -Action Collect -AudioPath <file>` で明示指定します。
-- サウンド レコーダーがインストール済みでも使えない場合は、`-ForceManualCapture` で同じ手動回収へ切り替えられます。
-- ローカル環境を構築できない場合も録音導線は維持し、直接分析できない観点は `N/A / 音声分析手段なし` とします。推測採点はしません。
-- 外部の音声対応サービスは自動フォールバックにしません。録音の外部送信、費用、利用目的を説明し、Yukiがその都度明示承認した場合だけ使います。
-
-## 情報管理
-
-Gitで追跡するファイルには、個人メールアドレス、認証情報、所属を特定できる部署名、非公開の製品・案件名を記録しません。業務の学習文脈は `勤務先 / employer`、`企業向けIoTサービス / enterprise IoT service` のような匿名表現を使います。具体的な情報をアクセス制御されたGoogle Docsに残す場合は、会社の情報管理規程とYukiの判断を優先します。
-
-## 別PCでの開始
-
-```powershell
-git clone https://github.com/yuki-godzilla/English_learning.git
-cd English_learning
-git pull --rebase
-```
-
-作業後は次の順で同期します。
-
-```powershell
-git pull --rebase
-git status
-git diff
-git add AGENTS.md yuki-chappy-english-session-rules.md README.md
-git commit -m "Update English learning records"
-git push
-```
-
-コミット対象は変更内容に応じて選び、`git add .` で個人資料を一括追加しない方針です。`tmp/`、`output/`、`node_modules/`、認証情報、個人情報を含む一時資料は同期対象外です。pushやPull Request作成は、Yukiが明示的に依頼した場合だけ行います。
+運用ルールは [AGENTS.md](AGENTS.md)、セットアップ・更新・公開手順は [保守ガイド](docs/maintenance.md) を参照してください。

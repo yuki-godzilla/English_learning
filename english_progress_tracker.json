@@ -184,8 +184,8 @@
     {
       "session": 7,
       "date": "2026-08-23",
-      "task": "Daigas Group energy strategy, electrification, and laser-fusion research",
-      "task_ja": "Daigas Groupのエネルギー戦略・電化・レーザー核融合研究",
+      "task": "Energy-company strategy, electrification, and advanced-energy research",
+      "task_ja": "エネルギー企業の戦略・電化・先端エネルギー研究",
       "data_coverage": "Realtime transcript excerpts; no comparable 60-second benchmark and no reliable direct audio analysis",
       "ratings": {
         "Task achievement": 4,
@@ -197,8 +197,8 @@
       },
       "evidence_quote": "In short time, plasma behaves as particle. But in long term, the plasma behaves as a fluid.",
       "evidence_quote_origin": "Spontaneous explanation in the realtime transcript",
-      "evidence_note_ja": "Daigas Groupの脱炭素方針、電化と発電時CO2のトレードオフ、レーザー核融合のfast ignition、粒子・流体シミュレーション、実験用ターゲット設計を、自分の研究経験と社会的な動機へ結び付けて詳しく説明した。専門語を確認しながら意味を保ち、訂正が多すぎることも自発的に指摘して会話方針を修復した。共通60秒課題は未実施のため定量値は追加せず、発音は直接音声を計測していないためN/Aとする。",
-      "evidence_note": "Explained Daigas Group's decarbonization strategy, the trade-off between electrification and power-generation emissions, fast ignition in laser fusion, particle and fluid simulations, and experimental target design, connecting research experience to societal motivation. Preserved meaning while checking technical vocabulary and independently repaired the conversation when feedback became excessive. No comparable 60-second task was used, so no quantitative values are added; pronunciation is N/A because audio was not directly measured."
+      "evidence_note_ja": "応募先のエネルギー企業の脱炭素方針、電化と発電時CO2のトレードオフ、先端エネルギー研究で使う複数スケールのシミュレーションと実験設計を、自分の研究経験と社会的な動機へ結び付けて詳しく説明した。専門語を確認しながら意味を保ち、訂正が多すぎることも自発的に指摘して会話方針を修復した。共通60秒課題は未実施のため定量値は追加せず、発音は直接音声を計測していないためN/Aとする。",
+      "evidence_note": "Explained a target energy company's decarbonization strategy, the trade-off between electrification and power-generation emissions, and multiscale simulation and experimental design in advanced-energy research, connecting research experience to societal motivation. Preserved meaning while checking technical vocabulary and independently repaired the conversation when feedback became excessive. No comparable 60-second task was used, so no quantitative values are added; pronunciation is N/A because audio was not directly measured."
     },
     {
       "session": 8,
@@ -217,15 +217,34 @@
       "evidence_quote": "I think converting fossil fuels into electricity can be wasteful.",
       "evidence_note_ja": "AIデータセンターの電力需要、送電網、マイクログリッド、一次エネルギー、電化と脱炭素の関係について、自分の疑問と見解をつないで議論した。約60秒の直接録音は文章全体が安定して認識され、音割れは確認されなかった。発音はL3（概ね明瞭）として初めて記録するが、音素単位の標準化採点ではない。",
       "evidence_note": "Connected AI data-centre demand, grids, microgrids, primary energy, and the difference between electrification and decarbonisation to a personal viewpoint. A direct one-minute recording was intelligible throughout and showed no clipping. Pronunciation is recorded conservatively at L3 for overall intelligibility; this is not a standardized phonetic score."
+    },
+    {
+      "session": 9,
+      "date": "2026-08-28",
+      "task": "Everyday escape, Godzilla symbolism, and monster spectacle",
+      "task_ja": "日常からの小さな逃避・Godzillaの象徴性・怪獣スペクタクルの議論",
+      "data_coverage": "Realtime transcript excerpts and a source article read in the browser; no comparable 60-second benchmark and no reliable direct audio analysis",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "evidence_quote": "When I am kid, monster battle was very, very attractive for me. For now, I can consider many thing of Godzilla. I can feel the history, I can consider the fear of nuclear war.",
+      "evidence_quote_origin": "Spontaneous reflection in the realtime transcript",
+      "evidence_note_ja": "ホテルで日常から離れる感覚を説明した後、Godzillaの怪獣バトル、核不安、戦争と戦後日本の記憶という複数の側面を、自分の子どもの頃の見方と現在の解釈を対比しながら議論した。語の意味や質問の意図を自発的に確認し、会話の進め方も調整できた。共通60秒課題は未実施で、発音を直接評価できる新規録音もないため、定量値は追加せず、PronunciationはN/Aとする。",
+      "evidence_note": "After describing a hotel stay as a break from routine, discussed Godzilla through monster battles, nuclear fear, war, and postwar Japanese memory, contrasting a childhood view with a current interpretation. Independently checked word meanings and question intent, and adjusted the conversation's direction. No comparable 60-second task or new directly assessed recording was available, so no quantitative metrics are added and pronunciation is N/A."
     }
   ],
   "test_score_estimates": {
     "methodology_version": "1.0",
     "status": "Non-official learning estimates, not standardized test results or guaranteed score conversions",
-    "as_of_session": 8,
-    "as_of_date": "2026-08-27",
+    "as_of_session": 9,
+    "as_of_date": "2026-08-28",
     "official_scales_checked_on": "2026-08-28",
-    "evidence_boundary": "Current evidence is strongest for spontaneous conversation and one direct reading recording. Reading, listening, and writing have not been measured under standardized timed conditions.",
+    "evidence_boundary": "Session 9 adds transcript-supported evidence for spontaneous speaking and oral interaction. The latest direct reading recording remains Session 8. Reading, listening, writing, and Session 9 pronunciation have not been measured under standardized timed conditions.",
     "history_policy": "Prediction history starts with Session 8. Do not backfill earlier sessions. Keep user-reported actual results visually and structurally separate from estimates.",
     "historical_results": [
       {
@@ -374,6 +393,65 @@
             "display": "Intermediate High–Advanced Low",
             "confidence": "medium-low",
             "comment_ja": "connected discourseへの移行が見える一方、時制・構成・流暢さの安定は今後の確認点。"
+          }
+        }
+      },
+      {
+        "session": 9,
+        "date": "2026-08-28",
+        "update_scope": "Speaking and oral-interaction estimates supported by the Session 9 realtime transcript. TOEIC L&R and Writing are not updated because no directly relevant timed task was completed.",
+        "not_updated": {
+          "toeic_lr": "No new standardized or timed listening-and-reading evidence in Session 9; retain the Session 8 estimate without adding a new prediction point.",
+          "toeic_writing": "No direct writing task in Session 9; retain the Session 8 estimate without adding a new prediction point."
+        },
+        "estimates": {
+          "toeic_speaking": {
+            "low": 140,
+            "mid": 150,
+            "high": 160,
+            "display": "140–160 / 200",
+            "confidence": "medium-low",
+            "comment_ja": "過去と現在の見方を対比し、理由と例をつないで意見を伝えた。公式形式とSession 9の直接音声がないため、レンジは据え置きで確度を中〜低とする。"
+          },
+          "ielts_speaking": {
+            "low": 5.5,
+            "mid": 6,
+            "high": 6.5,
+            "display": "Band 5.5–6.5",
+            "confidence": "medium-low",
+            "comment_ja": "身近な話題から文化・歴史の議論へ展開し、長いturnで経験と解釈を説明した。hesitationと文法誤りは文字起こしで確認できるが、発音を直接評価していないため中心予測はBand 6のまま。"
+          },
+          "toefl_speaking": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "3.5–4.0 / 6（旧尺度目安 18–22 / 30）",
+            "confidence": "low",
+            "comment_ja": "自発的な意見展開と理由説明は確認できたが、統合型課題、時間制限、deliveryの直接音声評価がないため低確度で据え置く。"
+          },
+          "cambridge_speaking": {
+            "low": 155,
+            "mid": 162.5,
+            "high": 170,
+            "display": "155–170（B1上位〜B2）",
+            "confidence": "medium-low",
+            "comment_ja": "質問意図や語義を自発的に確認し、対話を修復しながら抽象的な象徴性を議論した。発音の直接評価と公式ペア課題がないためレンジは据え置く。"
+          },
+          "cefr_oral": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "B1+–B2",
+            "confidence": "medium",
+            "comment_ja": "経験、理由、対比を用いて関心分野の議論を継続し、語義や質問意図のずれを自力で確認・修復できた。会話Can-doの根拠としてSession 9を追加する。"
+          },
+          "actfl_speaking": {
+            "low": 6,
+            "mid": 6.5,
+            "high": 7,
+            "display": "Intermediate High–Advanced Low",
+            "confidence": "medium-low",
+            "comment_ja": "過去と現在を対比したconnected discourseを作れた一方、過去時制、複数形、長い発話の構成には不安定さが残るため境界レンジを維持する。"
           }
         }
       }

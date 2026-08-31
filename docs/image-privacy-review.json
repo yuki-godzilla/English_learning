@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "reviewed_jst": "2026-08-31",
+  "review_scope": "Visible text, identifying work or affiliation details, and learner-facing suitability",
+  "files": [
+    {
+      "path": "assets/2026-08-19-english-growth-session5-vs-session6.png",
+      "sha256": "e0ae3af18a032c6eb98d422b1175f850fca25af40c14eb2bbe1023334c752ab4"
+    },
+    {
+      "path": "assets/2026-08-19-hybrid-ai-comparison.png",
+      "sha256": "ac098b650dde61d2e5ff060ceb3d0d5a9071732dac1d1069ee3e7c277cb93326"
+    },
+    {
+      "path": "assets/2026-08-27-doe-microgrid-data-center.png",
+      "sha256": "6d5641343bc327b3e8e4052b8cd1af7d85d96e2f72e7ecd5ec7ae94c01d4bb6b"
+    },
+    {
+      "path": "assets/2026-08-27-iea-electricity-demand-growth.png",
+      "sha256": "99f4088e2d5c7539e4987b1d9fd9cc17c468cdb0ff89c0595dcfd1ccba4a5df9"
+    },
+    {
+      "path": "assets/2026-08-27-microgrid-diagram.png",
+      "sha256": "72c322b21b9db944e18ded9ee60ea9056a6fad773b1920b5a125ff7001fcf7a8"
+    },
+    {
+      "path": "assets/2026-08-27-microgrid-diagram.svg",
+      "sha256": "5cba543ac484dbfd58e52d241d99f6ea70d1ccb6912778218c73f09a44c3d08e"
+    },
+    {
+      "path": "learning-records/archive/assets/electricity-demand-chart.png",
+      "sha256": "99f4088e2d5c7539e4987b1d9fd9cc17c468cdb0ff89c0595dcfd1ccba4a5df9"
+    },
+    {
+      "path": "learning-records/archive/assets/english-growth-progress-session-9.png",
+      "sha256": "0d52f96bf91f22ec5d4fe3abafac30d52023e2f12cb764c0fb498f1eb96ad61b"
+    },
+    {
+      "path": "learning-records/archive/assets/estimated-score-trends.png",
+      "sha256": "af431f7d8c15f4dc3462c96a1c2ba3663962370254555ed0fe9836cd4fb1e38a"
+    },
+    {
+      "path": "learning-records/archive/assets/local-cloud-hybrid-ai.png",
+      "sha256": "8fd859626519a2bb9a8d4de9ef9f901af26abb6da5f3d4029a8f058e24ab71b7"
+    },
+    {
+      "path": "learning-records/archive/assets/microgrid-data-center-grid.png",
+      "sha256": "6d5641343bc327b3e8e4052b8cd1af7d85d96e2f72e7ecd5ec7ae94c01d4bb6b"
+    }
+  ]
+}
