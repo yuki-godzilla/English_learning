@@ -1,6 +1,6 @@
-<!-- migration-meta: {"source":"Google Docs","document_id":"1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc","finalized_jst":"2026-08-31","coverage_through":"2026-08-28 / Session 9"} -->
+<!-- migration-meta: {"source":"Google Docs","document_id":"1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc","finalized_jst":"2026-08-31","coverage_through":"2026-08-28 / Session 9","anonymized_for_git":true} -->
 
-> **移行基準スナップショット:** 2026年8月31日に完成確認したGoogle DocsをMarkdown化した固定記録です。Session 9までの移行前履歴を照合する場合はこのファイルを使い、以後の更新は`learning-records/daily-notes/`、`session-index.md`、`banks/`へ反映します。
+> **Git管理用の匿名化済み移行スナップショット:** 2026年8月31日に完成確認したGoogle Docsを基に、固有の勤務先・所属・非公開製品・識別性の高い業務詳細を一般化した固定記録です。アクセス制御された原本の逐語コピーではありません。Session 9までの学習履歴を照合する場合はこのファイルを使い、以後の更新は`learning-records/daily-notes/`、`session-index.md`、`banks/`へ反映します。
 
 # **Daily English Learning Notes by Yuki × Chappy**
 
@@ -12,15 +12,15 @@ AI / Tech / English Conversation Journal
 
 8月 27, 2026	[**｜	AIデータセンター・電力インフラ・マイクログリッド**](#｜2026年8月27日（木）aiデータセンター・電力インフラ・マイクログリッド)
 
-8月 23, 2026[**｜Daigas Groupのエネルギー戦略とレーザー核融合**](#｜2026年8月23日（日）daigas-groupのエネルギー戦略とレーザー核融合)
+8月 23, 2026[**｜エネルギー企業の戦略と先端エネルギー研究**](#｜2026年8月23日（日）エネルギー企業の戦略と先端エネルギー研究)
 
 8月 19, 2026｜[ローカルAI・クラウドAIとAI駆動開発](#｜2026年8月19日（水）ローカルai・クラウドaiとai駆動開発)
 
 8月 18, 2026[**｜面接当日のリセット：気持ちを整える英会話**](#2026年8月18日（火）面接当日のリセット：気持ちを整える英会話)
 
-8月 17, 2026[｜AI・データセンターと大阪ガス：英語で伝える技術・キャリア](#8月-17,-2026｜ai・データセンターと大阪ガス：英語で伝える技術・キャリア)
+8月 17, 2026[｜AI・データセンターとエネルギー企業：英語で伝える技術・キャリア](#8月-17,-2026｜ai・データセンターとエネルギー企業：英語で伝える技術・キャリア)
 
-8月 16, 2026[**｜大阪ガス面接準備：強みの言語化と英語面接フレーズ**](#8月-16,-2026｜大阪ガス面接準備：強みの言語化と英語面接フレーズ)
+8月 16, 2026[**｜エネルギー企業の面接準備：強みの言語化と英語面接フレーズ**](#8月-16,-2026｜エネルギー企業の面接準備：強みの言語化と英語面接フレーズ)
 
 8月 15, 2026[**｜GPT-5.6 on Amazon Bedrock：モデル選択とPrompt Caching**](#8月-15,-2026｜gpt-5.6-on-amazon-bedrock：モデル選択とprompt-caching)
 
@@ -166,27 +166,29 @@ Structure: Main point → reason → example → conclusion。
 
 ![マイクログリッドによるデータセンター支援](assets/microgrid-data-center-grid.png)
 
-[*図1 / Figure 1: マイクログリッドによるデータセンター支援（米国エネルギー省 Office of Electricity 公式記事画像）*](https://www.energy.gov/oe/articles/microgrids-large-electric-loads-grid-support-how-leverage-microgrids-support-utilities)
+[*図1 / Figure 1: マイクログリッドによるデータセンター支援（U.S. Department of Energy, Office of Electricity 公式記事画像）*](https://www.energy.gov/oe/articles/microgrids-large-electric-loads-grid-support-how-leverage-microgrids-support-utilities)
+
+*利用条件: DOE公式サイトのコンテンツは、別記がない限りパブリックドメインとする[公式再利用方針](https://www.energy.gov/cmei/systems/awardee-communications-support#reposting-and-remixing-content)を参照。新しい学習画面では自作概念図を使用する。*
 
 ![電力需要の推移](assets/electricity-demand-chart.png)
 
-*図2 / Figure 2: 米国の用途別電力需要増加、2015–2030（IEA公式配布PNG、CC BY 4.0）*
+*図2 / Figure 2: 米国の用途別電力需要増加、2015–2030。出典: [IEA (2026), Electricity 2026 — Demand](https://www.iea.org/reports/electricity-2026/demand), License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)。表示用にトリミングした派生画像。This is a work derived by Yuki × Chappy from IEA material and Yuki × Chappy is solely liable and responsible for this derived work. The derived work is not endorsed by the IEA or its Member countries in any manner.*
 
-## ｜2026年8月23日（日）Daigas Groupのエネルギー戦略とレーザー核融合
+## ｜2026年8月23日（日）エネルギー企業の戦略と先端エネルギー研究
 
 Session 7 / Recorded session window: 06:54–07:34 JST
-主な話題: Daigas Groupの中期経営方針、電化と発電時CO2、エネルギー安定供給、Osaka Universityでのレーザー核融合研究、キャリア動機
+主な話題: 応募先のエネルギー企業の中期経営方針、電化と発電時CO2、エネルギー安定供給、大学の研究機関での先端エネルギー研究、キャリア動機
 評価上の注意: 本レポートは文字起こしを根拠とする。Pronunciation、WPM、1秒超のポーズは直接計測していないため評価しない。共通60秒課題は未実施のため、新しい定量スコアは作成しない。
 
 ## 今日の要点 / Today at a Glance
 
-Yukiは、Osaka Gasの一次面接通過を共有し、次の面接にも役立つ題材としてDaigas Groupの公式英語記事を音読・議論した。記事の中心である2050年カーボンニュートラル、持続可能な社会、stakeholdersについて、自分の意見を英語で展開した。
+Yukiは、応募先のエネルギー企業で次の選考段階へ進んだことを共有し、面接にも役立つ公開英語記事を音読・議論した。記事の中心である2050年カーボンニュートラル、持続可能な社会、stakeholdersについて、自分の意見を英語で展開した。
 電化については、利用時に排出がなくても発電方法によってCO2が生じるため、「電化＝自動的な脱炭素」ではないと指摘した。そのうえで、安定供給と脱炭素を同時に進める必要があるという結論に至った。
-後半では、Osaka UniversityのInstitute of Laser Engineeringで取り組んだレーザー核融合のfast ignition研究を説明した。短時間の粒子的挙動と長時間の流体的挙動を扱うシミュレーションを実験へ接続し、照射前にtarget materialとtarget geometryを検討した経験を、エネルギー分野で社会へ貢献したい動機へ結び付けた。
+後半では、大学の研究機関で取り組んだ先端エネルギー研究を説明した。異なる時間スケールの現象を扱うシミュレーションを実験へ接続し、実験前の設計条件を検討した経験を、エネルギー分野で社会へ貢献したい動機へ結び付けた。
 
 ## 話題別メモ / Topic Notes
 
-### **1\. Daigas Groupの方針とstakeholders**
+### **1\. エネルギー企業の方針とstakeholders**
 
 公式のLong-Term Management Vision 2030 / Medium-Term Management Plan 2026を読み、2030年を2050年カーボンニュートラルへ向けた転換点と位置付けていることを確認した。Yukiは、政府が国の目標とエネルギー政策を定めるため、重要なstakeholderだと説明した。一方で、企業、顧客、地域社会、従業員、投資家を含むsociety as a wholeも影響を受けるという広い見方を示した。
 
@@ -194,13 +196,13 @@ Yukiは、Osaka Gasの一次面接通過を共有し、次の面接にも役立�
 
 Yukiの中心的な問いは、電気を使う側がcleanでも、発電過程にCO2が残る場合、electrificationをどこまで推進すべきかという点だった。議論では、電気はenergy carrierであり、環境価値はgeneration mixと効率に左右されると整理した。EVやheat pumpなど適する用途の電化と、電源の脱炭素化、送電網・蓄電・安定供給を同時に進める必要がある。
 
-### **3\. レーザー核融合とfast ignition**
+### **3\. 先端エネルギー研究と複数スケールのシミュレーション**
 
-研究では、まずtargetを圧縮してhigh-density plasmaを作り、別のhigh-power laserで急速に加熱するfast-ignition approachを扱った。短時間側のparticle simulationと長時間側のfluid simulationを実験へ結び付け、点火効率を高めるtarget materialとgeometryを検討した。技術語が不足した場面でも、particle / fluid / material / shapeなど既知語で意味を維持し、必要な用語を質問して説明を完成させた。
+研究経験の説明では、異なる時間スケールを扱う複数のsimulationを実験へ結び付け、実験前にmaterialやgeometryなどの設計条件を検討した流れを英語で伝えた。技術語が不足した場面でも、particle / fluid / material / shapeなど既知語で意味を維持し、必要な用語を質問して説明を完成させた。
 
 ### **4\. エネルギー分野へのキャリア動機**
 
-Yukiは、エネルギーは社会全体を変え得る基盤であり、核融合が実用化されれば世界のエネルギー問題を大きく改善できると考えている。核融合は長期的な可能性、Osaka Gasの事業は現在の安定供給と移行を担う実践領域であり、研究経験と現在のキャリア志向を一つの物語として説明できる。
+Yukiは、エネルギーは社会全体を変え得る基盤であり、先端エネルギー技術が実用化されれば世界のエネルギー問題を大きく改善できると考えている。研究は長期的な可能性、応募先企業の事業は現在の安定供給と移行を担う実践領域であり、研究経験と現在のキャリア志向を一つの物語として説明できる。
 
 ## 役立つ英語 / Useful English
 
@@ -208,10 +210,10 @@ Yukiは、エネルギーは社会全体を変え得る基盤であり、核融�
 
 | 目的 | Natural / Conversational | Formal / Professional | ポイント |
 | ----- | ----- | ----- | ----- |
-| **面接通過** | They told me I passed the first-round interview with Osaka Gas. | I was informed that I had passed the first-round interview with Osaka Gas. | pass the first-round interview が自然。 |
+| **選考通過** | They told me I had moved on to the next stage. | I was informed that I had progressed to the next stage of the selection process. | move on to the next stage が自然。 |
 | **電化への懸念** | Electricity is only as clean as how it’s generated. | The environmental benefit of electrification depends on the power-generation mix. | 利用時だけでなく発電過程も見る。 |
-| **研究分野** | My research focused on fast ignition in laser fusion. | I specialized in the fast-ignition approach to inertial confinement fusion. | majorよりresearch focus / specializeが適切。 |
-| **実験設計** | I ran simulations to choose the target material and geometry. | I used coupled simulations to optimize the target material and geometry before the experiment. | 技術文脈の形状はgeometry。 |
+| **研究分野** | My research focused on an advanced energy technology. | I specialized in simulation and experimental design for advanced-energy research. | majorよりresearch focus / specializeが適切。 |
+| **実験設計** | I ran simulations to choose the material and geometry. | I used coupled simulations to optimize the design conditions before the experiment. | 技術文脈の形状はgeometry。 |
 | **両立** | We need both a stable energy supply and faster decarbonization. | Energy policy must balance security of supply with accelerated decarbonization. | both A and B / balance A with B。 |
 
 ## 発音・スピーキング / Speaking & Pronunciation
@@ -221,16 +223,16 @@ Pronunciation: N/A / 音声未計測。今回の記録は文字起こしのみ�
 
 ## 英語力の成長メモ / English Growth Snapshot
 
-Task achievement: L4。電化への疑問から核融合研究、社会的な動機まで、理由と具体例をつないで説明した。
+Task achievement: L4。電化への疑問から先端エネルギー研究、社会的な動機まで、理由と具体例をつないで説明した。
 Fluency & coherence: L3。pauseやrestartがあっても、専門的な説明の意味の流れを維持した。
-Lexical resource: L3。fast ignition、high-density plasma、particle / fluid simulation、target materialなどを使い、未知語は質問と既知語で補った。
+Lexical resource: L3。advanced-energy research、particle / fluid simulation、material、geometryなどを使い、未知語は質問と既知語で補った。
 Grammar control: L3。動詞形・冠詞・語順に誤りがあっても、ほとんどの意味は明確だった。
 Interaction & repair: L4。記事の選択、Chromeでの表示、質問の意図、訂正量、レポート開始・停止を自発的に調整した。
 Pronunciation: N/A / 音声未計測。
 
 ### **良かった点**
 
-* 研究内容を、fast ignitionの二段階、粒子・流体シミュレーション、実験前のtarget設計という順で詳しく説明できた。
+* 研究内容を、目的、複数スケールのシミュレーション、実験前の設計という順で詳しく説明できた。
 * 電化の利点だけでなく、発電時CO2という前提を問い直し、議論を深めた。
 * 過度な訂正に対して明確に希望を伝え、会話の自然さを回復した。
 
@@ -238,7 +240,7 @@ Pronunciation: N/A / 音声未計測。
 
 * 専門説明では、Purpose → Method → Result / Impact の3段構成を先に置く。
 * energy carrier、generation mix、commercially viableなど、エネルギー議論の核語彙を再利用する。
-* 面接では、核融合研究の長期視点と、現在のエネルギー事業で実現したい価値を一文で接続する。
+* 面接では、先端エネルギー研究の長期視点と、現在のエネルギー事業で実現したい価値を一文で接続する。
 
 ## 学習バンク更新 / Study Banks Update
 
@@ -248,15 +250,15 @@ Pronunciation & Speaking Bank: 該当なし。直接音声を計測しておら�
 
 ## 次回 / Next Steps
 
-* 核融合研究を60秒で説明する: Purpose → Method → Result / Impact。
-* 面接用に「研究経験 → エネルギーへの問題意識 → Osaka Gasでの実践的貢献」を短い英語でつなぐ。
+* 先端エネルギー研究を60秒で説明する: Purpose → Method → Result / Impact。
+* 面接用に「研究経験 → エネルギーへの問題意識 → 応募先企業での実践的貢献」を短い英語でつなぐ。
 * 次回の共通課題候補: How should an energy company balance electrification, energy security, and decarbonization?
 
 ## Sources / References
 
-* [Daigas Group — Long-Term Management Vision 2030 / Medium-Term Management Plan 2026](https://www.daigasgroup.com/en/sustainability/valuecreation/vision.html)
+* 応募先企業の公開英語資料（組織名とURLは匿名化）
 * [METI — Green Growth Strategy Through Achieving Carbon Neutrality in 2050](https://www.meti.go.jp/english/policy/energy_environment/global_warming/ggs2050/index.html)
-* [The University of Osaka — Institute of Laser Engineering](https://www.ile.osaka-u.ac.jp/eng/index.html)
+* 大学研究機関の公開資料（所属名とURLは匿名化）
 
 ## **｜2026年8月19日（水）ローカルAI・クラウドAIとAI駆動開発**
 
@@ -476,31 +478,31 @@ Pronunciation & Speaking Bank：該当なし（信頼できる音声評価を行
 ・面接後の感想を、短く「気持ち → 理由 → 印象に残ったこと」の順で英語で話す。
 ・要復習語 concrete / deliverables を、仕事の例文で自然に1回ずつ使う。
 
-## 8月 17, 2026｜AI・データセンターと大阪ガス：英語で伝える技術・キャリア
+## 8月 17, 2026｜AI・データセンターとエネルギー企業：英語で伝える技術・キャリア
 
 ## 今日の要点 / Today at a Glance
 
-英語力向上を主目的に、IEAの記事を根拠にAIとデータセンターの電力需要を議論し、後半は大阪ガスの面接に向けて技術経験・転職理由・国際業務への希望を英語で整理した。面接対策は会話題材として扱い、自分の考えを英語で説明し、分からない語を確認しながら言い直す力を重点的に練習した。
+英語力向上を主目的に、IEAの記事を根拠にAIとデータセンターの電力需要を議論し、後半は応募先のエネルギー企業の面接に向けて技術経験・転職理由・国際業務への希望を英語で整理した。面接対策は会話題材として扱い、自分の考えを英語で説明し、分からない語を確認しながら言い直す力を重点的に練習した。
 
 ## 話題別メモ / Topic Notes
 
 ・IEAの記事では、データセンターの電力使用の中心はサーバー（平均約60%）。冷却の割合は、高効率なハイパースケール施設の約7%から、効率の低い企業内施設の30%超まで幅がある。割合の違いは絶対消費量の小ささを意味しない点も確認した。
-・勤務先でのエネルギーマネジメント、企業向け設備の遠隔監視、システムテスト、運用保守の経験を、応募職種の問い合わせ対応・エラー分析・運用改善と結び付けた。
-・約20名のベンダーエンジニアを率いる結合・システムテスト、E2Eテスト自動化、Git差分をAIに入力して仕様書・テストケース・技術文書を更新する構想を説明した。
+・勤務先での企業向けIoT・ソフトウェア品質改善の経験を、応募職種の問い合わせ対応・エラー分析・運用改善と結び付けた。
+・複数の外部エンジニアを調整する経験、テスト自動化、差分情報をAIへ渡して成果物を更新する構想を説明した。
 
 ### 明日の面接戦略 / Interview Strategy
 
 1\. 最初に直接の適合を示す：システムテスト、エラー分析、運用保守、テスト自動化、ベンダーリード。
 2\. 実績は一つの具体例で示す：E2Eテスト自動化を自ら構築し、プロセス改善と追加価値を生んだ。
 3\. AI活用は補助的な強みとして話す：家庭用エネルギーマネジメントとの直接一致ではないが、課題発見・技術企画・継続改善の力を示す。
-4\. 転職理由は前向きにする：大阪を生活基盤に、経験と合う技術領域で貢献し、透明性のあるキャリア支援と将来の国際案件への道を求めている。現職の上司への非難や「嘘」という表現は避ける。
+4\. 転職理由は前向きにする：経験と合う技術領域で貢献し、明確なキャリア形成と将来の国際的な仕事への道を求めていると説明する。現職への否定的な表現は避ける。
 5\. 国際業務は中長期の希望として尋ねる：まず応募職種で専門性を築いて貢献する姿勢を先に伝える。
 
 ### 面接で使う核の英語 / Core Interview English
 
-I currently lead a team of around twenty vendor engineers for integration and system testing, and I’m also working to integrate AI into our development process to improve efficiency and quality.
+I coordinate an external engineering team on system-level quality work, and I’m also working to integrate AI into our development process to improve efficiency and quality.
 Although this initiative is not directly related to residential energy management, it demonstrates my ability to identify process issues, design a technical solution, and lead continuous improvement.
-I found it difficult to see how my role and career would develop within my department, especially regarding international opportunities. I’m therefore seeking a position in Osaka that matches my technical experience and offers clearer career development.
+I’m seeking a role that matches my technical experience and offers clearer career development, including opportunities to work internationally in the longer term.
 First, I would like to build my expertise and contribute in this position. In the longer term, would there be opportunities to become involved in global projects or work with overseas teams?
 
 ### 英語力評価 / English Performance
@@ -525,13 +527,13 @@ auxiliary equipment（補助設備）／comprise（〜から成る）／colocati
 ・面接直前は新しい情報を増やしすぎず、強み・転職理由・志望理由・逆質問を60〜90秒で確認する。
 ・次回の英会話では要復習語3語を自然な文脈で再確認する。
 ・英語力比較のため、次回は終了前に共通60秒課題を1回だけ行う。
-・Source: IEA, Energy demand from AI — https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai
+・Source: [IEA — Energy demand from AI](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai)
 
-## 8月 16, 2026｜大阪ガス面接準備：強みの言語化と英語面接フレーズ
+## 8月 16, 2026｜エネルギー企業の面接準備：強みの言語化と英語面接フレーズ
 
 ### Today at a Glance
 
-大阪ガスの家庭用エネルギーマネジメント関連の面接に向け、強み・志望理由・入社1年目の貢献を短く伝える準備をした。
+応募先のエネルギー企業における家庭向けエネルギーサービス関連の面接に向け、強み・志望理由・入社1年目の貢献を短く伝える準備をした。
 
 ### Interview Preparation
 
@@ -547,7 +549,7 @@ Yukiの一貫した強みは、技術・品質・現場をつなげて実際の�
 I’ve prepared a lot for the interview.
 I put together an interview-prep document.
 In my first year, I’ll focus on adapting quickly while delivering concrete results.
-What do you think my chances are of getting an offer from Osaka Gas?
+What do you think my chances are of getting an offer from the company?
 
 ### Speaking & Pronunciation
 
@@ -559,7 +561,7 @@ What do you think my chances are of getting an offer from Osaka Gas?
 
 ### Next Steps
 
-面接前に「志望理由」「入社1年目の貢献」「大阪ガスで実現したいこと」を各60秒程度で声に出して練習する。
+面接前に「志望理由」「入社1年目の貢献」「応募先企業で実現したいこと」を各60秒程度で声に出して練習する。
 
 ## 8月 15, 2026｜[GPT-5.6 on Amazon Bedrock：モデル選択とPrompt Caching](#8月-15,-2026｜gpt-5.6-on-amazon-bedrock：モデル選択とprompt-caching)
 
@@ -613,7 +615,7 @@ explicitは「明確に指定された／意図的に制御された」という
 | Model | Best fit / Yuki’s view |
 | :---: | ----- |
 | **Sol** | autonomous coding、security research、scientific analysis、deep multi-step reasoning。Yukiの通常用途には強力で高価すぎる可能性がある。 |
-| **Terra** | reasoning・performance・costのバランス型。SMAIやbaseball scoring appなど、Yukiの個人開発のmain candidate。 |
+| **Terra** | reasoning・performance・costのバランス型。投資支援アプリやbaseball scoring appなど、Yukiの個人開発のmain candidate。 |
 | **Luna** | classification・summarization・routingなどのhigh-volume / latency-sensitive tasks向け。複数featureをまたぐcodingでは力不足になりやすい。 |
 
 Key principle: “Pick the cheapest model that reliably solves the workload.”
@@ -621,8 +623,8 @@ Key principle: “Pick the cheapest model that reliably solves the workload.”
 
 ### Feature vs Function
 
-SMAIのcockpit、ranking、chatなど、ユーザーから見える製品機能にはfeatureが自然。functionは内部処理・code-level function・technical specification寄り。ただしfunctional specificationsは仕事上自然で正しい表現。
-Natural: “SMAI has many features.”
+投資支援アプリのcockpit、ranking、chatなど、ユーザーから見える製品機能にはfeatureが自然。functionは内部処理・code-level function・technical specification寄り。ただしfunctional specificationsは仕事上自然で正しい表現。
+Natural: “The investment-support app has many features.”
 
 ### Bedrock vs OpenAI Enterprise — Yuki’s view
 
@@ -647,8 +649,8 @@ Yuki: “I do individual development at my home.”
 Natural: “I do personal development projects at home.”
 Native-ish: “I work on my own software projects at home.”
 
-Yuki: “SMAI is very matured already.”
-Natural: “SMAI is already quite mature.”
+Yuki: “The app is very matured already.”
+Natural: “The app is already quite mature.”
 
 Yuki: “The functions is very complex.”
 Natural: “The features are quite complex.” / “The application has become pretty complex.”
@@ -693,7 +695,7 @@ Yukiはtechnical articleを英語で長く読み、未知語も説明後にconte
 
 ### ➡️ Next
 
-TerraをBedrockで試す、Claudeとのsame-prompt comparison、prompt cachingのcost estimate、SMAI向けmodel routingを検討。英語では今日の記事の1分要約、Sol / Terra / Lunaの説明、feature vs functionの実践を行う。
+TerraをBedrockで試す、Claudeとのsame-prompt comparison、prompt cachingのcost estimate、投資支援アプリ向けmodel routingを検討。英語では今日の記事の1分要約、Sol / Terra / Lunaの説明、feature vs functionの実践を行う。
 
 ────────────────────
 
@@ -827,9 +829,9 @@ Daily Notesから、今後も使いたい表現だけを抽出する復習用セ
 | **Electricity is only as clean as how it’s generated.** | 要点：電化の環境価値は発電方法にも左右される。 使いどころ：electrificationとgeneration mixを同時に議論する。 Example: Electricity is only as clean as how it’s generated. | 8月 23, 2026 |
 | **My goal is to use AI across the entire development lifecycle—not just testing—to make our work more efficient and effective.** | **要点：**AI initiativeのscopeと目的を一文で説明する。 **使いどころ：**AI導入の範囲と期待効果をまとめる。 | Aug 19, 2026 |
 | **Cost reduction is our top priority because our department is highly conscious of development costs.** | **要点：**組織提案のbusiness rationaleを説明する。 **使いどころ：**コスト削減を最優先の目的として示す。 | Aug 19, 2026 |
-| **I currently lead a team of around twenty vendor engineers for integration and system testing.** | **要点：** 約20名のベンダーエンジニアを率いる経験。 **使いどころ：** 応募職種のテスト・運用改善との適合を簡潔に示す。 | 8月 17, 2026 |
+| **I coordinate an external engineering team on system-level quality work.** | **要点：** 外部エンジニアを調整する経験。 **使いどころ：** 応募職種の品質・運用改善との適合を簡潔に示す。 | 8月 17, 2026 |
 | **Although this initiative is not directly related to residential energy management, it demonstrates my ability to identify process issues, design a technical solution, and lead continuous improvement.** | **要点：** AI活用を直接経験ではなく、課題発見・技術企画・継続改善の強みとして伝える。 **使いどころ：** 応募職種との距離を正直に補足するとき。 | 8月 17, 2026 |
-| **I’m looking for a position in Osaka that matches my technical experience and offers clearer career development.** | **要点：** 技術適合・大阪での生活基盤・キャリア形成を前向きにまとめる。 **使いどころ：** 転職理由を説明するとき。 | 8月 17, 2026 |
+| **I’m looking for a role that matches my technical experience and offers clearer career development.** | **要点：** 技術適合・キャリア形成を前向きにまとめる。 **使いどころ：** 転職理由を説明するとき。 | 8月 17, 2026 |
 | **In my first year, I’ll focus on adapting quickly while delivering concrete results.** | **要点：** 早期適応と具体的な成果への意欲を両立する。 **使いどころ：** 1年目の貢献を質問されたとき。 | Aug 16, 2026 |
 | **Can you choose a topic for us today?** | 「今日は話題を選んで」。topic selectionを自然に依頼する。 | Aug 15, 2026 |
 | **Is the answer in the article, or do you want my opinion?** | 記事中の答えか、自分の意見を求められているか確認する。 | Aug 15, 2026 |
@@ -900,7 +902,7 @@ Daily Notesで新しく出会った・意味が曖昧だった語彙を、実際
 | **classification** /ˌklæs.ə.fəˈkeɪ.ʃən/ \[noun\] | 分類。Collocation: ticket classification. Example: Luna is suited to classification tasks. | Aug 15, 2026 |
 | **summarization** /ˌsʌm.ɚ.əˈzeɪ.ʃən/ \[noun\] | 要約。Collocation: document summarization. Example: Luna handles high-volume summarization. | Aug 15, 2026 |
 | **routing** /ˈruː.t̬ɪŋ/ or /ˈraʊ.t̬ɪŋ/ \[noun\] | 要求や処理先の振り分け。Collocation: request routing. Example: A smaller model can handle routing. | Aug 15, 2026 |
-| **feature** /ˈfiː.tʃɚ/ \[noun\] | ユーザーから見える製品機能。functionよりproduct perspective寄り。Collocation: chat feature. Example: SMAI has many features. | Aug 15, 2026 |
+| **feature** /ˈfiː.tʃɚ/ \[noun\] | ユーザーから見える製品機能。functionよりproduct perspective寄り。Collocation: chat feature. Example: The investment-support app has many features. | Aug 15, 2026 |
 | **stall** /stɑːl/ \[noun\] | 屋台・露店。street food stall の形でよく使う。Example: We grabbed food from a street stall. | Aug 8, 2026 |
 | **district** /ˈdɪs.trɪkt/ \[noun\] | 地区・地域。shopping district / business district など。Example: Myeong-dong is a huge shopping district. | Aug 8, 2026 |
 | **mall** /mɑːl/ \[noun\] | 大型商業施設。district が「地域」なのに対して mall は建物・施設。 | Aug 8, 2026 |

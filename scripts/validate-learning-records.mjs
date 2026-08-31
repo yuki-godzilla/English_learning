@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { createHash } from "node:crypto";
 
 const root = process.cwd();
 const recordsRoot = path.join(root, "learning-records");
@@ -89,6 +90,9 @@ for (const file of recordFiles) {
 }
 
 for (const [file, markdown] of contentByFile) {
+  if (/(?<!\]\()https?:\/\/[^\s)]+/i.test(markdown)) {
+    errors.push(`${relative(file)}: raw URL must be a named Markdown link`);
+  }
   if (relative(file) === migrationSnapshot) continue;
   for (const target of linkTargets(markdown)) {
     if (/^(?:https?:|mailto:)/i.test(target)) continue;
@@ -117,6 +121,7 @@ for (const [file, markdown] of contentByFile) {
 }
 
 const sessionIds = new Map();
+const sessionNumbers = new Map();
 for (const [file, markdown] of contentByFile) {
   if (relative(file) === migrationSnapshot) continue;
   const sessions = [
@@ -131,9 +136,9 @@ for (const [file, markdown] of contentByFile) {
       errors.push(`${relative(file)}: invalid session-meta JSON`);
       continue;
     }
-    const { session_id: sessionId, session_datetime_jst: dateTime } = metadata;
-    if (!sessionId || !dateTime) {
-      errors.push(`${relative(file)}: session-meta needs session_id and session_datetime_jst`);
+    const { session_number: sessionNumber, session_id: sessionId, session_datetime_jst: dateTime } = metadata;
+    if (!Number.isInteger(sessionNumber) || sessionNumber < 1 || !sessionId || !dateTime) {
+      errors.push(`${relative(file)}: session-meta needs a positive session_number, session_id, and session_datetime_jst`);
       continue;
     }
     if (sessionIds.has(sessionId)) {
@@ -142,6 +147,12 @@ for (const [file, markdown] of contentByFile) {
       );
     }
     sessionIds.set(sessionId, relative(file));
+    if (sessionNumbers.has(sessionNumber)) {
+      errors.push(
+        `Duplicate session_number ${sessionNumber}: ${sessionNumbers.get(sessionNumber)} and ${relative(file)}`,
+      );
+    }
+    sessionNumbers.set(sessionNumber, relative(file));
     if (!anchors(markdown).has(`session-${sessionId}`)) {
       errors.push(`${relative(file)}: missing anchor session-${sessionId}`);
     }
@@ -181,12 +192,65 @@ for (const bankName of [
   }
 }
 
-const trackedText = [...contentByFile.values()].join("\n");
+const trackerText = await fs.readFile(path.join(root, "english_progress_tracker.json"), "utf8");
+const rootReportFiles = (await fs.readdir(root, { withFileTypes: true }))
+  .filter((entry) => entry.isFile() && /session-report\.html?$/i.test(entry.name))
+  .map((entry) => path.join(root, entry.name));
+const rootReportTexts = await Promise.all(rootReportFiles.map((file) => fs.readFile(file, "utf8")));
+const trackedText = [...contentByFile.values(), trackerText, ...rootReportTexts].join("\n");
 if (/[A-Z]:\\(?:Users|Documents|Desktop)\\/i.test(trackedText)) {
   errors.push("Learning records contain a workstation-specific absolute path");
 }
 if (/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i.test(trackedText)) {
   errors.push("Learning records contain an email address");
+}
+
+const privacyPatterns = [
+  [/\b(?:Daigas Group|Osaka Gas)\b|大阪ガス/gi, "specific employer name"],
+  [/\b(?:The University of Osaka|Osaka University|Institute of Laser Engineering)\b|大阪大学|レーザー科学研究所/gi, "specific research affiliation"],
+  [/(?:daigasgroup\.com|osaka-u\.ac\.jp)/gi, "organization-specific source URL"],
+  [/\b(?:laser fusion|fast[ -]ignition|inertial confinement fusion)\b|レーザー核融合|核融合研究|高速点火/gi, "identifying research topic"],
+  [/\bSMAI\b/gi, "non-public product name"],
+  [/\baround twenty vendor engineers\b|約20名のベンダーエンジニア/gi, "identifying team detail"],
+];
+for (const [pattern, label] of privacyPatterns) {
+  if (pattern.test(trackedText)) errors.push(`Learning records contain ${label}`);
+}
+
+const imageReviewPath = path.join(root, "docs", "image-privacy-review.json");
+let imageReview;
+try {
+  imageReview = JSON.parse(await fs.readFile(imageReviewPath, "utf8"));
+} catch {
+  errors.push("Missing or invalid docs/image-privacy-review.json");
+}
+if (imageReview) {
+  const reviewed = new Map();
+  for (const item of imageReview.files ?? []) {
+    if (!item.path || !/^[a-f0-9]{64}$/i.test(item.sha256 ?? "")) {
+      errors.push("Image privacy review contains an invalid entry");
+      continue;
+    }
+    if (reviewed.has(item.path)) errors.push(`Duplicate image privacy review entry: ${item.path}`);
+    reviewed.set(item.path, item.sha256.toLowerCase());
+  }
+  const assetFiles = [
+    ...(await walk(path.join(root, "assets"))),
+    ...(await walk(path.join(recordsRoot, "archive", "assets"))),
+  ].filter((file) => /\.(?:png|jpe?g|webp|svg)$/i.test(file));
+  const actualPaths = new Set(assetFiles.map(relative));
+  for (const file of assetFiles) {
+    const filePath = relative(file);
+    const digest = createHash("sha256").update(await fs.readFile(file)).digest("hex");
+    if (!reviewed.has(filePath)) {
+      errors.push(`Image needs a manual privacy review: ${filePath}`);
+    } else if (reviewed.get(filePath) !== digest) {
+      errors.push(`Image changed after its privacy review: ${filePath}`);
+    }
+  }
+  for (const reviewedPath of reviewed.keys()) {
+    if (!actualPaths.has(reviewedPath)) errors.push(`Image privacy review references a missing asset: ${reviewedPath}`);
+  }
 }
 
 if (errors.length) {

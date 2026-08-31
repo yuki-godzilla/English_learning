@@ -4,6 +4,9 @@ tmp/
 # Generated deliverables; local Markdown and JSON are the source of truth
 output/
 node_modules/
+.venv-site/
+.generated-site-docs/
+site/
 .venv-pronunciation/
 __pycache__/
 *.pyc

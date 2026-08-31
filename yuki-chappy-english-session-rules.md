@@ -2,20 +2,23 @@
 
 > このファイルは、Englishプロジェクトにおける英会話セッション、学習記録、英語力評価、成果物共有の正式な継続運用ルールである。
 > 最終更新: 2026-08-31
-> 文書バージョン: 3.1
+> 文書バージョン: 3.3
 
 ## 0. ルールの優先順位と完了条件
 
 - その場のYukiの明示的な指示を最優先し、本ファイルは指示がない部分の既定動作として適用する。
 - リポジトリ内では、この `AGENTS.md` をCodexが直接参照する**運用上の正本**とする。`yuki-chappy-english-session-rules.md` は別PC・別ツール向けの可搬版であり、内容が競合する場合は `AGENTS.md` を優先する。
-- 学習記録の正本は、本リポジトリの `learning-records/` 配下に置くローカルMarkdownと `english_progress_tracker.json` とする。PC間共有はGitのpull / commit / pushで行う。Google Docsから移行したSession 1〜9の全文は `learning-records/archive/google-docs-final-2026-08-31.md` を固定スナップショットとし、通常更新用の構造化Markdownと区別する。
+- 学習記録の正本は、本リポジトリの `learning-records/` 配下に置くローカルMarkdownと `english_progress_tracker.json` とする。PC間共有はGitのpull / commit / pushで行う。Google Docsから移行したSession 1〜9は、固有の勤務先・所属・非公開製品・識別性の高い業務詳細を一般化した `learning-records/archive/google-docs-final-2026-08-31.md` をGit管理用の固定移行スナップショットとし、アクセス制御されたGoogle Docs原本および通常更新用の構造化Markdownと区別する。
+- Yukiが日常的に読み返す閲覧面は、正本Markdownと評価JSONから自動生成する **Learning Site** とする。`site/` と `.generated-site-docs/` は再生成可能な派生物であり正本にしない。README、ルール、評価JSON、固定アーカイブなどの運用情報を、学習者向けの主導線へ混在させない。
 - 可搬版は `AGENTS.md` の配布用ミラーとして扱い、規範となるルール本文は同一に保つ。環境固有のメールアドレス、認証情報、Cookie、APIキーはどちらのルールファイルにも直接記載しない。
 - 会話中は学習記録の作成より会話の自然さを優先し、終了が明示された後に記録作業へ移る。
-- セッション後の通常作業は `日時確認 → Git同期確認 → Session Package → 月別Daily Notes → Session Index / latest → Study Banks差分更新 → 英語力評価・グラフ → ローカル検証 → Git差分確認 → commit / push` の順で行う。
+- セッション後の通常作業は `日時確認 → Git同期確認 → Session Package → 月別Daily Notes → Session Index / latest → Study Banks差分更新 → 英語力評価・グラフ → 学習サイト生成・ローカル検証 → Git差分確認 → commit / push` の順で行う。
 - 「ローカル記録完了」とは、対象Markdownと評価データへの反映、Index・Sourceリンク・Bank重複・プライバシーの検証、必要なテストまで確認できた状態を指す。「PC間共有完了」とは、さらにcommitとpushの成功を確認できた状態を指す。
 - 毎回の英会話終了時は、当月Daily Notes、Session Index、latest、Expression Bank、Vocabulary Bank、Pronunciation & Speaking Bank、英語力評価・グラフ、Source・相対リンク、Git差分を順に確認する。該当しないBankや評価項目は無理に増やさず、各Bankを「追加」「既存項目の強化」「該当なし」のいずれかとしてSession Packageへ記録する。
-- Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026-08-31にSession 9までの完成確認とMarkdown移行を行った。以後は移行元アーカイブとし、通常セッションでは更新しない。YukiがGoogle Docs形式を明示的に求めた場合だけ、ローカル正本から共有用コピーを作成する。Google Docsの状態は通常の完了条件に含めない。
+- Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026-08-31にSession 9までの完成確認を行い、Git管理用の匿名版Markdownへ移行した。以後はアクセス制御された移行元アーカイブとし、通常セッションでは更新しない。YukiがGoogle Docs形式を明示的に求めた場合だけ、ローカル正本から共有用コピーを作成する。Google Docsの状態は通常の完了条件に含めない。
 - PDFとメールは通常回の必須工程にしない。YukiがPDF、印刷、オフライン閲覧、メール送信を明示的に求めた回だけ第12節の検証を行う。
+- GitHub Pagesはリポジトリ内容をWebサイトとして公開・発見しやすくするため、検証ワークフローは自動実行してよいが、初回公開、公開範囲変更、Pages設定変更、手動デプロイはYukiの明示承認後だけ行う。既定ではnoindex、アクセス解析なしとする。noindexは検索掲載を控える指示であり、アクセス制御や非公開化ではないことを公開前に説明する。
+- Publicリポジトリでは現在ファイルだけでなく過去コミットも閲覧可能であり、現在版の匿名化では過去履歴は消えない。正本のPrivate化、匿名化済み公開用リポジトリの分離、履歴書き換えは別の公開判断として扱い、Yukiの明示承認なしに実行しない。
 - 一部の工程を実行できない場合は、未完了の工程と理由を明示し、実行済みのように扱わない。
 
 ## 1. 目的
@@ -257,7 +260,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 6. 3 Bankを1回の対象読み取りで確認し、差分だけを追加・強化する。
 7. 今回測定できた指標だけを `english_progress_tracker.json` へ追加し、過去データは再評価しない。
 8. 評価データを変更した場合だけグラフを再生成し、今回・前回・初回との接続を確認する。
-9. Markdown構造、必須見出し、相対リンク、Source、Bank重複、個人情報をローカル検証する。
+9. Markdown構造、必須見出し、相対リンク、Source、Bank重複、個人情報を検証した後、Learning Siteを再生成し、生成ページ、サイト内リンク、検索索引、画像alt、個人情報の混入を `npm run site:check` で検証する。
 10. `git diff` で対象ファイルだけが変更されていることを確認し、検証合格後に対象ファイルだけをcommitする。
 11. PC間共有を行う回は、push前にリモート更新を確認し、force pushを使わず `origin/main` へpushして結果を確認する。
 12. PDF・メール・Google Docs形式が明示的に依頼された場合だけ、通常フロー完了後に必要な共有成果物を作る。
@@ -270,14 +273,16 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - Study Banks: `learning-records/banks/`
 - 定量評価: `english_progress_tracker.json`
 - 再生成可能なグラフ・PDF: `output/`。原則としてGit管理しない。
+- Learning Siteの設定・生成手順: `mkdocs.yml`、`site-overrides/`、`site-theme/`、`scripts/build-learning-site.mjs`、`scripts/validate-learning-site.mjs`。
+- Learning Siteの生成中間物・完成物: `.generated-site-docs/`、`site/`。Git管理せず、各PCまたはCIで再生成する。
 - 一時Session Package・録音・分析中間物: `tmp/`。Git管理しない。
 - 新しいDaily Note、Index、latest、Bankの日付ブロックは新しいものほど上に置く。
 - **Index / latest更新は必須の完了ゲート**とする。新しいDaily Noteを追加したら、短縮タイトルと固定アンカーへの相対リンクを追加し、リンク先ファイルとアンカーが実在することを検証する。
-- Google Docs「Daily English Learning Notes by Yuki × Chappy」（Document ID: `1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc`）は移行元アーカイブとして保持する。2026-08-31に完成確認した内容は `learning-records/archive/google-docs-final-2026-08-31.md` と同ディレクトリの画像を移行基準とし、Google Docs本体は削除せず通常回では編集しない。
+- Google Docs「Daily English Learning Notes by Yuki × Chappy」（Document ID: `1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc`）はアクセス制御された移行元アーカイブとして保持する。2026-08-31に完成確認した内容から作成したGit管理用匿名版は `learning-records/archive/google-docs-final-2026-08-31.md` と同ディレクトリの画像を移行基準とし、Google Docs本体は削除せず通常回では編集しない。
 
 ### Daily Noteに含める内容
 
-- `session_id`、日本日時、タイトル、話題、発音評価有無、評価更新有無、Sourcesを含む機械可読メタデータ
+- `session_number`、`session_id`、日本日時、タイトル、話題、発音評価有無、評価更新有無、Sourcesを含む機械可読メタデータ。Learning Site用に `site_tags`、`site_remember`、`site_prompt` を任意で付け、未指定時は評価根拠と共通質問から安全な既定値を生成する
 - 日付とセッションタイトル
 - 話題ごとの会話要約
 - Yukiの意見・技術的な結論
@@ -294,7 +299,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - Daily Notesは月単位とし、当月ファイル内では新しいセッションを上に置く。1セッション1ファイルへ過度に細分化しない。
 - `latest.md`、`session-index.md`、各月ファイル、3 Bankの相互導線を相対リンクで用意する。
 - 見出し階層、日付形式、固定アンカー、Source表記を統一する。
-- GitHub Mobileでの閲覧を基準に、短い段落、十分な空行、縦型の情報ブロックを使う。
+- Learning Siteのスマホ幅を主な閲覧基準とし、GitHub Markdownをフォールバックとして、短い段落、十分な空行、縦型の情報ブロックを使う。
 - 画像は必要な場合のみ使用し、小さめに配置してキャプションと出典を付ける。
 - URLは生のURLではなく、内容が分かる名前付きリンクにする。
 - 記事リンクは関連する記述の近くに置く。
@@ -302,6 +307,20 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - Daily Noteは原則として `今日の要点 / Today at a Glance`、話題別メモ、`役立つ英語 / Useful English`、`発音・スピーキング / Speaking & Pronunciation`、`次回 / Next Steps` の順で整理する。話題に不要な節は省略してよいが、同じ役割の節には同じ見出し名を使う。
 - `役立つ英語 / Useful English` でNatural / ConversationalとFormal / Professionalを比較する場合は、スマホで横スクロールしない縦型ブロックを原則とする。各項目を `目的 → Natural / Conversational → Formal / Professional → Point` の順で示し、横長の4列表は比較関係が縦型より明確な場合だけ使う。
 - GitHub Alertsは `NOTE / TIP / IMPORTANT / WARNING / CAUTION` の意味に従い、重要な注意または最優先練習へ限定する。連続配置せず、原則1セッション1〜2件までとする。
+
+### Learning Site（学習者向け閲覧面）
+
+- 主導線は `ホーム / セッション / 5分復習 / 成長 / 資料` の5つに限定する。スマホでは下部ナビ、PCでは左ナビを使い、どのページからも3操作以内で主要画面へ移動できるようにする。
+- ホームは `Continue Learning → 今回できたこと → 今日の5分復習 → 学習の全体像 → 最近のセッション` の順とし、ファイル一覧や保守手順から始めない。
+- 各セッションは `30秒で振り返る → 今すぐ復習 → セッション記録 → 前後のセッション` の順とする。本文の全文性は維持しつつ、要約とactive recallを先に置く。
+- Study Banksの正本は既存Markdown表のまま維持するが、閲覧面では1項目1カードへ変換し、英語・日本語の専用絞り込み欄を付ける。サイト全体検索はセッションを中心とし、Bank内検索と役割を分ける。
+- 画像は1セッション0〜2点を目安とし、概念理解、比較、根拠データ、成長確認に役立つ場合だけ使う。装飾だけの画像を追加しない。関連本文の近くに置き、alt、短いキャプション、出典を付け、スマホでは横にはみ出さずタップで原寸確認できるようにする。
+- 成長画面は `実際にできた行動 → L1〜L5のCurrent Snapshot → Pronunciationの測定有無 → グラフ → 資格スコア目安` の順で示す。未測定を能力低下として見せず、テスト種別ごとに最後に根拠が得られたSessionを表示する。
+- ライト／ダークの両テーマで本文・カード・グラフ・画像のコントラストを確保する。データ画像は透明背景に依存せず、明るい画像面を確保する。
+- `AGENTS.md`、可搬版ルール、`english_progress_tracker.json`、固定アーカイブ、生の運用チェックリスト、ローカルパスをLearning Siteのナビゲーションと検索対象に入れない。
+- Learning Siteは正本から自動生成し、生成ページを手で修正しない。通常回は変更範囲の生成と自動検証を行い、閲覧構造・CSS・生成ロジック・画像配置を変更した回だけ、スマホ幅とPC幅でブラウザ確認する。
+- Learning Siteのセッション一覧はDaily Noteの `session-meta` を起点にする。評価を更新しない有効な回も表示し、`english_progress_tracker.json` の行がないことを理由に欠落させない。同日複数回は `session_number`、`session_id`、`session_datetime_jst` で一意に対応させる。
+- Pages公開前でもローカルで `npm run site:serve` を使って確認できる。公開用ワークフローは検証と手動デプロイを分離し、pushだけで初回公開しない。
 
 ## 10. Study Banks
 
@@ -381,7 +400,7 @@ Daily Noteを作成した後、その日の会話から再利用価値の高い�
 - セッション凡例・画像高・比較件数は履歴数から動的に計算し、第7回以降も凡例やグラフが重ならないようにする。評価対象数やPronunciationの注記を固定文字列にせず、`english_progress_tracker.json` の計測有無から生成する。
 - セッションは色だけで区別せず、記号・回数・日付に加えて `開始 / 前回 / 今回` を直接表示する。各技能は `現在レベル → 前回比 → 初回比と行動根拠` の順に読めるようにする。
 - 成長グラフから過去セッションを省略・置換しない。全セッションを時系列の推移線として残し、`開始` は白抜き丸、通常の過去回は控えめなグレー丸、`前回` は青い四角、`今回` は緑のひし形で階層を付ける。これにより履歴を保持しながら、現在・前回・初回の比較を最も読みやすくする。
-- グラフはGitHub Mobileの表示幅と必要時のPDF実寸で読める文字サイズを基準に作る。縮小時に読めなくなる注記・英語サブ表記・凡例は削減または拡大する。
+- グラフはLearning Siteのスマホ幅と必要時のPDF実寸で読める文字サイズを基準に作る。縮小時に読めなくなる注記・英語サブ表記・凡例は削減または拡大する。
 - 評価の表示順は `今回の英会話評価コメント → 視覚化評価 → 資格スコア予測（学習用、更新時のみ） → 指標目安へのリンク` とする。日々の確認では今回の根拠と行動目標を主役にする。
 - グラフ各行には現在レベルと短い行動目安を併記する。L1〜L5の全基準を毎月ファイルへ重複掲載せず、READMEまたは専用の評価基準ファイルへ1か所だけ置く。
 - 色には意味を持たせる。L1〜L2は支援領域の淡い暖色、L3は移行領域の淡い青、L4〜L5は自立領域の淡い緑とする。セッション系列は `開始・基準=グレー、前回=青、今回=緑` を基本とし、回数が増えても役割ごとの配色を維持する。色だけに依存せず、記号・回数・日付・レベル値も併記する。
@@ -423,7 +442,7 @@ Sessions 1〜3は、Daily Notesと保存済み文字起こしによる定性ベ�
 
 ## 12. PDFとメール
 
-PDF、印刷、オフライン閲覧、メール送信が明示的に依頼された場合だけ実行する。通常のセッション記録はGitHub上の整形済みMarkdownをスマホ・PCで閲覧し、PDFを完了条件にしない。
+PDF、印刷、オフライン閲覧、メール送信が明示的に依頼された場合だけ実行する。通常のセッション記録はLearning Siteをスマホ・PCで閲覧し、GitHub Markdownをフォールバックとする。PDFを完了条件にしない。
 
 ### PDFを作る場合
 
@@ -544,7 +563,8 @@ v3.0導入後の次の3セッションでは、`ニュース・URL確認 / Sessi
 - [ ] 見出し名、日付・Source表記、句読点、箇条書きの形式が関連Markdown間でそろっている
 - [ ] 記事URLを関連記述の近くに置いた
 - [ ] 変更したMarkdownと前後の接続部分を再読した
-- [ ] GitHub Mobileを想定し、横長表の多用、長すぎる段落、壊れた画像参照がないことを確認した
+- [ ] Learning Siteのスマホ幅を想定し、横長表の多用、長すぎる段落、壊れた画像参照がないことを確認した
+- [ ] `npm run site:check` で正本の全セッション、主要ページ、サイト内リンク、検索索引、画像alt、個人情報を検証した
 - [ ] 英語力の成長メモ（良かった点・今後伸ばす点・前回比較）を作成した
 - [ ] 共通課題の発言抜粋と、自発発話か復唱かの区別を記録した
 - [ ] 発音評価を行った場合、録音の新規性・課題種別・直接音声確認・分析方法・制約を記録した
@@ -579,9 +599,13 @@ v3.0導入後の次の3セッションでは、`ニュース・URL確認 / Sessi
   - `learning-records/latest.md` / `session-index.md`: スマホと全履歴の入口
   - `learning-records/daily-notes/YYYY-MM.md`: 月別Daily Notesの正本
   - `learning-records/banks/*.md`: 3 Study Banksの正本
-  - `learning-records/archive/google-docs-final-2026-08-31.md` / `assets/`: Session 1〜9の固定移行スナップショット
+  - `learning-records/archive/google-docs-final-2026-08-31.md` / `assets/`: Session 1〜9のGit管理用匿名版・固定移行スナップショット
   - `scripts/validate-learning-records.mjs`: 構造・リンク・重複の検証手順
-- `tmp/`、`output/`、認証情報、Cookie、APIキー、個人情報を含む一時資料、再生成できるPDF・グラフはコミットしない。
+  - `mkdocs.yml` / `requirements-site.txt`: Learning Siteの構成と固定依存
+  - `site-overrides/` / `site-theme/`: 学習者向けナビゲーション、レスポンシブ表示、テーマ
+  - `scripts/build-learning-site.mjs` / `run-mkdocs.mjs` / `validate-learning-site.mjs`: 正本からの生成・ビルド・検証手順
+  - `.github/workflows/learning-site.yml`: 自動検証と明示操作時だけのPages公開手順
+- `tmp/`、`output/`、`.generated-site-docs/`、`site/`、認証情報、Cookie、APIキー、個人情報を含む一時資料、再生成できるPDF・グラフはコミットしない。
 - 作業開始前にリモートとの差分を確認し、必要に応じて `git pull --rebase` で最新化する。競合時は自動的にどちらかを破棄せず、`AGENTS.md` の現行ルールと各ファイルの更新内容を比較して統合する。
 - ルール変更は `AGENTS.md` を先に編集し、可搬版、README、必要な設定・スクリプトへ差分を反映する。両ルールの最終更新日と優先順位の記述も確認する。
 - コミット前に `git status` と `git diff` で、意図したファイルだけが対象であること、認証情報や個人資料が含まれないことを確認する。
@@ -598,7 +622,8 @@ v3.0導入後の次の3セッションでは、`ニュース・URL確認 / Sessi
 - [ ] `git status`、追跡ブランチ、リモート差分を確認し、安全な場合だけ `git pull --rebase` した
 - [ ] `learning-records/latest.md`、Session Index、当月Daily Notes、3 Study Banksを確認した
 - [ ] `npm run records:check` で構造・相対リンク・固定アンカー・Bank重複を確認した
-- [ ] GitHub上のREADMEからlatestへ移動でき、スマホ幅で主要セクションを読める構成になっている
+- [ ] `npm run site:check` が成功し、ローカルLearning Siteからホーム、全セッション、5分復習、成長へ移動できる
+- [ ] Pagesが未公開の場合は、READMEの公開状態が実態と一致し、存在しない公開URLを利用可能として案内していない
 - [ ] 音声を直接評価できない場合はPronunciationを `N/A / 音声未計測` とするルールを確認した
 - [ ] `npm run pronunciation:status` で録音バックエンドと分析能力を確認し、`capture_only` の場合は必要に応じて `npm run pronunciation:setup` を実行した
 - [ ] サウンド レコーダーまたはローカル分析環境がない場合の手動ファイル回収とN/A運用を確認した

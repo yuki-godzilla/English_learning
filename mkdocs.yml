@@ -1,0 +1,83 @@
+site_name: Yuki × Chappy English Journal
+site_description: 会話を振り返り、英語を使い直し、成長を実感するための学習記録
+site_url: https://yuki-godzilla.github.io/English_learning/
+docs_dir: .generated-site-docs
+site_dir: site
+use_directory_urls: true
+strict: true
+
+theme:
+  name: material
+  language: ja
+  font: false
+  custom_dir: site-overrides
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: ダークモード
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: ライトモード
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - toc.follow
+    - content.tabs.link
+
+plugins:
+  - search:
+      lang:
+        - ja
+        - en
+      separator: '[\s\-\.,!=\[\]()"/]+|\u3000|\u3001|\u3002|\uff0c|\uff0e'
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_css:
+  - assets/stylesheets/learning.css
+
+extra_javascript:
+  - assets/javascripts/learning.js
+
+nav:
+  - ホーム: index.md
+  - セッション:
+      - すべてのセッション: sessions/index.md
+  - 5分復習:
+      - 今日の復習: review/index.md
+      - 表現: review/expressions.md
+      - 語彙: review/vocabulary.md
+      - 発音・スピーキング: review/speaking.md
+  - 成長: progress/index.md
+  - 資料: library/index.md
+
+copyright: 学習記録 · Yuki × Chappy

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#17365d">
+{% endblock %}
+
+{% block footer %}
+  {{ super() }}
+  <nav class="learning-bottom-nav" aria-label="学習メニュー">
+    <a href="{{ '' | url }}"><span aria-hidden="true">⌂</span><span>ホーム</span></a>
+    <a href="{{ 'sessions/' | url }}"><span aria-hidden="true">◫</span><span>記録</span></a>
+    <a href="{{ 'review/' | url }}"><span aria-hidden="true">▶</span><span>復習</span></a>
+    <a href="{{ 'progress/' | url }}"><span aria-hidden="true">↗</span><span>成長</span></a>
+  </nav>
+{% endblock %}
