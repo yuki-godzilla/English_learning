@@ -89,6 +89,58 @@ for (const file of recordFiles) {
   contentByFile.set(file, await fs.readFile(file, "utf8"));
 }
 
+const sessionCatalogPath = path.join(recordsRoot, "session-catalog.json");
+let sessionCatalog;
+try {
+  sessionCatalog = JSON.parse(await fs.readFile(sessionCatalogPath, "utf8"));
+} catch {
+  errors.push("Missing or invalid learning-records/session-catalog.json");
+}
+const catalogSessions = Array.isArray(sessionCatalog?.sessions) ? sessionCatalog.sessions : [];
+if (sessionCatalog && !Array.isArray(sessionCatalog.sessions)) {
+  errors.push("learning-records/session-catalog.json must contain a sessions array");
+}
+const catalogById = new Map();
+const catalogByNumber = new Map();
+const catalogTargets = new Set();
+for (const session of catalogSessions) {
+  const required = ["session_number", "session_id", "date", "title", "tags", "remember", "prompt", "source_path", "source_anchor"];
+  if (required.some((key) => session[key] == null) || !Array.isArray(session.tags)) {
+    errors.push("session-catalog.json contains an incomplete session entry");
+    continue;
+  }
+  if (!Number.isInteger(session.session_number) || session.session_number < 1) {
+    errors.push(`session-catalog.json has an invalid session_number for ${session.session_id}`);
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(session.date)) {
+    errors.push(`session-catalog.json has an invalid date for ${session.session_id}`);
+  }
+  if (catalogById.has(session.session_id)) {
+    errors.push(`session-catalog.json has a duplicate session_id: ${session.session_id}`);
+  }
+  if (catalogByNumber.has(session.session_number)) {
+    errors.push(`session-catalog.json has a duplicate session_number: ${session.session_number}`);
+  }
+  const target = `${session.source_path}#${session.source_anchor}`;
+  if (catalogTargets.has(target)) {
+    errors.push(`session-catalog.json has a duplicate source target: ${target}`);
+  }
+  catalogById.set(session.session_id, session);
+  catalogByNumber.set(session.session_number, session);
+  catalogTargets.add(target);
+  const source = path.resolve(recordsRoot, session.source_path);
+  if (!source.startsWith(recordsRoot + path.sep) || !source.endsWith(".md")) {
+    errors.push(`session-catalog.json has an invalid source_path: ${session.source_path}`);
+    continue;
+  }
+  const sourceMarkdown = contentByFile.get(source);
+  if (!sourceMarkdown) {
+    errors.push(`session-catalog.json references a missing source file: ${session.source_path}`);
+  } else if (!anchors(sourceMarkdown).has(session.source_anchor)) {
+    errors.push(`session-catalog.json references a missing fixed anchor: ${target}`);
+  }
+}
+
 for (const [file, markdown] of contentByFile) {
   if (/(?<!\]\()https?:\/\/[^\s)]+/i.test(markdown)) {
     errors.push(`${relative(file)}: raw URL must be a named Markdown link`);
@@ -122,6 +174,7 @@ for (const [file, markdown] of contentByFile) {
 
 const sessionIds = new Map();
 const sessionNumbers = new Map();
+const sessionNumberById = new Map();
 for (const [file, markdown] of contentByFile) {
   if (relative(file) === migrationSnapshot) continue;
   const sessions = [
@@ -147,6 +200,7 @@ for (const [file, markdown] of contentByFile) {
       );
     }
     sessionIds.set(sessionId, relative(file));
+    sessionNumberById.set(sessionId, sessionNumber);
     if (sessionNumbers.has(sessionNumber)) {
       errors.push(
         `Duplicate session_number ${sessionNumber}: ${sessionNumbers.get(sessionNumber)} and ${relative(file)}`,
@@ -163,6 +217,35 @@ for (const [file, markdown] of contentByFile) {
       errors.push(`${relative(file)}: sessions are not newest-first near ${sessionId}`);
     }
     previousDate = parsedDate;
+  }
+}
+
+for (const [sessionId, file] of sessionIds) {
+  const catalogSession = catalogById.get(sessionId);
+  if (!catalogSession) continue;
+  if (catalogSession.session_number !== sessionNumberById.get(sessionId)) {
+    errors.push(`session-catalog.json does not match the Daily Note number for ${sessionId}`);
+  }
+  const expectedSource = file.replace(/^learning-records\//, "");
+  if (catalogSession.source_path !== expectedSource || catalogSession.source_anchor !== `session-${sessionId}`) {
+    errors.push(`session-catalog.json does not point to the canonical Daily Note for ${sessionId}`);
+  }
+}
+
+const sessionIndexMarkdown = contentByFile.get(path.join(recordsRoot, "session-index.md")) ?? "";
+const indexTargets = new Set(linkTargets(sessionIndexMarkdown));
+for (const session of catalogSessions) {
+  const target = `${session.source_path}#${session.source_anchor}`;
+  if (!indexTargets.has(target)) {
+    errors.push(`Session Index is missing Session ${session.session_number}: ${target}`);
+  }
+}
+for (const [sessionId, file] of sessionIds) {
+  if (catalogById.has(sessionId)) continue;
+  const source = file.replace(/^learning-records\//, "");
+  const target = `${source}#session-${sessionId}`;
+  if (!indexTargets.has(target)) {
+    errors.push(`Session Index is missing Daily Note ${sessionId}: ${target}`);
   }
 }
 
@@ -197,7 +280,7 @@ const rootReportFiles = (await fs.readdir(root, { withFileTypes: true }))
   .filter((entry) => entry.isFile() && /session-report\.html?$/i.test(entry.name))
   .map((entry) => path.join(root, entry.name));
 const rootReportTexts = await Promise.all(rootReportFiles.map((file) => fs.readFile(file, "utf8")));
-const trackedText = [...contentByFile.values(), trackerText, ...rootReportTexts].join("\n");
+const trackedText = [...contentByFile.values(), JSON.stringify(sessionCatalog), trackerText, ...rootReportTexts].join("\n");
 if (/[A-Z]:\\(?:Users|Documents|Desktop)\\/i.test(trackedText)) {
   errors.push("Learning records contain a workstation-specific absolute path");
 }
@@ -259,6 +342,6 @@ if (errors.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Learning-record validation passed: ${recordFiles.length} Markdown files, ${sessionIds.size} sessions.`,
+    `Learning-record validation passed: ${recordFiles.length} Markdown files, ${Math.max(catalogById.size, sessionIds.size)} cataloged sessions.`,
   );
 }

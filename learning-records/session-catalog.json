@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "sessions": [
+    {
+      "session_number": 9,
+      "session_id": "2026-08-28-01",
+      "date": "2026-08-28",
+      "title": "Godzillaの象徴性と日常からの小さな逃避",
+      "tags": ["Culture / Media", "Daily Life"],
+      "remember": "子どもの頃は怪獣バトル、今は歴史と核の象徴性も含めてGodzillaを見られるようになった。",
+      "prompt": "Why does Godzilla remain meaningful beyond monster battles?",
+      "source_path": "daily-notes/2026-08.md",
+      "source_anchor": "session-2026-08-28-01"
+    },
+    {
+      "session_number": 8,
+      "session_id": "2026-08-27-01",
+      "date": "2026-08-27",
+      "title": "AIデータセンター・電力インフラ・マイクログリッド",
+      "tags": ["AI / Tech", "Energy"],
+      "remember": "電化と脱炭素は同じではなく、電力源と一次エネルギーまで考える必要がある。",
+      "prompt": "Why are AI data centres becoming an energy-infrastructure issue?",
+      "source_path": "archive/google-docs-final-2026-08-31.md",
+      "source_anchor": "session-2026-08-27-01"
+    },
+    {
+      "session_number": 7,
+      "session_id": "2026-08-23-01",
+      "date": "2026-08-23",
+      "title": "エネルギー戦略・電化・先端エネルギー研究",
+      "tags": ["Energy / Science", "Career"],
+      "remember": "エネルギーの技術的な仕組みと社会的な意味を、自分の研究経験へ結び付けて説明した。",
+      "prompt": "How should an energy company balance electrification and energy security?",
+      "source_path": "archive/google-docs-final-2026-08-31.md",
+      "source_anchor": "session-2026-08-23-01"
+    },
+    {
+      "session_number": 6,
+      "session_id": "2026-08-19-01",
+      "date": "2026-08-19",
+      "title": "ローカルAI・クラウドAIとAI駆動開発",
+      "tags": ["AI / Tech", "Software"],
+      "remember": "速度・プライバシー・難易度を基準にLocal、Cloud、Hybrid AIを使い分ける。",
+      "prompt": "How should a company use AI across the development lifecycle?",
+      "source_path": "daily-notes/2026-08.md",
+      "source_anchor": "session-2026-08-19-01"
+    },
+    {
+      "session_number": 5,
+      "session_id": "2026-08-18-01",
+      "date": "2026-08-18",
+      "title": "面接当日のリセット：気持ちを整える英会話",
+      "tags": ["Daily Life", "Career"],
+      "remember": "面接前でも、身近な話題について好みと理由を英語で自然に話し続けた。",
+      "prompt": "What helps you reset before an important event?",
+      "source_path": "archive/google-docs-final-2026-08-31.md",
+      "source_anchor": "session-2026-08-18-01"
+    },
+    {
+      "session_number": 4,
+      "session_id": "2026-08-17-01",
+      "date": "2026-08-17",
+      "title": "AI・データセンターとキャリアを英語で伝える",
+      "tags": ["AI / Tech", "Career"],
+      "remember": "技術経験とキャリアの方向性をつなげ、面接で伝える核となるメッセージを整理した。",
+      "prompt": "What value can your technical background bring to an energy company?",
+      "source_path": "archive/google-docs-final-2026-08-31.md",
+      "source_anchor": "session-2026-08-17-01"
+    },
+    {
+      "session_number": 3,
+      "session_id": "2026-08-16-01",
+      "date": "2026-08-16",
+      "title": "面接準備：強みの言語化と英語面接フレーズ",
+      "tags": ["Career / Interview"],
+      "remember": "優先順位・理由・会社への貢献を一つのストーリーとして説明した。",
+      "prompt": "What are your priorities in your first year at a new company?",
+      "source_path": "archive/google-docs-final-2026-08-31.md",
+      "source_anchor": "session-2026-08-16-01"
+    },
+    {
+      "session_number": 2,
+      "session_id": "2026-08-15-01",
+      "date": "2026-08-15",
+      "title": "GPT-5.6 on Amazon Bedrock：モデル選択とPrompt Caching",
+      "tags": ["AI / Tech", "Cloud"],
+      "remember": "モデルを優劣ではなく、仕事量・速度・コスト・難易度に合わせて選ぶ。",
+      "prompt": "How do you choose the right AI model for a workload?",
+      "source_path": "archive/google-docs-final-2026-08-31.md",
+      "source_anchor": "session-2026-08-15-01"
+    },
+    {
+      "session_number": 1,
+      "session_id": "2026-08-08-01",
+      "date": "2026-08-08",
+      "title": "韓国旅行と英会話リハビリ",
+      "tags": ["Travel", "Daily Life"],
+      "remember": "伝わる英語から、自然な語順とチャンクを使う英語への第一歩を記録した。",
+      "prompt": "What was the most memorable part of your Korea trip?",
+      "source_path": "archive/google-docs-final-2026-08-31.md",
+      "source_anchor": "session-2026-08-08-01"
+    }
+  ]
+}

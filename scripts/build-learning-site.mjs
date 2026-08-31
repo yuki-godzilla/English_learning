@@ -140,17 +140,29 @@ const currentExpression = await fs.readFile(path.join(recordsRoot, "banks", "exp
 const currentVocabulary = await fs.readFile(path.join(recordsRoot, "banks", "vocabulary-bank.md"), "utf8");
 const currentSpeaking = await fs.readFile(path.join(recordsRoot, "banks", "pronunciation-speaking-bank.md"), "utf8");
 
-const sessionDefinitions = [
-  { session: 9, id: "2026-08-28-01", date: "2026-08-28", title: "Godzillaの象徴性と日常からの小さな逃避", tags: ["Culture / Media", "Daily Life"], remember: "子どもの頃は怪獣バトル、今は歴史と核の象徴性も含めてGodzillaを見られるようになった。", prompt: "Why does Godzilla remain meaningful beyond monster battles?" },
-  { session: 8, id: "2026-08-27-01", date: "2026-08-27", title: "AIデータセンター・電力インフラ・マイクログリッド", tags: ["AI / Tech", "Energy"], remember: "電化と脱炭素は同じではなく、電力源と一次エネルギーまで考える必要がある。", prompt: "Why are AI data centres becoming an energy-infrastructure issue?" },
-  { session: 7, id: "2026-08-23-01", date: "2026-08-23", title: "エネルギー戦略・電化・先端エネルギー研究", tags: ["Energy / Science", "Career"], remember: "エネルギーの技術的な仕組みと社会的な意味を、自分の研究経験へ結び付けて説明した。", prompt: "How should an energy company balance electrification and energy security?" },
-  { session: 6, id: "2026-08-19-01", date: "2026-08-19", title: "ローカルAI・クラウドAIとAI駆動開発", tags: ["AI / Tech", "Software"], remember: "速度・プライバシー・難易度を基準にLocal、Cloud、Hybrid AIを使い分ける。", prompt: "How should a company use AI across the development lifecycle?" },
-  { session: 5, id: "2026-08-18-01", date: "2026-08-18", title: "面接当日のリセット：気持ちを整える英会話", tags: ["Daily Life", "Career"], remember: "面接前でも、身近な話題について好みと理由を英語で自然に話し続けた。", prompt: "What helps you reset before an important event?" },
-  { session: 4, id: "2026-08-17-01", date: "2026-08-17", title: "AI・データセンターとキャリアを英語で伝える", tags: ["AI / Tech", "Career"], remember: "技術経験とキャリアの方向性をつなげ、面接で伝える核となるメッセージを整理した。", prompt: "What value can your technical background bring to an energy company?" },
-  { session: 3, id: "2026-08-16-01", date: "2026-08-16", title: "面接準備：強みの言語化と英語面接フレーズ", tags: ["Career / Interview"], remember: "優先順位・理由・会社への貢献を一つのストーリーとして説明した。", prompt: "What are your priorities in your first year at a new company?" },
-  { session: 2, id: "2026-08-15-01", date: "2026-08-15", title: "GPT-5.6 on Amazon Bedrock：モデル選択とPrompt Caching", tags: ["AI / Tech", "Cloud"], remember: "モデルを優劣ではなく、仕事量・速度・コスト・難易度に合わせて選ぶ。", prompt: "How do you choose the right AI model for a workload?" },
-  { session: 1, id: "2026-08-08-01", date: "2026-08-08", title: "韓国旅行と英会話リハビリ", tags: ["Travel", "Daily Life"], remember: "伝わる英語から、自然な語順とチャンクを使う英語への第一歩を記録した。", prompt: "What was the most memorable part of your Korea trip?" },
-];
+const sessionCatalog = JSON.parse(
+  await fs.readFile(path.join(recordsRoot, "session-catalog.json"), "utf8"),
+);
+if (!Array.isArray(sessionCatalog.sessions)) {
+  throw new Error("session-catalog.json must contain a sessions array");
+}
+const sessionDefinitions = sessionCatalog.sessions.map((entry) => {
+  const required = ["session_number", "session_id", "date", "title", "tags", "remember", "prompt", "source_path", "source_anchor"];
+  if (required.some((key) => entry[key] == null) || !Array.isArray(entry.tags)) {
+    throw new Error(`Invalid session catalog entry: ${JSON.stringify(entry)}`);
+  }
+  return {
+    session: Number(entry.session_number),
+    id: entry.session_id,
+    date: entry.date,
+    title: entry.title,
+    tags: entry.tags,
+    remember: entry.remember,
+    prompt: entry.prompt,
+    sourcePath: entry.source_path,
+    sourceAnchor: entry.source_anchor,
+  };
+});
 
 const allSessionMetadata = dailyDocuments.flatMap((document) =>
   [...document.matchAll(/<!--\s*session-meta:\s*(\{.*?\})\s*-->/g)].map((match) => JSON.parse(match[1])),
@@ -221,22 +233,16 @@ for (const document of dailyDocuments) {
   }
 }
 
-const archiveStartPatterns = new Map([
-  [9, /^## \*\*｜2026年8月28日/m],
-  [8, /^## \*\*｜2026年8月27日/m],
-  [7, /^## ｜2026年8月23日/m],
-  [6, /^## \*\*｜2026年8月19日/m],
-  [5, /^## 2026年8月18日/m],
-  [4, /^## 8月 17, 2026/m],
-  [3, /^## 8月 16, 2026/m],
-  [2, /^## 8月 15, 2026/m],
-  [1, /^## 2026-08-08/m],
-]);
-const archiveStarts = [...archiveStartPatterns].map(([session, pattern]) => {
-  const match = archive.match(pattern);
-  if (!match) throw new Error(`Archive start marker not found for Session ${session}`);
-  return { session, index: match.index };
-}).sort((a, b) => a.index - b.index);
+const archiveStarts = [...archive.matchAll(/<a\s+id=["']session-(\d{4}-\d{2}-\d{2}-\d{2})["']\s*><\/a>/gi)]
+  .map((match) => {
+    const definition = sessionDefinitionById.get(match[1]);
+    return definition ? { session: definition.session, index: match.index } : null;
+  })
+  .filter(Boolean)
+  .sort((a, b) => a.index - b.index);
+if (archiveStarts.length !== sessionCatalog.sessions.length) {
+  throw new Error("Every catalog session must have one fixed anchor in the migration archive");
+}
 const archiveDailyEnd = archive.search(/^# \*\*2\\\. 表現バンク/m);
 if (archiveDailyEnd < 0) throw new Error("Archive Daily Notes boundary not found");
 const archiveBodies = new Map();

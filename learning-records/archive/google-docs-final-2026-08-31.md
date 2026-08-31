@@ -95,6 +95,8 @@ AI / Tech / English Conversation Journal
 
 ## 60秒で説明する：*Why does Godzilla remain meaningful beyond monster battles?* Structure: Main point → reason → example → conclusion.
 
+<a id="session-2026-08-27-01"></a>
+
 ## **｜2026年8月27日（木）AIデータセンター・電力インフラ・マイクログリッド**
 
 Session 8 / Direct reading recording included
@@ -173,6 +175,8 @@ Structure: Main point → reason → example → conclusion。
 ![電力需要の推移](assets/electricity-demand-chart.png)
 
 *図2 / Figure 2: 米国の用途別電力需要増加、2015–2030。出典: [IEA (2026), Electricity 2026 — Demand](https://www.iea.org/reports/electricity-2026/demand), License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)。表示用にトリミングした派生画像。This is a work derived by Yuki × Chappy from IEA material and Yuki × Chappy is solely liable and responsible for this derived work. The derived work is not endorsed by the IEA or its Member countries in any manner.*
+
+<a id="session-2026-08-23-01"></a>
 
 ## ｜2026年8月23日（日）エネルギー企業の戦略と先端エネルギー研究
 
@@ -259,6 +263,8 @@ Pronunciation & Speaking Bank: 該当なし。直接音声を計測しておら�
 * 応募先企業の公開英語資料（組織名とURLは匿名化）
 * [METI — Green Growth Strategy Through Achieving Carbon Neutrality in 2050](https://www.meti.go.jp/english/policy/energy_environment/global_warming/ggs2050/index.html)
 * 大学研究機関の公開資料（所属名とURLは匿名化）
+
+<a id="session-2026-08-19-01"></a>
 
 ## **｜2026年8月19日（水）ローカルAI・クラウドAIとAI駆動開発**
 
@@ -444,6 +450,8 @@ Yukiは、local/cloud AI、Ollama、LangGraph、agent routing、投資支援、I
 Local AI / Cloud AI / Hybrid AI comparison
 ![Local AI・Cloud AI・Hybrid AIの比較](assets/local-cloud-hybrid-ai.png)
 
+<a id="session-2026-08-18-01"></a>
+
 ## 2026年8月18日（火）面接当日のリセット：気持ちを整える英会話
 
 ## 今日の要点 / Today at a Glance
@@ -477,6 +485,8 @@ Pronunciation & Speaking Bank：該当なし（信頼できる音声評価を行
 
 ・面接後の感想を、短く「気持ち → 理由 → 印象に残ったこと」の順で英語で話す。
 ・要復習語 concrete / deliverables を、仕事の例文で自然に1回ずつ使う。
+
+<a id="session-2026-08-17-01"></a>
 
 ## 8月 17, 2026｜AI・データセンターとエネルギー企業：英語で伝える技術・キャリア
 
@@ -529,6 +539,8 @@ auxiliary equipment（補助設備）／comprise（〜から成る）／colocati
 ・英語力比較のため、次回は終了前に共通60秒課題を1回だけ行う。
 ・Source: [IEA — Energy demand from AI](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai)
 
+<a id="session-2026-08-16-01"></a>
+
 ## 8月 16, 2026｜エネルギー企業の面接準備：強みの言語化と英語面接フレーズ
 
 ### Today at a Glance
@@ -562,6 +574,8 @@ What do you think my chances are of getting an offer from the company?
 ### Next Steps
 
 面接前に「志望理由」「入社1年目の貢献」「応募先企業で実現したいこと」を各60秒程度で声に出して練習する。
+
+<a id="session-2026-08-15-01"></a>
 
 ## 8月 15, 2026｜[GPT-5.6 on Amazon Bedrock：モデル選択とPrompt Caching](#8月-15,-2026｜gpt-5.6-on-amazon-bedrock：モデル選択とprompt-caching)
 
@@ -698,6 +712,8 @@ Yukiはtechnical articleを英語で長く読み、未知語も説明後にconte
 TerraをBedrockで試す、Claudeとのsame-prompt comparison、prompt cachingのcost estimate、投資支援アプリ向けmodel routingを検討。英語では今日の記事の1分要約、Sol / Terra / Lunaの説明、feature vs functionの実践を行う。
 
 ────────────────────
+
+<a id="session-2026-08-08-01"></a>
 
 ## 2026-08-08｜[韓国旅行と英会話リハビリ：伝わる英語から自然な英語へ](#2026-08-08｜韓国旅行と英会話リハビリ：伝わる英語から自然な英語へ)
 

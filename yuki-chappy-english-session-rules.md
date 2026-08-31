@@ -2,7 +2,7 @@
 
 > このファイルは、Englishプロジェクトにおける英会話セッション、学習記録、英語力評価、成果物共有の正式な継続運用ルールである。
 > 最終更新: 2026-08-31
-> 文書バージョン: 3.3
+> 文書バージョン: 3.4
 
 ## 0. ルールの優先順位と完了条件
 
@@ -12,7 +12,7 @@
 - Yukiが日常的に読み返す閲覧面は、正本Markdownと評価JSONから自動生成する **Learning Site** とする。`site/` と `.generated-site-docs/` は再生成可能な派生物であり正本にしない。README、ルール、評価JSON、固定アーカイブなどの運用情報を、学習者向けの主導線へ混在させない。
 - 可搬版は `AGENTS.md` の配布用ミラーとして扱い、規範となるルール本文は同一に保つ。環境固有のメールアドレス、認証情報、Cookie、APIキーはどちらのルールファイルにも直接記載しない。
 - 会話中は学習記録の作成より会話の自然さを優先し、終了が明示された後に記録作業へ移る。
-- セッション後の通常作業は `日時確認 → Git同期確認 → Session Package → 月別Daily Notes → Session Index / latest → Study Banks差分更新 → 英語力評価・グラフ → 学習サイト生成・ローカル検証 → Git差分確認 → commit / push` の順で行う。
+- セッション後の通常作業は `日時確認 → Git同期確認 → Session Package → 月別Daily Notes → Session Catalog → Session Index / latest → Study Banks差分更新 → 英語力評価・グラフ → 学習サイト生成・ローカル検証 → Git差分確認 → commit / push` の順で行う。
 - 「ローカル記録完了」とは、対象Markdownと評価データへの反映、Index・Sourceリンク・Bank重複・プライバシーの検証、必要なテストまで確認できた状態を指す。「PC間共有完了」とは、さらにcommitとpushの成功を確認できた状態を指す。
 - 毎回の英会話終了時は、当月Daily Notes、Session Index、latest、Expression Bank、Vocabulary Bank、Pronunciation & Speaking Bank、英語力評価・グラフ、Source・相対リンク、Git差分を順に確認する。該当しないBankや評価項目は無理に増やさず、各Bankを「追加」「既存項目の強化」「該当なし」のいずれかとしてSession Packageへ記録する。
 - Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026-08-31にSession 9までの完成確認を行い、Git管理用の匿名版Markdownへ移行した。以後はアクセス制御された移行元アーカイブとし、通常セッションでは更新しない。YukiがGoogle Docs形式を明示的に求めた場合だけ、ローカル正本から共有用コピーを作成する。Google Docsの状態は通常の完了条件に含めない。
@@ -256,7 +256,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 2. Packageを確定する。
 3. `learning-records/daily-notes/YYYY-MM.md` の最上部へ、新しいDaily Noteを1件追加する。
 4. 各セッションへ固定アンカー `session-YYYY-MM-DD-NN` を付け、YAMLメタデータまたは同等の機械可読情報を記録する。
-5. `learning-records/session-index.md` と `learning-records/latest.md` を更新し、相対リンクの実在とアンカーを検証する。
+5. `learning-records/session-catalog.json`、`learning-records/session-index.md`、`learning-records/latest.md` を更新し、全セッションが1件ずつCatalogとIndexにあり、相対リンクと固定アンカーが実在することを検証する。
 6. 3 Bankを1回の対象読み取りで確認し、差分だけを追加・強化する。
 7. 今回測定できた指標だけを `english_progress_tracker.json` へ追加し、過去データは再評価しない。
 8. 評価データを変更した場合だけグラフを再生成し、今回・前回・初回との接続を確認する。
@@ -268,6 +268,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 ### 保存先
 
 - 月別Daily Notes: `learning-records/daily-notes/YYYY-MM.md`
+- Session Catalog: `learning-records/session-catalog.json`。Session番号・日付・タイトル・学習用要点・正本リンクを1件ずつ持つ、全セッション導線の機械可読な正本。
 - Session Index: `learning-records/session-index.md`
 - スマホ用最新導線: `learning-records/latest.md`
 - Study Banks: `learning-records/banks/`
@@ -277,7 +278,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - Learning Siteの生成中間物・完成物: `.generated-site-docs/`、`site/`。Git管理せず、各PCまたはCIで再生成する。
 - 一時Session Package・録音・分析中間物: `tmp/`。Git管理しない。
 - 新しいDaily Note、Index、latest、Bankの日付ブロックは新しいものほど上に置く。
-- **Index / latest更新は必須の完了ゲート**とする。新しいDaily Noteを追加したら、短縮タイトルと固定アンカーへの相対リンクを追加し、リンク先ファイルとアンカーが実在することを検証する。
+- **Catalog / Index / latest更新は必須の完了ゲート**とする。新しいDaily Noteを追加したら、Catalogへ1件追加し、Indexとlatestへ短縮タイトルと固定アンカーへの相対リンクを追加する。全Catalog項目がIndexに1回だけあり、リンク先ファイルとアンカーが実在することを検証する。
 - Google Docs「Daily English Learning Notes by Yuki × Chappy」（Document ID: `1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc`）はアクセス制御された移行元アーカイブとして保持する。2026-08-31に完成確認した内容から作成したGit管理用匿名版は `learning-records/archive/google-docs-final-2026-08-31.md` と同ディレクトリの画像を移行基準とし、Google Docs本体は削除せず通常回では編集しない。
 
 ### Daily Noteに含める内容
@@ -297,7 +298,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 ### 文書の構成と見た目
 
 - Daily Notesは月単位とし、当月ファイル内では新しいセッションを上に置く。1セッション1ファイルへ過度に細分化しない。
-- `latest.md`、`session-index.md`、各月ファイル、3 Bankの相互導線を相対リンクで用意する。
+- `latest.md`、`session-catalog.json`、`session-index.md`、各月ファイル、3 Bankの相互導線を相対リンクで用意する。Session Indexは全Catalog項目を新しい順に1件ずつ列挙し、GitHubアプリでも各セッションを直接開ける状態を維持する。
 - 見出し階層、日付形式、固定アンカー、Source表記を統一する。
 - Learning Siteのスマホ幅を主な閲覧基準とし、GitHub Markdownをフォールバックとして、短い段落、十分な空行、縦型の情報ブロックを使う。
 - 画像は必要な場合のみ使用し、小さめに配置してキャプションと出典を付ける。
@@ -558,8 +559,8 @@ v3.0導入後の次の3セッションでは、`ニュース・URL確認 / Sessi
 - [ ] Daily Note・Session Index・latest・各Bankが新しい日付ほど上になっている
 - [ ] 該当する重要表現・語彙・発音チャンクを各Bankへ重複なく追加した（該当なしは追加しない）
 - [ ] Vocabulary Bankへ米語IPAを付けた
-- [ ] Session Indexとlatestを更新した
-- [ ] 新しいIndex / latestリンクが当月ファイルの固定アンカーを指し、リンク先が実在する
+- [ ] Session Catalog、Session Index、latestを更新した
+- [ ] 全Catalog項目がIndexに1回ずつあり、新しいIndex / latestリンクが当月ファイルの固定アンカーを指し、リンク先が実在する
 - [ ] 見出し名、日付・Source表記、句読点、箇条書きの形式が関連Markdown間でそろっている
 - [ ] 記事URLを関連記述の近くに置いた
 - [ ] 変更したMarkdownと前後の接続部分を再読した
@@ -596,6 +597,7 @@ v3.0導入後の次の3セッションでは、`ニュース・URL確認 / Sessi
   - `pronunciation-benchmark.md`: 発音評価用の共通音読課題
   - `package.json` / `package-lock.json`: Node.js依存関係と再現可能な実行手順
   - `.nvmrc`: 動作確認するNode.js LTSバージョン
+  - `learning-records/session-catalog.json`: 全セッションの機械可読な導線正本
   - `learning-records/latest.md` / `session-index.md`: スマホと全履歴の入口
   - `learning-records/daily-notes/YYYY-MM.md`: 月別Daily Notesの正本
   - `learning-records/banks/*.md`: 3 Study Banksの正本
