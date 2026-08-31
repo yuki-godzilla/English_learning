@@ -2,19 +2,19 @@
 
 > このファイルは、Englishプロジェクトにおける英会話セッション、学習記録、英語力評価、成果物共有の正式な継続運用ルールである。
 > 最終更新: 2026-08-31
-> 文書バージョン: 3.4
+> 文書バージョン: 3.5
 
 ## 0. ルールの優先順位と完了条件
 
 - その場のYukiの明示的な指示を最優先し、本ファイルは指示がない部分の既定動作として適用する。
 - リポジトリ内では、この `AGENTS.md` をCodexが直接参照する**運用上の正本**とする。`yuki-chappy-english-session-rules.md` は別PC・別ツール向けの可搬版であり、内容が競合する場合は `AGENTS.md` を優先する。
 - 学習記録の正本は、本リポジトリの `learning-records/` 配下に置くローカルMarkdownと `english_progress_tracker.json` とする。PC間共有はGitのpull / commit / pushで行う。Google Docsから移行したSession 1〜9は、固有の勤務先・所属・非公開製品・識別性の高い業務詳細を一般化した `learning-records/archive/google-docs-final-2026-08-31.md` をGit管理用の固定移行スナップショットとし、アクセス制御されたGoogle Docs原本および通常更新用の構造化Markdownと区別する。
-- Yukiが日常的に読み返す閲覧面は、正本Markdownと評価JSONから自動生成する **Learning Site** とする。`site/` と `.generated-site-docs/` は再生成可能な派生物であり正本にしない。README、ルール、評価JSON、固定アーカイブなどの運用情報を、学習者向けの主導線へ混在させない。
+- Yukiが日常的に読み返す閲覧面は、正本Markdownと評価JSONから自動生成する **Learning Site** とする。`site/` と `.generated-site-docs/` は再生成可能な派生物であり正本にしない。GitHubアプリではルートREADMEを同じ目的別の入口として使い、`latest.md`、`growth.md`、`session-index.md`、3 Bankへ1操作で到達できるようにする。README、ルール、評価JSON、固定アーカイブなどの運用情報を、学習者向けの主導線へ混在させない。
 - 可搬版は `AGENTS.md` の配布用ミラーとして扱い、規範となるルール本文は同一に保つ。環境固有のメールアドレス、認証情報、Cookie、APIキーはどちらのルールファイルにも直接記載しない。
 - 会話中は学習記録の作成より会話の自然さを優先し、終了が明示された後に記録作業へ移る。
-- セッション後の通常作業は `日時確認 → Git同期確認 → Session Package → 月別Daily Notes → Session Catalog → Session Index / latest → Study Banks差分更新 → 英語力評価・グラフ → 学習サイト生成・ローカル検証 → Git差分確認 → commit / push` の順で行う。
+- セッション後の通常作業は `日時確認 → Git同期確認 → Session Package → 月別Daily Notes → Session Catalog → Session Index / latest → Study Banks差分更新 → 英語力評価・growth.md・グラフ → 学習サイト生成・ローカル検証 → Git差分確認 → commit / push` の順で行う。
 - 「ローカル記録完了」とは、対象Markdownと評価データへの反映、Index・Sourceリンク・Bank重複・プライバシーの検証、必要なテストまで確認できた状態を指す。「PC間共有完了」とは、さらにcommitとpushの成功を確認できた状態を指す。
-- 毎回の英会話終了時は、当月Daily Notes、Session Index、latest、Expression Bank、Vocabulary Bank、Pronunciation & Speaking Bank、英語力評価・グラフ、Source・相対リンク、Git差分を順に確認する。該当しないBankや評価項目は無理に増やさず、各Bankを「追加」「既存項目の強化」「該当なし」のいずれかとしてSession Packageへ記録する。
+- 毎回の英会話終了時は、当月Daily Notes、Session Index、latest、growth、Expression Bank、Vocabulary Bank、Pronunciation & Speaking Bank、英語力評価・グラフ、Source・相対リンク、Git差分を順に確認する。該当しないBankや評価項目は無理に増やさず、各Bankを「追加」「既存項目の強化」「該当なし」のいずれかとしてSession Packageへ記録する。
 - Google Docs「Daily English Learning Notes by Yuki × Chappy」は2026-08-31にSession 9までの完成確認を行い、Git管理用の匿名版Markdownへ移行した。以後はアクセス制御された移行元アーカイブとし、通常セッションでは更新しない。YukiがGoogle Docs形式を明示的に求めた場合だけ、ローカル正本から共有用コピーを作成する。Google Docsの状態は通常の完了条件に含めない。
 - PDFとメールは通常回の必須工程にしない。YukiがPDF、印刷、オフライン閲覧、メール送信を明示的に求めた回だけ第12節の検証を行う。
 - GitHub Pagesはリポジトリ内容をWebサイトとして公開・発見しやすくするため、検証ワークフローは自動実行してよいが、初回公開、公開範囲変更、Pages設定変更、手動デプロイはYukiの明示承認後だけ行う。既定ではnoindex、アクセス解析なしとする。noindexは検索掲載を控える指示であり、アクセス制御や非公開化ではないことを公開前に説明する。
@@ -256,7 +256,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 2. Packageを確定する。
 3. `learning-records/daily-notes/YYYY-MM.md` の最上部へ、新しいDaily Noteを1件追加する。
 4. 各セッションへ固定アンカー `session-YYYY-MM-DD-NN` を付け、YAMLメタデータまたは同等の機械可読情報を記録する。
-5. `learning-records/session-catalog.json`、`learning-records/session-index.md`、`learning-records/latest.md` を更新し、全セッションが1件ずつCatalogとIndexにあり、相対リンクと固定アンカーが実在することを検証する。
+5. `learning-records/session-catalog.json`、`learning-records/session-index.md`、`learning-records/latest.md`、`learning-records/growth.md` を更新し、全セッションが1件ずつCatalog・Index・Growthにあり、相対リンクと固定アンカーが実在することを検証する。
 6. 3 Bankを1回の対象読み取りで確認し、差分だけを追加・強化する。
 7. 今回測定できた指標だけを `english_progress_tracker.json` へ追加し、過去データは再評価しない。
 8. 評価データを変更した場合だけグラフを再生成し、今回・前回・初回との接続を確認する。
@@ -271,6 +271,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - Session Catalog: `learning-records/session-catalog.json`。Session番号・日付・タイトル・学習用要点・正本リンクを1件ずつ持つ、全セッション導線の機械可読な正本。
 - Session Index: `learning-records/session-index.md`
 - スマホ用最新導線: `learning-records/latest.md`
+- 成長・評価の閲覧導線: `learning-records/growth.md`。評価JSONを直接見せず、現在地・測定範囲・次の課題・全評価セッションへのリンクを人が読める形で示す。
 - Study Banks: `learning-records/banks/`
 - 定量評価: `english_progress_tracker.json`
 - 再生成可能なグラフ・PDF: `output/`。原則としてGit管理しない。
@@ -278,7 +279,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 - Learning Siteの生成中間物・完成物: `.generated-site-docs/`、`site/`。Git管理せず、各PCまたはCIで再生成する。
 - 一時Session Package・録音・分析中間物: `tmp/`。Git管理しない。
 - 新しいDaily Note、Index、latest、Bankの日付ブロックは新しいものほど上に置く。
-- **Catalog / Index / latest更新は必須の完了ゲート**とする。新しいDaily Noteを追加したら、Catalogへ1件追加し、Indexとlatestへ短縮タイトルと固定アンカーへの相対リンクを追加する。全Catalog項目がIndexに1回だけあり、リンク先ファイルとアンカーが実在することを検証する。
+- **Catalog / Index / latest / Growth更新は必須の完了ゲート**とする。新しいDaily Noteを追加したら、Catalogへ1件追加し、Index・latest・Growthへ短縮タイトルと固定アンカーへの相対リンクを追加する。全Catalog項目がIndexとGrowthに1回ずつあり、リンク先ファイルとアンカーが実在することを検証する。
 - Google Docs「Daily English Learning Notes by Yuki × Chappy」（Document ID: `1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc`）はアクセス制御された移行元アーカイブとして保持する。2026-08-31に完成確認した内容から作成したGit管理用匿名版は `learning-records/archive/google-docs-final-2026-08-31.md` と同ディレクトリの画像を移行基準とし、Google Docs本体は削除せず通常回では編集しない。
 
 ### Daily Noteに含める内容
@@ -298,7 +299,7 @@ Daily Noteを作成・更新する直前に、もう一度日本時間（Asia/To
 ### 文書の構成と見た目
 
 - Daily Notesは月単位とし、当月ファイル内では新しいセッションを上に置く。1セッション1ファイルへ過度に細分化しない。
-- `latest.md`、`session-catalog.json`、`session-index.md`、各月ファイル、3 Bankの相互導線を相対リンクで用意する。Session Indexは全Catalog項目を新しい順に1件ずつ列挙し、GitHubアプリでも各セッションを直接開ける状態を維持する。
+- `latest.md`、`growth.md`、`session-catalog.json`、`session-index.md`、各月ファイル、3 Bankの相互導線を相対リンクで用意する。READMEと各主要ページの先頭では `続きから学ぶ / 5分復習 / 成長・評価 / 全セッション` を短く相互リンクし、GitHubアプリでも各目的へ1操作で到達できる状態を維持する。Session IndexとGrowthは全Catalog項目を新しい順に1件ずつ列挙する。
 - 見出し階層、日付形式、固定アンカー、Source表記を統一する。
 - Learning Siteのスマホ幅を主な閲覧基準とし、GitHub Markdownをフォールバックとして、短い段落、十分な空行、縦型の情報ブロックを使う。
 - 画像は必要な場合のみ使用し、小さめに配置してキャプションと出典を付ける。

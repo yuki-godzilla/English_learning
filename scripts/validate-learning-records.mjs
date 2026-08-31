@@ -7,6 +7,7 @@ const recordsRoot = path.join(root, "learning-records");
 const migrationSnapshot = "learning-records/archive/google-docs-final-2026-08-31.md";
 const requiredFiles = [
   "latest.md",
+  "growth.md",
   "session-index.md",
   "banks/expression-bank.md",
   "banks/vocabulary-bank.md",
@@ -247,6 +248,18 @@ for (const [sessionId, file] of sessionIds) {
   if (!indexTargets.has(target)) {
     errors.push(`Session Index is missing Daily Note ${sessionId}: ${target}`);
   }
+}
+
+const growthMarkdown = contentByFile.get(path.join(recordsRoot, "growth.md")) ?? "";
+const growthTargets = new Set(linkTargets(growthMarkdown));
+for (const session of catalogSessions) {
+  const target = `${session.source_path}#${session.source_anchor}`;
+  if (!growthTargets.has(target)) {
+    errors.push(`Growth page is missing Session ${session.session_number}: ${target}`);
+  }
+}
+if (!growthMarkdown.includes("これは会話記録に根拠を置く学習用の評価です。")) {
+  errors.push("Growth page is missing its non-official evaluation disclaimer");
 }
 
 for (const bankName of [

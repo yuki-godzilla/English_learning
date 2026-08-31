@@ -1,22 +1,11 @@
 # 学習記録 / Learning Records
 
-> GitHubアプリでは、まず最新の学習を開いてから必要な記録へ進みます。
+[**▶ 続きから学ぶ**](latest.md) · [**⏱ 5分復習**](latest.md#five-minute-review) · [**📈 成長・評価**](growth.md) · [**🗂 全セッション**](session-index.md)
 
-## 今回の学習を再開する
+## 英語を探す
 
-[**▶ 最新セッションと5分復習**](latest.md)
+[表現](banks/expression-bank.md) · [語彙](banks/vocabulary-bank.md) · [発音・スピーキング](banks/pronunciation-speaking-bank.md)
 
-## 目的別に開く
+> GitHubアプリでは、上の目的を1つ選ぶだけで学習を始められます。
 
-- [全セッション](session-index.md) — 話題ごとの会話記録
-- [Expression Bank](banks/expression-bank.md) — すぐ使いたい言い回し
-- [Vocabulary Bank](banks/vocabulary-bank.md) — 語義・コロケーション・例文
-- [Pronunciation & Speaking Bank](banks/pronunciation-speaking-bank.md) — 練習チャンク
-
-## 読み方
-
-1. **最新セッション**で、まず内容を30秒で思い出す
-2. **5分復習**で、答えを見る前に英語を口に出す
-3. **Bank**で、次に使う表現を1つだけ選ぶ
-
-過去のDaily Notesは [daily-notes](daily-notes/) に月ごとにあります。Google Docsから移行したSession 1〜9の固定アーカイブは [archive](archive/) に保管しています。
+過去のDaily Notesは [daily-notes](daily-notes/) に、移行済みの固定アーカイブは [archive](archive/) にあります。

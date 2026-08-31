@@ -2,33 +2,27 @@
 
 > 話したことを、次に話せる英語へ。
 
-## まずここから
+## 今日は何をする？
 
-### 1. 最新セッションを振り返る
+[**▶ 続きから学ぶ**](learning-records/latest.md)
 
-[**▶ 学習を再開する**](learning-records/latest.md)
+最新セッションを30秒で思い出し、5分復習と60秒スピーキングへ進む。
 
-30秒の振り返り、今日の5分復習、60秒スピーキング課題を、最新セッションの内容から行えます。
+[**⏱ 5分だけ復習する**](learning-records/latest.md#five-minute-review)
 
-### 2. 英語を思い出す
+今日使える表現を、答えを見る前に思い出す。
 
-- [表現を復習する](learning-records/banks/expression-bank.md)
-- [語彙を復習する](learning-records/banks/vocabulary-bank.md)
-- [発音・スピーキングを練習する](learning-records/banks/pronunciation-speaking-bank.md)
+[**📈 成長・評価を見る**](learning-records/growth.md)
 
-### 3. これまでの会話を見る
+今できていること、次の課題、評価セッションの履歴を確認する。
 
-[**全セッションを見る**](learning-records/session-index.md)
+[**🗂 全セッションを見る**](learning-records/session-index.md)
 
-新しいセッションから順に、話題・役立つ英語・次回の練習を確認できます。
+9回すべての会話を、古い記録も含めて直接開く。
 
----
+## 英語を探す
 
-## GitHubアプリでの使い方
-
-1. 上の **「▶ 学習を再開する」** を開く
-2. 5分復習の答えを開く前に、まず自分で思い出す
-3. 次のセッションで使いたい表現を1つ選ぶ
+[表現](learning-records/banks/expression-bank.md) · [語彙](learning-records/banks/vocabulary-bank.md) · [発音・スピーキング](learning-records/banks/pronunciation-speaking-bank.md)
 
 <details>
 <summary>記録の仕組み・運用情報</summary>

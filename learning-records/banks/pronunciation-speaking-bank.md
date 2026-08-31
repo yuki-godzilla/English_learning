@@ -1,6 +1,6 @@
 # 🟣 Pronunciation & Speaking Bank
 
-[最新セッション](../latest.md) · [Session Index](../session-index.md) · [Expression Bank](expression-bank.md) · [Vocabulary Bank](vocabulary-bank.md)
+[**▶ 続きから学ぶ**](../latest.md) · [**📈 成長・評価**](../growth.md) · [**🗂 全セッション**](../session-index.md) · [Expression Bank](expression-bank.md) · [Vocabulary Bank](vocabulary-bank.md)
 
 <a id="2026-08-28"></a>
 

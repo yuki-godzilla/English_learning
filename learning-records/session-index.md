@@ -2,7 +2,7 @@
 
 > **9セッションすべてを、ここから直接開けます。** 新しい記録から順に並んでいます。
 
-[▶ 最新セッションと5分復習](latest.md) · [表現](banks/expression-bank.md) · [語彙](banks/vocabulary-bank.md) · [発音・スピーキング](banks/pronunciation-speaking-bank.md)
+[**▶ 続きから学ぶ**](latest.md) · [**⏱ 5分復習**](latest.md#five-minute-review) · [**📈 成長・評価**](growth.md) · [表現](banks/expression-bank.md) · [語彙](banks/vocabulary-bank.md) · [発音・スピーキング](banks/pronunciation-speaking-bank.md)
 
 ## 2026年8月
 
