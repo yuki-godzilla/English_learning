@@ -25,7 +25,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$projectRoot = Split-Path -Parent $PSScriptRoot
+$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $workRoot = Join-Path $projectRoot 'tmp\pronunciation-recordings'
 $inboxRoot = Join-Path $workRoot 'inbox'
 $environmentPath = Join-Path $projectRoot 'tmp\pronunciation-environment.json'
@@ -229,7 +229,7 @@ if ($Action -eq 'Analyze') {
         throw "The local speech model is not ready: $modelPath. Run npm run pronunciation:setup first."
     }
 
-    $analyzer = Join-Path $PSScriptRoot 'analyze-pronunciation.py'
+    $analyzer = Join-Path $PSScriptRoot 'analyze.py'
     $arguments = @(
         $analyzer,
         '--manifest', $manifestPath,
@@ -243,7 +243,7 @@ if ($Action -eq 'Analyze') {
     }
     else {
         if ([string]::IsNullOrWhiteSpace($ExpectedFile) -and $TaskKind -eq 'read_aloud') {
-            $ExpectedFile = Join-Path $projectRoot 'pronunciation-benchmark.md'
+            $ExpectedFile = Join-Path $projectRoot 'learning-records\resources\pronunciation-benchmark.md'
         }
         if (-not [string]::IsNullOrWhiteSpace($ExpectedFile)) {
             $arguments += @('--expected-file', $ExpectedFile)

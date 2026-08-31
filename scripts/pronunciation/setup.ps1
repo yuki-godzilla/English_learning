@@ -9,13 +9,13 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$projectRoot = Split-Path -Parent $PSScriptRoot
+$projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $venvRoot = Join-Path $projectRoot '.venv-pronunciation'
 $venvPython = Join-Path $venvRoot 'Scripts\python.exe'
-$requirementsPath = Join-Path $projectRoot 'requirements-pronunciation.lock.txt'
+$requirementsPath = Join-Path $projectRoot 'requirements\pronunciation.lock.txt'
 $modelRoot = Join-Path $projectRoot 'tmp\pronunciation-models'
 $modelPath = Join-Path $modelRoot "faster-whisper-$Model"
-$downloadScript = Join-Path $PSScriptRoot 'download-pronunciation-model.py'
+$downloadScript = Join-Path $PSScriptRoot 'download-model.py'
 $environmentPath = Join-Path $projectRoot 'tmp\pronunciation-environment.json'
 
 function Invoke-CheckedCommand {

@@ -1,6 +1,6 @@
 <!-- migration-meta: {"source":"Google Docs","document_id":"1IQcM5shAF13jvcNXRUZPpuv0CJ-PQI7cqhpuZQA0RHc","finalized_jst":"2026-08-31","coverage_through":"2026-08-28 / Session 9","anonymized_for_git":true} -->
 
-> **Git管理用の匿名化済み移行スナップショット:** 2026年8月31日に完成確認したGoogle Docsを基に、固有の勤務先・所属・非公開製品・識別性の高い業務詳細を一般化した固定記録です。アクセス制御された原本の逐語コピーではありません。Session 9までの学習履歴を照合する場合はこのファイルを使い、以後の更新は`learning-records/daily-notes/`、`session-index.md`、`banks/`へ反映します。
+> **Git管理用の匿名化済み移行スナップショット:** 2026年8月31日に完成確認したGoogle Docsを基に、固有の勤務先・所属・非公開製品・識別性の高い業務詳細を一般化した固定記録です。アクセス制御された原本の逐語コピーではありません。Session 9までの移行前履歴を照合するためだけに保持し、通常の更新は`learning-records/journal.md`へ反映します。
 
 # **Daily English Learning Notes by Yuki × Chappy**
 
@@ -166,13 +166,13 @@ Structure: Main point → reason → example → conclusion。
 [U.S. Department of Energy — “Microgrids, Large Electric Loads & Grid Support”](https://www.energy.gov/oe/articles/microgrids-large-electric-loads-grid-support-how-leverage-microgrids-support-utilities)
 [International Energy Agency — “Electricity 2026: Demand”](https://www.iea.org/reports/electricity-2026/demand)
 
-![マイクログリッドによるデータセンター支援](assets/microgrid-data-center-grid.png)
+![マイクログリッドによるデータセンター支援](media/microgrid-data-center-grid.png)
 
 [*図1 / Figure 1: マイクログリッドによるデータセンター支援（U.S. Department of Energy, Office of Electricity 公式記事画像）*](https://www.energy.gov/oe/articles/microgrids-large-electric-loads-grid-support-how-leverage-microgrids-support-utilities)
 
 *利用条件: DOE公式サイトのコンテンツは、別記がない限りパブリックドメインとする[公式再利用方針](https://www.energy.gov/cmei/systems/awardee-communications-support#reposting-and-remixing-content)を参照。新しい学習画面では自作概念図を使用する。*
 
-![電力需要の推移](assets/electricity-demand-chart.png)
+![電力需要の推移](media/electricity-demand-chart.png)
 
 *図2 / Figure 2: 米国の用途別電力需要増加、2015–2030。出典: [IEA (2026), Electricity 2026 — Demand](https://www.iea.org/reports/electricity-2026/demand), License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)。表示用にトリミングした派生画像。This is a work derived by Yuki × Chappy from IEA material and Yuki × Chappy is solely liable and responsible for this derived work. The derived work is not endorsed by the IEA or its Member countries in any manner.*
 
@@ -448,7 +448,7 @@ Yukiは、local/cloud AI、Ollama、LangGraph、agent routing、投資支援、I
 ## **Visual / Figure**
 
 Local AI / Cloud AI / Hybrid AI comparison
-![Local AI・Cloud AI・Hybrid AIの比較](assets/local-cloud-hybrid-ai.png)
+![Local AI・Cloud AI・Hybrid AIの比較](media/local-cloud-hybrid-ai.png)
 
 <a id="session-2026-08-18-01"></a>
 
@@ -958,7 +958,7 @@ content words（名詞・主要動詞・形容詞など）に stress を置き�
 
 ### **視覚化評価 /** Visual Progress
 
-![Session 9までの英語力成長推移](assets/english-growth-progress-session-9.png)
+![Session 9までの英語力成長推移](media/english-growth-progress-session-9.png)
 
 ### 今回の英会話評価 / Today's Session Review
 
@@ -1017,7 +1017,7 @@ Next focus: state the conclusion first, then use one reason and one example. In 
 
 #### **資格スコア予測の推移 / Estimated Score Trends**
 
-![資格スコア予測の推移](assets/estimated-score-trends.png)
+![資格スコア予測の推移](media/estimated-score-trends.png)
 
 予測履歴は第8回から開始します。□はYuki申告の実績、緑の縦線は予測レンジ、◆はレンジ中央の表示用値です。過去セッションへ予測値を遡及入力しません。
 

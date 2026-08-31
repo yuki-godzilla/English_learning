@@ -1,9 +1,8 @@
 import { existsSync, rmSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { projectRoot as root } from "../lib/project.mjs";
 
-const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const localPython = process.platform === "win32"
   ? path.join(root, ".venv-site", "Scripts", "python.exe")
   : path.join(root, ".venv-site", "bin", "python");
@@ -27,7 +26,7 @@ for (const candidate of candidates) {
 }
 
 if (!python) {
-  console.error("MkDocs is unavailable. Create .venv-site and install requirements-site.txt first.");
+  console.error("MkDocs is unavailable. Create .venv-site and install requirements/site.txt first.");
   process.exit(1);
 }
 

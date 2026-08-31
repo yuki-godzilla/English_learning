@@ -10,7 +10,7 @@ theme:
   name: material
   language: ja
   font: false
-  custom_dir: site-overrides
+  custom_dir: site-src/overrides
   icon:
     repo: fontawesome/brands/github
   palette:

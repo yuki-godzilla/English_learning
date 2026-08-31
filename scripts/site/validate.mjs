@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { loadJournal } from "../lib/journal-parser.mjs";
+import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
 
-const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const generatedRoot = path.join(root, ".generated-site-docs");
 const siteRoot = path.join(root, "site");
-const tracker = JSON.parse(await fs.readFile(path.join(root, "english_progress_tracker.json"), "utf8"));
+const tracker = JSON.parse(await fs.readFile(path.join(recordsRoot, "progress.json"), "utf8"));
+const journal = await loadJournal();
 const failures = [];
 
 function fail(message) {
@@ -46,32 +47,14 @@ for (const relative of expectedGenerated) {
   if (!await exists(path.join(generatedRoot, relative))) fail(`Generated source is missing: ${relative}`);
 }
 
-const dailyNotesRoot = path.join(root, "learning-records", "daily-notes");
-const sessionMetadataIds = new Set();
-for (const dailyFile of (await walk(dailyNotesRoot)).filter((file) => file.endsWith(".md"))) {
-  const markdown = await fs.readFile(dailyFile, "utf8");
-  for (const match of markdown.matchAll(/<!--\s*session-meta:\s*(\{.*?\})\s*-->/g)) {
-    try {
-      const metadata = JSON.parse(match[1]);
-      if (!metadata.session_id) {
-        fail(`${path.relative(root, dailyFile)} contains session-meta without session_id`);
-      } else if (sessionMetadataIds.has(metadata.session_id)) {
-        fail(`Duplicate session-meta id: ${metadata.session_id}`);
-      } else {
-        sessionMetadataIds.add(metadata.session_id);
-      }
-    } catch {
-      fail(`${path.relative(root, dailyFile)} contains invalid session-meta JSON`);
-    }
-  }
-}
+const sessionMetadataIds = new Set(journal.sessions.map((session) => session.id));
 
 const sessionSources = (await walk(path.join(generatedRoot, "sessions")))
   .filter((file) => /\d{4}-\d{2}-\d{2}-\d{2}\.md$/.test(file));
 if (sessionSources.length < tracker.sessions.length) fail(`Expected at least ${tracker.sessions.length} generated session pages, found ${sessionSources.length}`);
 const generatedSessionIds = new Set(sessionSources.map((file) => path.basename(file, ".md")));
 for (const sessionId of sessionMetadataIds) {
-  if (!generatedSessionIds.has(sessionId)) fail(`Daily Note session-meta has no generated page: ${sessionId}`);
+  if (!generatedSessionIds.has(sessionId)) fail(`Journal session-meta has no generated page: ${sessionId}`);
 }
 
 function normalizedReference(rawReference) {
@@ -170,6 +153,8 @@ if (htmlFiles.length < 17) fail(`Expected at least 17 HTML pages, found ${htmlFi
 const bannedPatterns = [
   [/AGENTS\.md/gi, "AGENTS.md"],
   [/english_progress_tracker\.json/gi, "raw progress JSON"],
+  [/learning-records[\\/]progress\.json/gi, "raw progress JSON"],
+  [/media-manifest\.json/gi, "raw media manifest"],
   [/google-docs-final-\d{4}-\d{2}-\d{2}\.md/gi, "archive snapshot filename"],
   [/[A-Z]:\\(?:Users|English_Learning)\\/g, "Windows absolute path"],
   [/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/g, "email address"],
@@ -251,6 +236,9 @@ for (const htmlFile of htmlFiles) {
 
 const homeHtml = await fs.readFile(path.join(siteRoot, "index.html"), "utf8");
 if (!homeHtml.includes("learning-bottom-nav")) fail("Home page is missing the mobile bottom navigation");
+for (const label of ["ホーム", "記録", "復習", "成長", "資料"]) {
+  if (!homeHtml.includes(`<span>${label}</span>`)) fail(`Mobile bottom navigation is missing: ${label}`);
+}
 if (await exists(path.join(siteRoot, "sitemap.xml")) || await exists(path.join(siteRoot, "sitemap.xml.gz"))) {
   fail("The noindex learning site must not publish a sitemap");
 }

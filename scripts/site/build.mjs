@@ -1,10 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { loadJournal } from "../lib/journal-parser.mjs";
+import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
 
-const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const outputRoot = path.join(root, ".generated-site-docs");
-const recordsRoot = path.join(root, "learning-records");
 
 function assertGeneratedPath(target) {
   const resolved = path.resolve(target);
@@ -128,129 +127,21 @@ function removeSection(markdown, headingPattern, nextHeadingPattern) {
     : `${markdown.slice(0, start)}${rest.slice(next + 1)}`;
 }
 
-const tracker = JSON.parse(await fs.readFile(path.join(root, "english_progress_tracker.json"), "utf8"));
-const dailyNotesRoot = path.join(recordsRoot, "daily-notes");
-const dailyNoteFiles = (await fs.readdir(dailyNotesRoot))
-  .filter((file) => /^\d{4}-\d{2}\.md$/.test(file))
-  .sort();
-const dailyDocuments = await Promise.all(dailyNoteFiles.map((file) => fs.readFile(path.join(dailyNotesRoot, file), "utf8")));
-const daily = dailyDocuments.join("\n\n");
-const archive = await fs.readFile(path.join(recordsRoot, "archive", "google-docs-final-2026-08-31.md"), "utf8");
-const currentExpression = await fs.readFile(path.join(recordsRoot, "banks", "expression-bank.md"), "utf8");
-const currentVocabulary = await fs.readFile(path.join(recordsRoot, "banks", "vocabulary-bank.md"), "utf8");
-const currentSpeaking = await fs.readFile(path.join(recordsRoot, "banks", "pronunciation-speaking-bank.md"), "utf8");
-
-const sessionCatalog = JSON.parse(
-  await fs.readFile(path.join(recordsRoot, "session-catalog.json"), "utf8"),
-);
-if (!Array.isArray(sessionCatalog.sessions)) {
-  throw new Error("session-catalog.json must contain a sessions array");
-}
-const sessionDefinitions = sessionCatalog.sessions.map((entry) => {
-  const required = ["session_number", "session_id", "date", "title", "tags", "remember", "prompt", "source_path", "source_anchor"];
-  if (required.some((key) => entry[key] == null) || !Array.isArray(entry.tags)) {
-    throw new Error(`Invalid session catalog entry: ${JSON.stringify(entry)}`);
-  }
-  return {
-    session: Number(entry.session_number),
-    id: entry.session_id,
-    date: entry.date,
-    title: entry.title,
-    tags: entry.tags,
-    remember: entry.remember,
-    prompt: entry.prompt,
-    sourcePath: entry.source_path,
-    sourceAnchor: entry.source_anchor,
-  };
-});
-
-const allSessionMetadata = dailyDocuments.flatMap((document) =>
-  [...document.matchAll(/<!--\s*session-meta:\s*(\{.*?\})\s*-->/g)].map((match) => JSON.parse(match[1])),
-);
+const tracker = JSON.parse(await fs.readFile(path.join(recordsRoot, "progress.json"), "utf8"));
+const mediaManifest = JSON.parse(await fs.readFile(path.join(recordsRoot, "media-manifest.json"), "utf8"));
+const journal = await loadJournal();
+const sessionDefinitions = [...journal.sessions];
 const trackerByNumber = new Map(tracker.sessions.map((session) => [session.session, session]));
-const knownSessionIds = new Set(sessionDefinitions.map((session) => session.id));
-const usedSessionNumbers = new Set(sessionDefinitions.map((session) => session.session));
-for (const metadata of allSessionMetadata) {
-  const knownDefinition = sessionDefinitions.find((session) => session.id === metadata.session_id);
-  if (knownDefinition && metadata.session_number != null && Number(metadata.session_number) !== knownDefinition.session) {
-    throw new Error(`session-meta ${metadata.session_id} must use Session ${knownDefinition.session}`);
-  }
-}
-const newSessionMetadata = allSessionMetadata
-  .filter((metadata) => !knownSessionIds.has(metadata.session_id))
-  .sort((a, b) => String(a.session_datetime_jst).localeCompare(String(b.session_datetime_jst)) || String(a.session_id).localeCompare(String(b.session_id)));
-const reservedSessionNumbers = new Set();
-for (const metadata of newSessionMetadata) {
-  if (metadata.session_number == null) continue;
-  const explicitNumber = Number(metadata.session_number);
-  if (!Number.isInteger(explicitNumber) || explicitNumber < 1) {
-    throw new Error(`session-meta ${metadata.session_id} has an invalid session_number`);
-  }
-  if (usedSessionNumbers.has(explicitNumber) || reservedSessionNumbers.has(explicitNumber)) {
-    throw new Error(`session-meta ${metadata.session_id} reuses Session ${explicitNumber}`);
-  }
-  reservedSessionNumbers.add(explicitNumber);
-}
-
-let nextSessionNumber = Math.max(...usedSessionNumbers) + 1;
-for (const metadata of newSessionMetadata) {
-  while (usedSessionNumbers.has(nextSessionNumber) || reservedSessionNumbers.has(nextSessionNumber)) nextSessionNumber += 1;
-  const sessionNumber = metadata.session_number == null ? nextSessionNumber : Number(metadata.session_number);
-  usedSessionNumbers.add(sessionNumber);
-  if (metadata.session_number == null) nextSessionNumber += 1;
-  const date = String(metadata.session_datetime_jst).slice(0, 10);
-  const trackerSession = trackerByNumber.get(sessionNumber);
-  sessionDefinitions.push({
-    session: sessionNumber,
-    id: metadata.session_id,
-    date,
-    title: metadata.title ?? `English Conversation Session ${sessionNumber}`,
-    tags: Array.isArray(metadata.site_tags) && metadata.site_tags.length ? metadata.site_tags : ["English Conversation"],
-    remember: metadata.site_remember ?? firstSentence(trackerSession?.evidence_note_ja ?? metadata.title ?? "このセッションで話したことを振り返る。"),
-    prompt: metadata.site_prompt ?? "What was your main takeaway from this session, and why does it matter to you?",
-  });
-}
 for (const trackerSession of tracker.sessions) {
   if (!sessionDefinitions.some((session) => session.session === trackerSession.session)) {
-    throw new Error(`Tracker Session ${trackerSession.session} has no matching Daily Note session-meta record`);
+    throw new Error(`Progress Session ${trackerSession.session} has no matching Journal session-meta record`);
   }
 }
 sessionDefinitions.sort((a, b) => b.date.localeCompare(a.date) || b.session - a.session);
 
 const sessionDefinitionByNumber = new Map(sessionDefinitions.map((session) => [session.session, session]));
 const sessionDefinitionById = new Map(sessionDefinitions.map((session) => [session.id, session]));
-
-const currentBodies = new Map();
-for (const document of dailyDocuments) {
-  const metadataMatches = [...document.matchAll(/<!--\s*session-meta:\s*(\{.*?\})\s*-->/g)];
-  for (let index = 0; index < metadataMatches.length; index += 1) {
-    const match = metadataMatches[index];
-    const metadata = JSON.parse(match[1]);
-    const end = metadataMatches[index + 1]?.index ?? document.length;
-    const definition = sessionDefinitionById.get(metadata.session_id);
-    if (!definition) throw new Error(`No session definition found for ${metadata.session_id}`);
-    currentBodies.set(definition.session, document.slice(match.index, end));
-  }
-}
-
-const archiveStarts = [...archive.matchAll(/<a\s+id=["']session-(\d{4}-\d{2}-\d{2}-\d{2})["']\s*><\/a>/gi)]
-  .map((match) => {
-    const definition = sessionDefinitionById.get(match[1]);
-    return definition ? { session: definition.session, index: match.index } : null;
-  })
-  .filter(Boolean)
-  .sort((a, b) => a.index - b.index);
-if (archiveStarts.length !== sessionCatalog.sessions.length) {
-  throw new Error("Every catalog session must have one fixed anchor in the migration archive");
-}
-const archiveDailyEnd = archive.search(/^# \*\*2\\\. 表現バンク/m);
-if (archiveDailyEnd < 0) throw new Error("Archive Daily Notes boundary not found");
-const archiveBodies = new Map();
-for (let index = 0; index < archiveStarts.length; index += 1) {
-  const start = archiveStarts[index];
-  const end = archiveStarts[index + 1]?.index ?? archiveDailyEnd;
-  archiveBodies.set(start.session, archive.slice(start.index, end));
-}
+const currentBodies = new Map(sessionDefinitions.map((session) => [session.session, session.raw]));
 
 function convertGithubAlerts(markdown) {
   const types = {
@@ -276,7 +167,7 @@ function cleanSessionBody(markdown, session) {
     .replace(/<!--.*?-->/gs, "")
     .replace(/<a\s+id=["'][^"']+["']\s*><\/a>/g, "")
     .replace(/^---[\s\S]*?---\s*/m, "")
-    .replace(/^\[[^\n]+\]\([^\n]+\).*$/gm, (line) => line.includes("ページ先頭") || line.includes("Session Index") ? "" : line)
+    .replace(/^\[[^\n]+\]\([^\n]+\).*$/gm, (line) => line.includes("ページ先頭") || line.includes("目次") || line.includes("Session Index") ? "" : line)
     .replace(/^> \*\*Session[^\n]*$/gm, "")
     .replace(/^> \*\*主な話題[^\n]*$/gm, "")
     .replace(/^## Session \d+[^\n]*$/gm, "")
@@ -296,7 +187,9 @@ function cleanSessionBody(markdown, session) {
 
   for (const fileName of [
     "microgrid-data-center-grid.png",
+    "2026-08-27-microgrid-diagram.png",
     "electricity-demand-chart.png",
+    "2026-08-27-electricity-demand-growth.png",
     "local-cloud-hybrid-ai.png",
     "2026-08-19-hybrid-ai-comparison.png",
   ]) {
@@ -320,52 +213,37 @@ function cleanSessionBody(markdown, session) {
   return redactLearnerText(convertGithubAlerts(body));
 }
 
-const mediaBySession = new Map([
-  [8, [
-    {
-      file: "2026-08-27-microgrid-diagram.png",
-      alt: "主系統、地域電源、蓄電池、制御装置、データセンターをつなぐマイクログリッドの概念図",
-      caption: "Microgridがデータセンターと電力網を支える構造を、会話内容から整理した自作概念図。",
-      sourcePrefix: "参考資料",
-      sourceLabel: "U.S. Department of Energy, Office of Electricity — Microgrids, Large Electric Loads & Grid Support",
-      sourceUrl: "https://www.energy.gov/oe/articles/microgrids-large-electric-loads-grid-support-how-leverage-microgrids-support-utilities",
-      notice: "図そのものは Yuki × Chappy が作成しました。U.S. Department of Energyによる推奨・承認を示すものではありません。",
-    },
-    {
-      file: "electricity-demand-chart.png",
-      alt: "2015年から2030年までの米国の用途別電力需要増加を示す積み上げ棒グラフ",
-      caption: "米国の用途別電力需要増加、2015–2030（学習画面向けにトリミング）。",
-      sourceLabel: "IEA (2026), Electricity 2026 — Demand",
-      sourceUrl: "https://www.iea.org/reports/electricity-2026/demand",
-      licenseLabel: "CC BY 4.0",
-      licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
-      notice: "This is a work derived by Yuki × Chappy from IEA material and Yuki × Chappy is solely liable and responsible for this derived work. The derived work is not endorsed by the IEA or its Member countries in any manner.",
-    },
-  ]],
-  [6, [
-    { file: "2026-08-19-hybrid-ai-comparison.png", alt: "Local AI、Cloud AI、Hybrid AIの用途と強みを比較した図", caption: "速度、プライバシー、難易度を基準にしたAIの使い分け。", sourceLabel: "Session 6の会話内容", sourceUrl: "#session-6-record" },
-  ]],
-]);
+const mediaBySession = new Map();
+for (const item of mediaManifest.files.filter((entry) => entry.status === "published" && entry.session_id)) {
+  const session = sessionDefinitionById.get(item.session_id);
+  if (!session) throw new Error(`Media references an unknown session: ${item.path}`);
+  const entries = mediaBySession.get(session.session) ?? [];
+  entries.push({
+    ...item,
+    file: path.basename(item.path),
+    sourceLabel: item.creator ?? "Media source",
+    sourceUrl: item.source_url,
+    licenseLabel: item.license,
+    licenseUrl: item.license_url,
+  });
+  mediaBySession.set(session.session, entries);
+}
 
-const archiveExpression = extractRange(archive, /^# \*\*2\\\. 表現バンク/m, /^# \*\*3\\\. 語彙バンク/m);
-const archiveVocabulary = extractRange(archive, /^# \*\*3\\\. 語彙バンク/m, /^# \*\*4\\\. 発音バンク/m);
-const archiveSpeaking = extractRange(archive, /^# \*\*4\\\. 発音バンク/m, /^# 英語力の成長評価/m);
-
-function mergeBankRows(current, historical) {
-  const merged = [];
+function uniqueBankRows(markdown) {
+  const rows = [];
   const seen = new Set();
-  for (const cells of [...parseTableRows(current), ...parseTableRows(historical)]) {
+  for (const cells of parseTableRows(markdown)) {
     const key = normalizeKey(cells[0]);
     if (!key || seen.has(key)) continue;
     seen.add(key);
-    merged.push(cells.slice(0, 3));
+    rows.push(cells.slice(0, 3));
   }
-  return merged;
+  return rows;
 }
 
-const expressionRows = mergeBankRows(currentExpression, archiveExpression);
-const vocabularyRows = mergeBankRows(currentVocabulary, archiveVocabulary);
-const speakingRows = mergeBankRows(currentSpeaking, archiveSpeaking);
+const expressionRows = uniqueBankRows(journal.sections.expressions);
+const vocabularyRows = uniqueBankRows(journal.sections.vocabulary);
+const speakingRows = uniqueBankRows(journal.sections.speaking);
 
 function sourceSessionNumber(source) {
   const anchoredSession = String(source).match(/#session-(\d{4}-\d{2}-\d{2}-\d{2})/i);
@@ -426,7 +304,7 @@ const latestDefinition = sessionDefinitions[0];
 const latestSessionTracker = trackerByNumber.get(latestDefinition.session);
 const latestTracker = latestSessionTracker
   ?? [...tracker.sessions].sort((a, b) => b.session - a.session)[0];
-if (!latestTracker) throw new Error("english_progress_tracker.json has no evaluation sessions");
+if (!latestTracker) throw new Error("learning-records/progress.json has no evaluation sessions");
 const latestWinText = latestSessionTracker?.evidence_note_ja ?? latestDefinition.remember;
 const latestExpressions = latestRows(expressionRows, latestDefinition.session, 2);
 const latestVocabulary = latestRows(vocabularyRows, latestDefinition.session, 1);
@@ -536,7 +414,9 @@ ${sessionDefinitions.map((session) => {
 `;
 
 function figureMarkup(media) {
-  const source = `<a href="${escapeHtml(media.sourceUrl)}">${escapeHtml(media.sourceLabel)}</a>`;
+  const source = media.sourceUrl
+    ? `<a href="${escapeHtml(media.sourceUrl)}">${escapeHtml(media.sourceLabel)}</a>`
+    : escapeHtml(media.sourceLabel);
   const sourcePrefix = escapeHtml(media.sourcePrefix ?? "出典");
   const license = media.licenseUrl && media.licenseLabel
     ? ` · License: <a href="${escapeHtml(media.licenseUrl)}">${escapeHtml(media.licenseLabel)}</a>`
@@ -608,8 +488,8 @@ function sessionNavigation(index) {
 
 for (const [index, session] of sessionDefinitions.entries()) {
   const trackerSession = trackerByNumber.get(session.session);
-  const rawBody = currentBodies.get(session.session) ?? archiveBodies.get(session.session);
-  if (!rawBody) throw new Error(`No Daily Note content found for Session ${session.session}`);
+  const rawBody = currentBodies.get(session.session);
+  if (!rawBody) throw new Error(`No Journal content found for Session ${session.session}`);
   const cleanedBody = cleanSessionBody(rawBody, session);
   const media = mediaBySession.get(session.session) ?? [];
   const body = placeSessionMedia(cleanedBody, session, media);
@@ -783,7 +663,7 @@ ${Object.entries(testDefinitions).map(([testId, definition]) => {
 `;
 
 const sourceLinks = new Map();
-for (const markdown of [daily, archive]) {
+for (const markdown of [journal.markdown]) {
   for (const match of markdown.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)) {
     const label = stripMarkdown(match[1]);
     const url = match[2];
@@ -810,7 +690,7 @@ ${[...sourceLinks].slice(0, 40).map(([url, label]) => `- [${label}](${url})`).jo
 - Microgrid概念図は、[U.S. Department of Energy, Office of Electricityの解説](https://www.energy.gov/oe/articles/microgrids-large-electric-loads-grid-support-how-leverage-microgrids-support-utilities)を参考に、会話内容から Yuki × Chappy が作成しました。DOEによる推奨・承認を示すものではありません。
 - 電力需要グラフ: [IEA (2026), Electricity 2026 — Demand](https://www.iea.org/reports/electricity-2026/demand), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)。学習画面向けにトリミングした派生表示であり、責任主体と非推奨表示は画像直下に明記しています。
 - 英語力・資格スコアのグラフは、このリポジトリの評価データから自動生成しています。
-- 追跡対象画像の出典・利用条件とプライバシー確認は、リポジトリ内の \`docs/media-attribution.md\` と \`docs/image-privacy-review.json\` で管理します。
+- 追跡対象画像の出典・利用条件とプライバシー確認は、学習画面とは分離したメディア台帳で一元管理します。
 
 ## このサイトについて
 
@@ -829,28 +709,11 @@ await writeGenerated(path.join("review", "speaking.md"), reviewPage("発音・�
 await writeGenerated(path.join("progress", "index.md"), progress);
 await writeGenerated(path.join("library", "index.md"), library);
 await writeGenerated("404.md", "# ページが見つかりません\n\n[学習ホームへ戻る](index.md)\n");
-await copyGenerated(path.join(root, "site-theme", "assets", "stylesheets", "learning.css"), path.join("assets", "stylesheets", "learning.css"));
-await copyGenerated(path.join(root, "site-theme", "assets", "javascripts", "learning.js"), path.join("assets", "javascripts", "learning.js"));
+await copyGenerated(path.join(root, "site-src", "assets", "stylesheets", "learning.css"), path.join("assets", "stylesheets", "learning.css"));
+await copyGenerated(path.join(root, "site-src", "assets", "javascripts", "learning.js"), path.join("assets", "javascripts", "learning.js"));
 
-const mediaSources = [
-  path.join(root, "assets"),
-  path.join(recordsRoot, "archive", "assets"),
-];
-const approvedMediaFiles = new Set([...mediaBySession.values()].flat().map((media) => media.file));
-for (const fileName of approvedMediaFiles) {
-  let copied = false;
-  for (const directory of mediaSources) {
-    const source = path.join(directory, fileName);
-    try {
-      await fs.access(source);
-    } catch {
-      continue;
-    }
-    await copyGenerated(source, path.join("assets", "media", fileName));
-    copied = true;
-    break;
-  }
-  if (!copied) throw new Error(`Approved learning-site image not found: ${fileName}`);
+for (const media of [...mediaBySession.values()].flat()) {
+  await copyGenerated(path.join(root, media.path), path.join("assets", "media", media.file));
 }
 await copyGenerated(path.join(root, "output", "english-growth-evidence-dashboard.png"), path.join("assets", "generated", "english-growth-evidence-dashboard.png"));
 await copyGenerated(path.join(root, "output", "english-test-score-estimate-trends.png"), path.join("assets", "generated", "english-test-score-estimate-trends.png"));

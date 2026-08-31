@@ -1,78 +1,72 @@
-# Learning Site 保守ガイド
+# 保守ガイド
 
-このページは学習内容ではなく、別PCで同じ閲覧面を再現・検証するための保守手順です。
+学習内容は [English Journal](../learning-records/journal.md) で読みます。この文書は、別PCで検証・生成・同期するための技術情報です。
 
-## 必要環境
+## 構成
 
-- Node.js: `.nvmrc` のLTS版
-- Python 3.12以上
-- Node依存: `package-lock.json`
-- Site依存: `requirements-site.txt`
+```text
+learning-records/
+├─ journal.md             # 人が読む学習記録の正本
+├─ progress.json          # 評価データの正本
+├─ media-manifest.json    # 画像メタデータの正本
+├─ media/                 # 現在使う画像
+├─ resources/             # 発音課題など
+└─ archive/               # 固定移行記録。生成処理は読まない
 
-Windowsでの初回セットアップ:
+scripts/
+├─ charts/                # 評価グラフ
+├─ content/               # 3正本の検証
+├─ lib/                   # Journal共通パーサー
+├─ pronunciation/         # 録音・ローカル音声分析
+└─ site/                  # Learning Site生成・検証
+
+site-src/                 # Siteのテーマ・CSS・JavaScript
+requirements/             # Python依存
+```
+
+`.generated-site-docs/`、`site/`、`output/`、`tmp/` は再生成可能で、正本ではありません。
+
+## 初回セットアップ
+
+- Node.js: `.nvmrc` のバージョン
+- Python: 3.12
 
 ```powershell
 npm ci
 py -m venv .venv-site
-.\.venv-site\Scripts\python.exe -m pip install --requirement requirements-site.txt
+.\.venv-site\Scripts\python.exe -m pip install --requirement requirements/site.txt
 ```
 
-`.venv-site/`、`.generated-site-docs/`、`site/` は再生成可能なためGit管理しません。
-
-## コマンド
+## 日常コマンド
 
 ```powershell
-# 正本の検証、グラフ生成、Learning Site生成、MkDocsビルド、サイト検証
-npm run site:check
+# 3正本、グラフ、サイト、リンク、画像、プライバシーを一括検証
+npm run check
+
+# 検証済みサイトを生成
+npm run build
 
 # ローカルプレビュー
-npm run site:serve
+npm run serve
 ```
 
-`site:check` は次を確認します。
-
-- 正本の全セッション（現在9件）と主要ページの生成
-- 30秒 recap とactive recallの存在
-- サイト内リンクと画像参照
-- 画像のaltと1セッション最大2点
-- 検索索引の主要キーワード
-- 個人メール、ローカル絶対パス、特定の勤務先・所属・非公開製品名、運用ファイル名の混入
-
-閲覧構造、CSS、画像配置、生成ロジックを変更した場合は、スマホ幅とPC幅の両方でホーム、5分復習、Bank検索、セッション画像、成長画面を確認します。
-
-## 正本と閲覧面の分離
-
-- `learning-records/daily-notes/YYYY-MM.md`: 月別Daily Notesの正本
-- `learning-records/banks/*.md`: 3 Study Banksの正本
-- `english_progress_tracker.json`: 評価履歴の正本
-- `scripts/build-learning-site.mjs`: 正本を学習者向けページへ変換
-- `.generated-site-docs/`: MkDocs入力となる一時生成物
-- `site/`: 公開可能な完成HTML
-
-生成ページを直接編集しません。内容修正は正本へ反映してから再生成します。
-
-## GitHub Pages
-
-`.github/workflows/learning-site.yml` はpushとPull Requestで検証だけを行います。初回公開は自動では行いません。
-
-Yukiが公開を明示承認した後、GitHub Actionsの `Learning site` を手動実行し、`publish` を有効にすると、検証済みの `site/` だけをPagesへ渡します。初回はGitHubのPages設定でSourceをGitHub Actionsにする必要があります。公開URL、公開状態、Actionsの成功を確認するまで「公開済み」と扱いません。全ページへ`noindex`を付けますが、これは検索エンジンへの依頼であり、URLを知る人の閲覧を防ぐ認証ではありません。
-
-Pagesの公開可否と、正本リポジトリの公開可否は別に判断します。正本リポジトリがPublicなら、生成サイトに載せなかった情報もGitファイルや過去コミットから閲覧できます。通常は正本をPrivateにし、公開が必要な場合だけ匿名化済みの生成物を別の公開先へ渡す構成を優先します。現在ファイルを修正しても過去コミットは消えないため、既存履歴を扱う場合は、リポジトリのPrivate化、匿名化済み新規リポジトリへの移行、履歴書き換えのいずれかをYukiの明示判断で行います。
-
-## 通常の同期
+評価データを変更した回だけ、目視確認後に追跡グラフを更新します。
 
 ```powershell
-git pull --rebase
-npm run site:check
-git status
-git diff
+npm run charts:publish
 ```
 
-意図したファイルだけをstageし、検証後にcommit / pushします。force push、公開範囲変更、Pages設定変更はYukiの明示指示がある場合だけ行います。
+## 新しいセッション
+
+1. `journal.md` のセッション一覧先頭へ `session-meta`、固定アンカー、本文を追加する。
+2. Journalの目次、5分復習、成長説明、必要な学習バンクを更新する。
+3. 測定根拠がある場合だけ `progress.json` を更新する。未測定は推定で補わない。
+4. 画像を追加する場合は `media/` に置き、`media-manifest.json` に用途・alt・出典・利用条件・目視確認後のSHA-256を登録する。
+5. `npm run check` を通し、意図した差分だけをcommit / pushする。
+
+Journalの各セッションは同じメタデータと本文からGitHub表示とLearning Siteへ展開されます。生成ページを直接編集しません。
 
 ## 発音評価環境
-
-発音評価はLearning Siteと別のローカル環境です。
 
 ```powershell
 npm run pronunciation:status
@@ -80,3 +74,20 @@ npm run pronunciation:setup
 ```
 
 録音、モデル、分析中間物は `tmp/` と `.venv-pronunciation/` に置き、GitやLearning Siteへ含めません。
+
+## GitHub Pages
+
+`.github/workflows/learning-site.yml` はpushとPull Requestで検証します。初回公開、公開範囲変更、Pages設定変更、手動デプロイはYukiの明示承認後だけ行います。
+
+手動実行で `publish` を有効にした場合だけ、検証済みの `site/` をPagesへ渡します。全ページの`noindex`は検索掲載を控える依頼であり、閲覧を防ぐ認証ではありません。正本リポジトリがPublicなら、サイトに載せないファイルや過去コミットも閲覧可能です。
+
+## PC間同期
+
+```powershell
+git pull --rebase
+npm run check
+git status
+git diff
+```
+
+未コミット変更を破棄せず、force pushを使いません。検証・pushの成功確認までをPC間共有完了とします。

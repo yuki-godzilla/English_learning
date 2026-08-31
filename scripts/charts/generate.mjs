@@ -3,15 +3,14 @@
 import { createRequire } from "node:module";
 import { copyFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
 
 const require = createRequire(import.meta.url);
 const sharp = require("sharp");
-const root = path.dirname(fileURLToPath(import.meta.url));
-const data = JSON.parse(await readFile(path.join(root, "english_progress_tracker.json"), "utf8"));
+const data = JSON.parse(await readFile(path.join(recordsRoot, "progress.json"), "utf8"));
 const outputPath = path.join(root, "output", "english-growth-evidence-dashboard.png");
 const testEstimateOutputPath = path.join(root, "output", "english-test-score-estimate-trends.png");
-const trackedAssetRoot = path.join(root, "assets", "generated");
+const trackedAssetRoot = path.join(recordsRoot, "media", "progress");
 const trackedGrowthPath = path.join(trackedAssetRoot, "english-growth-evidence-dashboard.png");
 const trackedEstimatePath = path.join(trackedAssetRoot, "english-test-score-estimate-trends.png");
 const publishTrackedAssets = process.argv.includes("--publish-assets");
@@ -31,10 +30,10 @@ const metrics = data.qualitative_metrics;
 const isRating = (value) => Number.isInteger(value) && value >= 1 && value <= 5;
 
 if (!Array.isArray(sessions) || sessions.length < 2) {
-  throw new Error("english_progress_tracker.json must contain at least two sessions.");
+  throw new Error("learning-records/progress.json must contain at least two sessions.");
 }
 if (!Array.isArray(metrics) || metrics.length === 0) {
-  throw new Error("english_progress_tracker.json must define qualitative_metrics.");
+  throw new Error("learning-records/progress.json must define qualitative_metrics.");
 }
 for (const [sessionIndex, session] of sessions.entries()) {
   if (!session || !Number.isInteger(session.session) || typeof session.date !== "string" || !session.ratings) {
@@ -270,7 +269,7 @@ console.log(outputPath);
 
 const estimateData = data.test_score_estimates;
 if (!estimateData || !Array.isArray(estimateData.estimate_sessions) || estimateData.estimate_sessions.length === 0) {
-  throw new Error("english_progress_tracker.json must define test_score_estimates.estimate_sessions.");
+  throw new Error("learning-records/progress.json must define test_score_estimates.estimate_sessions.");
 }
 
 const estimateDefinitions = estimateData.definitions ?? {};
