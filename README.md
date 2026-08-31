@@ -2,54 +2,43 @@
 
 > 話したことを、次に話せる英語へ。
 
-英会話の内容を「保存する」だけでなく、読み返し、思い出し、もう一度話し、成長を実感するための学習記録です。
+## まずここから
 
-## Learning Site
+### 1. 最新セッションを振り返る
 
-学習者向けの画面を、リポジトリ内の正本Markdownと評価データから自動生成します。
+[**▶ 学習を再開する**](learning-records/latest.md)
 
-- **ホーム** — 最新の続き、今回できたこと、今日の5分復習
-- **セッション** — 全セッションを新しい順に表示し、30秒の要約から本文へ進む
-- **5分復習** — 答えを開くactive recall、表現・語彙・スピーキングの検索
-- **成長** — 行動の根拠、L1〜L5、Pronunciationの測定有無、資格スコア目安
-- **資料** — セッションで実際に参照した記事と公式情報
+30秒の振り返り、今日の5分復習、60秒スピーキング課題を、最新セッションの内容から行えます。
 
-公開用サイトは構築・検証済みですが、**GitHub Pagesの初回公開はまだ行っていません**。公開するとリポジトリ内容がWebサイトとして見つけやすくなるため、Yukiの明示承認後に手動デプロイします。`noindex`は検索掲載を控える指示であり、アクセス制御や非公開化ではありません。
+### 2. 英語を思い出す
 
-> **公開範囲:** リポジトリがPublicの場合、Learning Siteとは別に、Git管理中の正本と過去コミットも閲覧可能です。現在ファイルの匿名化だけでは過去履歴は消えないため、スマホ公開前に「正本リポジトリをPrivateにする」または「匿名化した公開用リポジトリを分離する」かを決めます。
+- [表現を復習する](learning-records/banks/expression-bank.md)
+- [語彙を復習する](learning-records/banks/vocabulary-bank.md)
+- [発音・スピーキングを練習する](learning-records/banks/pronunciation-speaking-bank.md)
 
-## 今すぐGitHubで読む
+### 3. これまでの会話を見る
 
-Pages公開前のフォールバックです。
+[**全セッションを見る**](learning-records/session-index.md)
 
-1. [最新セッション](learning-records/latest.md)
-2. [セッションIndex](learning-records/session-index.md)
-3. [Expression Bank](learning-records/banks/expression-bank.md)
-4. [Vocabulary Bank](learning-records/banks/vocabulary-bank.md)
-5. [Pronunciation & Speaking Bank](learning-records/banks/pronunciation-speaking-bank.md)
+新しいセッションから順に、話題・役立つ英語・次回の練習を確認できます。
 
-## ローカルでLearning Siteを開く
+---
 
-初回だけNode.jsとPython依存を準備し、その後は次のコマンドで起動します。
+## GitHubアプリでの使い方
 
-```powershell
-npm ci
-py -m venv .venv-site
-.\.venv-site\Scripts\python.exe -m pip install --requirement requirements-site.txt
-npm run site:serve
-```
+1. 上の **「▶ 学習を再開する」** を開く
+2. 5分復習の答えを開く前に、まず自分で思い出す
+3. 次のセッションで使いたい表現を1つ選ぶ
 
-ブラウザで `http://127.0.0.1:8000/` を開きます。自動検証は次の1コマンドです。
+<details>
+<summary>記録の仕組み・運用情報</summary>
 
-```powershell
-npm run site:check
-```
+学習記録の正本は `learning-records/` のMarkdownと `english_progress_tracker.json` です。ブラウザ向けのLearning Siteは、これらの正本から自動生成します。
 
-## 正本と生成物
+- [保守ガイド](docs/maintenance.md)
+- [運用ルール](AGENTS.md)
+- [Google Docs移行時点の固定アーカイブ](learning-records/archive/google-docs-final-2026-08-31.md)
 
-- 正本: `learning-records/` のMarkdown、`english_progress_tracker.json`
-- Git管理用の匿名化済み固定移行資料: `learning-records/archive/google-docs-final-2026-08-31.md`
-- 閲覧面の設定: `mkdocs.yml`、`site-theme/`、`site-overrides/`
-- 生成物: `.generated-site-docs/`、`site/`（Git管理しない）
+GitHub Pagesは未公開です。リポジトリがPublicの場合、Pagesの公開有無にかかわらず、Git管理中のファイルと過去コミットは閲覧可能です。
 
-運用ルールは [AGENTS.md](AGENTS.md)、セットアップ・更新・公開手順は [保守ガイド](docs/maintenance.md) を参照してください。
+</details>
