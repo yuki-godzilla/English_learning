@@ -11,6 +11,7 @@
     "content:check": "node scripts/content/validate.mjs",
     "charts:build": "node scripts/charts/generate.mjs",
     "charts:publish": "node scripts/charts/generate.mjs --publish-assets",
+    "journal:pdf": "node scripts/export/journal-pdf.mjs",
     "site:check": "npm run build && node scripts/site/validate.mjs",
     "test": "npm run check",
     "pronunciation:setup": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation/setup.ps1",

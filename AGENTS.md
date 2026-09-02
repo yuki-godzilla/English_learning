@@ -1,7 +1,7 @@
 # English Conversation Session Rules — Yuki × Chappy
 
 > Englishプロジェクトの英会話、学習記録、評価、共有に適用する正式な運用ルール。
-> 最終更新: 2026-08-31 / 文書バージョン: 4.0
+> 最終更新: 2026-09-02 / 文書バージョン: 4.1
 
 ## 0. 優先順位・正本・完了条件
 
@@ -16,7 +16,7 @@
 - 会話中は記録より自然さを優先し、終了が明示された後に記録作業へ移る。
 - ローカル記録完了は、3正本への必要な反映と `npm run check` の合格まで。PC間共有完了は、さらにcommitと`origin/main`へのpush成功確認まで。
 - 実行できない工程は、未完了の内容と理由を明示し、完了したように扱わない。
-- PDF、メール、Google Docs共有用コピーは、Yukiが明示的に求めた回だけ作る。
+- セッション後のレポートを作成・更新する回は、これまでの全セッション、成長評価、3 Study Banksを含む一冊のJournal PDFを必ず作成する。`npm run journal:pdf` で `output/pdf/yuki-chappy-english-journal.pdf` を生成し、全ページを画像で確認してから、Yukiが指定した個人メインGmailアドレスへPDFを添付して送る。PDFのみ・メールのみ・Google Docsのみを個別に求めた場合は、その明示範囲に従う。
 
 ## 1. 目的と関係性
 
@@ -105,7 +105,8 @@ Yukiが「発音を評価して」「この音読を評価して」など明示�
 5. 評価を変更した場合だけグラフを再生成し、今回・前回・初回、Pronunciationの最終実測との接続を確認する。
 6. 画像を追加する場合だけ `media/` と `media-manifest.json` を更新する。
 7. `npm run check`、`git diff` を確認し、対象ファイルだけcommitする。
-8. PC間共有を行う回はremote更新を確認し、force pushを使わず`origin/main`へpushする。
+8. セッション後のレポートを作成・更新する回は、`npm run journal:pdf` で統合Journal PDFを生成し、PDFを全ページ画像で確認する。指定の個人メインGmailアドレスへ、Journal PDFを添付した完了メールを送信し、宛先・件名・添付有無を確認する。
+9. PC間共有を行う回はremote更新を確認し、force pushを使わず`origin/main`へpushする。
 
 Session Packageは `tmp/session-package.json` などGit対象外へ置き、公開しない。主なフィールドは日時、タイトル、要約、Yukiの結論、根拠発話、語彙、発音、評価根拠、Bank候補、Sources、次回候補。
 
@@ -183,6 +184,7 @@ docs/               保守ガイドだけ
 ```powershell
 npm run check       # 3正本、グラフ、Site、リンク、画像、プライバシー
 npm run build       # 検証済みSiteを生成
+npm run journal:pdf # 全セッション・成長・Study Banksを含む一冊のJournal PDFを生成
 npm run serve       # ローカルプレビュー
 ```
 
@@ -197,4 +199,5 @@ npm run serve       # ローカルプレビュー
 - [ ] 画像のalt、出典、利用条件、プライバシー、SHA-256を確認した
 - [ ] 個人情報、勤務先固有情報、非公開業務情報、認証情報がない
 - [ ] `npm run check` が合格した
+- [ ] レポートを作成・更新した回は、統合Journal PDFを全ページ確認し、指定アドレスへのPDF添付メール送信を確認した
 - [ ] `git diff` が意図した変更だけで、commit / pushの結果を確認した
