@@ -236,6 +236,25 @@
       "evidence_quote_origin": "Spontaneous reflection in the realtime transcript",
       "evidence_note_ja": "ホテルで日常から離れる感覚を説明した後、Godzillaの怪獣バトル、核不安、戦争と戦後日本の記憶という複数の側面を、自分の子どもの頃の見方と現在の解釈を対比しながら議論した。語の意味や質問の意図を自発的に確認し、会話の進め方も調整できた。共通60秒課題は未実施で、発音を直接評価できる新規録音もないため、定量値は追加せず、PronunciationはN/Aとする。",
       "evidence_note": "After describing a hotel stay as a break from routine, discussed Godzilla through monster battles, nuclear fear, war, and postwar Japanese memory, contrasting a childhood view with a current interpretation. Independently checked word meanings and question intent, and adjusted the conversation's direction. No comparable 60-second task or new directly assessed recording was available, so no quantitative metrics are added and pronunciation is N/A."
+    },
+    {
+      "session": 10,
+      "date": "2026-09-02",
+      "task": "Career decision-making and final-interview preparation",
+      "task_ja": "キャリア選択と最終面接準備",
+      "data_coverage": "Realtime transcript excerpts; no comparable 60-second benchmark and no reliable direct audio analysis",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "evidence_quote": "I’m keeping both options open until I have enough information.",
+      "evidence_quote_origin": "Session conclusion, formulated after a spontaneous career discussion in the realtime transcript",
+      "evidence_note_ja": "社内異動、外部選考、過去の職場経験、長期キャリアへの希望を結び付け、情報がそろってから冷静に決めるという結論を作った。感情的に難しい背景を話す間にhesitation、restart、断片的な文、時制・語順の不安定さはあったが、必要な語や意図を確認し、主要な意図を明確に保ちながら相談を進めた。感情負荷の高い一回の会話を能力低下と扱わず、既存のL3を維持する。共通60秒課題は未実施で、発音を直接評価できる新規録音もないため、定量値は追加せず、PronunciationはN/Aとする。",
+      "evidence_note": "Connected an internal transfer, an external interview process, past workplace experience, and long-term career goals, reaching the practical conclusion to decide calmly once sufficient information is available. Hesitation, restarts, fragments, and unstable tense and word order appeared while discussing an emotionally difficult background, but the learner checked terms and intent and kept the main meaning clear. This single high-emotion conversation is not treated as a decline in ability, so the established L3 is retained. No comparable 60-second task or new directly assessed recording was available, so no quantitative metrics are added and pronunciation is N/A."
     }
   ],
   "test_score_estimates": {

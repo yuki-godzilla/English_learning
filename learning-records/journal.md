@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 10 — キャリア選択を冷静に考える](#session-2026-09-02-01)
   - [Session 9 — Godzillaの象徴性と日常からの小さな逃避](#session-2026-08-28-01)
   - [Session 8 — AIデータセンター・電力インフラ・マイクログリッド](#session-2026-08-27-01)
   - [Session 7 — エネルギー戦略・電化・先端エネルギー研究](#session-2026-08-23-01)
@@ -25,6 +26,13 @@
 <a id="journal-five-minute-review"></a>
 
 # 今日の5分復習
+
+<details>
+<summary>選択肢を保ちながら冷静に決める</summary>
+
+**I want to make a calm, well-informed decision.**
+
+</details>
 
 <details>
 <summary>「日常の繰り返しから離れたい」を英語で言う</summary>
@@ -54,6 +62,130 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":10,"session_id":"2026-09-02-01","date":"2026-09-02","title":"キャリア選択を冷静に考える","tags":["Career","Workplace Communication","Decision-Making"],"remember":"現職の異動は有力な選択肢だが、面接を真剣に受け、具体的な条件を比較してから落ち着いて決める。","prompt":"How can I evaluate two career paths calmly without forcing an early decision?"} -->
+<a id="session-2026-09-02-01"></a>
+
+## 2026年9月2日（水）— キャリア選択を冷静に考える
+
+> **Session 10 / Recorded session window:** Evening JST
+> **主な話題:** 社内異動と転職活動、エネルギー企業の最終面接、職場での信頼、キャリア選択
+
+> [!NOTE]
+> 今回は発音評価用の録音を回収・直接分析していないため、Pronunciation、WPM、1秒超のポーズは評価しない。
+
+### 今日の要点 / Today at a Glance
+
+Yukiは、現職でクラウド開発チームへの異動提案を受けた一方、エネルギー企業の選考を進めている状況を、感情だけで急いで結論づけずに整理した。異動は悪い提案ではなく、選考結果が期待どおりでなかった場合にも有力な選択肢になる。しかし、職場で積み重なった信頼の揺らぎや組織の不確実性があり、長期的にはエネルギー・技術・実社会への価値提供を結び付けられるキャリアにも強く惹かれていると説明した。
+
+会話の結論は、今すぐ二者択一をしないことだった。次の面接では自分の動機を誠実に伝え、役割・チーム・成長機会の具体的な情報を集める。実際のオファーと条件がそろった時点で、仕事の内容、マネジャーとチーム、長期のキャリア、日々の働きやすさを比較して冷静に決める。
+
+### 話題別メモ / Topic Notes
+
+#### 現職の異動と選考を同時に考える
+
+- クラウド開発への異動は、技術面で魅力があり、今すぐの安全な選択肢にもなり得る。
+- 一方で、Yukiは進行中の最終面接を真剣に受けたいと考えている。
+- まだ外部からの正式なオファーはないため、現時点では「二つのオファーの比較」ではなく、情報を集める段階である。
+
+#### 信頼が揺らいだ職場経験
+
+- 過去に海外出張や担当業務について期待した説明と実際の結果が一致せず、上司への信頼が揺らいだ。
+- テスト領域で、Yukiは自動化とAI活用の可能性を自ら考え、長時間かけて提案資料を作成した。
+- 提案が十分に受け止められなかった経験は、職場で技術的な意欲を支えてくれる環境を求める理由の一つになった。
+
+#### 面接で確認したい未来の仕事
+
+- エネルギーの安定供給、脱炭素、デジタル技術、顧客への実用的な価値という方向性に魅力を感じている。
+- グローバルな事業機会と、安定した中核事業の両方を長期キャリアの重要条件として考えている。
+- 面接は「自分を売り込む場」だけでなく、チームの進め方、上司のスタイル、期待される成果、成長の道筋を確かめる場でもある。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. 社内異動は悪い提案ではなく、選考結果にかかわらず現実的な選択肢として受け止める。
+2. ただし、これまでの信頼や組織の課題をなかったことにはしない。
+3. 最終面接には前向きに臨み、長期的なキャリアに合うかを具体的に確認する。
+4. 正式なオファーと条件がそろうまで、急いで最終判断をしない。
+
+### 役立つ英語 / Useful English
+
+#### 🔵 選択肢を保ちながら考える
+
+**Natural / Conversational**
+I’m keeping both options open until I have enough information.
+
+**Formal / Professional**
+I will evaluate both paths once the concrete conditions are clear.
+
+**Point**
+`keep both options open`は、優柔不断ではなく、十分な情報を得るまで選択肢を残すという落ち着いた姿勢を表す。
+
+#### 🔵 焦らずに決める
+
+**Natural / Conversational**
+I don’t want to make a rushed decision.
+
+**Formal / Professional**
+I want to make a calm, well-informed decision.
+
+**Point**
+`well-informed`は、感情だけでなく必要な情報を集めたうえで判断するニュアンス。
+
+#### 🔵 面接の目的を定める
+
+**Natural / Conversational**
+I will take the interview seriously and learn more about the team.
+
+**Formal / Professional**
+I will use the interview to assess the role, team culture, and long-term career path.
+
+**Point**
+面接は評価される場であると同時に、候補者が役割との適合を確かめる場でもある。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**Pronunciation: N/A / 音声未計測。** 文字起こしから発音、WPM、ポーズを推測しない。
+
+今回は実際の話し方を止めずに、複雑な気持ちとキャリア判断を英語で長く説明することを優先した。次回は、面接に向けて次の4文を一続きで練習する。
+
+- I’m keeping both options open until I have enough information.
+- The internal transfer is a good opportunity, but I will continue the interview process seriously.
+- I want to learn more about the role and the team.
+- Then I can make a calm, well-informed decision.
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+**Overall: L3 / Mostly independent。Task achievementとInteraction & repairではL4相当の行動を確認。**
+
+Yukiは、複数の職場経験、社内異動、外部選考、長期キャリアへの希望を一つの話としてつないだ。単語を探す場面やrestartはあったが、必要なときは日本語の概念を示して意味を確認し、会話の方向やフィードバック量も自分から調整できた。感情的に難しい話題でも、最後には「今は両方の選択肢を持ち、情報がそろってから冷静に決める」という実用的な結論を作れた。
+
+| Metric | Level | Evidence |
+|---|---:|---|
+| Task achievement | **L4** | 社内異動・外部選考・職場経験を比較し、情報がそろってから判断するという結論を説明した。 |
+| Fluency & coherence | **L3** | hesitationやrestartはあったが、長い個人的な背景を保ち、話題をキャリア判断へつないだ。 |
+| Lexical resource | **L3** | `business trip`、`conflicted`、`global footprint`、`fallback`などを確認し、仕事とキャリアの語彙を文脈で扱った。 |
+| Grammar control | **L3** | 感情的に難しい話題では断片的な文や時制・語順の不安定さがあったが、確認を通して主要な意図を明確に伝えた。 |
+| Interaction & repair | **L4** | 誤解を訂正し、必要な説明量を指定し、会話を自分の相談目的へ戻した。 |
+| Pronunciation | **N/A** | 評価録音を直接分析していない。 |
+
+### 学習バンク更新 / Study Banks Update
+
+- [Expression Bank](#journal-expression-bank): 新規3件
+- [Vocabulary Bank](#journal-vocabulary-bank): 新規2件
+- [Pronunciation & Speaking Bank](#journal-speaking-bank): 追加なし。録音評価・発音固有の課題は未実施。
+
+> [!TIP]
+> 次回は、最終面接に向けて **main point → reason → example → conclusion** の4段構成で、「なぜこの役割を選びたいか」を60秒で話す。
+
+### 次回 / Next Steps
+
+1. 最終面接で確認する質問を3つに絞る：チームの進め方、最初の1年に期待される成果、長期のキャリア機会。
+2. `I’m keeping both options open until I have enough information.` を、自分の状況に合わせて一度使う。
+3. 「現職の強み → 転職先に惹かれる理由 → 落ち着いた判断基準」を60秒で説明する。
+
+[ページ先頭へ戻る](#journal-contents) · [Session Index](#journal-sessions)
+
+---
 
 <!-- session-meta: {"session_number":9,"session_id":"2026-08-28-01","date":"2026-08-28","title":"Godzillaの象徴性と日常からの小さな逃避","tags":["Culture / Media","Daily Life"],"remember":"子どもの頃は怪獣バトル、今は歴史と核の象徴性も含めてGodzillaを見られるようになった。","prompt":"Why does Godzilla remain meaningful beyond monster battles?"} -->
 <a id="session-2026-08-28-01"></a>
@@ -1005,11 +1137,11 @@ Why: 改善点には work on / focus on が自然。
 
 ## できるようになったこと
 
-**最新の会話評価： [Session 9（2026年8月28日）](#session-2026-08-28-01)**
+**最新の会話評価： [Session 10（2026年9月2日）](#session-2026-09-02-01)**
 
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
-- 子どもの頃と現在の見方のように、過去と現在を対比して一つの話として説明できる。
+- 職場経験とキャリア選択のような難しい個人的なテーマでも、理由と結論をつないで説明できる。
 
 ## Current Snapshot
 
@@ -1018,19 +1150,19 @@ Why: 改善点には work on / focus on が自然。
 | **Task achievement** | **L4 / Independent** | 結論・理由・例をつないで、自分の考えを完結できる。 |
 | **Fluency & coherence** | **L3 / Mostly independent** | 言い直しがあっても、話の軸を保って続けられる。 |
 | **Lexical resource** | **L3 / Mostly independent** | 関心分野の語彙を使い、確認や言い換えで意図を伝えられる。 |
-| **Grammar control** | **L3 / Mostly independent** | 意味は明確。時制・語順・複数形の安定が次の伸びしろ。 |
+| **Grammar control** | **L2 / Supported** | 断片的な文や時制・語順の不安定さはあるが、確認を通して主要な意図を伝えられる。 |
 | **Interaction & repair** | **L4 / Independent** | 語義や質問の意図を自分から確認し、会話を前へ進められる。 |
-| **Pronunciation** | **N/A / Session 9未測定** | 最後の直接音声評価はSession 8のL3。 |
+| **Pronunciation** | **N/A / Session 10未測定** | 最後の直接音声評価はSession 8のL3。 |
 
 ## 発音の測定状況
 
-Session 9は直接音声を評価していません。最後に直接確認したのは[Session 8](#session-2026-08-27-01)で、全体の明瞭さは **L3 / Mostly independent** でした。未測定を能力低下として扱わず、新しい直接録音がある回だけ推移を更新します。
+Session 10は直接音声を評価していません。最後に直接確認したのは[Session 8](#session-2026-08-27-01)で、全体の明瞭さは **L3 / Mostly independent** でした。未測定を能力低下として扱わず、新しい直接録音がある回だけ推移を更新します。
 
 ## 成長グラフ
 
-[![Session 1からSession 9までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 10までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から9までの6指標を時系列で表示しています。Pronunciationは、直接音声の根拠があるSession 8だけを測定値として扱います。画像をタップすると原寸で確認できます。
+Session 1から10までの6指標を時系列で表示しています。Pronunciationは、直接音声の根拠があるSession 8だけを測定値として扱います。画像をタップすると原寸で確認できます。
 
 ## 次に伸ばすこと
 
@@ -1042,6 +1174,7 @@ Session 1から9までの6指標を時系列で表示しています。Pronuncia
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 10 — キャリア選択を冷静に考える](#session-2026-09-02-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 9 — Godzillaの象徴性と日常からの小さな逃避](#session-2026-08-28-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 8 — AIデータセンター・電力インフラ・マイクログリッド](#session-2026-08-27-01) — 初めて直接録音を確認し、発音の明瞭さをL3として記録。
 - [Session 7 — エネルギー戦略・電化・先端エネルギー研究](#session-2026-08-23-01) — 専門テーマを自分の経験と社会的な意味につないだ。
@@ -1081,6 +1214,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 
 # 表現バンク / Expression Bank
 
+## 2026年9月2日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **I’m keeping both options open until I have enough information.** | 必要な情報がそろうまで、二つの選択肢を残しておく。進路や条件を比較する場面で使う。 | [Session 10](#session-2026-09-02-01) |
+| **I don’t want to make a rushed decision.** | 焦って決めたくない。感情や短期的な出来事だけで判断しない姿勢を示す。 | [Session 10](#session-2026-09-02-01) |
+| **I want to make a calm, well-informed decision.** | 落ち着いて、十分な情報をもとに判断したい。面接やキャリアの文脈で再利用できる。 | [Session 10](#session-2026-09-02-01) |
+
 ## 2026年8月28日
 
 | Expression | Meaning / Usage / Example | Source |
@@ -1102,6 +1243,13 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年9月2日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **conflicted** /kənˈflɪk.tɪd/ adjective | **意味:** 気持ちが揺れていて、どちらにするか簡単に決められない。**Plain English:** having two strong feelings or choices that pull you in different directions. **Collocation:** feel conflicted about a decision. **Example:** I feel conflicted because both paths have real benefits. | [Session 10](#session-2026-09-02-01) |
+| **fallback** /ˈfɔːl.bæk/ noun | **意味:** 第一の案がうまくいかなかった場合の、備えになる選択肢。**Plain English:** a backup option you can use if your first plan does not work. **Collocation:** have a fallback / use a fallback option. **Example:** The internal transfer is a meaningful fallback option. | [Session 10](#session-2026-09-02-01) |
 
 ## 2026年8月28日
 
