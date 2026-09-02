@@ -270,12 +270,13 @@ function sourceSessionNumber(source) {
 function reviewCard(cells, kind) {
   const title = stripMarkdown(cells[0]);
   const detail = inlineMarkdown(cells[1]);
+  const kindClass = ({ Expression: "expression", Vocabulary: "vocabulary", Speaking: "speaking" })[kind] ?? "default";
   const sourceSession = sourceSessionNumber(cells[2]);
   const source = sourceSession
     ? `<a href="../../sessions/${sessionDefinitionByNumber.get(sourceSession).id}/">Session ${sourceSession}</a>`
     : escapeHtml(stripMarkdown(cells[2]) || "移行記録");
   const search = escapeHtml(`${title} ${stripMarkdown(cells[1])}`);
-  return `<article class="review-card" data-review-item data-search="${search}">
+  return `<article class="review-card review-card--${kindClass}" data-review-item data-search="${search}">
   <div class="card-meta">${escapeHtml(kind)} · ${source}</div>
   <h2>${escapeHtml(title)}</h2>
   <div class="review-example">${detail}</div>
@@ -395,7 +396,7 @@ hide:
 
 # すべてのセッション
 
-新しい順に、話題と「覚えておきたいこと」から選べます。タイトルを開くと、30秒の振り返り、復習、会話記録へ進みます。
+新しい順に、話題と「覚えておきたいこと」から選べます。タイトルを開くと、30秒の振り返り、復習、会話記録へ進みます。Journal PDFでは、ここに全履歴を載せ、詳しいDaily Noteは最新3回を収録します。
 
 <label for="session-filter"><strong>セッションを検索</strong></label>
 <input id="session-filter" class="review-filter" type="search" placeholder="話題、英語、タグで絞り込む" data-session-filter>
@@ -507,9 +508,9 @@ description: "${escapeHtml(session.remember)}"
 ## 30秒で振り返る
 
 <div class="learning-grid">
-  <article class="learning-card"><div class="card-meta">Remember</div><h3>話したこと</h3><p>${escapeHtml(session.remember)}</p></article>
-  <article class="learning-card"><div class="card-meta">Growth</div><h3>今回できたこと</h3><p>${escapeHtml(redactLearnerText(firstSentence(trackerSession?.evidence_note_ja ?? session.remember)))}</p></article>
-  ${trackerSession?.evidence_quote ? `<article class="learning-card"><div class="card-meta">My English in Context</div><h3>発話の記録（修正前）</h3><p lang="en">${escapeHtml(redactLearnerText(truncate(trackerSession.evidence_quote, 190)))}</p></article>` : ""}
+  <article class="learning-card learning-card--remember"><div class="card-meta">Remember</div><h3>話したこと</h3><p>${escapeHtml(session.remember)}</p></article>
+  <article class="learning-card learning-card--growth"><div class="card-meta">Growth</div><h3>今回できたこと</h3><p>${escapeHtml(redactLearnerText(firstSentence(trackerSession?.evidence_note_ja ?? session.remember)))}</p></article>
+  ${trackerSession?.evidence_quote ? `<article class="learning-card learning-card--context"><div class="card-meta">My English in Context</div><h3>発話の記録（修正前）</h3><p lang="en">${escapeHtml(redactLearnerText(truncate(trackerSession.evidence_quote, 190)))}</p></article>` : ""}
 </div>
 
 ## 今すぐ復習
@@ -611,6 +612,12 @@ const nextFocusEntry = Object.entries(latestTracker.ratings)
   .filter(([, level]) => Number.isInteger(level))
   .sort((a, b) => a[1] - b[1])[0];
 const nextFocus = nextFocusByMetric[nextFocusEntry?.[0]] ?? "次の会話で、今日の表現を一つ自分から使う。";
+const levelClass = (level) => {
+  if (!Number.isInteger(level)) return "level-na";
+  if (level <= 2) return "level-support";
+  if (level === 3) return "level-transition";
+  return "level-independent";
+};
 
 const progress = `---
 title: 成長
@@ -623,15 +630,15 @@ hide:
 数値より先に、実際にできた行動を確認します。これは公式試験の結果ではなく、会話と測定記録に基づく学習用の評価です。
 
 <div class="learning-grid growth-highlights">
-  <article class="learning-card"><div class="card-meta">Latest Win</div><h3>今回できたこと</h3><p>${escapeHtml(redactLearnerText(firstSentence(latestTracker.evidence_note_ja)))}</p></article>
-  <article class="learning-card"><div class="card-meta">From Session 1</div><h3>初回からの変化</h3><p>Session 1では「${escapeHtml(redactLearnerText(firstSentence(firstTracker.evidence_note_ja, 90)))}」という出発点でした。今は経験・背景・自分の解釈をつないで長く議論できます。</p></article>
-  <article class="learning-card"><div class="card-meta">Next Milestone</div><h3>次に一つ伸ばす</h3><p>${escapeHtml(nextFocus)}</p></article>
+  <article class="learning-card learning-card--growth"><div class="card-meta">Latest Win</div><h3>今回できたこと</h3><p>${escapeHtml(redactLearnerText(firstSentence(latestTracker.evidence_note_ja)))}</p></article>
+  <article class="learning-card learning-card--context"><div class="card-meta">From Session 1</div><h3>初回からの変化</h3><p>Session 1では「${escapeHtml(redactLearnerText(firstSentence(firstTracker.evidence_note_ja, 90)))}」という出発点でした。今は経験・背景・自分の解釈をつないで長く議論できます。</p></article>
+  <article class="learning-card learning-card--remember"><div class="card-meta">Next Milestone</div><h3>次に一つ伸ばす</h3><p>${escapeHtml(nextFocus)}</p></article>
 </div>
 
 ## Current Snapshot
 
 <div class="metric-grid">
-${Object.entries(latestTracker.ratings).map(([metric, level]) => `<article class="metric-card"><div class="card-meta">${escapeHtml(metric)}</div><h3>${escapeHtml(metricJa[metric] ?? metric)}</h3><div class="metric-value">${level == null ? "N/A" : `L${level}`}</div><p>${level == null ? `Session ${latestTracker.session}では直接測定していません。` : `Session ${latestTracker.session}の会話から根拠を確認済み。`}</p></article>`).join("\n")}
+${Object.entries(latestTracker.ratings).map(([metric, level]) => `<article class="metric-card ${levelClass(level)}"><div class="card-meta">${escapeHtml(metric)}</div><h3>${escapeHtml(metricJa[metric] ?? metric)}</h3><div class="metric-value">${level == null ? "N/A" : `L${level}`}</div><p>${level == null ? `Session ${latestTracker.session}では直接測定していません。` : `Session ${latestTracker.session}の会話から根拠を確認済み。`}</p></article>`).join("\n")}
 </div>
 
 <div class="latest-win"><strong>今回の成長</strong><br>${escapeHtml(redactLearnerText(latestTracker.evidence_note_ja))}</div>
@@ -710,6 +717,7 @@ await writeGenerated(path.join("progress", "index.md"), progress);
 await writeGenerated(path.join("library", "index.md"), library);
 await writeGenerated("404.md", "# ページが見つかりません\n\n[学習ホームへ戻る](index.md)\n");
 await copyGenerated(path.join(root, "site-src", "assets", "stylesheets", "learning.css"), path.join("assets", "stylesheets", "learning.css"));
+await copyGenerated(path.join(root, "site-src", "assets", "stylesheets", "journal-print.css"), path.join("assets", "stylesheets", "journal-print.css"));
 await copyGenerated(path.join(root, "site-src", "assets", "javascripts", "learning.js"), path.join("assets", "javascripts", "learning.js"));
 
 for (const media of [...mediaBySession.values()].flat()) {

@@ -1,7 +1,7 @@
 # English Conversation Session Rules — Yuki × Chappy
 
 > Englishプロジェクトの英会話、学習記録、評価、共有に適用する正式な運用ルール。
-> 最終更新: 2026-09-02 / 文書バージョン: 4.1
+> 最終更新: 2026-09-03 / 文書バージョン: 4.2
 
 ## 0. 優先順位・正本・完了条件
 
@@ -16,7 +16,7 @@
 - 会話中は記録より自然さを優先し、終了が明示された後に記録作業へ移る。
 - ローカル記録完了は、3正本への必要な反映と `npm run check` の合格まで。PC間共有完了は、さらにcommitと`origin/main`へのpush成功確認まで。
 - 実行できない工程は、未完了の内容と理由を明示し、完了したように扱わない。
-- セッション後のレポートを作成・更新する回は、これまでの全セッション、成長評価、3 Study Banksを含む一冊のJournal PDFを必ず作成する。`npm run journal:pdf` で `output/pdf/yuki-chappy-english-journal.pdf` を生成し、全ページを画像で確認してから、Yukiが指定した個人メインGmailアドレスへPDFを添付して送る。PDFのみ・メールのみ・Google Docsのみを個別に求めた場合は、その明示範囲に従う。
+- セッション後のレポートを作成・更新する回は、定めた収録範囲の一冊のJournal PDFを必ず作成する。`npm run journal:pdf` で `output/pdf/yuki-chappy-english-journal.pdf` を生成し、全ページを画像で確認してから、Yukiが指定した個人メインGmailアドレスへPDFを添付して送る。PDFのみ・メールのみ・Google Docsのみを個別に求めた場合は、その明示範囲に従う。
 
 ## 1. 目的と関係性
 
@@ -137,6 +137,25 @@ Journalは一冊として次の順を維持する。
 - Bankは毎回 `新規 / 既存強化 / 追加なし` を判断し、重複を増やさない。SourceはJournal内の固定セッションアンカーへリンクする。
 - GitHub Alertsは重要な注意か最優先練習へ限定し、原則1セッション1〜2件まで。
 
+### Journal PDFの収録範囲（v4.2）
+
+- PDFはGoogle Docs、リポジトリ、Learning Siteの完全な置換ではなく、最新の学習状況を短時間で確認するための **Current Learning Journal** とする。過去の原本Daily Noteは正本に保持し、PDFの都合で削除・要約上書きしない。
+- PDFの構成は固定順とする: `Cover → Session Index（全セッション）→ Daily Notes（最新3回）→ English Growth & Evaluation → Expression Bank（全履歴）→ Vocabulary Bank（全履歴）→ Pronunciation & Speaking Bank（全履歴）`。
+- Daily Noteは日付・Session番号の新しい順で直近3回のみをPDFに収録する。4回目以前はSession Indexの短い要約から追跡できるようにし、詳細は正本へ残す。
+- Session Indexには全回について、Session番号、日付、短縮タイトル、1行要約を必ず載せる。PDFに未収録の過去Daily Noteへの内部リンクを作らない。
+- 英語力評価は、推移グラフ・時系列データ・開始/前回/今回の比較を全履歴で保持する。一方、能力の総評、現在の強み、次に伸ばす点、能力段階のコメントは最新評価だけを載せ、過去コメントを重ねて冗長にしない。
+- 3種類のStudy Bankは全履歴を掲載する。重複項目はBankの既存ルールに従って統合し、最新・要復習・面接関連の項目を読みやすく優先する。
+
+### Journal PDFの可読性・印刷設計（v4.2）
+
+- PDFではWebのテーマ設定にかかわらず、A4・白地・濃色本文の専用印刷テーマを必ず適用する。暗色カードに暗い本文文字、淡色文字を白地へ配置する組合せは禁止する。
+- 基本配色は本文 `#1F2937` / 白、見出し `#163A5F` / 白、補助本文 `#4B5563` / 白、リンク `#1D5FA7` / 白、ベース面 `#F7F9FC`、罫線 `#CBD5E1`、アクセント `#0F766E` とする。本文・見出しは原則7:1以上、補助本文・リンク・小文字は4.5:1以上のコントラストを満たす。
+- Bankの意味色は固定する。Expressionは青 `#1D4ED8` / 薄青、Vocabularyは緑 `#047857` / 薄緑、Pronunciation & Speakingは紫 `#6D28D9` / 薄紫、要復習・支援領域は橙 `#B45309` / 薄橙、N/Aはグレー `#4B5563` / 薄グレーとする。色だけに依存せず、Bank名・レベル・N/Aを文字でも明示する。
+- Daily Noteの要点カードはRemember=薄青、Growth=薄緑、会話文脈=中立〜淡青として役割で色を固定する。英語力評価はL1〜L2=支援（暖色）、L3=移行（青）、L4〜L5=自立（緑）、N/A=グレーで表す。
+- PDFでは検索欄、フィルター、ボタン、モバイルナビゲーション、評価用の操作UIを非表示にする。暗記カードは操作部を出さず、Question / Answerの両方を静的に表示する。
+- 見出しと直後の本文、カード、図、表は分断しない。本文は10.5pt以上、A4余白は原則上下16/18mm・左右14mmとし、表は縞模様・濃色ヘッダー・明確な罫線で読む。
+- PDF生成前に印刷テーマの静的コントラスト検査を実行し、失敗時は生成・メール送信を行わない。生成後は全ページをサムネイルで確認し、Cover、Session Index、最新Daily Note、Growth、各Bankを実寸でも確認する。文字切れ、コントラスト不足、画像の歪み、空白過多、不要な操作UI、表・カードの不自然な分断が1件でもあれば修正してPDFを再生成する。
+
 ## 8. 評価とグラフ
 
 - `progress.json` が定量評価の唯一の正本。Journalには現在値、根拠、読み方を掲載する。
@@ -145,7 +164,7 @@ Journalは一冊として次の順を維持する。
 - Pronunciation未測定は `N/A` とし、能力低下として描かない。最後に直接測定したSessionを併記する。
 - 評価を追加・変更した回だけ `npm run charts:publish` を実行する。生成画像を目視し、`media-manifest.json` のSHA-256を更新する。
 - 通常検証とCIの `npm run charts:build` は `output/` だけを生成し、OS差で追跡画像を変更しない。
-- JournalのCurrent Snapshot、資格スコア表、グラフは同じ `progress.json` と一致させる。
+- JournalのCurrent Snapshot、資格スコア表、グラフは同じ `progress.json` と一致させる。PDFでは全履歴の推移を残し、能力コメントは最新評価だけを主表示する。
 
 ## 9. 画像・プライバシー・出典
 
@@ -184,7 +203,7 @@ docs/               保守ガイドだけ
 ```powershell
 npm run check       # 3正本、グラフ、Site、リンク、画像、プライバシー
 npm run build       # 検証済みSiteを生成
-npm run journal:pdf # 全セッション・成長・Study Banksを含む一冊のJournal PDFを生成
+npm run journal:pdf # 印刷テーマを検査し、全Session Index・最新3 Daily Notes・全推移・全Study BanksをPDF化
 npm run serve       # ローカルプレビュー
 ```
 
@@ -199,5 +218,5 @@ npm run serve       # ローカルプレビュー
 - [ ] 画像のalt、出典、利用条件、プライバシー、SHA-256を確認した
 - [ ] 個人情報、勤務先固有情報、非公開業務情報、認証情報がない
 - [ ] `npm run check` が合格した
-- [ ] レポートを作成・更新した回は、統合Journal PDFを全ページ確認し、指定アドレスへのPDF添付メール送信を確認した
+- [ ] レポートを作成・更新した回は、収録範囲・印刷テーマ・静的コントラスト検査を確認し、統合Journal PDFを全ページ確認して指定アドレスへのPDF添付メール送信を確認した
 - [ ] `git diff` が意図した変更だけで、commit / pushの結果を確認した
