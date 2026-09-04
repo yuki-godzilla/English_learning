@@ -61,11 +61,11 @@
       "path": "learning-records/media/progress/english-growth-evidence-dashboard.png",
       "status": "generated",
       "role": "English growth dashboard",
-      "alt": "Session 1からSession 10までの英語力成長グラフ",
-      "caption": "評価JSONから生成した英語力の推移。推定と直接測定を区別する。Session 10のPronunciationは未測定。",
+      "alt": "Session 1からSession 11までの英語力成長グラフ",
+      "caption": "評価JSONから生成した英語力の推移。推定と直接測定を区別する。Session 11のPronunciationは未測定。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "ab4f12fc88f7cd7c56e8536b2bd2ccb0157337abfa8eaf9fb4b760847ba44bae"
+      "sha256": "7d4747da232f21303e583ab39e06611b1f3ae3861e7614cd542978177a6e4460"
     },
     {
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",

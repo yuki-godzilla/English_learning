@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 11 — AI時代の価値創造と朝の集中時間](#session-2026-09-04-01)
   - [Session 10 — キャリア選択を冷静に考える](#session-2026-09-02-01)
   - [Session 9 — Godzillaの象徴性と日常からの小さな逃避](#session-2026-08-28-01)
   - [Session 8 — AIデータセンター・電力インフラ・マイクログリッド](#session-2026-08-27-01)
@@ -28,23 +29,23 @@
 # 今日の5分復習
 
 <details>
-<summary>選択肢を保ちながら冷静に決める</summary>
+<summary>AI時代に人が担う価値を伝える</summary>
 
-**I want to make a calm, well-informed decision.**
-
-</details>
-
-<details>
-<summary>「日常の繰り返しから離れたい」を英語で言う</summary>
-
-**We want to get away from our usual routine.**
+**In the AI era, AI can handle simple tasks, but people need to focus on creating value.**
 
 </details>
 
 <details>
-<summary>Godzillaが核への恐怖を象徴すると説明する</summary>
+<summary>集中しやすい朝の仕事の習慣を説明する</summary>
 
-**Godzilla symbolizes nuclear fear.**
+**While my PC is starting up, I get a tea from the vending machine. It helps clear my head.**
+
+</details>
+
+<details>
+<summary>仕事と自分の成長を結び付けて動機を話す</summary>
+
+**When it helps both the company and my own growth, I feel really motivated.**
 
 </details>
 
@@ -62,6 +63,130 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":11,"session_id":"2026-09-04-01","date":"2026-09-04","title":"AI時代の価値創造と朝の集中時間","tags":["AI / Tech","Work Routine","Career"],"remember":"AIが定型作業を担う時代に、人は価値を生む設計と判断へ集中する。自分にとってはAIを使える開発環境を整え、技術的な仕事と成長をつなぐことが大きな動機になる。","prompt":"What kind of work creates value for people in the AI era, and why does it motivate you?"} -->
+<a id="session-2026-09-04-01"></a>
+
+## 2026年9月4日（金）— AI時代の価値創造と朝の集中時間
+
+> **Session 11 / Recorded session window:** Evening JST
+> **主な話題:** 朝の仕事の習慣、集中時間、AIを使う開発環境、AI時代の価値創造
+
+> [!NOTE]
+> 今回は発音評価用の録音を回収・直接分析していないため、Pronunciation、WPM、1秒超のポーズは評価しない。
+
+### 今日の要点 / Today at a Glance
+
+Yukiは、朝にPCを立ち上げながら飲み物を用意する小さな習慣を説明した。通常の勤務時間が始まる前は、問い合わせやチーム作業に中断されにくく、自動化やAI活用のような深く集中したい技術作業に取り組みやすい。この時間は効率的なだけでなく、頭を切り替え、仕事への意欲を整える時間にもなっている。
+
+会話の後半では、以前から続けてきた自動化プロジェクトを、AIが理解・支援しやすい開発環境へ育てる取り組みを話した。Yukiにとって、AI向けの指示文書やリポジトリの整備は、会社に役立つと同時に自分の技術的な成長にもつながる。AI時代にはAIが定型作業を担う一方、人はソフトウェアやIoTシステムを設計し、より大きな価値を生むことへ集中すべきだ、という明確な意見に至った。
+
+### 話題別メモ / Topic Notes
+
+#### 朝の集中時間をつくる
+
+- 朝はPCの起動中に飲み物を用意し、自然に仕事モードへ切り替える。
+- 通常の勤務時間には問い合わせやチームの作業が増えるため、朝の静かな時間は集中が必要な技術作業に向いている。
+- このルーティンは時間を有効に使うだけでなく、`clear my head`、つまり頭を整理して集中へ入る助けにもなる。
+
+#### AIを使える開発環境を整える
+
+- 長く育ててきた自動化の知識を、AI支援のコーディングで再利用しやすい形に整えている。
+- プロジェクトの意図や作業方針を伝える文書、リポジトリの構造、開発環境を整えることが現在の中心課題である。
+- 単にコードを生成させるだけでなく、AIが安全に理解し、開発を支援できる土台をつくる仕事に魅力を感じている。
+
+#### AI時代に人がつくる価値
+
+- AIは定型的・反復的な作業を助けられるが、何をつくるか、誰にどんな価値を届けるかを設計することは人の重要な役割である。
+- Yukiは、ソフトウェアやIoTシステムを設計することを、自分にとっての`creating value`の具体例として挙げた。
+- 会社への貢献と自分の成長が同時に見える仕事ほど、楽しく、満足感があり、強く動機づけられる。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. 中断の少ない朝は、テスト自動化やAI活用のような集中が必要な仕事に使いたい。
+2. AIを使える開発環境を整えることは、今後のキャリアに役立つ価値ある学習でもある。
+3. AI時代には、AIへ単純作業を任せ、人は設計・判断・価値創造に力を使うべきだ。
+4. 会社への貢献と自分自身の成長がつながる仕事が、Yukiの大きなモチベーションになる。
+
+### 役立つ英語 / Useful English
+
+#### 🔵 朝の習慣を自然に説明する
+
+**Natural / Conversational**
+While my PC is starting up, I get a tea from the vending machine. It helps clear my head.
+
+**Professional**
+I use the quiet time before regular working hours to focus on tasks that require deep concentration.
+
+**Point**
+`while my PC is starting up`は、二つの動作を自然に同時進行で説明できる。`clear my head`は「頭をすっきりさせる」の自然な会話表現。
+
+#### 🔵 仕事と成長のつながりを話す
+
+**Natural / Conversational**
+When it helps both the company and my own growth, I feel really motivated.
+
+**Professional**
+I am most motivated when my work creates value for the organization and develops my capabilities at the same time.
+
+**Point**
+`both A and B`で、会社への貢献と自分の成長という二つの価値をバランスよく結び付けられる。
+
+#### 🔵 AI時代の考えを述べる
+
+**Natural / Conversational**
+In the AI era, AI can handle simple tasks, but people need to focus on creating value.
+
+**Professional**
+As AI takes on more routine work, people can focus more on design, judgment, and higher-value problem solving.
+
+**Point**
+`the AI era`は「AI時代」。`creating value`は、単に作業するのではなく、利用者や組織に意味のある成果を生むことを表す。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**Pronunciation: N/A / 音声未計測。** 文字起こしから発音、WPM、ポーズを推測しない。
+
+今回は、`efficient`、`working hours`、`clear my head`、`the AI era`の意味と使いどころを確認した。次回は、次の4文を一続きで、自分の仕事に合わせて話す。
+
+- I use the early morning to focus on work that requires deep concentration.
+- Preparing an AI-ready development environment is motivating for me.
+- It helps both the company and my own growth.
+- In the AI era, I want to focus on creating value through design and problem solving.
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+**Overall: L3 / Mostly independent。Task achievementとInteraction & repairではL4相当の行動を確認。**
+
+Yukiは、身近な朝のルーティンから、AI支援開発、キャリアの価値、AI時代の人の役割へと話題を広げた。語を探す場面はあったが、`efficient`、`working hours`、`the AI era`など必要な語の意味を自分から確認し、意図と異なる解釈にはすぐ訂正を入れて会話を自分の考えへ戻せた。最終的には、AIと人の役割の違いを、設計と価値創造という自分の具体的な仕事観につないで説明した。
+
+| Metric | Level | Evidence |
+|---|---:|---|
+| Task achievement | **L4** | 朝の集中時間、AI支援開発、価値創造の考えを理由と具体例を添えて説明した。 |
+| Fluency & coherence | **L3** | hesitationやrestartはあったが、身近な習慣から抽象的なAI時代の考えまで話のつながりを保った。 |
+| Lexical resource | **L3** | `efficient`、`working hours`、`motivated`、`creating value`を、確認しながら仕事の文脈で使った。 |
+| Grammar control | **L3** | 単複、冠詞、動詞形に不安定さはあったが、確認を通して主要な意図は明確に伝わった。 |
+| Interaction & repair | **L4** | 意図の異なる解釈をすぐ訂正し、必要な語を質問して会話の方向を自分のテーマへ戻した。 |
+| Pronunciation | **N/A** | 評価録音を直接分析していない。 |
+
+### 学習バンク更新 / Study Banks Update
+
+- [Expression Bank](#journal-expression-bank): 新規3件
+- [Vocabulary Bank](#journal-vocabulary-bank): 新規2件
+- [Pronunciation & Speaking Bank](#journal-speaking-bank): 追加なし。録音評価・発音固有の課題は未実施。
+
+> [!TIP]
+> 次回は、`main point → reason → example → conclusion`の4段構成で、「AI時代に自分はどんな価値をつくりたいか」を60秒で話す。
+
+### 次回 / Next Steps
+
+1. 朝の集中時間に取り組む技術作業を一つ選び、`why it matters`まで英語で説明する。
+2. `When it helps both the company and my own growth, I feel really motivated.` を自分の仕事の例と一緒に一度使う。
+3. `AI can handle routine tasks, but people should focus on creating value.` に、設計または問題解決の具体例を一つ追加して話す。
+
+[ページ先頭へ戻る](#journal-contents) · [Session Index](#journal-sessions)
+
+---
 
 <!-- session-meta: {"session_number":10,"session_id":"2026-09-02-01","date":"2026-09-02","title":"キャリア選択を冷静に考える","tags":["Career","Workplace Communication","Decision-Making"],"remember":"現職の異動は有力な選択肢だが、面接を真剣に受け、具体的な条件を比較してから落ち着いて決める。","prompt":"How can I evaluate two career paths calmly without forcing an early decision?"} -->
 <a id="session-2026-09-02-01"></a>
@@ -1137,11 +1262,11 @@ Why: 改善点には work on / focus on が自然。
 
 ## できるようになったこと
 
-**最新の会話評価： [Session 10（2026年9月2日）](#session-2026-09-02-01)**
+**最新の会話評価： [Session 11（2026年9月4日）](#session-2026-09-04-01)**
 
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
-- 職場経験とキャリア選択のような難しい個人的なテーマでも、理由と結論をつないで説明できる。
+- 朝のルーティンからAI支援開発、AI時代の価値創造まで、身近な例と抽象的な考えをつないで説明できる。
 
 ## Current Snapshot
 
@@ -1150,19 +1275,19 @@ Why: 改善点には work on / focus on が自然。
 | **Task achievement** | **L4 / Independent** | 結論・理由・例をつないで、自分の考えを完結できる。 |
 | **Fluency & coherence** | **L3 / Mostly independent** | 言い直しがあっても、話の軸を保って続けられる。 |
 | **Lexical resource** | **L3 / Mostly independent** | 関心分野の語彙を使い、確認や言い換えで意図を伝えられる。 |
-| **Grammar control** | **L2 / Supported** | 断片的な文や時制・語順の不安定さはあるが、確認を通して主要な意図を伝えられる。 |
+| **Grammar control** | **L3 / Mostly independent** | 断片的な文や時制・語順の不安定さはあるが、確認を通して主要な意図を明確に伝えられる。 |
 | **Interaction & repair** | **L4 / Independent** | 語義や質問の意図を自分から確認し、会話を前へ進められる。 |
-| **Pronunciation** | **N/A / Session 10未測定** | 最後の直接音声評価はSession 8のL3。 |
+| **Pronunciation** | **N/A / Session 11未測定** | 最後の直接音声評価はSession 8のL3。 |
 
 ## 発音の測定状況
 
-Session 10は直接音声を評価していません。最後に直接確認したのは[Session 8](#session-2026-08-27-01)で、全体の明瞭さは **L3 / Mostly independent** でした。未測定を能力低下として扱わず、新しい直接録音がある回だけ推移を更新します。
+Session 11は直接音声を評価していません。最後に直接確認したのは[Session 8](#session-2026-08-27-01)で、全体の明瞭さは **L3 / Mostly independent** でした。未測定を能力低下として扱わず、新しい直接録音がある回だけ推移を更新します。
 
 ## 成長グラフ
 
-[![Session 1からSession 10までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 11までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から10までの6指標を時系列で表示しています。Pronunciationは、直接音声の根拠があるSession 8だけを測定値として扱います。画像をタップすると原寸で確認できます。
+Session 1から11までの6指標を時系列で表示しています。Pronunciationは、直接音声の根拠があるSession 8だけを測定値として扱います。画像をタップすると原寸で確認できます。
 
 ## 次に伸ばすこと
 
@@ -1174,6 +1299,7 @@ Session 1から10までの6指標を時系列で表示しています。Pronunci
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 11 — AI時代の価値創造と朝の集中時間](#session-2026-09-04-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 10 — キャリア選択を冷静に考える](#session-2026-09-02-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 9 — Godzillaの象徴性と日常からの小さな逃避](#session-2026-08-28-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 8 — AIデータセンター・電力インフラ・マイクログリッド](#session-2026-08-27-01) — 初めて直接録音を確認し、発音の明瞭さをL3として記録。
@@ -1214,6 +1340,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 
 # 表現バンク / Expression Bank
 
+## 2026年9月4日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **It helps clear my head.** | 頭を整理して気分や考えを切り替える。「朝の飲み物、散歩、短い休憩」などの効果を自然に説明する。 | [Session 11](#session-2026-09-04-01) |
+| **When it helps both the company and my own growth, I feel really motivated.** | 会社への貢献と自分の成長がつながるときの意欲を話す。面接やキャリアの会話でも使える。 | [Session 11](#session-2026-09-04-01) |
+| **In the AI era, AI can handle simple tasks, but people need to focus on creating value.** | AIの役割と人の役割について自分の意見を述べる。続けて設計・判断・問題解決の例を加えられる。 | [Session 11](#session-2026-09-04-01) |
+
 ## 2026年9月2日
 
 | Expression | Meaning / Usage / Example | Source |
@@ -1243,6 +1377,13 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年9月4日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **efficient** /ɪˈfɪʃ.ənt/ adjective | **意味:** 時間や手間をむだにせず、うまく進められる。**Plain English:** working well without wasting time or effort. **Collocation:** an efficient routine / an efficient way to work. **Example:** My morning routine is efficient and helps me focus. | [Session 11](#session-2026-09-04-01) |
+| **working hours** /ˈwɝː.kɪŋ ˈaʊ.ɚz/ plural noun | **意味:** 勤務時間。会社が決めた通常の時間を言うなら`regular working hours`も使える。**Plain English:** the hours when you are expected to work. **Collocation:** during working hours / regular working hours. **Example:** During regular working hours, I handle questions and team tasks. | [Session 11](#session-2026-09-04-01) |
 
 ## 2026年9月2日
 

@@ -255,6 +255,25 @@
       "evidence_quote_origin": "Session conclusion, formulated after a spontaneous career discussion in the realtime transcript",
       "evidence_note_ja": "社内異動、外部選考、過去の職場経験、長期キャリアへの希望を結び付け、情報がそろってから冷静に決めるという結論を作った。感情的に難しい背景を話す間にhesitation、restart、断片的な文、時制・語順の不安定さはあったが、必要な語や意図を確認し、主要な意図を明確に保ちながら相談を進めた。感情負荷の高い一回の会話を能力低下と扱わず、既存のL3を維持する。共通60秒課題は未実施で、発音を直接評価できる新規録音もないため、定量値は追加せず、PronunciationはN/Aとする。",
       "evidence_note": "Connected an internal transfer, an external interview process, past workplace experience, and long-term career goals, reaching the practical conclusion to decide calmly once sufficient information is available. Hesitation, restarts, fragments, and unstable tense and word order appeared while discussing an emotionally difficult background, but the learner checked terms and intent and kept the main meaning clear. This single high-emotion conversation is not treated as a decline in ability, so the established L3 is retained. No comparable 60-second task or new directly assessed recording was available, so no quantitative metrics are added and pronunciation is N/A."
+    },
+    {
+      "session": 11,
+      "date": "2026-09-04",
+      "task": "AI-era value creation and focused technical work",
+      "task_ja": "AI時代の価値創造と集中が必要な技術作業",
+      "data_coverage": "Realtime transcript excerpts; no comparable 60-second benchmark and no reliable direct audio analysis",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "evidence_quote": "In the AI era, AI can handle simple tasks, but people need to focus on creating value.",
+      "evidence_quote_origin": "Spontaneous conclusion in the realtime transcript, refined after the learner explained a technical-work example",
+      "evidence_note_ja": "朝の集中時間、AIを使える開発環境の整備、会社への貢献と自分の成長、AI時代に人が担う価値創造を一つの考えとして説明した。語を探す場面やrestartはあったが、efficient、working hours、the AI eraなど必要な語を自発的に確認し、意図と異なる解釈はすぐに訂正して会話を自分のテーマへ戻した。共通60秒課題は未実施で、発音を直接評価できる新規録音もないため、既存の5指標は根拠のある範囲で維持し、PronunciationはN/Aとする。",
+      "evidence_note": "Explained early-morning focused work, preparing an AI-ready development environment, contribution to the organization and personal growth, and human value creation in the AI era as one connected view. There were word searches and restarts, but the learner independently checked needed terms such as efficient, working hours, and the AI era, and promptly repaired interpretations that missed the intended point. No comparable 60-second task or new directly assessed recording was available, so the established five transcript-supported ratings are retained and pronunciation is N/A."
     }
   ],
   "test_score_estimates": {
