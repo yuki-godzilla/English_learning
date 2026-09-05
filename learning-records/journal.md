@@ -1364,6 +1364,18 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 | **Godzilla symbolizes nuclear fear.** | 作品や人物が何を象徴するかを直接説明する。 | [Session 9](#session-2026-08-28-01) |
 | **That’s one of the things that makes Godzilla so appealing.** | 魅力の理由を自然な会話表現で説明する。 | [Session 9](#session-2026-08-28-01) |
 
+## 2026年8月27日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **I’m skeptical about the recent trend toward placing greater emphasis on electricity.** | 電化を重視する流れへの慎重な見方を、反対と断定せず理由へつなげる。**Example:** I’m skeptical about the recent trend toward placing greater emphasis on electricity. | [Session 8](#session-2026-08-27-01) |
+
+## 2026年8月23日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **Electricity is only as clean as how it’s generated.** | 電化の環境価値が発電方法にも左右されることを説明し、electrificationとgeneration mixを一緒に議論する。 | [Session 7](#session-2026-08-23-01) |
+
 
 ## 2026年8月19日
 
@@ -1371,6 +1383,51 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 |---|---|---|
 | **My goal is to use AI across the entire development lifecycle—not just testing—to make our work more efficient and effective.** | AI initiativeの範囲と目的を一文で説明する。 | [Session 6](#session-2026-08-19-01) |
 | **Cost reduction is our top priority because our department is highly conscious of development costs.** | 組織提案のbusiness rationaleを説明する。 | [Session 6](#session-2026-08-19-01) |
+
+## 2026年8月17日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **I coordinate an external engineering team on system-level quality work.** | 外部エンジニアを調整する経験を、品質・運用改善との適合まで含めて簡潔に示す。 | [Session 4](#session-2026-08-17-01) |
+| **Although this initiative is not directly related to the target service area, it demonstrates my ability to identify process issues, design a technical solution, and lead continuous improvement.** | 経験領域の違いを正直に認めながら、課題発見・技術企画・継続改善という再利用可能な強みへつなげる。 | [Session 4](#session-2026-08-17-01) |
+| **I’m looking for a role that matches my technical experience and offers clearer career development.** | 技術経験との適合とキャリア形成を、前向きな転職理由として説明する。 | [Session 4](#session-2026-08-17-01) |
+
+## 2026年8月16日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **In my first year, I’ll focus on adapting quickly while delivering concrete results.** | 早期適応と具体的な成果への意欲を両立して、最初の1年の貢献を説明する。 | [Session 3](#session-2026-08-16-01) |
+
+## 2026年8月15日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **Can you choose a topic for us today?** | 今日の会話テーマを相手に自然に選んでもらう。 | [Session 2](#session-2026-08-15-01) |
+| **Is the answer in the article, or do you want my opinion?** | 記事中の答えを求められているのか、自分の意見を求められているのかを確認する。 | [Session 2](#session-2026-08-15-01) |
+| **Could you summarize the article and teach me the key points?** | 記事の要約と重要ポイントの説明を依頼する。 | [Session 2](#session-2026-08-15-01) |
+| **What do you think about it?** | `How do you think?`ではなく、相手の意見を尋ねる定番表現。 | [Session 2](#session-2026-08-15-01) |
+| **For my personal work, Terra is a good fit.** | `fit`を使って、モデルと個人開発用途との相性を説明する。 | [Session 2](#session-2026-08-15-01) |
+| **When the coding spans multiple features, Luna starts to feel limited.** | 複数機能にまたがるcodingで、モデルの限界を自然に説明する。 | [Session 2](#session-2026-08-15-01) |
+| **I think prompt caching reduces the cost of using AI.** | prompt cachingのcost benefitを簡潔に述べる。 | [Session 2](#session-2026-08-15-01) |
+| **Usage-based pricing makes cost sharing easier for a team.** | 特定の勤務先情報を含めず、利用量ベースの課金とチームでの費用配分を一般化して説明する。 | [Session 2](#session-2026-08-15-01) |
+| **Let’s have a casual chat.** | `small talk`より広い意味で、気軽な雑談を提案する。 | [Session 2](#session-2026-08-15-01) |
+| **Let’s stop here for today.** | セッションを自然に締めくくる。 | [Session 2](#session-2026-08-15-01) |
+
+## 2026年8月8日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **I want to talk about my trip.** | 特定の旅行について話題を始める自然な形。 | [Session 1](#session-2026-08-08-01) |
+| **We hit the casino on our first day.** | `hit + 場所`を使った「その場所へ行く」のカジュアルな言い方。 | [Session 1](#session-2026-08-08-01) |
+| **wasn’t feeling well** | 一時的に体調が良くなかったことを自然に説明する。 | [Session 1](#session-2026-08-08-01) |
+| **She absolutely loved it.** | プレゼントなどを本当に気に入ってくれた反応を強調する。 | [Session 1](#session-2026-08-08-01) |
+| **I bought my wife a gift.** | `buy + 人 + 物`の自然で簡潔な語順を使う。 | [Session 1](#session-2026-08-08-01) |
+| **Myeong-dong is this huge shopping district, kind of like Namba in Osaka.** | 知らない場所を、相手が知っている場所と比べて会話的に説明する。 | [Session 1](#session-2026-08-08-01) |
+| **I treated myself to a massage.** | `treat myself to ...`で、自分へのご褒美として何かをしたと説明する。 | [Session 1](#session-2026-08-08-01) |
+| **I got back to Japan yesterday.** | `get back`を使って帰国や帰宅を自然に説明する。 | [Session 1](#session-2026-08-08-01) |
+| **exactly what I needed** | 疲労回復などについて「まさに必要だったもの」と感想を述べる。 | [Session 1](#session-2026-08-08-01) |
+| **go with the flow** | 細かく決めすぎず、成り行きに任せる姿勢を表す。 | [Session 1](#session-2026-08-08-01) |
+| **What should I focus on if I want to sound more natural?** | より自然な英語にするための改善点を相手に尋ねる。 | [Session 1](#session-2026-08-08-01) |
 
 [目次へ戻る](#journal-contents)
 
@@ -1401,6 +1458,20 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 | **symbolize** /ˈsɪm.bə.laɪz/ verb | **意味:** 象徴する。**Plain English:** to represent a deeper idea. **Collocation:** symbolize fear / hope / war. **Example:** Godzilla symbolizes nuclear fear. | [Session 9](#session-2026-08-28-01) |
 | **spectacle** /ˈspek.tə.kəl/ noun | **意味:** 壮大で印象的な見せ場。**Plain English:** an impressive visual event or display. **Collocation:** visual spectacle / thrilling spectacle. **Example:** The monster battles create an exciting spectacle. | [Session 9](#session-2026-08-28-01) |
 
+## 2026年8月27日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **microgrid** /ˈmaɪ.kroʊ.ɡrɪd/ noun | **意味:** 小規模な地域電力システム。**Plain English:** a small local power system with generation, batteries, and controls. **Collocation:** operate a microgrid / microgrid resilience. **Example:** A microgrid can support critical loads during a grid outage. | [Session 8](#session-2026-08-27-01) |
+| **primary energy** /ˈpraɪ.mer.i ˈen.ɚ.dʒi/ noun | **意味:** 変換前の一次エネルギー。**Plain English:** energy available before it is converted, such as coal, wind, or nuclear fuel. **Collocation:** primary energy source / primary energy demand. **Example:** Natural gas is a primary energy source used to generate electricity. | [Session 8](#session-2026-08-27-01) |
+| **energy carrier** /ˈen.ɚ.dʒi ˈker.i.ɚ/ noun | **意味:** エネルギーを運ぶ形。**Plain English:** a form used to deliver energy, such as electricity or hydrogen. **Collocation:** electricity as an energy carrier. **Example:** Electricity is an energy carrier, not a primary energy source. | [Session 8](#session-2026-08-27-01) |
+
+## 2026年8月23日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **electrification** /ɪˌlek.trə.fəˈkeɪ.ʃən/ noun | **意味:** 電化。化石燃料を直接使う用途を電気へ置き換えること。**Collocation:** promote electrification / electrification of transport. **Example:** Electrification must be accompanied by cleaner power generation. | [Session 7](#session-2026-08-23-01) |
+
 
 ## 2026年8月19日
 
@@ -1408,6 +1479,55 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 |---|---|---|
 | **initiative** /ɪˈnɪʃ.ə.t̬ɪv/ noun | **意味:** 組織的な新しい取り組み。**Collocation:** launch / lead / propose an initiative. **Example:** I’m leading an initiative to integrate AI into our development process. | [Session 6](#session-2026-08-19-01) |
 | **specifically** /spəˈsɪf.ɪ.kəl.i/ adverb | **意味:** 具体的に、特定して。日常会話では`concretely`より自然な場合が多い。**Example:** Could you explain that more specifically? | [Session 6](#session-2026-08-19-01) |
+
+## 2026年8月18日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **gooey** /ˈɡuː.i/ adjective | **意味:** とろっとして伸びる、濃厚な。**Plain English:** soft, melty, and stretchy. **Collocation:** gooey cheese. **Example:** I love gooey cheese. | [Session 5](#session-2026-08-18-01) |
+
+## 2026年8月17日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **concrete** /ˈkɑːn.kriːt/ adjective | **意味:** 具体的な、明確な。**Collocation:** concrete results. **Example:** I want to deliver concrete results in my first year. **要復習:** specific and clear. | [Session 4](#session-2026-08-17-01) |
+| **deliverables** /dɪˈlɪv.ɚ.ə.bəlz/ plural noun | **意味:** チームが実際に作成・提出する成果物。**Plain English:** concrete outputs a team produces. **Collocation:** project deliverables. **Example:** AI can update deliverables such as specifications and test cases. | [Session 4](#session-2026-08-17-01) |
+| **auxiliary equipment** /ɔːɡˈzɪl.jə.ri ɪˈkwɪp.mənt/ noun | **意味:** 主設備を支える補助設備。**Collocation:** IT equipment, cooling systems, and auxiliary equipment. **Example:** Data centers comprise IT equipment, cooling systems, and auxiliary equipment. | [Session 4](#session-2026-08-17-01) |
+| **hyperscale** /ˈhaɪ.pɚ.skeɪl/ adjective | **意味:** 大量処理を行い、高い拡張性を持つ超大規模な。**Collocation:** hyperscale data center. **Example:** Cooling can account for a meaningful share of electricity use in a hyperscale data center. | [Session 4](#session-2026-08-17-01) |
+| **colocation** /ˌkoʊ.loʊˈkeɪ.ʃən/ noun | **意味:** 顧客が自社機器を置き、電力・冷却・通信設備を共有する共同設置型データセンター。**Note:** language-learning `collocation`はlが2つ。 | [Session 4](#session-2026-08-17-01) |
+
+## 2026年8月15日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **explicit** /ɪkˈsplɪs.ɪt/ adjective | **意味:** 明示的な。**Plain English:** intentional or clearly defined. **Collocation:** explicit breakpoint. **Example:** Explicit caching gives developers direct control. | [Session 2](#session-2026-08-15-01) |
+| **autonomous** /ɑːˈtɑː.nə.məs/ adjective | **意味:** 人が常時操作せず、自律的に判断・行動する。**Collocation:** autonomous agent. **Example:** An autonomous agent can plan and act within set limits. | [Session 2](#session-2026-08-15-01) |
+| **inference** /ˈɪn.fɚ.əns/ noun | **意味:** 入力から出力を生成するモデル実行・推論。**Collocation:** model inference. **Example:** We ran the first inference through the API. | [Session 2](#session-2026-08-15-01) |
+| **endpoint** /ˈendˌpɔɪnt/ noun | **意味:** APIなどの接続先。**Collocation:** API endpoint. **Example:** The service exposes a secure API endpoint. | [Session 2](#session-2026-08-15-01) |
+| **scaling** /ˈskeɪ.lɪŋ/ noun | **意味:** 利用増加に合わせたcapacity拡張。**Collocation:** quotas and scaling. **Example:** Caching can help workloads scale efficiently. | [Session 2](#session-2026-08-15-01) |
+| **completion** /kəmˈpliː.ʃən/ noun | **意味:** モデルがpromptに対して生成する出力。**Collocation:** prompt and completion. **Example:** Completions are the model’s generated outputs. | [Session 2](#session-2026-08-15-01) |
+| **migrate** /ˈmaɪ.ɡreɪt/ verb | **意味:** 移行する。**Collocation:** migrate workloads. **Example:** Teams can migrate workloads from earlier models. | [Session 2](#session-2026-08-15-01) |
+| **cadence** /ˈkeɪ.dəns/ noun | **意味:** 進行・進化・リリースのpaceやrhythm。**Collocation:** release cadence. **Example:** Each tier can advance on its own cadence. | [Session 2](#session-2026-08-15-01) |
+| **durable** /ˈdʊr.ə.bəl/ adjective | **意味:** 長く維持される、持続的な。**Collocation:** durable capability tier. **Example:** The model names represent durable capability tiers. | [Session 2](#session-2026-08-15-01) |
+| **tier** /tɪr/ noun | **意味:** 階層、レベル。**Collocation:** capability tier. **Example:** Sol, Terra, and Luna represent different capability tiers. | [Session 2](#session-2026-08-15-01) |
+| **latency-sensitive** /ˈleɪ.tən.si ˈsen.sə.t̬ɪv/ adjective | **意味:** 遅延の小ささが重要な。**Collocation:** latency-sensitive workload. **Example:** Luna suits high-volume, latency-sensitive tasks. | [Session 2](#session-2026-08-15-01) |
+| **workload** /ˈwɝːk.loʊd/ noun | **意味:** システムが処理する仕事量・処理用途。**Collocation:** production workload. **Example:** Choose the model that fits the workload. | [Session 2](#session-2026-08-15-01) |
+| **governance** /ˈɡʌv.ɚ.nəns/ noun | **意味:** 組織的な管理・統制。**Collocation:** security and governance controls. **Example:** A managed platform provides governance controls. | [Session 2](#session-2026-08-15-01) |
+| **commitment** /kəˈmɪt.mənt/ noun | **意味:** 契約上の利用・支出コミットメント。**Collocation:** service commitments. **Example:** Usage can count toward an existing service commitment. | [Session 2](#session-2026-08-15-01) |
+| **classification** /ˌklæs.ə.fəˈkeɪ.ʃən/ noun | **意味:** 分類。**Collocation:** ticket classification. **Example:** A smaller model can handle classification tasks. | [Session 2](#session-2026-08-15-01) |
+| **summarization** /ˌsʌm.ɚ.əˈzeɪ.ʃən/ noun | **意味:** 要約。**Collocation:** document summarization. **Example:** A smaller model can handle high-volume summarization. | [Session 2](#session-2026-08-15-01) |
+| **routing** /ˈruː.t̬ɪŋ/ or /ˈraʊ.t̬ɪŋ/ noun | **意味:** 要求や処理先の振り分け。**Collocation:** request routing. **Example:** A smaller model can handle routing. | [Session 2](#session-2026-08-15-01) |
+| **feature** /ˈfiː.tʃɚ/ noun | **意味:** ユーザーから見える製品機能。`function`よりproduct perspective寄り。**Collocation:** chat feature. **Example:** The investment-support app has many features. | [Session 2](#session-2026-08-15-01) |
+
+## 2026年8月8日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **stall** /stɑːl/ noun | **意味:** 屋台、露店。**Collocation:** street food stall. **Example:** We grabbed food from a street stall. | [Session 1](#session-2026-08-08-01) |
+| **district** /ˈdɪs.trɪkt/ noun | **意味:** 地区、地域。**Collocation:** shopping district / business district. **Example:** Myeong-dong is a huge shopping district. | [Session 1](#session-2026-08-08-01) |
+| **mall** /mɑːl/ noun | **意味:** 大型商業施設。`district`が地域を指すのに対し、`mall`は建物・施設を指す。 | [Session 1](#session-2026-08-08-01) |
+| **winnings** /ˈwɪn.ɪŋz/ plural noun | **意味:** 賭け・ゲーム・競技などで得た勝ち金。**Collocation:** casino winnings. | [Session 1](#session-2026-08-08-01) |
+| **full-body** /ˌfʊl ˈbɑː.di/ adjective | **意味:** 全身の。**Collocation:** full-body massage. **Example:** I got a full-body massage. | [Session 1](#session-2026-08-08-01) |
 
 [目次へ戻る](#journal-contents)
 
@@ -1422,11 +1542,36 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 | **a calm, relaxing vibe** | `calm`と`relaxing`を少し強くし、`vibe`でゆっくり着地する。録音評価ではなく練習用。 | [Session 9](#session-2026-08-28-01) |
 | **Godzilla symbolizes nuclear fear.** | `GOD-zilla`、`SYM-bo-lizes`、`NU-clear FEAR`の内容語を意識する。録音評価ではなく練習用。 | [Session 9](#session-2026-08-28-01) |
 
+## 2026年8月27日
+
+| Word / Chunk | Speaking / Focus / Practice | Source |
+|---|---|---|
+| **Technology can make everyday life safer and more convenient.** | **Speaking:** TECHnology can make EVeryday LIFE safer and more conVENient. **Focus:** 内容語を強くし、`can / and / more`は軽くつないで英語のrhythmを作る。録音評価ではなく練習用。 | [Session 8](#session-2026-08-27-01) |
+| **Trust is just as important as innovation.** | **Speaking:** TRUST is just as imPORtant as innoVAtion. **Focus:** TRUST / POR / VAを目立たせ、`is just as / as`は弱く滑らかにつなぐ。録音評価ではなく練習用。 | [Session 8](#session-2026-08-27-01) |
+
 
 ## 2026年8月19日
 
 | Word / Chunk | Speaking / Focus / Practice | Source |
 |---|---|---|
 | **team /tiːm/ vs theme /θiːm/** | `/t/`と`/θ/`の対比。**Practice:** Our team is working on an AI theme. 録音評価ではなく練習用。 | [Session 6](#session-2026-08-19-01) |
+
+## 2026年8月16日
+
+| Word / Chunk | Speaking / Focus / Practice | Source |
+|---|---|---|
+| **adapting quickly while delivering concrete results** | **Stress:** a-DAP-ting QUICK-ly / de-LIV-er-ing CON-crete re-SULTS. **Focus:** `adapting quickly`と`while`をなめらかにつなげ、QUICK / LIV / CON / SULTSを際立たせる。録音評価ではなく練習用。 | [Session 3](#session-2026-08-16-01) |
+
+## 2026年8月15日
+
+| Word / Chunk | Speaking / Focus / Practice | Source |
+|---|---|---|
+| **spans multiple features / starts to feel limited** | **Speaking:** When the CODING / spans multiple FEATURES / Luna starts to feel LIMITED. **Focus:** 意味チャンクごとに区切り、CODING / FEATURES / LUNA / LIMITEDを目立たせる。録音評価ではなく練習用。 | [Session 2](#session-2026-08-15-01) |
+
+## 2026年8月8日
+
+| Word / Chunk | Speaking / Focus / Practice | Source |
+|---|---|---|
+| **I got a full-body massage.** | **Speaking:** I GOT ə FULL-body MASSAGE. **Focus:** `a`は/ə/に弱化。GOT / FULL-body / MASSAGEを強くし、意味のまとまりで話す。録音評価ではなく練習用。 | [Session 1](#session-2026-08-08-01) |
 
 [目次へ戻る](#journal-contents)

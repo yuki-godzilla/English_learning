@@ -55,15 +55,16 @@
   .learning-grid { grid-template-columns: 1fr !important; gap: 4mm !important; }
   .metric-grid, .score-grid, .review-list { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 4mm !important; }
 
-  /* The full Session Index must stay compact as the history grows. Three
-     consistently sized cards prevent a lone final card on a near-empty page. */
-  .session-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 3.5mm !important; }
-  .session-card { padding: 3mm !important; }
-  .session-card .card-meta { font-size: 7.7pt !important; line-height: 1.35; }
-  .session-card h2 { font-size: 9.5pt !important; line-height: 1.26; margin: 1.5mm 0 2mm !important; }
-  .session-card p { font-size: 8.4pt !important; line-height: 1.42; margin: 1.5mm 0 0 !important; }
+  /* The Session Index remains compact without dropping below the reading-size
+     floor. Two columns preserve hierarchy and prevent summary text from
+     becoming visually subordinate to metadata. */
+  .session-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 4mm !important; }
+  .session-card { padding: 3.5mm !important; }
+  .session-card .card-meta { font-size: 9pt !important; line-height: 1.4; }
+  .session-card h2 { font-size: 11.5pt !important; line-height: 1.3; margin: 1.8mm 0 2.2mm !important; }
+  .session-card p { font-size: 10.5pt !important; line-height: 1.5; margin: 1.8mm 0 0 !important; }
   .session-card .learning-tags { gap: 1.2mm !important; margin: 1.5mm 0 !important; }
-  .session-card .learning-tag { font-size: 6.9pt !important; padding: 0.6mm 1.3mm !important; }
+  .session-card .learning-tag { font-size: 8.5pt !important; padding: 0.7mm 1.5mm !important; }
 
   .learning-card, .session-card, .metric-card, .score-card, .review-card,
   .latest-win, .figure-frame, details.recall-card {
@@ -112,6 +113,14 @@
   details.recall-card summary::after { content: none !important; display: none !important; }
   details.recall-card summary::-webkit-details-marker { display: none; }
   details.recall-card summary::marker { content: ""; font-size: 0; }
+  details[open] > summary {
+    cursor: default !important;
+    list-style: none !important;
+    pointer-events: none !important;
+  }
+  details[open] > summary::after,
+  details[open] > summary::before { content: none !important; display: none !important; }
+  details[open] > summary::-webkit-details-marker { display: none !important; }
   .print-question-label {
     display: block;
     margin-bottom: 1.5mm;

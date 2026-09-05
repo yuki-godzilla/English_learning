@@ -92,8 +92,10 @@ for (const requiredImage of ["media/progress/english-growth-evidence-dashboard.p
   if (!journal.sections.growth.includes(requiredImage)) fail(`Growth section is missing ${requiredImage}`);
 }
 
+const bankRowsByName = {};
 for (const [name, markdown] of Object.entries({ expressions: journal.sections.expressions, vocabulary: journal.sections.vocabulary, speaking: journal.sections.speaking })) {
   const rows = tableRows(markdown);
+  bankRowsByName[name] = rows;
   if (!rows.length) fail(`${name} bank has no entries`);
   const keys = new Set();
   for (const cells of rows) {
@@ -101,6 +103,23 @@ for (const [name, markdown] of Object.entries({ expressions: journal.sections.ex
     if (keys.has(key)) fail(`${name} bank has a duplicate entry: ${key}`);
     keys.add(key);
     if (!/#session-\d{4}-\d{2}-\d{2}-\d{2}/.test(cells[2])) fail(`${name} bank entry has no fixed Session source: ${cells[0]}`);
+  }
+}
+
+// These are accepted-history floors from the final Google Docs migration plus
+// later canonical Journal additions. They deliberately fail closed when a
+// whole historical block is accidentally dropped during layout work.
+const bankHistoryBaselines = {
+  expressions: { minimum: 38, sourceSessions: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11] },
+  vocabulary: { minimum: 43, sourceSessions: [1, 2, 4, 5, 6, 7, 8, 9, 10, 11] },
+  speaking: { minimum: 8, sourceSessions: [1, 2, 3, 6, 8, 9] },
+};
+for (const [name, baseline] of Object.entries(bankHistoryBaselines)) {
+  const rows = bankRowsByName[name] ?? [];
+  if (rows.length < baseline.minimum) fail(`${name} bank has ${rows.length} entries; accepted history requires at least ${baseline.minimum}`);
+  const sourceSessions = new Set(rows.flatMap((cells) => [...cells[2].matchAll(/\[Session\s+(\d+)\]/gi)].map((match) => Number(match[1]))));
+  for (const sessionNumber of baseline.sourceSessions) {
+    if (!sourceSessions.has(sessionNumber)) fail(`${name} bank is missing accepted-history entries sourced from Session ${sessionNumber}`);
   }
 }
 

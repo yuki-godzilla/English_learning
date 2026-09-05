@@ -32,9 +32,27 @@ const missing = requiredTokens.filter((token) => !css.toLowerCase().includes(tok
 const failures = pairs.map(([name, foreground, background, minimum]) => ({ name, ratio: contrast(foreground, background), minimum }))
   .filter((item) => item.ratio < item.minimum);
 
+function fontSizeFor(selector) {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = css.match(new RegExp(`${escaped}\\s*\\{[^}]*font-size:\\s*([0-9.]+)pt`, "i"));
+  return match ? Number(match[1]) : null;
+}
+
+for (const [selector, minimum] of [
+  [".session-card p", 10.5],
+  [".session-card h2", 10.5],
+  [".session-card .card-meta", 8.5],
+  [".session-card .learning-tag", 8.5],
+]) {
+  const size = fontSizeFor(selector);
+  if (size == null || size < minimum) failures.push({ name: `${selector} font size`, ratio: size ?? 0, minimum });
+}
+if (!/\.session-grid\s*\{[^}]*repeat\(2,/i.test(css)) failures.push({ name: "Session Index column count", ratio: 0, minimum: 2 });
+if (/\.session-grid\s*\{[^}]*repeat\(3,/i.test(css)) failures.push({ name: "Session Index must not use three print columns", ratio: 3, minimum: Number.POSITIVE_INFINITY });
+
 if (missing.length || failures.length) {
   if (missing.length) console.error(`Print theme missing required tokens: ${missing.join(", ")}`);
-  for (const failure of failures) console.error(`${failure.name}: ${failure.ratio.toFixed(2)}:1 is below ${failure.minimum}:1`);
+  for (const failure of failures) console.error(`${failure.name}: ${failure.ratio.toFixed(2)} is below the required ${failure.minimum}`);
   process.exit(1);
 }
 for (const [name, foreground, background] of pairs) console.log(`${name}: ${contrast(foreground, background).toFixed(2)}:1`);
