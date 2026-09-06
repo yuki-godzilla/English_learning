@@ -75,10 +75,10 @@
       "status": "generated",
       "role": "English growth dashboard",
       "alt": "Session 1からSession 12までの英語力成長グラフ",
-      "caption": "評価JSONから生成した英語力の推移。推定と直接測定を区別する。Session 12のPronunciationは直接音声を確認した音読評価で、他の会話技能は未測定。",
+      "caption": "評価JSONから生成した英語力の推移。Session 12の会話能力5指標は会話全体、Pronunciationは直接音声を確認した音読から評価し、根拠の種類を区別する。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "56a733369a7db15703428b6f48713bf607946fd21d6995f67817683a760a33db"
+      "sha256": "5b598caad18947a79ad3a7c0d13584ad3166324e8f53a393031f8dfb058a20ad"
     },
     {
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",

@@ -280,19 +280,19 @@
       "date": "2026-09-06",
       "task": "GPT-6 Astra technical reading, AI-autonomy discussion, and direct pronunciation review",
       "task_ja": "GPT-6 Astraの技術英文音読・AIの自律性に関する議論・直接発音評価",
-      "data_coverage": "Direct 36.05-second read-aloud recording, processed locally with waveform, pause, pitch, and ASR-based intelligibility evidence, followed by a free technical discussion supported by realtime transcript excerpts. The passage differs from the standard 60-second benchmark, and no comparable conversation benchmark was completed, so only pronunciation is added as a new measurement point.",
+      "data_coverage": "Full realtime conversation transcript covering article reading, clarification, summarization, and a sustained technical discussion, plus a direct 36.05-second read-aloud recording processed locally with waveform, pause, pitch, and ASR-based intelligibility evidence. The pronunciation passage differs from the standard 60-second benchmark, so pronunciation change is not inferred.",
       "ratings": {
-        "Task achievement": null,
-        "Fluency & coherence": null,
-        "Lexical resource": null,
-        "Grammar control": null,
-        "Interaction & repair": null,
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
         "Pronunciation": 3
       },
-      "evidence_quote": "AI can support practical work, but people keep the final decision.",
-      "evidence_quote_origin": "Prepared read-aloud passage; not spontaneous language production.",
-      "evidence_note_ja": "36.05秒の直接録音をローカルで処理した。音割れはなく、発話部分は27.87秒、認識速度は約123.6語/分、文章一致率は94.1%だった。これらは全体の明瞭さ、ペース、録音品質の補助根拠であり、音素単位の標準化採点ではない。音読後は、AIの自律性、要件定義、人によるチェックポイント、表面上動くソフトウェアに隠れ得るbackendの問題を自由に議論した。ただし、標準60秒課題とは文章・長さが異なり、比較可能な会話課題も行っていないため、会話能力5指標は今回N/Aとし、過去の発音測定との変化も判定しない。発音は保守的にL3（概ね明瞭）と記録する。",
-      "evidence_note": "A 36.05-second direct recording was processed locally. It showed no clipping, 27.87 seconds of active speech, an ASR-recognized pace of about 123.6 words per minute, and a 94.1% word-match ratio. These are supporting signals for overall intelligibility, pace, and recording quality, not a standardized phoneme-level assessment. The later free discussion covered AI autonomy, requirements, human checkpoints, and hidden backend risks in apparently working software. Because the passage and length differ from the standard 60-second benchmark and no comparable conversation task was completed, the five conversation metrics remain N/A and no pronunciation change is inferred. Pronunciation is conservatively recorded as L3 for overall intelligibility."
+      "evidence_quote": "If defining requirements is perfect, I can hand it off to AI ... setting checkpoints by a human is important in this AI era.",
+      "evidence_quote_origin": "Spontaneous explanation in the realtime conversation; pauses and restarts lightly regularized.",
+      "evidence_note_ja": "GPT-6 Astraの公式記事を音読し、内容を要約・確認しながら、AIの自律性、要件定義、人のチェックポイント、表面から見えないbackendリスクについて自分の立場を理由付きで議論した。誤解が生じた場面では記事を続けるよう明確に軌道修正し、autonomy、requirement、checkpointなどの専門語を確認して再利用した。停止・繰り返し・文法の揺れは残るためFluency・Lexical・GrammarはL3、結論と理由を展開したTask achievementと自発的に会話を修正したInteraction & repairはL4とする。本人も以前より英語がかなりスムーズに出る実感を報告しており、長い技術議論を維持した観察事実と合わせてL3内の流暢さの前進として記録する。36.05秒の直接音声は音割れなく、発話部分27.87秒、認識速度約123.6語/分、文章一致率94.1%だったため、Pronunciationは保守的にL3とする。標準60秒課題と異なるため、発音の過去差は判定しない。",
+      "evidence_note": "Read the official GPT-6 Astra material and sustained a technical discussion about AI autonomy, requirements, human checkpoints, and hidden backend risks, giving reasons for a personal position. Explicitly redirected the conversation when it drifted and reused technical terms after checking them. Pauses, repetitions, word searches, and grammatical instability keep fluency, lexis, and grammar at L3; independently developing the conclusion and repairing the interaction support L4 for task achievement and interaction. The learner also reports that English is coming out much more smoothly, which is recorded as within-level fluency progress alongside the observed sustained discussion. A direct 36.05-second recording showed no clipping, 27.87 seconds of active speech, about 123.6 recognized words per minute, and a 94.1% word-match ratio, supporting a conservative L3 pronunciation rating. Because the passage differs from the standard 60-second task, no pronunciation change is inferred."
     }
   ],
   "test_score_estimates": {
