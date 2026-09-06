@@ -75,7 +75,7 @@
       "status": "generated",
       "role": "English growth dashboard",
       "alt": "Session 1からSession 12までの英語力成長グラフ",
-      "caption": "Session 1〜12の正本記録を2026-09-06に再監査して生成した英語力の推移。L1〜L5に加えて同一レベル内の形成中・安定・強いを補助表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
+      "caption": "progress.jsonから生成したSession 1〜12の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
       "sha256": "c91ba06711287e4834d85c27bfce974526979b309e4fe30ec0331f63f83976ea"
@@ -84,8 +84,8 @@
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",
       "status": "generated",
       "role": "Estimated test score trends",
-      "alt": "資格スコア予測の推移グラフ",
-      "caption": "評価JSONから生成した学習用の資格スコア目安。正本の会話根拠が十分なSession 1・3・7を低確度の過去節目として追加し、Session 8・9・12へ接続した。記録が薄い回は補間せず、TOEIC L&RとWritingは直接課題未実施のためSession 8を維持する。公式試験結果ではない。",
+      "alt": "Session 1からSession 12までの資格スコア予測の推移グラフ",
+      "caption": "progress.jsonから生成した学習用の資格スコア目安。正本の会話根拠が十分な節目だけを履歴点として描画し、記録が薄い回を補間しない。各技能の最新根拠Session、確度、未測定範囲を区別し、公式試験結果とは扱わない。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
       "sha256": "3dc7927ffba65c042e0d5c9603f6994c59e8b557ab6ef5625fc0ddd9600f88af"

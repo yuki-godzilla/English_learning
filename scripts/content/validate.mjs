@@ -170,6 +170,19 @@ for (const entry of manifest.files ?? []) {
   if (digest !== entry.sha256) fail(`Media changed without a new visual review and hash: ${entry.path}`);
   if (["published", "generated"].includes(entry.status) && (!entry.alt || !entry.caption || !entry.creator || !entry.license)) fail(`Published media metadata is incomplete: ${entry.path}`);
 }
+const latestSessionNumber = progress.sessions?.at(-1)?.session;
+const requiredReportAssets = [
+  ["learning-records/media/progress/english-growth-evidence-dashboard.png", "English growth dashboard"],
+  ["learning-records/media/progress/english-test-score-estimate-trends.png", "Estimated test score trends"],
+];
+for (const [assetPath, role] of requiredReportAssets) {
+  const entry = (manifest.files ?? []).find((candidate) => candidate.path === assetPath);
+  if (!entry) { fail(`Required report asset is not registered: ${assetPath}`); continue; }
+  if (entry.status !== "generated") fail(`Required report asset must have generated status: ${assetPath}`);
+  if (entry.role !== role) fail(`Required report asset has an unexpected role: ${assetPath}`);
+  if (entry.creator !== "Generated from learning-records/progress.json") fail(`Required report asset has an unexpected creator: ${assetPath}`);
+  if (!entry.alt.includes(`Session ${latestSessionNumber}`)) fail(`Required report asset alt is stale: ${assetPath}`);
+}
 for (const directory of [path.join(recordsRoot, "media"), path.join(recordsRoot, "archive", "media")]) {
   for (const file of await walk(directory)) {
     const relative = normalizeRelative(file);

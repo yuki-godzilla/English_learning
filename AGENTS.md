@@ -1,7 +1,7 @@
 # English Conversation Session Rules — Yuki × Chappy
 
 > Englishプロジェクトの英会話、学習記録、評価、共有に適用する正式な運用ルール。
-> 最終更新: 2026-09-06 / 文書バージョン: 4.5
+> 最終更新: 2026-09-06 / 文書バージョン: 4.6
 
 ## 0. 優先順位・正本・完了条件
 
@@ -101,9 +101,9 @@ Yukiが「発音を評価して」「この音読を評価して」など明示�
 1. `git status` と追跡ブランチを確認する。未コミット変更や競合を破棄しない。安全な場合だけ `git pull --rebase`。
 2. 会話の事実を一時的な `Session Package` に確定する。
 3. `journal.md` のセッション一覧先頭へ新規セッションを追加し、目次・5分復習・成長説明・必要なStudy Banksを同じPackageから更新する。
-4. 今回測定できた評価だけを `progress.json` へ追加する。過去セッションを再評価しない。
-5. 評価を変更した場合だけグラフを再生成し、今回・前回・初回、Pronunciationの最終実測との接続を確認する。
-6. 画像を追加する場合だけ `media/` と `media-manifest.json` を更新する。
+4. 今回測定できた評価を毎回見直し、L1〜L5、同一L内の段階、資格スコア目安のうち根拠が得られた項目を `progress.json` へ追加・更新する。変化なしも判断結果であり、無理に数値を動かさない。過去セッションはYukiの明示指示なしに再評価しない。
+5. レポートを作成・更新するたびに、評価値の変更有無にかかわらず `npm run report:assets` を実行する。今回・前回・初回、同一L内の段階、Pronunciationの最終実測、資格目安の最終根拠Sessionへの接続を確認する。
+6. 定例レポートのグラフは固定パスの正式アセットとして再生成し、`media-manifest.json` のalt・caption・SHA-256を同期する。定例2アセット以外の画像を追加する場合だけ、用途・出典・利用条件・プライバシーを個別確認する。
 7. `npm run check`、`git diff` を確認し、対象ファイルだけcommitする。
 8. セッション後のレポートを作成・更新する回は、`npm run journal:pdf` で統合Journal PDFを生成し、PDFを全ページ画像で確認する。指定の個人メインGmailアドレスへ、Journal PDFを添付した完了メールを送信し、宛先・件名・添付有無を確認する。
 9. PC間共有を行う回はremote更新を確認し、force pushを使わず`origin/main`へpushする。
@@ -171,7 +171,8 @@ Journalは一冊として次の順を維持する。
 - スコアは公式試験結果ではなく個人学習用の観察値。資格スコアはレンジと確度を示し、確認していない技能を新しい測定点にしない。
 - 資格スコアの過去推定を再監査する場合は、会話根拠が十分な節目だけを低確度の履歴点として追加し、記録が薄いSessionを補間しない。実績値と推定値は視覚・データ上で分離する。
 - Pronunciation未測定は `N/A` とし、能力低下として描かない。最後に直接測定したSessionを併記する。
-- 評価を追加・変更した回だけ `npm run charts:publish` を実行する。生成画像を目視し、`media-manifest.json` のSHA-256を更新する。
+- レポート作成・更新回は評価値の変更有無にかかわらず `npm run report:assets` を実行し、生成画像を目視する。コマンドは固定パスの2アセットを再生成し、`media-manifest.json` の表示情報とSHA-256を同期する。
+- 定例レポートアセットは `learning-records/media/progress/english-growth-evidence-dashboard.png` と `learning-records/media/progress/english-test-score-estimate-trends.png` の2点とする。どちらもJournalのGrowthへ掲載し、PDFとSiteは同じアセットを使用する。
 - 通常検証とCIの `npm run charts:build` は `output/` だけを生成し、OS差で追跡画像を変更しない。
 - JournalのCurrent Snapshot、資格スコア表、グラフは同じ `progress.json` と一致させる。PDFでは全履歴の推移を残し、能力コメントは最新評価だけを主表示する。
 
@@ -212,6 +213,7 @@ docs/               保守ガイドだけ
 ```powershell
 npm run check       # 3正本、グラフ、Site、リンク、画像、プライバシー
 npm run build       # 検証済みSiteを生成
+npm run report:assets # 定例2グラフを正式アセット化し、台帳メタデータとSHA-256を同期
 npm run journal:pdf # 印刷テーマを検査し、全Session Index・最新3 Daily Notes・全推移・全Study BanksをPDF化
 npm run serve       # ローカルプレビュー
 ```
@@ -223,6 +225,7 @@ npm run serve       # ローカルプレビュー
 - [ ] Journalの目次から新セッション、成長、3 Banksへ直接移動できる
 - [ ] Session番号・ID・日付・固定アンカーが一意で、全セッションを網羅している
 - [ ] 内容、評価、グラフ、Bankが同じSession Packageに基づく
+- [ ] レポート作成・更新回は `npm run report:assets` を実行し、定例2グラフの固定パス・Journal掲載・台帳メタデータ・SHA-256一致を確認した
 - [ ] 未測定を採点せず、Pronunciationの直接音声確認有無を明記した
 - [ ] 画像のalt、出典、利用条件、プライバシー、SHA-256を確認した
 - [ ] 個人情報、勤務先固有情報、非公開業務情報、認証情報がない
