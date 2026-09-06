@@ -274,6 +274,25 @@
       "evidence_quote_origin": "Spontaneous conclusion in the realtime transcript, refined after the learner explained a technical-work example",
       "evidence_note_ja": "朝の集中時間、AIを使える開発環境の整備、会社への貢献と自分の成長、AI時代に人が担う価値創造を一つの考えとして説明した。語を探す場面やrestartはあったが、efficient、working hours、the AI eraなど必要な語を自発的に確認し、意図と異なる解釈はすぐに訂正して会話を自分のテーマへ戻した。共通60秒課題は未実施で、発音を直接評価できる新規録音もないため、既存の5指標は根拠のある範囲で維持し、PronunciationはN/Aとする。",
       "evidence_note": "Explained early-morning focused work, preparing an AI-ready development environment, contribution to the organization and personal growth, and human value creation in the AI era as one connected view. There were word searches and restarts, but the learner independently checked needed terms such as efficient, working hours, and the AI era, and promptly repaired interpretations that missed the intended point. No comparable 60-second task or new directly assessed recording was available, so the established five transcript-supported ratings are retained and pronunciation is N/A."
+    },
+    {
+      "session": 12,
+      "date": "2026-09-06",
+      "task": "GPT-6 Astra technical reading, AI-autonomy discussion, and direct pronunciation review",
+      "task_ja": "GPT-6 Astraの技術英文音読・AIの自律性に関する議論・直接発音評価",
+      "data_coverage": "Direct 36.05-second read-aloud recording, processed locally with waveform, pause, pitch, and ASR-based intelligibility evidence, followed by a free technical discussion supported by realtime transcript excerpts. The passage differs from the standard 60-second benchmark, and no comparable conversation benchmark was completed, so only pronunciation is added as a new measurement point.",
+      "ratings": {
+        "Task achievement": null,
+        "Fluency & coherence": null,
+        "Lexical resource": null,
+        "Grammar control": null,
+        "Interaction & repair": null,
+        "Pronunciation": 3
+      },
+      "evidence_quote": "AI can support practical work, but people keep the final decision.",
+      "evidence_quote_origin": "Prepared read-aloud passage; not spontaneous language production.",
+      "evidence_note_ja": "36.05秒の直接録音をローカルで処理した。音割れはなく、発話部分は27.87秒、認識速度は約123.6語/分、文章一致率は94.1%だった。これらは全体の明瞭さ、ペース、録音品質の補助根拠であり、音素単位の標準化採点ではない。音読後は、AIの自律性、要件定義、人によるチェックポイント、表面上動くソフトウェアに隠れ得るbackendの問題を自由に議論した。ただし、標準60秒課題とは文章・長さが異なり、比較可能な会話課題も行っていないため、会話能力5指標は今回N/Aとし、過去の発音測定との変化も判定しない。発音は保守的にL3（概ね明瞭）と記録する。",
+      "evidence_note": "A 36.05-second direct recording was processed locally. It showed no clipping, 27.87 seconds of active speech, an ASR-recognized pace of about 123.6 words per minute, and a 94.1% word-match ratio. These are supporting signals for overall intelligibility, pace, and recording quality, not a standardized phoneme-level assessment. The later free discussion covered AI autonomy, requirements, human checkpoints, and hidden backend risks in apparently working software. Because the passage and length differ from the standard 60-second benchmark and no comparable conversation task was completed, the five conversation metrics remain N/A and no pronunciation change is inferred. Pronunciation is conservatively recorded as L3 for overall intelligibility."
     }
   ],
   "test_score_estimates": {

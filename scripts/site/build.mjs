@@ -445,7 +445,9 @@ function placeSessionMedia(markdown, session, media) {
   if (!media.length) return markdown;
   let placed = markdown;
   const insertedItems = new Set();
-  const placements = session.session === 8
+  const placements = session.session === 12
+    ? [[/^#### GPT-5\.6とGPT-6 Astraの選び方\s*$/m, media[0]]]
+    : session.session === 8
     ? [
         [/^#### 1\. AIデータセンターと電力需要\s*$/m, media[1]],
         [/^#### 2\. Microgridが担う役割\s*$/m, media[0]],
@@ -599,6 +601,12 @@ const testDefinitions = tracker.test_score_estimates.definitions;
 const estimateSessions = tracker.test_score_estimates.estimate_sessions;
 const latestEstimateFor = (testId) => [...estimateSessions].reverse().find((session) => session.estimates?.[testId]);
 const lastPronunciation = [...tracker.sessions].reverse().find((session) => Number.isInteger(session.ratings.Pronunciation));
+const latestObservedByMetric = new Map(
+  tracker.qualitative_metrics.map((metric) => [
+    metric,
+    [...tracker.sessions].reverse().find((session) => Number.isInteger(session.ratings[metric])),
+  ]),
+);
 const firstTracker = [...tracker.sessions].sort((a, b) => a.session - b.session)[0];
 const nextFocusByMetric = {
   "Task achievement": "話す前に結論を一文で決め、理由と例を一つずつ加える。",
@@ -608,7 +616,8 @@ const nextFocusByMetric = {
   "Interaction & repair": "分からない点を確認した後、自分の言葉で要点を言い直す。",
   Pronunciation: "同じ60秒課題を直接録音し、比較できる発音データを一つ増やす。",
 };
-const nextFocusEntry = Object.entries(latestTracker.ratings)
+const nextFocusEntry = tracker.qualitative_metrics
+  .map((metric) => [metric, latestObservedByMetric.get(metric)?.ratings[metric]])
   .filter(([, level]) => Number.isInteger(level))
   .sort((a, b) => a[1] - b[1])[0];
 const nextFocus = nextFocusByMetric[nextFocusEntry?.[0]] ?? "次の会話で、今日の表現を一つ自分から使う。";
@@ -638,14 +647,26 @@ hide:
 ## Current Snapshot
 
 <div class="metric-grid">
-${Object.entries(latestTracker.ratings).map(([metric, level]) => `<article class="metric-card ${levelClass(level)}"><div class="card-meta">${escapeHtml(metric)}</div><h3>${escapeHtml(metricJa[metric] ?? metric)}</h3><div class="metric-value">${level == null ? "N/A" : `L${level}`}</div><p>${level == null ? `Session ${latestTracker.session}では直接測定していません。` : `Session ${latestTracker.session}の会話から根拠を確認済み。`}</p></article>`).join("\n")}
+${tracker.qualitative_metrics.map((metric) => {
+  const observedSession = latestObservedByMetric.get(metric);
+  const level = observedSession?.ratings[metric];
+  const measuredThisSession = observedSession?.session === latestTracker.session;
+  const evidenceLabel = measuredThisSession
+    ? `Session ${latestTracker.session}の記録から根拠を確認済み。`
+    : observedSession
+      ? `最終確認はSession ${observedSession.session}。Session ${latestTracker.session}では未測定。`
+      : "まだ直接測定していません。";
+  return `<article class="metric-card ${levelClass(level)}"><div class="card-meta">${escapeHtml(metric)}</div><h3>${escapeHtml(metricJa[metric] ?? metric)}</h3><div class="metric-value">${Number.isInteger(level) ? `L${level}` : "N/A"}</div><p>${evidenceLabel}</p></article>`;
+}).join("\n")}
 </div>
 
 <div class="latest-win"><strong>今回の成長</strong><br>${escapeHtml(redactLearnerText(latestTracker.evidence_note_ja))}</div>
 
 ## 発音の扱い
 
-Session ${latestTracker.session}は直接音声を測定していないため **N/A** です。最後に直接測定した記録は Session ${lastPronunciation.session}（${formatDateJa(lastPronunciation.date)}）の **L${lastPronunciation.ratings.Pronunciation}** です。未測定を能力低下として扱いません。
+${Number.isInteger(latestTracker.ratings.Pronunciation)
+  ? `Session ${latestTracker.session}（${formatDateJa(latestTracker.date)}）は録音そのものを直接分析し、**L${latestTracker.ratings.Pronunciation}** と評価しました。今回は標準ベンチマークと異なる音読課題のため、過去Sessionとの差は判定しません。`
+  : `Session ${latestTracker.session}は直接音声を測定していないため **N/A** です。最後に直接測定した記録は Session ${lastPronunciation.session}（${formatDateJa(lastPronunciation.date)}）の **L${lastPronunciation.ratings.Pronunciation}** です。未測定を能力低下として扱いません。`}
 
 ## 成長グラフ
 

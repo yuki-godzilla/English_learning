@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 12 — GPT-6 Astraの音読・自律性の議論と直接発音評価](#session-2026-09-06-01)
   - [Session 11 — AI時代の価値創造と朝の集中時間](#session-2026-09-04-01)
   - [Session 10 — キャリア選択を冷静に考える](#session-2026-09-02-01)
   - [Session 9 — Godzillaの象徴性と日常からの小さな逃避](#session-2026-08-28-01)
@@ -29,23 +30,23 @@
 # 今日の5分復習
 
 <details>
-<summary>AI時代に人が担う価値を伝える</summary>
+<summary>モデル名を聞き取りやすく読む</summary>
 
-**In the AI era, AI can handle simple tasks, but people need to focus on creating value.**
-
-</details>
-
-<details>
-<summary>集中しやすい朝の仕事の習慣を説明する</summary>
-
-**While my PC is starting up, I get a tea from the vending machine. It helps clear my head.**
+**G-P-T six Astra**
 
 </details>
 
 <details>
-<summary>仕事と自分の成長を結び付けて動機を話す</summary>
+<summary>AIの自律性と人のチェックポイントを説明する</summary>
 
-**When it helps both the company and my own growth, I feel really motivated.**
+**AI should work autonomously within clear requirements and checkpoints.**
+
+</details>
+
+<details>
+<summary>要件定義の重要性を説明する</summary>
+
+**Before we build the system, we need to define the requirements clearly.**
 
 </details>
 
@@ -63,6 +64,170 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":12,"session_id":"2026-09-06-01","date":"2026-09-06","title":"GPT-6 Astraの音読・自律性の議論と直接発音評価","tags":["AI / Tech","Pronunciation","Reading","Software Design"],"remember":"AIの自律性は、明確な要件と人のチェックポイントの中で使う。表面上動くソフトウェアでも、設計・バックエンド・テストには隠れた問題があり得る。","prompt":"How can we use autonomous AI while keeping human checkpoints?"} -->
+<a id="session-2026-09-06-01"></a>
+
+## 2026年9月6日（日）— GPT-6 Astraの音読・自律性の議論と直接発音評価
+
+> **Session 12 / Recorded session window:** Afternoon JST
+> **主な話題:** GPT-6 Astraの公式記事、技術英文の音読、AIの自律性とソフトウェア設計、直接音声による発音評価
+
+> [!NOTE]
+> 今回は標準の60秒ベンチマークではない、約36秒の`read_aloud`評価である。会話能力の5指標は再採点せず、直接確認できたPronunciationだけを記録する。
+
+### 今日の要点 / Today at a Glance
+
+Yukiは、GPT-6 Astraの公式モデルページを確認した後、AIが複雑な作業を支援しつつ、最終判断は人が担うという短い技術英文を音読した。録音は約36秒で、実音声をローカルで直接処理した。音量は十分で音割れはなく、全体の発話速度は聞き取りやすい範囲だった。その後、公式Model guidanceのIntroduction、What’s new、Prompting best practicesを読み、AIの自律性と人のチェックポイントについて英語で議論した。
+
+今回の目的は、モデルの能力を暗記することではなく、技術的な内容を短い英語で落ち着いて伝え、実務での使い方を自分の考えへつなげることだった。Yukiは「要件が明確ならAIへ任せられるが、自律性が高すぎると別の方向へ進むリスクがある」と整理した。標準課題とは文章が異なるため、過去の発音測定と数値的な優劣は付けない。一方で、`G-P-T six Astra`、`long conversations`、`multi-step tasks`を次の具体的な発音練習対象として確認できた。
+
+### 話題別メモ / Topic Notes
+
+#### GPT-6 Astraを読むための技術英語
+
+- 公式モデルページでは、複雑な推論、コーディング、リサーチ、文書作成、コンピューター操作のような難しいエンドツーエンド作業に使うモデルとして説明されている。
+- 音読では、AIが実務を支援できても、最終的な判断は人が保持するという考えを一文にした。
+- モデル名、複合語、長い名詞句を、単語ごとに切り過ぎず意味のまとまりで読むことを意識した。
+
+#### 公式記事の重要ポイント
+
+1. **複数段階の実務:** Astraは、コード、ブラウザー、業務ソフトウェアをまたぐ複雑なワークフローを主な対象とする。
+2. **作業中の柔軟性:** Async tool callingではツールの完了を待つ間に別の推論を続けられ、mid-turn steeringでは途中の訂正や要件変更を継続へ取り込める。reasoning effortも会話の途中で調整できる。
+3. **指示への感度:** プロジェクト内の運用ルールを含め、長い指示に強く従う。そのため、ルール同士の矛盾や曖昧さを事前に減らすことが重要である。
+4. **自律性の設計:** 日常的で可逆な作業は自律的に進めてもらい、結果を変える判断や重要な操作では人へ確認する、という境界をpromptで明確にする。
+5. **過剰処理の調整:** 難しい作業では深い推論と検証が強みになる一方、小さな作業では質問・テスト・詳細説明が広がり過ぎる場合がある。必要な自律性、文体、検証範囲を用途ごとに指定する。
+
+#### GPT-5.6とGPT-6 Astraの選び方
+
+通常の会話、日常的なコーディング、文書作成では、GPT-5.6 Solを基準にすると品質とコストを両立しやすい。大規模コードベース、複数ツールをまたぐ長い作業、判断の難しいリサーチではGPT-6 Astraが候補になる。4モデルは同じ1.05M context windowと128K max outputを持つため、「新しいモデルが常に必要」ではなく、必要な能力と費用で選ぶ。
+
+> **グラフの読み方:** 縦軸はOpenAI APIの標準出力価格、円の大きさは入力価格、左から右はOpenAIが説明する用途・能力位置を表す。横方向は独立ベンチマークの知能スコアではなく、異なる会社のモデルを直接順位付けするものでもない。価格と仕様は2026年9月6日に公式ページで確認した時点のスナップショット。
+
+#### 直接音声から確認したこと
+
+- 録音は36.05秒、発話部分は27.87秒で、音割れは検出されなかった。
+- 認識された速度は約123.6語/分で、速すぎず、内容を追いやすいペースだった。
+- 文章一致率は94.1%で、全体の意味は安定して認識された。これは音素単位の採点ではなく、明瞭さの補助的な根拠である。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. 自律性の高いAIは、engineerが細かな指示を繰り返さず目的達成へ進める点で大きな価値がある。
+2. ただし、自律性が高すぎると別の方向や誤った方向へ進むリスクもある。AIには明確な要件と境界を与え、人がチェックポイントを持つ必要がある。
+3. ソフトウェアは表面上うまく動いても、backend、設計、データ処理、テスト、保守性に問題が隠れている場合がある。要件定義と設計レビューを特に重視する。
+4. 日常的な用途はGPT-5.6 Solを基準とし、最も難しい長時間・複数ツールの仕事ではGPT-6 Astraを選ぶ、という使い分けが実用的である。
+5. 技術英文では、モデル名と複合語を意味のチャンクで落ち着いて発音する。
+
+### 役立つ英語 / Useful English
+
+#### 🔵 AIの支援と人の判断を対比する
+
+**Natural / Conversational**
+AI can support practical work, but people keep the final decision.
+
+**Professional**
+AI can assist with complex workflows, while people remain accountable for final decisions.
+
+**Point**
+`while`を使うと、AIの支援と人の責任を対立ではなく役割分担として説明できる。
+
+#### 🔵 複数段階の仕事を説明する
+
+**Natural / Conversational**
+It can use tools to complete multi-step tasks.
+
+**Professional**
+It can support multi-step workflows that require reasoning and tool use.
+
+**Point**
+`multi-step`は「複数段階から成る」。`task`より広く仕事の流れを言うときは`workflow`も使える。
+
+#### 🔵 AIの自律性と人の管理を一文で伝える
+
+**Natural / Conversational**
+AI can work by itself, but people need checkpoints.
+
+**Professional**
+AI should work autonomously within clear requirements and checkpoints.
+
+**Point**
+`autonomous`は形容詞、`autonomously`は副詞、`autonomy`は名詞。ここでは`work autonomously`で「自律的に作業する」を表す。
+
+#### 🔵 表面とbackendの違いを説明する
+
+**Natural / Conversational**
+The app may look fine, but there can be hidden problems in the backend.
+
+**Professional**
+An application may work well on the surface, while hidden problems remain in the backend.
+
+**Point**
+`on the surface`は「表面上は」。見える動作だけで設計品質を判断できない、という技術的な懸念を自然に表せる。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**評価範囲:** 直接録音した36.05秒の英語音読。ローカル音声処理で、録音品質、ペース、ポーズ、pitch movement、音声認識による明瞭さの補助指標を確認した。母音・子音、強勢、linkingを音素単位で採点したものではない。
+
+**総合所見: Pronunciation L3 / Mostly independent（保守的な記録）。** 全体の意味は安定して認識され、音量・ペース・pitch movementに大きな問題は見られなかった。標準ベンチマークとは別の英文なので、過去の測定との差は判定しない。
+
+**良かった点**
+
+- 約123.6語/分で、急ぎ過ぎず聞き手が追いやすい速度だった。
+- 音割れはなく、長い停止も少ない。文と文の間の短いポーズは意味の区切りとして機能していた。
+
+**優先して伸ばす点**
+
+1. `G-P-T six Astra`は、文字名を一つずつ短く言い、`AS-tra`を一つのまとまりにする。認識器がモデル名を安定して捉えられなかったため、優先練習対象とする。ただし、これだけで発音誤りと断定はしない。
+2. `long conversations`と`multi-step tasks`は、内容語を軽く際立たせ、`to complete`はつなげて読む。
+3. 次回は同じ英文を一度だけ再録音するか、標準60秒課題を使い、比較可能な発音データを増やす。
+
+**Practice chunks**
+
+- G-P-T six **AS**-tra
+- can handle long con-ver-**SA**-tions
+- to complete **MUL**-ti-step **TASKS**
+- keep the final de-**CI**-sion with people
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+音読後にはAIの自律性とソフトウェア設計を自由に議論したが、比較可能な会話ベンチマークは実施していない。このため、Task achievement、Fluency & coherence、Lexical resource、Grammar control、Interaction & repairは**N/A / 今回は新しい測定点を追加しない**とする。最後に確認した会話能力の評価はSession 11であり、今回の短い音読と自由討議だけを理由に数値を再評価しない。
+
+| Metric | Level | Evidence |
+|---|---:|---|
+| Task achievement | **N/A** | 短い音読であり、会話タスクを測定していない。 |
+| Fluency & coherence | **N/A** | 自由発話・比較可能な会話課題を測定していない。 |
+| Lexical resource | **N/A** | 用意した英文の音読であり、語彙運用を再評価していない。 |
+| Grammar control | **N/A** | 自由な文作成を測定していない。 |
+| Interaction & repair | **N/A** | 対話タスクを測定していない。 |
+| Pronunciation | **L3** | 直接音声で全体の明瞭さ、安定した速度、音割れなしを確認。標準音素採点ではない。 |
+
+### 学習バンク更新 / Study Banks Update
+
+- [Expression Bank](#journal-expression-bank): 新規3件
+- [Vocabulary Bank](#journal-vocabulary-bank): 新規3件、既存`autonomous`を`autonomy / autonomously`へ強化
+- [Pronunciation & Speaking Bank](#journal-speaking-bank): 直接音声の根拠に基づく練習チャンク3件
+
+> [!TIP]
+> 同じ技術英文を読んだ後、`What would you still decide yourself?`に自分の言葉で一文だけ答えると、音読から自由発話へ自然に移れる。
+
+### 次回 / Next Steps
+
+1. `G-P-T six Astra`を、文字名とモデル名のチャンクに分けて3回だけゆっくり読む。
+2. `AI should work autonomously within clear requirements and checkpoints.`を、自分のソフトウェア開発方針として言う。
+3. 次回の技術議論では、requirements → design review → tests → releaseの4つのチェックポイントを英語で説明する。
+4. 発音の推移を比べる場合は、標準60秒課題を一回通して読む。
+
+### Sources / References
+
+[OpenAI Developers — GPT-6 Astra Model](https://developers.openai.com/api/docs/models/gpt-6-astra)
+
+[OpenAI Developers — Model guidance: Using GPT-6 Astra](https://developers.openai.com/api/docs/guides/latest-model)
+
+[OpenAI Developers — Models](https://developers.openai.com/api/docs/models)
+
+[ページ先頭へ戻る](#journal-contents) · [Session Index](#journal-sessions)
+
+---
 
 <!-- session-meta: {"session_number":11,"session_id":"2026-09-04-01","date":"2026-09-04","title":"AI時代の価値創造と朝の集中時間","tags":["AI / Tech","Work Routine","Career"],"remember":"AIが定型作業を担う時代に、人は価値を生む設計と判断へ集中する。自分にとってはAIを使える開発環境を整え、技術的な仕事と成長をつなぐことが大きな動機になる。","prompt":"What kind of work creates value for people in the AI era, and why does it motivate you?"} -->
 <a id="session-2026-09-04-01"></a>
@@ -1262,32 +1427,34 @@ Why: 改善点には work on / focus on が自然。
 
 ## できるようになったこと
 
+**最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
 **最新の会話評価： [Session 11（2026年9月4日）](#session-2026-09-04-01)**
 
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
 - 朝のルーティンからAI支援開発、AI時代の価値創造まで、身近な例と抽象的な考えをつないで説明できる。
+- 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
 
 ## Current Snapshot
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4 / Independent** | 結論・理由・例をつないで、自分の考えを完結できる。 |
-| **Fluency & coherence** | **L3 / Mostly independent** | 言い直しがあっても、話の軸を保って続けられる。 |
-| **Lexical resource** | **L3 / Mostly independent** | 関心分野の語彙を使い、確認や言い換えで意図を伝えられる。 |
-| **Grammar control** | **L3 / Mostly independent** | 断片的な文や時制・語順の不安定さはあるが、確認を通して主要な意図を明確に伝えられる。 |
-| **Interaction & repair** | **L4 / Independent** | 語義や質問の意図を自分から確認し、会話を前へ進められる。 |
-| **Pronunciation** | **N/A / Session 11未測定** | 最後の直接音声評価はSession 8のL3。 |
+| **Task achievement** | **L4 / Session 11で最終確認** | 結論・理由・例をつないで、自分の考えを完結できる。Session 12は音読のみで、今回の会話評価はN/A。 |
+| **Fluency & coherence** | **L3 / Session 11で最終確認** | 言い直しがあっても、話の軸を保って続けられる。Session 12は会話タスク未測定。 |
+| **Lexical resource** | **L3 / Session 11で最終確認** | 関心分野の語彙を使い、確認や言い換えで意図を伝えられる。Session 12は語彙運用未測定。 |
+| **Grammar control** | **L3 / Session 11で最終確認** | 断片的な文や時制・語順の不安定さはあるが、確認を通して主要な意図を明確に伝えられる。Session 12は自由文作成未測定。 |
+| **Interaction & repair** | **L4 / Session 11で最終確認** | 語義や質問の意図を自分から確認し、会話を前へ進められる。Session 12は対話タスク未測定。 |
+| **Pronunciation** | **L3 / Session 12直接音声** | 36秒の音読で、明瞭さの補助指標、安定した速度、音割れなしを確認。標準音素採点ではない。 |
 
 ## 発音の測定状況
 
-Session 11は直接音声を評価していません。最後に直接確認したのは[Session 8](#session-2026-08-27-01)で、全体の明瞭さは **L3 / Mostly independent** でした。未測定を能力低下として扱わず、新しい直接録音がある回だけ推移を更新します。
+Session 12では、標準60秒課題とは別の技術英文を直接録音で評価し、全体の明瞭さは **L3 / Mostly independent** と保守的に記録した。Session 8と同じL3だが、文章・長さが異なるため変化の判定には使わない。会話能力の5指標はSession 11から再採点していない。
 
 ## 成長グラフ
 
-[![Session 1からSession 11までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 12までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から11までの6指標を時系列で表示しています。Pronunciationは、直接音声の根拠があるSession 8だけを測定値として扱います。画像をタップすると原寸で確認できます。
+Session 1から12までの6指標を時系列で表示しています。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱います。Session 12の会話能力5指標はN/Aとして可視化し、未測定を能力低下にしません。画像をタップすると原寸で確認できます。
 
 ## 次に伸ばすこと
 
@@ -1299,6 +1466,7 @@ Session 1から11までの6指標を時系列で表示しています。Pronunci
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 12 — GPT-6 Astraの音読・自律性の議論と直接発音評価](#session-2026-09-06-01) — 36秒の直接音声で発音の明瞭さをL3として保守的に記録。自由討議は行ったが、比較可能な会話能力5指標は未測定。
 - [Session 11 — AI時代の価値創造と朝の集中時間](#session-2026-09-04-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 10 — キャリア選択を冷静に考える](#session-2026-09-02-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 9 — Godzillaの象徴性と日常からの小さな逃避](#session-2026-08-28-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
@@ -1339,6 +1507,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年9月6日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **AI can assist with complex workflows, while people remain accountable for final decisions.** | AIの支援範囲と人が持つ最終責任を、対立ではなく役割分担として説明する。技術導入、面接、業務改善の会話で再利用できる。 | [Session 12](#session-2026-09-06-01) |
+| **AI should work autonomously within clear requirements and checkpoints.** | AIへ裁量を与えながら、要件と人の確認点で範囲を管理する方針を伝える。**Example:** AI can investigate and draft autonomously, but it should stop at important checkpoints. | [Session 12](#session-2026-09-06-01) |
+| **An application may work well on the surface, while hidden problems remain in the backend.** | 見える動作と内部品質を区別し、設計・テスト・保守性への懸念を説明する。 | [Session 12](#session-2026-09-06-01) |
 
 ## 2026年9月4日
 
@@ -1434,6 +1610,15 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年9月6日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|---|
+| **multi-step** /ˌmʌl.tiˈstep/ adjective | **意味:** 複数の段階から成る。**Plain English:** involving several connected stages. **Collocation:** a multi-step task / a multi-step workflow. **Example:** The tool can support multi-step tasks. | [Session 12](#session-2026-09-06-01) |
+| **autonomy** /ɔːˈtɑː.nə.mi/ noun | **意味:** 自律性、自分で判断して動く余地。**Plain English:** the ability to make decisions and act independently. **Related forms:** autonomous / autonomously. **Example:** AI autonomy needs clear boundaries. | [Session 12](#session-2026-09-06-01) |
+| **checkpoint** /ˈtʃek.pɔɪnt/ noun | **意味:** 作業途中で人が確認・判断する節目。**Plain English:** a planned point where progress or a decision is reviewed. **Collocation:** human checkpoint / review checkpoint. **Example:** Design review is an important checkpoint. | [Session 12](#session-2026-09-06-01) |
+| **requirement** /rɪˈkwaɪr.mənt/ noun | **意味:** システムが満たすべき要件。**Plain English:** something a system must do or satisfy. **Collocation:** define requirements / clear requirements. **Example:** We need to define the requirements before AI starts coding. | [Session 12](#session-2026-09-06-01) |
 
 ## 2026年9月4日
 
@@ -1534,6 +1719,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-speaking-bank"></a>
 
 # 発音・スピーキングバンク / Pronunciation & Speaking Bank
+
+## 2026年9月6日
+
+| Word / Chunk | Speaking / Focus / Practice | Source |
+|---|---|---|
+| **G-P-T six Astra** | **Speaking:** G-P-T six **AS**-tra. **Focus:** `G-P-T`は三つの文字名を短く均等に置き、`Astra`は`AS-tra`を一つのチャンクにする。認識器がこの固有名を安定して捉えなかったための練習対象であり、音素誤りの断定ではない。 | [Session 12](#session-2026-09-06-01) |
+| **long conversations / multi-step tasks** | **Speaking:** long con-ver-**SA**-tions / **MUL**-ti-step **TASKS**. **Focus:** 長い語では強勢のある音節を軽く際立たせ、`to complete multi-step tasks`は一続きの意味チャンクで読む。 | [Session 12](#session-2026-09-06-01) |
+| **keep the final decision with people** | **Speaking:** keep the FI-nal de-**CI**-sion with PEO-ple. **Focus:** `final / decision / people`を中心にし、`the / with`は軽くつなげる。 | [Session 12](#session-2026-09-06-01) |
 
 ## 2026年8月28日
 

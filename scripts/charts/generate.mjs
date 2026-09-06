@@ -10,9 +10,11 @@ const sharp = require("sharp");
 const data = JSON.parse(await readFile(path.join(recordsRoot, "progress.json"), "utf8"));
 const outputPath = path.join(root, "output", "english-growth-evidence-dashboard.png");
 const testEstimateOutputPath = path.join(root, "output", "english-test-score-estimate-trends.png");
+const modelComparisonOutputPath = path.join(root, "output", "gpt-model-cost-capability-comparison.png");
 const trackedAssetRoot = path.join(recordsRoot, "media", "progress");
 const trackedGrowthPath = path.join(trackedAssetRoot, "english-growth-evidence-dashboard.png");
 const trackedEstimatePath = path.join(trackedAssetRoot, "english-test-score-estimate-trends.png");
+const trackedModelComparisonPath = path.join(recordsRoot, "media", "sessions", "2026-09-06-gpt-model-cost-capability-comparison.png");
 const publishTrackedAssets = process.argv.includes("--publish-assets");
 
 const width = 1400;
@@ -72,6 +74,12 @@ const declinedFromFirst = countChange(firstComparableMetrics, sessions[0], "down
 const improvedFromPrevious = countChange(previousComparableMetrics, previousSession, "up");
 const steadyFromPrevious = countChange(previousComparableMetrics, previousSession, "steady");
 const declinedFromPrevious = countChange(previousComparableMetrics, previousSession, "down");
+const fromFirstSummary = firstComparableMetrics.length > 0
+  ? `${improvedFromFirst}向上・${declinedFromFirst}低下`
+  : "比較可能な初回データなし";
+const fromPreviousSummary = previousComparableMetrics.length > 0
+  ? `${improvedFromPrevious}向上・${steadyFromPrevious}維持・${declinedFromPrevious}低下`
+  : "比較可能な前回データなし";
 
 if (currentMeasuredMetrics.length === 0) {
   throw new Error("The latest session has no measured qualitative metrics to plot.");
@@ -241,7 +249,7 @@ const svg = `
 
   <rect x="${left}" y="145" width="${right - left}" height="62" rx="12" fill="#eaf6ff"/>
   ${text(left + 20, 172, "観察ベースライン / OBSERVED BASELINE", 'class="summary-kicker"')}
-  ${text(left + 20, 197, `第1回→第${currentSession.session}回: ${firstComparableMetrics.length}項目中 ${improvedFromFirst}向上・${declinedFromFirst}低下　｜　直近: ${improvedFromPrevious}向上・${steadyFromPrevious}維持・${declinedFromPrevious}低下`, 'class="summary"')}
+  ${text(left + 20, 197, `第1回→第${currentSession.session}回: ${fromFirstSummary}　｜　直近: ${fromPreviousSummary}`, 'class="summary"')}
 
   ${text(left, 264, "技能別の推移 / Skill progression", 'class="section"')}
   ${legend}
@@ -440,3 +448,79 @@ if (publishTrackedAssets) {
   await copyFile(testEstimateOutputPath, trackedEstimatePath);
 }
 console.log(testEstimateOutputPath);
+
+// Snapshot of the official OpenAI model comparison used in Session 12.
+// The horizontal placement expresses the vendor's stated model role, not an
+// independently measured or cross-vendor intelligence score.
+const modelComparison = [
+  { name: "GPT-5.6 Luna", roleJa: "高頻度・コスト重視", roleEn: "Cost-sensitive / high volume", input: 0.2, output: 1.2, color: "#64748b" },
+  { name: "GPT-5.6 Terra", roleJa: "知能とコストのバランス", roleEn: "Balance of intelligence and cost", input: 2, output: 12, color: "#0f766e" },
+  { name: "GPT-5.6 Sol", roleJa: "複雑な業務向け", roleEn: "Complex professional work", input: 4, output: 20, color: "#1d4ed8" },
+  { name: "GPT-6 Astra", roleJa: "最も難しいエンドツーエンド作業", roleEn: "Hardest end-to-end work", input: 10, output: 50, color: "#7c3aed" },
+];
+const modelChartWidth = 1400;
+const modelChartHeight = 1000;
+const modelPlotLeft = 180;
+const modelPlotRight = 1310;
+const modelPlotTop = 280;
+const modelPlotBottom = 710;
+const modelY = (value) => modelPlotBottom - value / 55 * (modelPlotBottom - modelPlotTop);
+const modelX = (index) => modelPlotLeft + 95 + index * ((modelPlotRight - modelPlotLeft - 190) / (modelComparison.length - 1));
+const modelComparisonText = (x, y, value, attributes = "") => `<text x="${x}" y="${y}" ${attributes}>${escapeXml(value)}</text>`;
+const modelTicks = [0, 10, 20, 30, 40, 50].map((value) => `
+  <line x1="${modelPlotLeft}" y1="${modelY(value)}" x2="${modelPlotRight}" y2="${modelY(value)}" stroke="#dbe4ee" stroke-width="2"/>
+  ${modelComparisonText(modelPlotLeft - 18, modelY(value) + 6, `$${value}`, 'class="model-axis" text-anchor="end"')}`,
+).join("");
+const modelPoints = modelComparison.map((model, index) => {
+  const x = modelX(index);
+  const y = modelY(model.output);
+  const radius = 16 + Math.sqrt(model.input) * 11;
+  return `
+    <line x1="${x}" y1="${modelPlotBottom}" x2="${x}" y2="${y}" stroke="${model.color}" stroke-width="4" opacity="0.38"/>
+    <circle cx="${x}" cy="${y}" r="${radius}" fill="${model.color}" opacity="0.95"/>
+    ${modelComparisonText(x, y + 6, `$${model.output}`, 'class="model-point-value" text-anchor="middle"')}
+    ${modelComparisonText(x, modelPlotBottom + 48, model.name, 'class="model-name" text-anchor="middle"')}
+    ${modelComparisonText(x, modelPlotBottom + 76, model.roleJa, 'class="model-role-ja" text-anchor="middle"')}
+    ${modelComparisonText(x, modelPlotBottom + 101, model.roleEn, 'class="model-role-en" text-anchor="middle"')}
+    ${modelComparisonText(x, modelPlotBottom + 143, `入力 $${model.input} / 出力 $${model.output}`, 'class="model-price" text-anchor="middle"')}`;
+}).join("");
+const modelComparisonSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="${modelChartWidth}" height="${modelChartHeight}" viewBox="0 0 ${modelChartWidth} ${modelChartHeight}">
+  <style>
+    text { font-family: "Yu Gothic", Meiryo, Arial, Helvetica, sans-serif; fill: #172033; }
+    .model-title { font-size: 45px; font-weight: 700; }
+    .model-subtitle { font-size: 24px; fill: #475569; }
+    .model-note { font-size: 18px; fill: #526274; }
+    .model-axis { font-size: 17px; fill: #475569; }
+    .model-axis-title { font-size: 20px; font-weight: 700; fill: #334155; }
+    .model-point-value { font-size: 22px; font-weight: 700; fill: #ffffff; }
+    .model-name { font-size: 24px; font-weight: 700; }
+    .model-role-ja { font-size: 19px; font-weight: 700; fill: #334155; }
+    .model-role-en { font-size: 16px; fill: #526274; }
+    .model-price { font-size: 19px; font-weight: 700; fill: #1d4ed8; }
+    .model-legend { font-size: 18px; fill: #475569; }
+    .model-foot { font-size: 18px; fill: #475569; }
+  </style>
+  <rect width="${modelChartWidth}" height="${modelChartHeight}" fill="#ffffff"/>
+  ${modelComparisonText(52, 62, "GPT-5.6 → GPT-6 Astra：価格と公式モデル位置", 'class="model-title"')}
+  ${modelComparisonText(52, 98, "API Cost and Official Model Positioning", 'class="model-subtitle"')}
+  ${modelComparisonText(52, 132, "2026年9月6日時点の標準API価格（USD / 100万トークン）。横方向の位置はOpenAIの公式役割であり、独立ベンチマークの知能スコアではありません。", 'class="model-note"')}
+  <rect x="52" y="164" width="1296" height="68" rx="12" fill="#edf6ff"/>
+  ${modelComparisonText(76, 193, "読み方", 'class="model-axis-title"')}
+  ${modelComparisonText(148, 193, "縦軸 = 出力価格　｜　円の大きさ = 入力価格　｜　左から右 = 公式の用途・能力位置", 'class="model-legend"')}
+  ${modelComparisonText(modelPlotLeft, modelPlotTop - 28, "出力価格 / USD per 1M output tokens", 'class="model-axis-title"')}
+  ${modelTicks}
+  <line x1="${modelPlotLeft}" y1="${modelPlotTop}" x2="${modelPlotLeft}" y2="${modelPlotBottom}" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="${modelPlotLeft}" y1="${modelPlotBottom}" x2="${modelPlotRight}" y2="${modelPlotBottom}" stroke="#94a3b8" stroke-width="2"/>
+  ${modelPoints}
+  ${modelComparisonText(52, 910, "共通仕様", 'class="model-axis-title"')}
+  ${modelComparisonText(150, 910, "4モデルとも 1.05M context window / 128K max output。差は主に想定ワークロード、能力位置、価格にある。", 'class="model-foot"')}
+  ${modelComparisonText(52, 950, "出典: OpenAI API Models。実際の選択は、必要な品質・速度・ツール利用・予算を小さな実タスクで確認して決める。", 'class="model-foot"')}
+</svg>`;
+
+await sharp(Buffer.from(modelComparisonSvg)).png().toFile(modelComparisonOutputPath);
+if (publishTrackedAssets) {
+  await mkdir(path.dirname(trackedModelComparisonPath), { recursive: true });
+  await copyFile(modelComparisonOutputPath, trackedModelComparisonPath);
+}
+console.log(modelComparisonOutputPath);

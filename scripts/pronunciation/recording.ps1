@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [ValidateSet('Status', 'Start', 'Collect', 'Analyze')]
     [string]$Action = 'Status',
@@ -63,17 +63,20 @@ function Get-RecordingScanRoots {
         }
     }
 
-    $documentsRoot = [Environment]::GetFolderPath('MyDocuments')
-    foreach ($folderName in @('Sound recordings', 'Sound Recordings')) {
-        if (-not [string]::IsNullOrWhiteSpace($documentsRoot)) {
-            $candidate = Join-Path $documentsRoot $folderName
-            if (Test-Path -LiteralPath $candidate) {
-                $roots.Add($candidate)
-            }
-        }
+    $documentsRoots = @(
+        [Environment]::GetFolderPath('MyDocuments'),
+        (Join-Path $env:USERPROFILE 'Documents')
+    )
+    if (-not [string]::IsNullOrWhiteSpace($env:OneDrive)) {
+        $documentsRoots += Join-Path $env:OneDrive 'Documents'
+    }
 
-        if (-not [string]::IsNullOrWhiteSpace($env:OneDrive)) {
-            $candidate = Join-Path (Join-Path $env:OneDrive 'Documents') $folderName
+    $documentsRoots = @($documentsRoots | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Select-Object -Unique)
+    # Sound Recorder uses a localized Documents subfolder. Keep the common
+    # English names and the Japanese Windows name in the automatic scan.
+    foreach ($folderName in @('Sound recordings', 'Sound Recordings', 'サウンド レコーディング')) {
+        foreach ($documentsRoot in $documentsRoots) {
+            $candidate = Join-Path $documentsRoot $folderName
             if (Test-Path -LiteralPath $candidate) {
                 $roots.Add($candidate)
             }
@@ -285,8 +288,8 @@ if ($Action -eq 'Start') {
         else {
             @(
                 'Press Ctrl+R in Sound Recorder to start.',
-                'Press Esc to stop and save.',
-                'Then tell Chappy that the recording is finished.'
+                'After reading, use the stop control shown by Sound Recorder; it saves automatically.',
+                'Confirm that the new recording appears with a duration, then tell Chappy that it is finished.'
             )
         }
     }
@@ -318,13 +321,16 @@ else {
     )
     $beforeByPath = @{}
     foreach ($entry in @($state.snapshot)) {
-        if ($null -eq $entry) {
+        if ($null -eq $entry -or $null -eq $entry.PSObject.Properties['path']) {
             continue
         }
         $beforeByPath[[string]$entry.path] = $entry
     }
 
-    $current = Get-AudioCandidates -Roots @($state.scanRoots)
+    # Refresh the roots at collection time because Windows folder redirection
+    # and language-specific Sound Recorder folders may differ from the launch snapshot.
+    $collectionRoots = @(@($state.scanRoots) + $scanRoots | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Select-Object -Unique)
+    $current = Get-AudioCandidates -Roots $collectionRoots
     $newOrChanged = foreach ($entry in $current) {
         $entryWriteTime = [DateTime]::Parse(
             [string]$entry.lastWriteUtc,

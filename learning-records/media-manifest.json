@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_jst": "2026-09-02",
+  "reviewed_jst": "2026-09-06",
   "review_scope": "Visible text, identifying work or affiliation details, learner-facing suitability, attribution, and license notes",
   "publishing_rules": [
     "Use an image only when it supports concept understanding, comparison, evidence, or progress review.",
@@ -58,14 +58,27 @@
       "sha256": "99f4088e2d5c7539e4987b1d9fd9cc17c468cdb0ff89c0595dcfd1ccba4a5df9"
     },
     {
+      "path": "learning-records/media/sessions/2026-09-06-gpt-model-cost-capability-comparison.png",
+      "status": "published",
+      "session_id": "2026-09-06-01",
+      "role": "GPT model cost and official positioning comparison",
+      "alt": "GPT-5.6 Luna、Terra、Sol、GPT-6 Astraの標準API価格と公式モデル位置",
+      "caption": "OpenAI公式仕様に基づく2026年9月6日時点の標準API価格とモデル用途の比較。横方向は独立ベンチマークの知能スコアではない。",
+      "creator": "Yuki × Chappy, generated from OpenAI API model specifications",
+      "source_url": "https://developers.openai.com/api/docs/models",
+      "license": "Project original visualization",
+      "notice": "価格と仕様は確認時点のスナップショット。OpenAIの公式モデル位置を可視化したもので、客観的な知能順位や他社モデルとの直接比較ではない。個人情報・勤務先固有情報を含まないことを目視確認済み。",
+      "sha256": "5dd77d7d0802a30d80aca6c44ac1f8d998a612c0daec69581cc1b4f1b7face34"
+    },
+    {
       "path": "learning-records/media/progress/english-growth-evidence-dashboard.png",
       "status": "generated",
       "role": "English growth dashboard",
-      "alt": "Session 1からSession 11までの英語力成長グラフ",
-      "caption": "評価JSONから生成した英語力の推移。推定と直接測定を区別する。Session 11のPronunciationは未測定。",
+      "alt": "Session 1からSession 12までの英語力成長グラフ",
+      "caption": "評価JSONから生成した英語力の推移。推定と直接測定を区別する。Session 12のPronunciationは直接音声を確認した音読評価で、他の会話技能は未測定。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "7d4747da232f21303e583ab39e06611b1f3ae3861e7614cd542978177a6e4460"
+      "sha256": "56a733369a7db15703428b6f48713bf607946fd21d6995f67817683a760a33db"
     },
     {
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",
