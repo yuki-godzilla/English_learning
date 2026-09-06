@@ -1488,19 +1488,19 @@ Session 1から12までの6指標を時系列で表示しています。Session 
 | 試験・尺度 | 学習用レンジ | 最後に根拠を更新した回 |
 |---|---:|---:|
 | TOEIC L&R | **820–900 / 990** | Session 8 |
-| TOEIC Speaking | **140–160 / 200** | Session 9 |
+| TOEIC Speaking | **140–160 / 200** | Session 12 |
 | TOEIC Writing | **140–160 / 200** | Session 8 |
-| IELTS Speaking | **Band 5.5–6.5** | Session 9 |
-| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 9 |
-| Cambridge English | **155–170（B1上位〜B2）** | Session 9 |
-| CEFR 会話 | **B1+–B2** | Session 9 |
-| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 9 |
+| IELTS Speaking | **Band 5.5–6.5** | Session 12 |
+| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 12 |
+| Cambridge English | **155–170（B1上位〜B2）** | Session 12 |
+| CEFR 会話 | **B1+–B2** | Session 12 |
+| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 12 |
 
 [![資格スコア予測の推移グラフ](media/progress/english-test-score-estimate-trends.png)](media/progress/english-test-score-estimate-trends.png)
 
-試験ごとに異なる尺度を分離して表示しています。予測履歴はSession 8から開始し、該当する根拠がない試験はSession 9で更新していません。画像をタップすると原寸で確認できます。
+試験ごとに異なる尺度を分離して表示しています。Session 12では、会話全体と36.05秒の直接音声を根拠に、Speaking・oral interactionの6種別を更新しました。各レンジはSession 12の観察値と矛盾しないため据え置きですが、最新根拠、コメント、確度、グラフの履歴点を更新しています。TOEIC L&RとWritingは直接対応する時間制限付き課題を行っていないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
 
-いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。根拠は[Session 9の評価](#session-2026-08-28-01)で確認できます。
+いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 12の評価](#session-2026-09-06-01)で確認できます。
 
 ## 評価の読み方
 

@@ -85,10 +85,10 @@
       "status": "generated",
       "role": "Estimated test score trends",
       "alt": "資格スコア予測の推移グラフ",
-      "caption": "評価JSONから生成した学習用の資格スコア目安。公式試験結果ではない。",
+      "caption": "評価JSONから生成した学習用の資格スコア目安。Session 12ではSpeaking・oral interactionの6種別へ最新根拠を追加し、TOEIC L&RとWritingは直接課題未実施のためSession 8を維持する。公式試験結果ではない。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "6e8b0aba55f6d57def78e767874f6b63e7ed68e2120bfae7fea81279613c1de0"
+      "sha256": "f3a00882bd38cf136812f515459aaab1472a3909d7efe62d2cd878254c6167a8"
     },
     {
       "path": "learning-records/archive/media/electricity-demand-chart.png",

@@ -298,10 +298,10 @@
   "test_score_estimates": {
     "methodology_version": "1.0",
     "status": "Non-official learning estimates, not standardized test results or guaranteed score conversions",
-    "as_of_session": 9,
-    "as_of_date": "2026-08-28",
+    "as_of_session": 12,
+    "as_of_date": "2026-09-06",
     "official_scales_checked_on": "2026-08-28",
-    "evidence_boundary": "Session 9 adds transcript-supported evidence for spontaneous speaking and oral interaction. The latest direct reading recording remains Session 8. Reading, listening, writing, and Session 9 pronunciation have not been measured under standardized timed conditions.",
+    "evidence_boundary": "Session 12 adds full-conversation evidence for spontaneous speaking and oral interaction, plus a directly processed 36.05-second read-aloud recording. The recording is not the standard 60-second benchmark, and no standardized timed listening, reading, writing, or integrated-speaking task was completed.",
     "history_policy": "Prediction history starts with Session 8. Do not backfill earlier sessions. Keep user-reported actual results visually and structurally separate from estimates.",
     "historical_results": [
       {
@@ -509,6 +509,65 @@
             "display": "Intermediate High–Advanced Low",
             "confidence": "medium-low",
             "comment_ja": "過去と現在を対比したconnected discourseを作れた一方、過去時制、複数形、長い発話の構成には不安定さが残るため境界レンジを維持する。"
+          }
+        }
+      },
+      {
+        "session": 12,
+        "date": "2026-09-06",
+        "update_scope": "Speaking and oral-interaction estimates are updated from the full Session 12 realtime conversation and a directly processed 36.05-second read-aloud recording. TOEIC L&R and Writing are not updated because no directly relevant standardized or timed task was completed.",
+        "not_updated": {
+          "toeic_lr": "No new standardized or timed listening-and-reading task was completed in Session 12; retain the Session 8 estimate without adding a new prediction point.",
+          "toeic_writing": "No direct timed writing task was completed in Session 12; retain the Session 8 estimate without adding a new prediction point."
+        },
+        "estimates": {
+          "toeic_speaking": {
+            "low": 140,
+            "mid": 150,
+            "high": 160,
+            "display": "140–160 / 200",
+            "confidence": "medium",
+            "comment_ja": "技術記事の要点を整理し、自律性の利点・リスク・要件定義・人の確認点を理由付きで展開した。直接音声も概ね明瞭だったが、公式形式と時間制限は未測定のためレンジは据え置く。"
+          },
+          "ielts_speaking": {
+            "low": 5.5,
+            "mid": 6,
+            "high": 6.5,
+            "display": "Band 5.5–6.5",
+            "confidence": "medium",
+            "comment_ja": "抽象的な技術論点を長く維持し、誤解を自発的に修復した。直接音声の明瞭さも確認した一方、hesitationと文法の揺れが残るため中心予測はBand 6を維持する。"
+          },
+          "toefl_speaking": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "3.5–4.0 / 6（旧尺度目安 18–22 / 30）",
+            "confidence": "medium-low",
+            "comment_ja": "意見・理由・具体的なソフトウェア例をつないだ発話と直接音声を確認した。統合型課題と公式の時間制限を行っていないため、数値レンジは据え置く。"
+          },
+          "cambridge_speaking": {
+            "low": 155,
+            "mid": 162.5,
+            "high": 170,
+            "display": "155–170（B1上位〜B2）",
+            "confidence": "medium",
+            "comment_ja": "専門語を確認して再利用し、話題がずれたときに対話を自力で修復した。直接音声も確認したが、公式ペア課題ではないためB1上位〜B2の境界レンジを維持する。"
+          },
+          "cefr_oral": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "B1+–B2",
+            "confidence": "medium",
+            "comment_ja": "関心のある技術分野で、複数のやり取りにわたり立場・理由・リスクを説明し、会話の方向を自発的に調整できた。B1+からB2へ向かうCan-doの根拠をSession 12で更新する。"
+          },
+          "actfl_speaking": {
+            "low": 6,
+            "mid": 6.5,
+            "high": 7,
+            "display": "Intermediate High–Advanced Low",
+            "confidence": "medium-low",
+            "comment_ja": "技術テーマでconnected discourseを維持し、英語が以前よりスムーズに出る本人実感とも一致した。一方、時制・文構造・流暢さの安定には揺れがあるため境界レンジを維持する。"
           }
         }
       }
