@@ -30,6 +30,23 @@ const text = (x, y, value, attributes = "") => `<text x="${x}" y="${y}" ${attrib
 const sessions = data.sessions;
 const metrics = data.qualitative_metrics;
 const isRating = (value) => Number.isInteger(value) && value >= 1 && value <= 5;
+const withinLevelStageOffsets = {
+  emerging: -0.2,
+  established: 0,
+  strong: 0.2,
+};
+const withinLevelStageJa = {
+  emerging: "形成中",
+  established: "安定",
+  strong: "強い",
+};
+const isWithinLevelStage = (value) => Object.hasOwn(withinLevelStageOffsets, value);
+const observedPosition = (session, metric) => {
+  const rating = session.ratings[metric];
+  if (!isRating(rating)) return null;
+  const stage = session.within_level_stage?.[metric];
+  return Math.max(1, Math.min(5, rating + withinLevelStageOffsets[stage]));
+};
 
 if (!Array.isArray(sessions) || sessions.length < 2) {
   throw new Error("learning-records/progress.json must contain at least two sessions.");
@@ -45,6 +62,13 @@ for (const [sessionIndex, session] of sessions.entries()) {
     const rating = session.ratings[metric];
     if (rating != null && !isRating(rating)) {
       throw new Error(`Session ${session.session} has an invalid ${metric} rating: ${rating}`);
+    }
+    const stage = session.within_level_stage?.[metric];
+    if (isRating(rating) && !isWithinLevelStage(stage)) {
+      throw new Error(`Session ${session.session} must define a within-level stage for ${metric}.`);
+    }
+    if (!isRating(rating) && stage != null) {
+      throw new Error(`Session ${session.session} cannot define a within-level stage for unmeasured ${metric}.`);
     }
   }
 }
@@ -66,8 +90,8 @@ const plottedMetrics = metrics.filter((metric) =>
 const firstComparableMetrics = currentMeasuredMetrics.filter((metric) => isRating(sessions[0].ratings[metric]));
 const previousComparableMetrics = currentMeasuredMetrics.filter((metric) => isRating(previousSession.ratings[metric]));
 const countChange = (comparableMetrics, referenceSession, direction) => comparableMetrics.filter((metric) => {
-  const delta = currentSession.ratings[metric] - referenceSession.ratings[metric];
-  return direction === "up" ? delta > 0 : direction === "down" ? delta < 0 : delta === 0;
+  const delta = observedPosition(currentSession, metric) - observedPosition(referenceSession, metric);
+  return direction === "up" ? delta > 0.001 : direction === "down" ? delta < -0.001 : Math.abs(delta) <= 0.001;
 }).length;
 const improvedFromFirst = countChange(firstComparableMetrics, sessions[0], "up");
 const declinedFromFirst = countChange(firstComparableMetrics, sessions[0], "down");
@@ -143,7 +167,7 @@ const axis = levelLabels.map(([level, ja, en]) => {
 
 const graphRows = plottedMetrics.map((metric, metricIndex) => {
   const centerY = chartTop + metricIndex * rowHeight + 26;
-  const ratings = plottedSessions.map((session) => session.ratings[metric]);
+  const positions = plottedSessions.map((session) => observedPosition(session, metric));
   const rowFill = metricIndex % 2 ? "#ffffff" : "#f8fafc";
   const zone = `
       <rect x="${plotLeft - 30}" y="${centerY - 34}" width="${xForLevel(2.5) - plotLeft + 30}" height="68" fill="#fff3e4"/>
@@ -155,13 +179,13 @@ const graphRows = plottedMetrics.map((metric, metricIndex) => {
     ${text(left + 18, centerY - 2, metricJa[metric], 'class="metric-ja"')}
     ${text(left + 18, centerY + 24, metric, 'class="metric-en"')}
     <line x1="${plotLeft}" y1="${centerY}" x2="${plotRight}" y2="${centerY}" stroke="#b8c4d4" stroke-width="3"/>`;
-  const spread = Math.min(22, Math.max(0, (ratings.length - 1) * 5));
-  const offsetForIndex = (index) => ratings.length === 1
+  const spread = Math.min(22, Math.max(0, (positions.length - 1) * 5));
+  const offsetForIndex = (index) => positions.length === 1
     ? 0
-    : -spread + (index * (spread * 2 / (ratings.length - 1)));
-  const points = ratings
-    .map((rating, index) => isRating(rating)
-      ? {x:xForLevel(rating), y:centerY + offsetForIndex(index), index, rating}
+    : -spread + (index * (spread * 2 / (positions.length - 1)));
+  const points = positions
+    .map((position, index) => Number.isFinite(position)
+      ? {x:xForLevel(position), y:centerY + offsetForIndex(index), index, position}
       : null)
     .filter(Boolean);
   const lineSegments = points.slice(1).map((point, index) => {
@@ -172,31 +196,40 @@ const graphRows = plottedMetrics.map((metric, metricIndex) => {
   const current = currentSession.ratings[metric];
   const first = sessions[0].ratings[metric];
   const previous = previousSession.ratings[metric];
+  const currentPosition = observedPosition(currentSession, metric);
+  const firstPosition = observedPosition(sessions[0], metric);
+  const previousPosition = observedPosition(previousSession, metric);
   const lastMeasured = [...plottedSessions]
     .reverse()
     .find((session) => isRating(session.ratings[metric]));
-  const delta = isRating(current) && isRating(first) ? current - first : null;
-  const recentDelta = isRating(current) && isRating(previous) ? current - previous : null;
+  const delta = Number.isFinite(currentPosition) && Number.isFinite(firstPosition) ? currentPosition - firstPosition : null;
+  const recentDelta = Number.isFinite(currentPosition) && Number.isFinite(previousPosition) ? currentPosition - previousPosition : null;
   const recentLabel = !isRating(current)
     ? "今回 N/A"
     : recentDelta == null
       ? "前回比 N/A"
-    : recentDelta > 0
-      ? `↑ 前回比 +${recentDelta}`
-      : recentDelta < 0
-        ? `↓ 前回比 ${recentDelta}`
-        : "→ 前回比 ±0";
-  const recentClass = recentDelta == null || recentDelta === 0
+    : recentDelta > 0.001
+      ? "↑ 前回より前進"
+      : recentDelta < -0.001
+        ? "↓ 前回より低位"
+        : "→ 前回と同等";
+  const recentClass = recentDelta == null || Math.abs(recentDelta) <= 0.001
     ? "change-steady"
     : recentDelta > 0
       ? "change-up"
       : "change-down";
-  const firstLabel = delta == null ? "比較なし" : `初回比 ${delta > 0 ? "+" : ""}${delta}`;
+  const firstLabel = delta == null
+    ? "比較なし"
+    : delta > 0.001
+      ? "初回より前進"
+      : delta < -0.001
+        ? "初回より低位"
+        : "初回と同等";
   const guide = !isRating(current) && metric === "Pronunciation"
     ? "直接音声がある回だけ更新"
     : currentGuide[metric]?.[0] ?? "根拠に基づく現在評価";
   const currentLabel = isRating(current)
-    ? `現在 L${current}`
+    ? `現在 L${current}・${withinLevelStageJa[currentSession.within_level_stage[metric]]}`
     : lastMeasured
       ? `最終 S${lastMeasured.session} L${lastMeasured.ratings[metric]}`
       : "未測定";
@@ -245,7 +278,7 @@ const svg = `
   <rect width="${width}" height="${height}" fill="#ffffff"/>
   ${text(left, 58, "英語力の成長推移", 'class="title"')}
   ${text(left, 91, "English Growth Progress", 'class="subtitle"')}
-  ${text(left, 120, "観察記録による学習用評価。英語資格・試験の公式スコアではありません。", 'class="note"')}
+  ${text(left, 120, "観察記録による学習用評価。同一L内の段階も表示し、公式試験スコアとは区別します。", 'class="note"')}
 
   <rect x="${left}" y="145" width="${right - left}" height="62" rx="12" fill="#eaf6ff"/>
   ${text(left + 20, 172, "観察ベースライン / OBSERVED BASELINE", 'class="summary-kicker"')}
@@ -256,7 +289,7 @@ const svg = `
   ${axis}
   ${text(1010, chartTop - 38, "現在地 / Current", 'class="summary-kicker"')}
   ${graphRows}
-  ${text(left, footerStartY, "L1 強い支援　｜　L2 支援あり　｜　L3 ほぼ自立　｜　L4 自立　｜　L5 柔軟", 'class="foot"')}
+  ${text(left, footerStartY, "L1 強い支援　｜　L2 支援あり　｜　L3 ほぼ自立　｜　L4 自立　｜　L5 柔軟　｜　同一L内: 形成中 → 安定 → 強い", 'class="foot"')}
   ${text(left, footerStartY + 32, (() => {
     const latestPronunciation = [...sessions].reverse().find((session) => isRating(session.ratings.Pronunciation));
     return isRating(currentSession.ratings.Pronunciation)

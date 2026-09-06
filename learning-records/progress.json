@@ -1,9 +1,9 @@
 {
   "methodology": {
     "name": "Exam-informed, evidence-based English conversation tracking",
-    "status": "Historical baseline for Sessions 1-3",
+    "status": "Retrospective evidence audit completed through Session 12 on 2026-09-06",
     "disclaimer": "This is a personal learning record based on Daily Notes and transcript excerpts, not a standardized English proficiency test.",
-    "comparison_rule": "Do not publish retrospective quantitative counts unless the sessions used comparable tasks and equivalent data coverage.",
+    "comparison_rule": "Change the core L1-L5 level only when the recorded evidence supports the full rubric threshold. Retrospective within-level stages may show cautious progress inside the same L band, but they are not standardized scores and task-condition differences must remain explicit.",
     "design_references": [
       "TOEIC: combine a level descriptor with an abilities-measured breakdown",
       "IELTS Speaking: separate fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation",
@@ -71,6 +71,15 @@
     "Interaction & repair",
     "Pronunciation"
   ],
+  "within_level_stage_scale": {
+    "audit_date": "2026-09-06",
+    "purpose": "Show evidence-supported progress inside an unchanged L1-L5 band without claiming an unsupported full-level increase.",
+    "emerging": "The behavior is present but still inconsistent or support-dependent within the stated L band.",
+    "established": "The behavior is repeatedly visible and stable within the stated L band.",
+    "strong": "The behavior is near the upper part of the stated L band, while the next full rubric threshold is not yet consistently met.",
+    "visual_offset_only": 0.2,
+    "pronunciation_boundary": "Assign a pronunciation stage only when direct audio was assessed. Different passages are not treated as comparable improvement evidence."
+  },
   "sessions": [
     {
       "session": 1,
@@ -84,6 +93,14 @@
         "Lexical resource": 2,
         "Grammar control": 2,
         "Interaction & repair": 3,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "emerging",
+        "Fluency & coherence": "emerging",
+        "Lexical resource": "emerging",
+        "Grammar control": "emerging",
+        "Interaction & repair": "emerging",
         "Pronunciation": null
       },
       "evidence_quote": "I'm want to talking about my travel.",
@@ -104,6 +121,14 @@
         "Interaction & repair": 3,
         "Pronunciation": null
       },
+      "within_level_stage": {
+        "Task achievement": "established",
+        "Fluency & coherence": "emerging",
+        "Lexical resource": "emerging",
+        "Grammar control": "emerging",
+        "Interaction & repair": "established",
+        "Pronunciation": null
+      },
       "evidence_quote": "When the coding / spans multiple features / Luna starts to feel limited.",
       "evidence_note_ja": "技術的な話題と未知語を文脈で扱い、Daily Noteでは音読リズムの改善が記録された。",
       "evidence_note": "Handled a technical topic and unfamiliar terms in context; the Daily Note records improved reading rhythm."
@@ -120,6 +145,14 @@
         "Lexical resource": 3,
         "Grammar control": 3,
         "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "emerging",
+        "Fluency & coherence": "established",
+        "Lexical resource": "established",
+        "Grammar control": "established",
+        "Interaction & repair": "emerging",
         "Pronunciation": null
       },
       "evidence_quote": "I have three priorities ... I want to create results for the company.",
@@ -140,6 +173,14 @@
         "Interaction & repair": 4,
         "Pronunciation": null
       },
+      "within_level_stage": {
+        "Task achievement": "established",
+        "Fluency & coherence": "established",
+        "Lexical resource": "established",
+        "Grammar control": "established",
+        "Interaction & repair": "established",
+        "Pronunciation": null
+      },
       "evidence_quote": "These days, I can understand English in English in my mind. I don't need to translate English into Japanese in my mind.",
       "evidence_note_ja": "AI・エネルギー・開発プロセス・キャリアを自分の言葉で長く説明し、語が出ない場面でも言い換えと確認で会話を修復した。自己申告では英語を日本語に訳さず理解する感覚が増えた。一方、長い説明では構成と文法の安定が次の課題。前回比は5指標とも維持で、根拠のないレベル上昇は付けない。",
       "evidence_note": "Explained AI, energy, development processes, and career goals at length, repairing gaps through paraphrase and clarification. Self-reported more direct processing in English. Longer answers still need clearer structure and more stable grammar. All five observed ratings remain unchanged from the previous session; no unsupported increase is assigned."
@@ -158,6 +199,14 @@
         "Interaction & repair": 4,
         "Pronunciation": null
       },
+      "within_level_stage": {
+        "Task achievement": "established",
+        "Fluency & coherence": "established",
+        "Lexical resource": "established",
+        "Grammar control": "established",
+        "Interaction & repair": "established",
+        "Pronunciation": null
+      },
       "evidence_quote": "I tend to get too focused on work, so I want to change my mind by the atmosphere.",
       "evidence_note_ja": "面接前でも、気分転換の方法、Bon Odori、音楽、ミステリー小説、Dragon Questについて、好みと理由を自分の言葉で説明した。未知語は意味を確認し、誤解は自分から訂正して会話を続けた。今回はリラックス会話で共通60秒課題を行っていないため、5つの文字起こし評価は前回から維持とし、発音は音声を直接評価できないためN/Aとする。",
       "evidence_note": "Before the interview, explained personal preferences and reasons across relaxation, Bon Odori, music, mystery novels, and Dragon Quest. Asked about new words and corrected misunderstandings independently. No comparable benchmark was used, so the five transcript-supported ratings remain steady; pronunciation is N/A because audio was not directly measured."
@@ -169,17 +218,25 @@
       "task_ja": "ローカル・クラウドAIと企業向けAI駆動開発の議論",
       "data_coverage": "Session report based on realtime transcript excerpts; no comparable 60-second benchmark and no reliable direct audio analysis",
       "ratings": {
-        "Task achievement": 3,
+        "Task achievement": 4,
         "Fluency & coherence": 3,
         "Lexical resource": 3,
         "Grammar control": 3,
         "Interaction & repair": 4,
         "Pronunciation": null
       },
+      "within_level_stage": {
+        "Task achievement": "emerging",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": null
+      },
       "evidence_quote": "The routing works in some cases, but not in others.",
       "evidence_quote_origin": "Transcript-supported expression preserved in the Session 6 report",
-      "evidence_note_ja": "ローカル／クラウドAI、LangGraphのrouting、投資支援アプリ、企業向けIoTプラットフォーム、開発ライフサイクル全体へのAI導入を、自分の経験と判断に結び付けて説明した。誤解や語の選択を自発的に修正し、対話・言い直しではL4相当の行動を示した。一方、共通60秒課題は未実施で、長い説明の構成と文法の安定には引き続き支援が必要なため、5つの文字起こし評価は根拠のある範囲で維持する。発音は音声を直接評価できないためN/Aとする。",
-      "evidence_note": "Connected local/cloud AI, LangGraph routing, an investment-support app, an enterprise IoT platform, and lifecycle-wide AI adoption to personal experience and judgment. Proactively repaired misunderstandings and word choice, showing L4 interaction and repair. No comparable 60-second task was used, and longer explanations still need support for structure and grammatical stability, so the five transcript-supported ratings remain evidence-bounded. Pronunciation is N/A because audio was not directly measured."
+      "evidence_note_ja": "ローカル／クラウドAI、LangGraphのrouting、投資支援アプリ、企業向けIoTプラットフォーム、開発ライフサイクル全体へのAI導入を、自分の経験と判断に結び付けて説明した。複数の論点を目的に沿って展開した事実はTask achievement L4の基準を満たすため、2026-09-06の再監査で従来のL3からL4形成中へ訂正した。誤解や語の選択も自発的に修正し、Interaction & repairではL4上位の行動を示した。一方、長い説明の構成と文法の安定には支援が残る。発音は直接音声を評価できないためN/Aとする。",
+      "evidence_note": "Connected local/cloud AI, LangGraph routing, an investment-support app, an enterprise IoT platform, and lifecycle-wide AI adoption to personal experience and judgment. Because the learner developed several linked points toward the task purpose, the 2026-09-06 retrospective audit corrects Task achievement from L3 to emerging L4. Proactive repair supports strong L4 interaction. Longer-answer structure and grammar still need support. Pronunciation remains N/A because audio was not directly measured."
     },
     {
       "session": 7,
@@ -193,6 +250,14 @@
         "Lexical resource": 3,
         "Grammar control": 3,
         "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
         "Pronunciation": null
       },
       "evidence_quote": "In short time, plasma behaves as particle. But in long term, the plasma behaves as a fluid.",
@@ -214,6 +279,14 @@
         "Interaction & repair": 4,
         "Pronunciation": 3
       },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": "established"
+      },
       "evidence_quote": "I think converting fossil fuels into electricity can be wasteful.",
       "evidence_note_ja": "AIデータセンターの電力需要、送電網、マイクログリッド、一次エネルギー、電化と脱炭素の関係について、自分の疑問と見解をつないで議論した。約60秒の直接録音は文章全体が安定して認識され、音割れは確認されなかった。発音はL3（概ね明瞭）として初めて記録するが、音素単位の標準化採点ではない。",
       "evidence_note": "Connected AI data-centre demand, grids, microgrids, primary energy, and the difference between electrification and decarbonisation to a personal viewpoint. A direct one-minute recording was intelligible throughout and showed no clipping. Pronunciation is recorded conservatively at L3 for overall intelligibility; this is not a standardized phonetic score."
@@ -230,6 +303,14 @@
         "Lexical resource": 3,
         "Grammar control": 3,
         "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
         "Pronunciation": null
       },
       "evidence_quote": "When I am kid, monster battle was very, very attractive for me. For now, I can consider many thing of Godzilla. I can feel the history, I can consider the fear of nuclear war.",
@@ -251,6 +332,14 @@
         "Interaction & repair": 4,
         "Pronunciation": null
       },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": null
+      },
       "evidence_quote": "I’m keeping both options open until I have enough information.",
       "evidence_quote_origin": "Session conclusion, formulated after a spontaneous career discussion in the realtime transcript",
       "evidence_note_ja": "社内異動、外部選考、過去の職場経験、長期キャリアへの希望を結び付け、情報がそろってから冷静に決めるという結論を作った。感情的に難しい背景を話す間にhesitation、restart、断片的な文、時制・語順の不安定さはあったが、必要な語や意図を確認し、主要な意図を明確に保ちながら相談を進めた。感情負荷の高い一回の会話を能力低下と扱わず、既存のL3を維持する。共通60秒課題は未実施で、発音を直接評価できる新規録音もないため、定量値は追加せず、PronunciationはN/Aとする。",
@@ -268,6 +357,14 @@
         "Lexical resource": 3,
         "Grammar control": 3,
         "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
         "Pronunciation": null
       },
       "evidence_quote": "In the AI era, AI can handle simple tasks, but people need to focus on creating value.",
@@ -289,6 +386,14 @@
         "Interaction & repair": 4,
         "Pronunciation": 3
       },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": "established"
+      },
       "evidence_quote": "If defining requirements is perfect, I can hand it off to AI ... setting checkpoints by a human is important in this AI era.",
       "evidence_quote_origin": "Spontaneous explanation in the realtime conversation; pauses and restarts lightly regularized.",
       "evidence_note_ja": "GPT-6 Astraの公式記事を音読し、内容を要約・確認しながら、AIの自律性、要件定義、人のチェックポイント、表面から見えないbackendリスクについて自分の立場を理由付きで議論した。誤解が生じた場面では記事を続けるよう明確に軌道修正し、autonomy、requirement、checkpointなどの専門語を確認して再利用した。停止・繰り返し・文法の揺れは残るためFluency・Lexical・GrammarはL3、結論と理由を展開したTask achievementと自発的に会話を修正したInteraction & repairはL4とする。本人も以前より英語がかなりスムーズに出る実感を報告しており、長い技術議論を維持した観察事実と合わせてL3内の流暢さの前進として記録する。36.05秒の直接音声は音割れなく、発話部分27.87秒、認識速度約123.6語/分、文章一致率94.1%だったため、Pronunciationは保守的にL3とする。標準60秒課題と異なるため、発音の過去差は判定しない。",
@@ -296,13 +401,13 @@
     }
   ],
   "test_score_estimates": {
-    "methodology_version": "1.0",
+    "methodology_version": "1.1",
     "status": "Non-official learning estimates, not standardized test results or guaranteed score conversions",
     "as_of_session": 12,
     "as_of_date": "2026-09-06",
     "official_scales_checked_on": "2026-08-28",
-    "evidence_boundary": "Session 12 adds full-conversation evidence for spontaneous speaking and oral interaction, plus a directly processed 36.05-second read-aloud recording. The recording is not the standard 60-second benchmark, and no standardized timed listening, reading, writing, or integrated-speaking task was completed.",
-    "history_policy": "Prediction history starts with Session 8. Do not backfill earlier sessions. Keep user-reported actual results visually and structurally separate from estimates.",
+    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
+    "history_policy": "Retrospective milestone estimates are permitted only where the canonical record contains enough speaking or oral-interaction evidence. Do not create a point for every session or interpolate missing sessions. Keep user-reported actual results visually and structurally separate from estimates.",
     "historical_results": [
       {
         "test_id": "toeic_lr",
@@ -383,6 +488,171 @@
       }
     },
     "estimate_sessions": [
+      {
+        "session": 1,
+        "date": "2026-08-08",
+        "update_scope": "Retrospective low-confidence speaking and oral-interaction baseline from the canonical Session 1 travel narrative. No direct audio or standardized task is available.",
+        "estimates": {
+          "toeic_speaking": {
+            "low": 100,
+            "mid": 112.5,
+            "high": 125,
+            "display": "100–125 / 200",
+            "confidence": "low",
+            "comment_ja": "旅行の経験を伝え続けられた一方、動詞形・時制・語順に継続的な支援が必要だった。直接音声と公式形式がないため広い低確度レンジ。"
+          },
+          "ielts_speaking": {
+            "low": 4,
+            "mid": 4.5,
+            "high": 5,
+            "display": "Band 4.0–5.0",
+            "confidence": "low",
+            "comment_ja": "身近な話題の意味は伝えられたが、停止・基本文法・文の連結に支援が必要だった。発音を含む公式4観点は未測定。"
+          },
+          "toefl_speaking": {
+            "low": 2,
+            "mid": 2.5,
+            "high": 3,
+            "display": "2.0–3.0 / 6",
+            "confidence": "low",
+            "comment_ja": "身近な経験の内容は伝わったが、公式の独立型・統合型課題、時間制限、直接音声は未測定。"
+          },
+          "cambridge_speaking": {
+            "low": 130,
+            "mid": 137.5,
+            "high": 145,
+            "display": "130–145（A2上位〜B1）",
+            "confidence": "low",
+            "comment_ja": "基本的な経験共有は成立したが、文法・語彙・discourse managementへの支援が多かった。"
+          },
+          "cefr_oral": {
+            "low": 2,
+            "mid": 2.5,
+            "high": 3,
+            "display": "A2–B1",
+            "confidence": "low",
+            "comment_ja": "身近な経験を相手の支援を受けながら説明できるという範囲で、A2からB1の境界を広く置く。"
+          },
+          "actfl_speaking": {
+            "low": 4,
+            "mid": 4.5,
+            "high": 5,
+            "display": "Intermediate Low–Intermediate Mid",
+            "confidence": "low",
+            "comment_ja": "身近な話題で文レベルの意味を作れたが、継続と正確さに支援が必要だった。"
+          }
+        }
+      },
+      {
+        "session": 3,
+        "date": "2026-08-16",
+        "update_scope": "Retrospective speaking and oral-interaction milestone from the canonical Session 3 interview discussion. No direct audio or standardized task is available.",
+        "estimates": {
+          "toeic_speaking": {
+            "low": 125,
+            "mid": 135,
+            "high": 145,
+            "display": "125–145 / 200",
+            "confidence": "low",
+            "comment_ja": "面接の優先順位と理由を複数ターンで説明し、語の違いも自発的に確認した。公式課題と直接音声は未測定。"
+          },
+          "ielts_speaking": {
+            "low": 5,
+            "mid": 5.5,
+            "high": 6,
+            "display": "Band 5.0–6.0",
+            "confidence": "low",
+            "comment_ja": "複雑な面接テーマを継続し理由を説明できたが、文法・流暢さの安定はまだ発展段階だった。"
+          },
+          "toefl_speaking": {
+            "low": 3,
+            "mid": 3.25,
+            "high": 3.5,
+            "display": "3.0–3.5 / 6",
+            "confidence": "low",
+            "comment_ja": "意見と理由を展開できた一方、公式の統合型課題と時間制限は未測定。"
+          },
+          "cambridge_speaking": {
+            "low": 145,
+            "mid": 152.5,
+            "high": 160,
+            "display": "145–160（B1中心）",
+            "confidence": "low",
+            "comment_ja": "対話を維持し、自発的に語義を確認する行動が見られた。公式ペア課題と直接音声はない。"
+          },
+          "cefr_oral": {
+            "low": 3,
+            "mid": 3.25,
+            "high": 3.5,
+            "display": "B1–B1+",
+            "confidence": "low",
+            "comment_ja": "関心のある面接テーマで意見と理由をつなぎ、意味のずれを自発的に確認できた。"
+          },
+          "actfl_speaking": {
+            "low": 5,
+            "mid": 5.5,
+            "high": 6,
+            "display": "Intermediate Mid–Intermediate High",
+            "confidence": "low",
+            "comment_ja": "身近な職務・将来の話題で文を連結し、複数ターンの説明を維持できた。"
+          }
+        }
+      },
+      {
+        "session": 7,
+        "date": "2026-08-23",
+        "update_scope": "Retrospective speaking and oral-interaction milestone from the canonical Session 7 technical discussion. No direct audio or standardized task is available.",
+        "estimates": {
+          "toeic_speaking": {
+            "low": 135,
+            "mid": 145,
+            "high": 155,
+            "display": "135–155 / 200",
+            "confidence": "low",
+            "comment_ja": "エネルギー戦略と研究経験を理由・具体例へつないだ。deliveryの直接音声と公式形式は未測定。"
+          },
+          "ielts_speaking": {
+            "low": 5.5,
+            "mid": 5.75,
+            "high": 6,
+            "display": "Band 5.5–6.0",
+            "confidence": "low",
+            "comment_ja": "抽象的な技術テーマを長く維持し、専門語を確認して意味を保った。直接音声がないため上限は保守的。"
+          },
+          "toefl_speaking": {
+            "low": 3.25,
+            "mid": 3.5,
+            "high": 3.75,
+            "display": "3.25–3.75 / 6",
+            "confidence": "low",
+            "comment_ja": "専門的な説明と社会的な意味を接続したが、統合型課題・時間制限・deliveryは未測定。"
+          },
+          "cambridge_speaking": {
+            "low": 150,
+            "mid": 157.5,
+            "high": 165,
+            "display": "150–165（B1上位〜B2）",
+            "confidence": "low",
+            "comment_ja": "専門テーマのdiscourse managementと自発的な会話修復を確認した。発音を含む公式評価ではない。"
+          },
+          "cefr_oral": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "B1+–B2",
+            "confidence": "medium-low",
+            "comment_ja": "関心分野では抽象的な論点を経験と社会的動機へつなぎ、対話方針も自力で修復できた。"
+          },
+          "actfl_speaking": {
+            "low": 6,
+            "mid": 6.5,
+            "high": 7,
+            "display": "Intermediate High–Advanced Low",
+            "confidence": "low",
+            "comment_ja": "技術テーマでconnected discourseを作れたが、時制・構成・deliveryの安定は直接測定していない。"
+          }
+        }
+      },
       {
         "session": 8,
         "date": "2026-08-27",

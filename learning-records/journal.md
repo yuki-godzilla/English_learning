@@ -951,13 +951,13 @@ Practice:
 
 #### Overall
 
-**L3 / Mostly independent。Interaction & repairではL4相当の行動が明確に見られた。**
+**OverallはL3 / Mostly independent。Task achievementとInteraction & repairではL4相当の行動が明確に見られた。**
 
 Yukiは、local/cloud AI、Ollama、LangGraph、agent routing、投資支援、IoT testing、AI-driven developmentという複雑な技術・業務テーマについて、自分の経験と判断を結び付けて会話を継続した。語を探すpauseやrestartは多かったが、意味がずれたときに自分から止めて説明し直し、会話の方向、訂正量、記事の選び方、レポート要件を明確に調整できた。
 
 | Metric | Level | Evidence |
 |---|---:|---|
-| Task achievement | **L3** | 結論と理由を伝え、個人開発・業務の例を詳しく説明した。要点の英文化やまとめには支援を利用した。 |
+| Task achievement | **L4（形成中）** | 複数の技術・業務論点を自分の経験と判断へ結び付け、目的に沿った結論まで展開した。要点の英文化やまとめには支援を利用したためL4上位とはしない。2026-09-06の全履歴再監査で従来のL3から訂正。 |
 | Fluency & coherence | **L3** | pause、filler、restartがあっても、技術的な説明を中断せず、意味のつながりを保った。 |
 | Lexical resource | **L3** | Ollama、LangGraph、agentic task、integration test、system test、development lifecycleなど、必要な技術語彙を使用した。日常的な接続表現やregisterの選択では支援を利用した。 |
 | Grammar control | **L3** | 語形、冠詞、前置詞、比較表現に誤りがあっても、ほとんどの場合は意味が明確だった。 |
@@ -1439,16 +1439,28 @@ Why: 改善点には work on / focus on が自然。
 - 本人の「英語がかなりスムーズに出る」という感覚と、長い技術議論を維持できた事実が一致しており、Fluency L3内で発話の自動化が進んでいる。
 - 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
 
+## 全履歴の再監査 / Retrospective Audit
+
+2026年9月6日にSession 1〜12の正本記録を同じL1〜L5基準で見直した。整数レベルだけではSession 3以降の変化が見えにくかったため、各Lの中を **形成中 → 安定 → 強い** の3段階で補助表示する。これは公式スコアでも0.1刻みの採点でもなく、同じL内で確認できた行動の安定度を示す。
+
+| 節目 | 再監査で確認した変化 |
+|---|---|
+| **Session 1** | 身近な旅行の話は成立したが、流暢さ・語彙・文法はL2形成中。ここを観察上の出発点とする。 |
+| **Session 3** | 面接テーマで結論と理由を自力で展開し、Task achievementとInteraction & repairがL4形成中へ到達。 |
+| **Session 6** | 複数の技術・業務論点を目的へまとめたため、Task achievementを従来のL3から**L4形成中**へ訂正。 |
+| **Session 7〜12** | 抽象的な技術・文化・キャリアの話題を長く維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。 |
+| **Pronunciation** | 直接音声があるSession 8・12だけL3安定。課題文が異なるため、両者の優劣や過去回への遡及採点は行わない。 |
+
 ## Current Snapshot
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4 / Session 12** | 記事の理解からAIの自律性と人のチェックポイントという結論まで、理由をつないで完結できた。 |
-| **Fluency & coherence** | **L3 / Session 12** | 言い直しがあっても長い技術議論の軸を保った。本人実感も含め、L3内でスムーズさが前進している。 |
-| **Lexical resource** | **L3 / Session 12** | 専門語を確認して再利用し、自分の実務的な懸念を説明できた。語探しには支援が残る。 |
-| **Grammar control** | **L3 / Session 12** | 断片や語形の揺れはあるが、条件・原因・対比を使って主要な意図を明確に伝えた。 |
-| **Interaction & repair** | **L4 / Session 12** | 誤解を自分から訂正し、記事へ戻す・説明を易しくするなど会話を目的へ戻せた。 |
-| **Pronunciation** | **L3 / Session 12直接音声** | 36秒の音読で、明瞭さの補助指標、安定した速度、音割れなしを確認。標準音素採点ではない。 |
+| **Task achievement** | **L4・強い / Session 12** | 記事の理解からAIの自律性と人のチェックポイントという結論まで、理由をつないで完結できた。 |
+| **Fluency & coherence** | **L3・強い / Session 12** | 言い直しがあっても長い技術議論の軸を保った。本人実感も含め、L3内でスムーズさが前進している。 |
+| **Lexical resource** | **L3・強い / Session 12** | 専門語を確認して再利用し、自分の実務的な懸念を説明できた。語探しには支援が残る。 |
+| **Grammar control** | **L3・安定 / Session 12** | 断片や語形の揺れはあるが、条件・原因・対比を使って主要な意図を明確に伝えた。 |
+| **Interaction & repair** | **L4・強い / Session 12** | 誤解を自分から訂正し、記事へ戻す・説明を易しくするなど会話を目的へ戻せた。 |
+| **Pronunciation** | **L3・安定 / Session 12直接音声** | 36秒の音読で、明瞭さの補助指標、安定した速度、音割れなしを確認。標準音素採点ではない。 |
 
 ## 発音の測定状況
 
@@ -1458,7 +1470,7 @@ Session 12では、標準60秒課題とは別の技術英文を直接録音で�
 
 [![Session 1からSession 12までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から12までの6指標を時系列で表示しています。Session 12の会話能力5指標は本日の会話全体、Pronunciationは直接音声から評価しています。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
+Session 1から12までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表し、初期の大きな伸びと直近のレベル内成長を分けて読めるようにしました。Session 12の会話能力5指標は本日の会話全体、Pronunciationは直接音声から評価しています。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
 
 ## 次に伸ばすこと
 
@@ -1476,7 +1488,7 @@ Session 1から12までの6指標を時系列で表示しています。Session 
 - [Session 9 — Godzillaの象徴性と日常からの小さな逃避](#session-2026-08-28-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 8 — AIデータセンター・電力インフラ・マイクログリッド](#session-2026-08-27-01) — 初めて直接録音を確認し、発音の明瞭さをL3として記録。
 - [Session 7 — エネルギー戦略・電化・先端エネルギー研究](#session-2026-08-23-01) — 専門テーマを自分の経験と社会的な意味につないだ。
-- [Session 6 — ローカルAI・クラウドAIとAI駆動開発](#session-2026-08-19-01) — 対話・言い直しではL4相当の行動を確認。
+- [Session 6 — ローカルAI・クラウドAIとAI駆動開発](#session-2026-08-19-01) — 全履歴再監査でTask achievementをL3からL4形成中へ訂正し、対話・言い直しはL4強いと確認。
 - [Session 5 — 面接当日のリセット：気持ちを整える英会話](#session-2026-08-18-01) — リラックスした会話でも好みと理由を説明した。
 - [Session 4 — AI・データセンターとキャリアを英語で伝える](#session-2026-08-17-01) — 技術経験とキャリアの方向性を一つの説明にした。
 - [Session 3 — 面接準備：強みの言語化と英語面接フレーズ](#session-2026-08-16-01) — 複雑な面接テーマでTask achievementとInteractionをL4にした。
@@ -1498,13 +1510,13 @@ Session 1から12までの6指標を時系列で表示しています。Session 
 
 [![資格スコア予測の推移グラフ](media/progress/english-test-score-estimate-trends.png)](media/progress/english-test-score-estimate-trends.png)
 
-試験ごとに異なる尺度を分離して表示しています。Session 12では、会話全体と36.05秒の直接音声を根拠に、Speaking・oral interactionの6種別を更新しました。各レンジはSession 12の観察値と矛盾しないため据え置きですが、最新根拠、コメント、確度、グラフの履歴点を更新しています。TOEIC L&RとWritingは直接対応する時間制限付き課題を行っていないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
+試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジで、初期からの変化を示します。記録が十分でない回は補間していません。Session 12では会話全体と36.05秒の直接音声を根拠にSpeaking・oral interactionの6種別を更新しました。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
 
 いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 12の評価](#session-2026-09-06-01)で確認できます。
 
 ## 評価の読み方
 
-L1からL5は、**Strong support → Supported → Mostly independent → Independent → Flexible** の順です。レベルを上げるのは、発言例または同じ条件で測った数値があるときだけです。録音のない回は、発音・話速・ポーズを推測せず **N/A** とします。
+L1からL5は、**Strong support → Supported → Mostly independent → Independent → Flexible** の順です。各レベル内の **形成中 → 安定 → 強い** は、記録に現れた行動の安定度を示す補助段階で、公式試験の小数点スコアではありません。整数レベルを上げるのは、そのレベルの基準全体を満たす発言例または比較可能な測定値があるときだけです。録音のない回は、発音・話速・ポーズを推測せず **N/A** とします。
 
 [目次へ戻る](#journal-contents)
 

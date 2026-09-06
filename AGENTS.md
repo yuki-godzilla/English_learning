@@ -1,7 +1,7 @@
 # English Conversation Session Rules — Yuki × Chappy
 
 > Englishプロジェクトの英会話、学習記録、評価、共有に適用する正式な運用ルール。
-> 最終更新: 2026-09-06 / 文書バージョン: 4.4
+> 最終更新: 2026-09-06 / 文書バージョン: 4.5
 
 ## 0. 優先順位・正本・完了条件
 
@@ -166,7 +166,10 @@ Journalは一冊として次の順を維持する。
 
 - `progress.json` が定量評価の唯一の正本。Journalには現在値、根拠、読み方を掲載する。
 - 評価観点は Task achievement、Fluency & coherence、Lexical resource、Grammar control、Interaction & repair、Pronunciation のL1〜L5。
+- L1〜L5の整数レベルに加え、同一レベル内の観察段階を `emerging / established / strong`（形成中 / 安定 / 強い）で記録する。これは公式試験の小数点スコアではなく、同じL内での行動の安定度を示す補助情報とする。グラフでは整数レベルを主軸にし、この段階を小さな左右位置で可視化する。
+- 過去評価の再監査はYukiの明示指示がある場合だけ行い、正本に残る発話・要約・測定値から判断できる範囲に限る。整数レベルはルーブリック全体を満たす根拠がある場合だけ訂正し、変更理由を当該SessionとCurrent Snapshotの両方へ残す。
 - スコアは公式試験結果ではなく個人学習用の観察値。資格スコアはレンジと確度を示し、確認していない技能を新しい測定点にしない。
+- 資格スコアの過去推定を再監査する場合は、会話根拠が十分な節目だけを低確度の履歴点として追加し、記録が薄いSessionを補間しない。実績値と推定値は視覚・データ上で分離する。
 - Pronunciation未測定は `N/A` とし、能力低下として描かない。最後に直接測定したSessionを併記する。
 - 評価を追加・変更した回だけ `npm run charts:publish` を実行する。生成画像を目視し、`media-manifest.json` のSHA-256を更新する。
 - 通常検証とCIの `npm run charts:build` は `output/` だけを生成し、OS差で追跡画像を変更しない。

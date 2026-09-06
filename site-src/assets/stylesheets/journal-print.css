@@ -54,6 +54,7 @@
   .learning-tag { background: #eff6ff !important; border: 1px solid #bfdbfe !important; color: #1d4ed8 !important; }
   .learning-grid { grid-template-columns: 1fr !important; gap: 4mm !important; }
   .metric-grid, .score-grid, .review-list { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 4mm !important; }
+  .score-grid--continuation { break-before: page; }
 
   /* The Session Index remains compact without dropping below the reading-size
      floor. Two columns preserve hierarchy and prevent summary text from
@@ -91,6 +92,7 @@
   .metric-card.level-transition .metric-value { color: #1d4ed8 !important; }
   .metric-card.level-independent .metric-value, .score-value { color: #047857 !important; }
   .metric-card.level-na .metric-value { color: #4b5563 !important; }
+  .metric-stage { color: #4b5563 !important; font-size: 10.5pt !important; font-weight: 700; margin-top: 1mm; }
   .score-card { background: #ffffff !important; border-left: 4px solid #0f766e !important; }
 
   .review-card--expression { background: #eff6ff !important; border-left: 4px solid #1d4ed8 !important; }

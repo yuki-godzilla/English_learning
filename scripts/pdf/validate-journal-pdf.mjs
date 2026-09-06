@@ -127,7 +127,7 @@ for (const action of inventory.actions) {
 if (/(?:file:\/\/\/[a-z]:|\b[a-z]:\\Users\\)/i.test(inventory.text)) fail("PDF text exposes a local Windows path");
 
 const normalizedText = normalized(inventory.text);
-for (const requiredText of ["履歴点が少ないため", "朝の集中時間", "資格スコア予測の補助グラフ"]) {
+for (const requiredText of ["過去の節目", "朝の集中時間", "資格スコア予測の補助グラフ"]) {
   if (!normalizedText.includes(normalized(requiredText))) fail(`Static Growth content is missing: ${requiredText}`);
 }
 

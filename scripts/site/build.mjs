@@ -627,6 +627,21 @@ const levelClass = (level) => {
   if (level === 3) return "level-transition";
   return "level-independent";
 };
+const withinLevelStageJa = {
+  emerging: "形成中",
+  established: "安定",
+  strong: "強い",
+};
+const scoreCards = Object.entries(testDefinitions).map(([testId, definition]) => {
+  const estimateSession = latestEstimateFor(testId);
+  const estimate = estimateSession.estimates[testId];
+  return `<article class="score-card"><div class="card-meta">Latest evidence: Session ${estimateSession.session}</div><h3>${escapeHtml(definition.label_ja)}</h3><div class="score-value">${escapeHtml(estimate.display)}</div><p>${escapeHtml(estimate.comment_ja)}</p><p><strong>確度:</strong> ${escapeHtml(estimate.confidence)}</p></article>`;
+});
+const scoreGridMarkup = Array.from({ length: Math.ceil(scoreCards.length / 6) }, (_, groupIndex) => {
+  const group = scoreCards.slice(groupIndex * 6, groupIndex * 6 + 6).join("\n");
+  const continuationClass = groupIndex === 0 ? "" : " score-grid--continuation";
+  return `<div class="score-grid${continuationClass}">${group}</div>`;
+}).join("\n");
 
 const progress = `---
 title: 成長
@@ -650,13 +665,17 @@ hide:
 ${tracker.qualitative_metrics.map((metric) => {
   const observedSession = latestObservedByMetric.get(metric);
   const level = observedSession?.ratings[metric];
+  const withinLevelStage = observedSession?.within_level_stage?.[metric];
   const measuredThisSession = observedSession?.session === latestTracker.session;
   const evidenceLabel = measuredThisSession
     ? `Session ${latestTracker.session}の記録から根拠を確認済み。`
     : observedSession
       ? `最終確認はSession ${observedSession.session}。Session ${latestTracker.session}では未測定。`
       : "まだ直接測定していません。";
-  return `<article class="metric-card ${levelClass(level)}"><div class="card-meta">${escapeHtml(metric)}</div><h3>${escapeHtml(metricJa[metric] ?? metric)}</h3><div class="metric-value">${Number.isInteger(level) ? `L${level}` : "N/A"}</div><p>${evidenceLabel}</p></article>`;
+  const stageLabel = Number.isInteger(level) && withinLevelStageJa[withinLevelStage]
+    ? `<div class="metric-stage">同一L内: ${withinLevelStageJa[withinLevelStage]}</div>`
+    : "";
+  return `<article class="metric-card ${levelClass(level)}"><div class="card-meta">${escapeHtml(metric)}</div><h3>${escapeHtml(metricJa[metric] ?? metric)}</h3><div class="metric-value">${Number.isInteger(level) ? `L${level}` : "N/A"}</div>${stageLabel}<p>${evidenceLabel}</p></article>`;
 }).join("\n")}
 </div>
 
@@ -676,18 +695,12 @@ ${Number.isInteger(latestTracker.ratings.Pronunciation)
 
 各テスト種別は、その技能について最後に根拠が得られたSessionを表示します。測定していない技能に新しい予測点は追加しません。
 
-<div class="score-grid">
-${Object.entries(testDefinitions).map(([testId, definition]) => {
-  const estimateSession = latestEstimateFor(testId);
-  const estimate = estimateSession.estimates[testId];
-  return `<article class="score-card"><div class="card-meta">Latest evidence: Session ${estimateSession.session}</div><h3>${escapeHtml(definition.label_ja)}</h3><div class="score-value">${escapeHtml(estimate.display)}</div><p>${escapeHtml(estimate.comment_ja)}</p><p><strong>確度:</strong> ${escapeHtml(estimate.confidence)}</p></article>`;
-}).join("\n")}
-</div>
+${scoreGridMarkup}
 
 ??? note "読み方"
     予測レンジは受験計画の参考です。Listening、Reading、Writing、発音を直接測っていない場合は、その制約を明記しています。
 
-<details class="recall-card"><summary>資格スコア予測の補助グラフ</summary><div class="recall-answer"><figure class="figure-frame"><a href="../assets/generated/english-test-score-estimate-trends.png"><img src="../assets/generated/english-test-score-estimate-trends.png" alt="試験種別ごとの資格スコア予測履歴" loading="lazy"></a><figcaption>履歴点が少ないため、現在は上のカードを主表示として使います。</figcaption></figure></div></details>
+<details class="recall-card"><summary>資格スコア予測の補助グラフ</summary><div class="recall-answer"><figure class="figure-frame"><a href="../assets/generated/english-test-score-estimate-trends.png"><img src="../assets/generated/english-test-score-estimate-trends.png" alt="試験種別ごとの資格スコア予測履歴" loading="lazy"></a><figcaption>正本の会話根拠が十分な過去の節目と、現在の広い予測レンジを分けて表示します。</figcaption></figure></div></details>
 `;
 
 const sourceLinks = new Map();

@@ -71,6 +71,7 @@ for (const [index, session] of journal.sessions.entries()) {
 }
 
 if (!Array.isArray(progress.sessions) || !progress.sessions.length) fail("Progress data has no sessions");
+const withinLevelStages = new Set(["emerging", "established", "strong"]);
 for (const session of progress.sessions ?? []) {
   const journalSession = journal.sessions.find((entry) => entry.session === session.session);
   if (!journalSession) { fail(`Progress Session ${session.session} has no Journal session`); continue; }
@@ -78,14 +79,20 @@ for (const session of progress.sessions ?? []) {
   for (const metric of progress.qualitative_metrics ?? []) {
     const rating = session.ratings?.[metric];
     if (rating != null && (!Number.isInteger(rating) || rating < 1 || rating > 5)) fail(`Session ${session.session} has an invalid ${metric} rating`);
+    const stage = session.within_level_stage?.[metric];
+    if (rating != null && !withinLevelStages.has(stage)) fail(`Session ${session.session} is missing a valid within-level stage for ${metric}`);
+    if (rating == null && stage != null) fail(`Session ${session.session} has a within-level stage for unmeasured ${metric}`);
   }
 }
 
 const latestProgress = progress.sessions?.at(-1);
 if (latestProgress) {
+  const stageJa = { emerging: "形成中", established: "安定", strong: "強い" };
   for (const [metric, rating] of Object.entries(latestProgress.ratings ?? {})) {
     const expected = rating == null ? "N/A" : `L${rating}`;
     if (!journal.sections.growth.includes(expected)) fail(`Growth section does not show ${metric}: ${expected}`);
+    const stage = latestProgress.within_level_stage?.[metric];
+    if (rating != null && !journal.sections.growth.includes(`L${rating}・${stageJa[stage]}`)) fail(`Growth section does not show ${metric} within-level stage`);
   }
 }
 for (const requiredImage of ["media/progress/english-growth-evidence-dashboard.png", "media/progress/english-test-score-estimate-trends.png"]) {
