@@ -7,6 +7,7 @@ import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
 const failures = [];
 const fail = (message) => failures.push(message);
 const journalPath = path.join(recordsRoot, "journal.md");
+const agentsPath = path.join(root, "AGENTS.md");
 
 async function exists(target) {
   try { await fs.access(target); return true; } catch { return false; }
@@ -36,15 +37,29 @@ function tableRows(markdown) {
 let journal;
 let progress;
 let manifest;
+let agentsRules;
 try {
-  [journal, progress, manifest] = await Promise.all([
+  [journal, progress, manifest, agentsRules] = await Promise.all([
     loadJournal(),
     fs.readFile(path.join(recordsRoot, "progress.json"), "utf8").then(JSON.parse),
     fs.readFile(path.join(recordsRoot, "media-manifest.json"), "utf8").then(JSON.parse),
+    fs.readFile(agentsPath, "utf8"),
   ]);
 } catch (error) {
-  console.error(`Content check could not load the three canonical inputs: ${error.message}`);
+  console.error(`Content check could not load canonical inputs or runtime rules: ${error.message}`);
   process.exit(1);
+}
+
+const requiredFeedbackPolicies = [
+  "feedback-policy: learner-profile-evidence-boundary-v1",
+  "feedback-policy: keep-flow-recurring-patterns-v1",
+  "feedback-policy: article-preposition-context-v1",
+  "feedback-policy: asr-uncertainty-v1",
+  "feedback-policy: wrap-up-focus-1-or-2-v1",
+  "feedback-policy: no-forced-repeat-v1",
+];
+for (const policy of requiredFeedbackPolicies) {
+  if (!agentsRules.includes(policy)) fail(`Runtime conversation policy is missing: ${policy}`);
 }
 
 for (const [name, section] of Object.entries(journal.sections)) {
