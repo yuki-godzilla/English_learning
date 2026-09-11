@@ -74,21 +74,21 @@
       "path": "learning-records/media/progress/english-growth-evidence-dashboard.png",
       "status": "generated",
       "role": "English growth dashboard",
-      "alt": "Session 1からSession 12までの英語力成長グラフ",
-      "caption": "progress.jsonから生成したSession 1〜12の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
+      "alt": "Session 1からSession 13までの英語力成長グラフ",
+      "caption": "progress.jsonから生成したSession 1〜13の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "c91ba06711287e4834d85c27bfce974526979b309e4fe30ec0331f63f83976ea"
+      "sha256": "055157c7e5c76ff24d8cae2c15d9d3cbbe38a84fe8ca4395af7668e534f40da0"
     },
     {
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",
       "status": "generated",
       "role": "Estimated test score trends",
-      "alt": "Session 1からSession 12までの資格スコア予測の推移グラフ",
+      "alt": "Session 1からSession 13までの資格スコア予測の推移グラフ",
       "caption": "progress.jsonから生成した学習用の資格スコア目安。正本の会話根拠が十分な節目だけを履歴点として描画し、記録が薄い回を補間しない。各技能の最新根拠Session、確度、未測定範囲を区別し、公式試験結果とは扱わない。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "3dc7927ffba65c042e0d5c9603f6994c59e8b557ab6ef5625fc0ddd9600f88af"
+      "sha256": "fc11218eefc3edede630351bef5d0527a21ce34ff527c54c9bd152988f7c4f62"
     },
     {
       "path": "learning-records/archive/media/electricity-demand-chart.png",

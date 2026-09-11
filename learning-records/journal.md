@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 13 — 最終面接の振り返りと英語で読む日本ミステリー](#session-2026-09-12-01)
   - [Session 12 — GPT-6 Astraの音読・自律性の議論と直接発音評価](#session-2026-09-06-01)
   - [Session 11 — AI時代の価値創造と朝の集中時間](#session-2026-09-04-01)
   - [Session 10 — キャリア選択を冷静に考える](#session-2026-09-02-01)
@@ -30,32 +31,32 @@
 # 今日の5分復習
 
 <details>
-<summary>モデル名を聞き取りやすく読む</summary>
+<summary>会社選びの軸を自然に始める</summary>
 
-**G-P-T six Astra**
-
-</details>
-
-<details>
-<summary>AIの自律性と人のチェックポイントを説明する</summary>
-
-**AI should work autonomously within clear requirements and checkpoints.**
+**There were two things that were important to me when I chose a company.**
 
 </details>
 
 <details>
-<summary>要件定義の重要性を説明する</summary>
+<summary>研究とエネルギーインフラのつながりを説明する</summary>
 
-**Before we build the system, we need to define the requirements clearly.**
+**I saw a connection between my research and the company’s role in energy infrastructure.**
 
 </details>
 
 <details>
-<summary><em>vibe</em> の意味とホテルの例文を思い出す</summary>
+<summary>迷いがなくなったことを伝える</summary>
 
-意味は「雰囲気、感じ」。
+**I had made up my mind.**
 
-**The hotel has a calm, relaxing vibe.**
+</details>
+
+<details>
+<summary>次に読む英語版の本を思い出す</summary>
+
+**<em>Confessions</em> by Kanae Minato**
+
+先に日本語版や映像で物語を知り、英語版では語彙と表現へ集中する。
 
 </details>
 
@@ -64,6 +65,151 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":13,"session_id":"2026-09-12-01","date":"2026-09-12","title":"最終面接の振り返りと英語で読む日本ミステリー","tags":["Career / Interview","Reading","Literature"],"remember":"エネルギーインフラへの関心は学生時代から一貫している。英語読書では、日本語の物語や映像を足場に英語版へ進む。","prompt":"How can I explain a consistent career story and build an effective English-reading habit?"} -->
+<a id="session-2026-09-12-01"></a>
+
+## 2026年9月12日（土）— 最終面接の振り返りと英語で読む日本ミステリー
+
+> **Session 13 / Recorded session window:** Morning JST
+> **主な話題:** 最終面接、キャリア動機の一貫性、エネルギーインフラ、英語で読む日本ミステリー
+
+> [!NOTE]
+> 会話能力の5指標は本日のリアルタイム会話全体から見直した。発音評価用の録音を回収・直接分析していないため、Pronunciation、WPM、ポーズは評価しない。
+
+### 今日の要点 / Today at a Glance
+
+Yukiは、エネルギーインフラ企業の最終面接を終え、面接の雰囲気と回答の手応えを振り返った。面接では、新卒時に製造業を選んだ理由と、現在エネルギーインフラ企業を志望する理由の一貫性を問われた。Yukiは、当時から「ITを重視する製造業」と「社会を支えるエネルギーインフラ」という二つの軸を持っていたこと、大学ではレーザー核融合を研究し、エネルギーを通じて社会へ貢献する仕事に関心があったことを説明した。新卒採用がCOVID-19 pandemicと重なり、企業を知る機会が限られていたという背景も加えることで、現在の志望が突然の方向転換ではないと伝えた。
+
+後半は、英語で小説を読む習慣について話した。Keigo Higashinoの英訳は日本の人名や設定が親しみやすく、英語へ集中しやすい。一方、Agatha Christieの *And Then There Were None* では、登場人物名を追う負荷が高かった。そこで、日本語版を先に読む、または映像化作品を先に見ることで物語を理解し、その後に英語版で語彙・表現へ集中する学習法を整理した。次の候補は *The Keeper of the Camphor Tree* by Keigo Higashinoと、Chappyが推薦した *Confessions* by Kanae Minatoである。
+
+### 話題別メモ / Topic Notes
+
+#### 最終面接で伝えた一貫したキャリアストーリー
+
+- 会社選びで重視してきた二つの軸は、ITを重視する製造業と、社会を支えるエネルギーインフラだった。
+- 大学のレーザー核融合研究と、エネルギーインフラ企業の社会的役割の間に明確なつながりを感じている。
+- 新卒採用期はCOVID-19 pandemicと重なり、企業説明や情報収集の機会が限られた。現在の志望は、当時からあった関心を改めて実現する選択である。
+- 転職先候補から正式なオファーがあれば受諾し、結果が違えば現職の新しい役割で働く。二つの可能性を整理し、迷いなく説明できた。
+
+#### 日本ミステリーを英語で読む
+
+- *The Devotion of Suspect X* の終盤で `cried` より強い `barked` が使われた表現が印象に残り、英訳ならではの語の選び方へ関心を持った。
+- 海外作品では、人名と人物関係を覚える負荷が物語理解を難しくする場合がある。日本の設定を持つ英訳作品は、その負荷を下げて英語へ集中しやすい。
+- 先に日本語版を読む、または映画・アニメなどのadaptationを見る方法は、内容理解を補助する有効なscaffoldingである。
+- *Kusunoki no Bannin* のアニメ映画をすでに見ているため、英語版 *The Keeper of the Camphor Tree* は、この方法を試す具体的な一冊になる。
+
+#### 次の読書候補
+
+1. **<em>The Keeper of the Camphor Tree</em> by Keigo Higashino** — 映像で物語と登場人物を知っているため、英語表現へ集中しやすい。
+2. **<em>Confessions</em> by Kanae Minato** — 日本を舞台にした英訳の心理ミステリー。短めで展開が速く、Higashino以外の日本人作家へ広げる最初の候補。
+3. **<em>The Honjin Murders</em> by Seishi Yokomizo** — 日本の古典的な本格ミステリーを英語で読む次段階の候補。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. エネルギーインフラへの関心は、大学の研究から現在まで一貫している。
+2. 最終面接では、現職を選んだ過去を否定せず、当時の状況と現在の志望を一つのキャリアストーリーとして説明できた。
+3. 転職先候補から正式なオファーがあれば受諾し、なければ現職を続ける。今はその方針に迷いがない。
+4. 英語読書は、既知の物語や日本の設定を使うと内容理解の負荷が下がり、語彙と表現へ集中できる。
+5. *The Keeper of the Camphor Tree* を英語で読み、その後に *Confessions* へ挑戦する。
+
+### 役立つ英語 / Useful English
+
+#### 🔵 会社選びの軸を簡単に伝える
+
+**Natural / Conversational**
+There were two things that were important to me when I chose a company.
+
+**Professional**
+I had two main criteria when choosing a company as a new graduate.
+
+**Point**
+`criteria`が固いと感じるときは、`two things that were important to me`で同じ意味を自然に説明できる。
+
+#### 🔵 研究と志望先のつながりを示す
+
+**Natural / Conversational**
+I saw a connection between my research and the company’s role in energy infrastructure.
+
+**Professional**
+My research background aligns with the company’s role in supporting essential energy infrastructure.
+
+**Point**
+`see a connection between A and B`は、二つの経験や関心の共通点を説明する再利用しやすいchunk。
+
+#### 🔵 決意を伝える
+
+**Natural / Conversational**
+I had made up my mind.
+
+**Professional**
+I had reached a clear decision about my next career step.
+
+**Point**
+`make up my mind`は「迷った後で決める」。`determination`や`resolve`より会話で使いやすい。
+
+#### 🔵 日本語版・映像を英語読書に使う
+
+**Natural / Conversational**
+Before reading a book in English, I read it in Japanese or watch an adaptation first.
+
+**Professional**
+Knowing the story in advance allows me to focus more closely on the English vocabulary and expressions.
+
+**Point**
+`adaptation`は小説をもとに作られた映画・ドラマ・アニメなどの翻案作品を指す。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**Pronunciation: N/A（今回は直接音声評価なし）。** 通常の音声会話は行ったが、専用録音を回収・直接分析していないため、個別音、強勢、リズム、イントネーションを採点しない。
+
+会話上の高価値な最小修正は一つだけ扱う。
+
+| Yuki’s English | Correction | Why / Chunk |
+|---|---|---|
+| **I was enjoyed.** | **I enjoyed it.** | `enjoy`はここでは能動形。再利用chunk: **I enjoyed the movie.** |
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+Yukiは、面接の雰囲気を述べるだけでなく、新卒時の判断、COVID-19 pandemic、大学研究、エネルギーインフラへの関心、現在の決意を一つの長い説明へまとめた。必要な語を質問し、`criteria`より簡単な言い方を求め、`sincerity`は文全体の言い換えではなく直接の訳だけが必要だと会話を修正した。後半は自分から話題を変え、英語読書の難しさと具体的な解決策を説明した。
+
+整数レベルはSession 12から変更しない。長い説明にはhesitation、restart、語形・時制の揺れが残る一方、話題の目的を保ち、必要な支援を選び、結論まで会話を進めたため、Task achievementとInteraction & repairはL4・強い、FluencyとLexicalはL3・強い、GrammarはL3・安定を維持する。これは「変化がない」のではなく、異なる話題でも既存の行動が再現されたことを示す。
+
+| Metric | Level | Evidence |
+|---|---:|---|
+| Task achievement | **L4・強い** | 過去の会社選びと現在の志望を、研究・社会的役割・当時の制約へつなぎ、一貫した面接回答として完結した。 |
+| Fluency & coherence | **L3・強い** | 停止や組み替えがあっても長いキャリア説明と読書の議論を維持し、結論へ進んだ。 |
+| Lexical resource | **L3・強い** | `graduate recruitment`、`criteria`、`sincerity`、`determination`、`hesitation`、`adaptation`を文脈に応じて確認・利用した。 |
+| Grammar control | **L3・安定** | 過去形、語形、能動・受動に揺れはあるが、因果・対比・条件を含む主要な意味を伝えた。 |
+| Interaction & repair | **L4・強い** | 欲しい訳の粒度を明示し、誤解を訂正し、自分で話題転換と終了を管理した。 |
+| Pronunciation | **N/A** | 専用録音の回収・直接分析なし。通常会話の文字起こしからは採点しない。 |
+
+### 学習バンク更新 / Study Banks Update
+
+- [Expression Bank](#journal-expression-bank): 新規4件
+- [Vocabulary Bank](#journal-vocabulary-bank): 新規6件
+- [Pronunciation & Speaking Bank](#journal-speaking-bank): Speaking chunk 1件。発音の新規採点なし
+
+> [!TIP]
+> 面接の長い回答では、最初に `There were two things that were important to me.` と全体像を示してから、一つずつ理由を説明すると聞き手が追いやすい。
+
+### 次回 / Next Steps
+
+1. *The Keeper of the Camphor Tree* の英語版を読み始め、映画で知っている場面の英語表現を一つ選ぶ。
+2. `main point → reason → example → conclusion`を使い、志望動機を60秒で一度だけ話す。
+3. `I enjoyed the movie.`のように、感想を能動形の短い文で言う。
+
+### Sources / References
+
+[Hachette Book Group — *Confessions* by Kanae Minato](https://www.hachettebookgroup.com/titles/kanae-minato/confessions/9780316200929/)
+
+[Hachette UK — *The Keeper of the Camphor Tree* by Keigo Higashino](https://www.hachette.co.uk/titles/keigo-higashino/the-keeper-of-the-camphor-tree/9780349147864/)
+
+[Penguin Random House — *The Honjin Murders* by Seishi Yokomizo](https://www.penguinrandomhouse.com/books/635153/the-honjin-murders-by-seishi-yokomizo/)
+
+[ページ先頭へ戻る](#journal-contents) · [Session Index](#journal-sessions)
+
+---
 
 <!-- session-meta: {"session_number":12,"session_id":"2026-09-06-01","date":"2026-09-06","title":"GPT-6 Astraの音読・自律性の議論と直接発音評価","tags":["AI / Tech","Pronunciation","Reading","Software Design"],"remember":"AIの自律性は、明確な要件と人のチェックポイントの中で使う。表面上動くソフトウェアでも、設計・バックエンド・テストには隠れた問題があり得る。","prompt":"How can we use autonomous AI while keeping human checkpoints?"} -->
 <a id="session-2026-09-06-01"></a>
@@ -1430,12 +1576,14 @@ Why: 改善点には work on / focus on が自然。
 ## できるようになったこと
 
 **最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
+**最新の会話評価： [Session 13（2026年9月12日）](#session-2026-09-12-01)**
 
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
 - 朝のルーティンからAI支援開発、AI時代の価値創造まで、身近な例と抽象的な考えをつないで説明できる。
 - AIの自律性、要件定義、設計レビューのような抽象的な技術テーマでも、誤解を修正しながら自分の結論まで会話を続けられる。
+- 新卒時の会社選び、大学研究、社会的な関心、現在の転職判断を、一貫した面接ストーリーとして説明できる。
+- 読書中の困難を「人物名を追う負荷」と具体化し、日本語版・映像を足場に英語へ進む解決策を自分で提案できる。
 - 本人の「英語がかなりスムーズに出る」という感覚と、長い技術議論を維持できた事実が一致しており、Fluency L3内で発話の自動化が進んでいる。
 - 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
 
@@ -1448,40 +1596,41 @@ Why: 改善点には work on / focus on が自然。
 | **Session 1** | 身近な旅行の話は成立したが、流暢さ・語彙・文法はL2形成中。ここを観察上の出発点とする。 |
 | **Session 3** | 面接テーマで結論と理由を自力で展開し、Task achievementとInteraction & repairがL4形成中へ到達。 |
 | **Session 6** | 複数の技術・業務論点を目的へまとめたため、Task achievementを従来のL3から**L4形成中**へ訂正。 |
-| **Session 7〜12** | 抽象的な技術・文化・キャリアの話題を長く維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。 |
+| **Session 7〜13** | 抽象的な技術・文化・キャリアの話題を長く維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 13では面接ストーリーと読書法という異なる話題でも同じ行動を再現した。 |
 | **Pronunciation** | 直接音声があるSession 8・12だけL3安定。課題文が異なるため、両者の優劣や過去回への遡及採点は行わない。 |
 
 ## Current Snapshot
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4・強い / Session 12** | 記事の理解からAIの自律性と人のチェックポイントという結論まで、理由をつないで完結できた。 |
-| **Fluency & coherence** | **L3・強い / Session 12** | 言い直しがあっても長い技術議論の軸を保った。本人実感も含め、L3内でスムーズさが前進している。 |
-| **Lexical resource** | **L3・強い / Session 12** | 専門語を確認して再利用し、自分の実務的な懸念を説明できた。語探しには支援が残る。 |
-| **Grammar control** | **L3・安定 / Session 12** | 断片や語形の揺れはあるが、条件・原因・対比を使って主要な意図を明確に伝えた。 |
-| **Interaction & repair** | **L4・強い / Session 12** | 誤解を自分から訂正し、記事へ戻す・説明を易しくするなど会話を目的へ戻せた。 |
+| **Task achievement** | **L4・強い / Session 13** | 過去と現在の会社選びを、研究・社会的関心・当時の制約へつなぎ、一貫した面接ストーリーとして完結した。 |
+| **Fluency & coherence** | **L3・強い / Session 13** | 停止や言い直しがあっても、長いキャリア説明と読書の議論を維持して結論へ進んだ。 |
+| **Lexical resource** | **L3・強い / Session 13** | 面接と文学の両方で必要な語を確認し、意図に合う表現を選びながら説明した。語探しには支援が残る。 |
+| **Grammar control** | **L3・安定 / Session 13** | 時制・語形・能動と受動に揺れはあるが、因果・対比・条件を使って主要な意図を明確に伝えた。 |
+| **Interaction & repair** | **L4・強い / Session 13** | 欲しい訳の粒度を明示し、誤解を訂正し、自分で話題転換と終了を管理した。 |
 | **Pronunciation** | **L3・安定 / Session 12直接音声** | 36秒の音読で、明瞭さの補助指標、安定した速度、音割れなしを確認。標準音素採点ではない。 |
 
 ## 発音の測定状況
 
-Session 12では、標準60秒課題とは別の技術英文を直接録音で評価し、全体の明瞭さは **L3 / Mostly independent** と保守的に記録した。Session 8と同じL3だが、文章・長さが異なるため発音変化の判定には使わない。会話能力の5指標は、本日の会話全体を根拠に独立して評価した。
+最新の直接発音評価はSession 12で、標準60秒課題とは別の技術英文を直接録音し、全体の明瞭さを **L3 / Mostly independent** と保守的に記録した。Session 13では専用録音を回収・直接分析していないため、PronunciationはN/Aであり、最後の実測値を上書きしない。会話能力の5指標だけをSession 13の全会話から更新した。
 
 ## 成長グラフ
 
-[![Session 1からSession 12までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 13までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から12までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表し、初期の大きな伸びと直近のレベル内成長を分けて読めるようにしました。Session 12の会話能力5指標は本日の会話全体、Pronunciationは直接音声から評価しています。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
+Session 1から13までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表し、初期の大きな伸びと直近のレベル内成長を分けて読めるようにしました。Session 13の会話能力5指標は本日の会話全体から評価し、PronunciationはN/Aです。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
 
 ## 次に伸ばすこと
 
-1. 60秒回答を `main point → reason → example → conclusion` で安定して完結する。
-2. 長い発話では、過去時制・語順・複数形を一度だけ意識して整える。
+1. 長い面接回答は最初に `There were two things...` と全体像を示し、その後に理由を一つずつ説明する。
+2. 経験を話すときは、過去形と `I enjoyed it.` のような能動形を一度だけ意識して整える。
 3. 直接録音がある回だけ、強勢・リズム・つながりを測定し、発音の変化を比較する。
 
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 13 — 最終面接の振り返りと英語で読む日本ミステリー](#session-2026-09-12-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。異なる二つの話題でも長い説明と対話修復を再現。
 - [Session 12 — GPT-6 Astraの音読・自律性の議論と直接発音評価](#session-2026-09-06-01) — 会話全体をL4 / L3 / L3 / L3 / L4、36秒の直接音声をPronunciation L3として評価。FluencyはL3内での前進も記録。
 - [Session 11 — AI時代の価値創造と朝の集中時間](#session-2026-09-04-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
 - [Session 10 — キャリア選択を冷静に考える](#session-2026-09-02-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
@@ -1500,19 +1649,19 @@ Session 1から12までの6指標を時系列で表示しています。整数�
 | 試験・尺度 | 学習用レンジ | 最後に根拠を更新した回 |
 |---|---:|---:|
 | TOEIC L&R | **820–900 / 990** | Session 8 |
-| TOEIC Speaking | **140–160 / 200** | Session 12 |
+| TOEIC Speaking | **140–160 / 200** | Session 13 |
 | TOEIC Writing | **140–160 / 200** | Session 8 |
-| IELTS Speaking | **Band 5.5–6.5** | Session 12 |
-| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 12 |
-| Cambridge English | **155–170（B1上位〜B2）** | Session 12 |
-| CEFR 会話 | **B1+–B2** | Session 12 |
-| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 12 |
+| IELTS Speaking | **Band 5.5–6.5** | Session 13 |
+| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 13 |
+| Cambridge English | **155–170（B1上位〜B2）** | Session 13 |
+| CEFR 会話 | **B1+–B2** | Session 13 |
+| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 13 |
 
 [![資格スコア予測の推移グラフ](media/progress/english-test-score-estimate-trends.png)](media/progress/english-test-score-estimate-trends.png)
 
-試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジで、初期からの変化を示します。記録が十分でない回は補間していません。Session 12では会話全体と36.05秒の直接音声を根拠にSpeaking・oral interactionの6種別を更新しました。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
+試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジで、初期からの変化を示します。記録が十分でない回は補間していません。Session 13では、面接と読書という異なる話題で長い説明と対話修復が再現されたため、Speaking・oral interactionの6種別を最新根拠へ接続し、レンジは維持しました。発音の最後の直接測定はSession 12です。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
 
-いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 12の評価](#session-2026-09-06-01)で確認できます。
+いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 13の評価](#session-2026-09-12-01)で確認できます。
 
 ## 評価の読み方
 
@@ -1523,6 +1672,15 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年9月12日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **There were two things that were important to me when I chose a company.** | 会社選びの軸を、難しい語を使わず最初に二つあると示す。続けて`First... / Second...`で説明できる。 | [Session 13](#session-2026-09-12-01) |
+| **I saw a connection between my research and the company’s role in energy infrastructure.** | 研究経験と企業・仕事の社会的役割の共通点を、志望動機として自然につなぐ。 | [Session 13](#session-2026-09-12-01) |
+| **I had made up my mind.** | 迷った後で決意が固まったことを会話的に伝える。**Example:** I had made up my mind before the final interview. | [Session 13](#session-2026-09-12-01) |
+| **Before reading a book in English, I read it in Japanese or watch an adaptation first.** | 既知の物語を足場にして英語版を読む学習法を説明する。 | [Session 13](#session-2026-09-12-01) |
 
 ## 2026年9月6日
 
@@ -1626,6 +1784,17 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年9月12日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **graduate recruitment** /ˈɡrædʒ.u.ət rɪˈkruːt.mənt/ noun phrase | **意味:** 新卒採用。**Plain English:** hiring people who are finishing or have recently finished university. **Collocation:** graduate recruitment program. **Example:** I joined the company through its graduate recruitment program. | [Session 13](#session-2026-09-12-01) |
+| **criterion / criteria** /kraɪˈtɪr.i.ən/ /kraɪˈtɪr.i.ə/ noun | **意味:** 判断基準。`criterion`は単数、`criteria`は複数。**Collocation:** selection criteria / two main criteria. **Example:** I had two main criteria when choosing a company. | [Session 13](#session-2026-09-12-01) |
+| **sincerity** /sɪnˈser.ə.t̬i/ noun | **意味:** 誠意、誠実さ。**Plain English:** honest and genuine intention. **Collocation:** show sincerity / demonstrate sincerity. **Example:** Their consistent communication showed sincerity. | [Session 13](#session-2026-09-12-01) |
+| **determination** /dɪˌtɝː.məˈneɪ.ʃən/ noun | **意味:** 決意。**Plain English:** a firm decision to do something. **Collocation:** show determination / a sense of determination. **Example:** I spoke with determination in the final interview. | [Session 13](#session-2026-09-12-01) |
+| **hesitation** /ˌhez.əˈteɪ.ʃən/ noun | **意味:** 迷い、ためらい。**Collocation:** without hesitation / have no hesitation. **Example:** I had no hesitation about my decision. | [Session 13](#session-2026-09-12-01) |
+| **adaptation** /ˌæd.æpˈteɪ.ʃən/ noun | **意味:** 小説などを映画・ドラマ・アニメへ翻案した作品。**Collocation:** film adaptation / animated adaptation. **Example:** I watched the animated adaptation before reading the novel in English. | [Session 13](#session-2026-09-12-01) |
 
 ## 2026年9月6日
 
@@ -1735,6 +1904,12 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-speaking-bank"></a>
 
 # 発音・スピーキングバンク / Pronunciation & Speaking Bank
+
+## 2026年9月12日
+
+| Word / Chunk | Speaking / Focus / Practice | Source |
+|---|---|---|
+| **I enjoyed the movie.** | **Speaking:** 感想では`enjoy`を能動形で使う。`I was enjoyed`ではなく`I enjoyed it / the movie.`。今回は文法chunkであり、発音の新規採点ではない。 | [Session 13](#session-2026-09-12-01) |
 
 ## 2026年9月6日
 

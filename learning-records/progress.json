@@ -1,7 +1,7 @@
 {
   "methodology": {
     "name": "Exam-informed, evidence-based English conversation tracking",
-    "status": "Retrospective evidence audit completed through Session 12 on 2026-09-06",
+    "status": "Retrospective evidence audit completed through Session 12; current evidence updated through Session 13 on 2026-09-12",
     "disclaimer": "This is a personal learning record based on Daily Notes and transcript excerpts, not a standardized English proficiency test.",
     "comparison_rule": "Change the core L1-L5 level only when the recorded evidence supports the full rubric threshold. Retrospective within-level stages may show cautious progress inside the same L band, but they are not standardized scores and task-condition differences must remain explicit.",
     "design_references": [
@@ -398,15 +398,42 @@
       "evidence_quote_origin": "Spontaneous explanation in the realtime conversation; pauses and restarts lightly regularized.",
       "evidence_note_ja": "GPT-6 Astraの公式記事を音読し、内容を要約・確認しながら、AIの自律性、要件定義、人のチェックポイント、表面から見えないbackendリスクについて自分の立場を理由付きで議論した。誤解が生じた場面では記事を続けるよう明確に軌道修正し、autonomy、requirement、checkpointなどの専門語を確認して再利用した。停止・繰り返し・文法の揺れは残るためFluency・Lexical・GrammarはL3、結論と理由を展開したTask achievementと自発的に会話を修正したInteraction & repairはL4とする。本人も以前より英語がかなりスムーズに出る実感を報告しており、長い技術議論を維持した観察事実と合わせてL3内の流暢さの前進として記録する。36.05秒の直接音声は音割れなく、発話部分27.87秒、認識速度約123.6語/分、文章一致率94.1%だったため、Pronunciationは保守的にL3とする。標準60秒課題と異なるため、発音の過去差は判定しない。",
       "evidence_note": "Read the official GPT-6 Astra material and sustained a technical discussion about AI autonomy, requirements, human checkpoints, and hidden backend risks, giving reasons for a personal position. Explicitly redirected the conversation when it drifted and reused technical terms after checking them. Pauses, repetitions, word searches, and grammatical instability keep fluency, lexis, and grammar at L3; independently developing the conclusion and repairing the interaction support L4 for task achievement and interaction. The learner also reports that English is coming out much more smoothly, which is recorded as within-level fluency progress alongside the observed sustained discussion. A direct 36.05-second recording showed no clipping, 27.87 seconds of active speech, about 123.6 recognized words per minute, and a 94.1% word-match ratio, supporting a conservative L3 pronunciation rating. Because the passage differs from the standard 60-second task, no pronunciation change is inferred."
+    },
+    {
+      "session": 13,
+      "date": "2026-09-12",
+      "task": "Final-interview reflection, consistent career motivation, and English-reading strategy",
+      "task_ja": "最終面接の振り返り・一貫したキャリア動機・英語読書戦略",
+      "data_coverage": "Full realtime conversation transcript covering a sustained interview narrative, vocabulary clarification, interaction repair, topic change, and an English-reading discussion. No comparable 60-second benchmark and no dedicated recording was collected or directly analyzed, so pronunciation is not rated.",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": null
+      },
+      "evidence_quote": "I saw a connection between my university research and the company's role in energy infrastructure ... I had made up my mind.",
+      "evidence_quote_origin": "Spontaneous final-interview reflection in the realtime conversation; pauses and restarts lightly regularized.",
+      "evidence_note_ja": "新卒時の会社選び、COVID-19 pandemicによる情報収集の制約、大学でのレーザー核融合研究、エネルギーインフラへの関心、現在の転職判断を一つの面接ストーリーとして説明した。後半は英語で小説を読む難しさを人物名と設定の負荷として具体化し、日本語版や映像を先に使う学習法を提案した。hesitation、restart、時制・語形の揺れは残るが、長い説明の目的を保ち、必要な語を確認し、直接の訳だけが欲しい場面では回答の粒度を明確に修正した。異なる二つの話題で同じ行動を再現したため、Task achievementとInteraction & repairはL4・強い、FluencyとLexicalはL3・強い、GrammarはL3・安定を維持する。専用録音を回収・直接分析していないためPronunciationはN/Aとし、Session 12の最終実測値を更新しない。",
+      "evidence_note": "Connected the original company choice, limited information during the COVID-19 pandemic, university research in laser fusion, motivation toward energy infrastructure, and the current career decision into one sustained interview narrative. Later identified unfamiliar character names and settings as a specific obstacle in English fiction and proposed using a Japanese edition or adaptation as scaffolding. Hesitation, restarts, and unstable tense and word forms remain, but the learner maintained the purpose of long explanations, checked needed vocabulary, and explicitly repaired the response when only a direct translation was wanted. Reproducing these behaviors across two different topics supports retaining Task achievement and Interaction & repair at strong L4, Fluency and Lexical resource at strong L3, and Grammar control at established L3. No dedicated recording was collected or directly analyzed, so pronunciation is N/A and the last directly measured value from Session 12 is not updated."
     }
   ],
   "test_score_estimates": {
     "methodology_version": "1.1",
     "status": "Non-official learning estimates, not standardized test results or guaranteed score conversions",
-    "as_of_session": 12,
-    "as_of_date": "2026-09-06",
+    "as_of_session": 13,
+    "as_of_date": "2026-09-12",
     "official_scales_checked_on": "2026-08-28",
-    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
+    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. Session 13 adds full-conversation evidence for interview narrative, vocabulary clarification, interaction repair, and English-reading strategy, but no new direct audio assessment. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
     "history_policy": "Retrospective milestone estimates are permitted only where the canonical record contains enough speaking or oral-interaction evidence. Do not create a point for every session or interpolate missing sessions. Keep user-reported actual results visually and structurally separate from estimates.",
     "historical_results": [
       {
@@ -838,6 +865,65 @@
             "display": "Intermediate High–Advanced Low",
             "confidence": "medium-low",
             "comment_ja": "技術テーマでconnected discourseを維持し、英語が以前よりスムーズに出る本人実感とも一致した。一方、時制・文構造・流暢さの安定には揺れがあるため境界レンジを維持する。"
+          }
+        }
+      },
+      {
+        "session": 13,
+        "date": "2026-09-12",
+        "update_scope": "Speaking and oral-interaction estimates are reviewed from the full Session 13 realtime conversation. The learner sustained an interview narrative and an English-reading discussion and repaired multiple misunderstandings. No direct audio analysis or standardized timed task was completed, so ranges are retained and pronunciation-dependent confidence remains cautious.",
+        "not_updated": {
+          "toeic_lr": "No new standardized or timed listening-and-reading task was completed in Session 13; retain the Session 8 estimate without adding a new prediction point.",
+          "toeic_writing": "No direct timed writing task was completed in Session 13; retain the Session 8 estimate without adding a new prediction point."
+        },
+        "estimates": {
+          "toeic_speaking": {
+            "low": 140,
+            "mid": 150,
+            "high": 160,
+            "display": "140–160 / 200",
+            "confidence": "medium-low",
+            "comment_ja": "面接の志望動機を過去の選択・研究・社会的関心・現在の決意へつなぎ、読書テーマでも理由と解決策を説明した。公式形式、時間制限、直接音声は未測定のためレンジを維持する。"
+          },
+          "ielts_speaking": {
+            "low": 5.5,
+            "mid": 6,
+            "high": 6.5,
+            "display": "Band 5.5–6.5",
+            "confidence": "medium-low",
+            "comment_ja": "長いキャリア説明と読書の議論を維持し、必要な語と回答の粒度を自発的に調整した。hesitationと文法の揺れが残り、発音を直接評価していないため中心予測はBand 6のまま。"
+          },
+          "toefl_speaking": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "3.5–4.0 / 6（旧尺度目安 18–22 / 30）",
+            "confidence": "low",
+            "comment_ja": "意見・理由・背景・結論をつないだ発話は確認したが、統合型課題、時間制限、deliveryの直接音声評価がないため低確度で据え置く。"
+          },
+          "cambridge_speaking": {
+            "low": 155,
+            "mid": 162.5,
+            "high": 170,
+            "display": "155–170（B1上位〜B2）",
+            "confidence": "medium-low",
+            "comment_ja": "異なる二つの話題でdiscourseを維持し、語義・質問意図・訂正量を自発的に調整した。公式ペア課題と直接発音評価がないため境界レンジを維持する。"
+          },
+          "cefr_oral": {
+            "low": 3.5,
+            "mid": 3.75,
+            "high": 4,
+            "display": "B1+–B2",
+            "confidence": "medium",
+            "comment_ja": "関心のあるキャリアと文学の話題で、背景・理由・結論を複数turnにわたり説明し、誤解を自力で修復できた。B1+からB2へ向かうCan-doを別話題でも再確認した。"
+          },
+          "actfl_speaking": {
+            "low": 6,
+            "mid": 6.5,
+            "high": 7,
+            "display": "Intermediate High–Advanced Low",
+            "confidence": "medium-low",
+            "comment_ja": "キャリアの過去・現在・条件付きの将来をconnected discourseとして説明した。一方、時制・語形・長い発話の構成には揺れがあるため境界レンジを維持する。"
           }
         }
       }
