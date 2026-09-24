@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 14 — AIモデルの費用・性能比較と英語読書の進展](#session-2026-09-24-01)
   - [Session 13 — 最終面接の振り返りと英語で読む日本ミステリー](#session-2026-09-12-01)
   - [Session 12 — GPT-6 Astraの音読・自律性の議論と直接発音評価](#session-2026-09-06-01)
   - [Session 11 — AI時代の価値創造と朝の集中時間](#session-2026-09-04-01)
@@ -31,32 +32,32 @@
 # 今日の5分復習
 
 <details>
-<summary>会社選びの軸を自然に始める</summary>
+<summary>二つのモデルを費用と性能の両方で比べる</summary>
 
-**There were two things that were important to me when I chose a company.**
-
-</details>
-
-<details>
-<summary>研究とエネルギーインフラのつながりを説明する</summary>
-
-**I saw a connection between my research and the company’s role in energy infrastructure.**
+**I want to compare these models by both cost and benchmark performance.**
 
 </details>
 
 <details>
-<summary>迷いがなくなったことを伝える</summary>
+<summary>物語の展開を伝える</summary>
 
-**I had made up my mind.**
+**The story starts to unfold from there.**
 
 </details>
 
 <details>
-<summary>次に読む英語版の本を思い出す</summary>
+<summary>一日の読書量を伝える</summary>
 
-**<em>Confessions</em> by Kanae Minato**
+**I read forty pages in one day.**
 
-先に日本語版や映像で物語を知り、英語版では語彙と表現へ集中する。
+</details>
+
+<details>
+<summary>二冊のタイトルを区別する</summary>
+
+**<em>Silent Parade</em> / <em>The Keeper of the Camphor Tree</em>**, both by Keigo Higashino.
+
+前者は以前約1年かけて読んだ本。後者はアニメ映画を見たあと、英語版を一日に40ページ読んだ本。
 
 </details>
 
@@ -65,6 +66,106 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":14,"session_id":"2026-09-24-01","date":"2026-09-24","title":"AIモデルの費用・性能比較と英語読書の進展","tags":["AI / Tech","Reading","Literature","Model Comparison"],"remember":"GPT-6とGPT-5.6は公式API価格と同条件の独立ベンチマークで比較する。映像で物語を知った英語版小説は一日に40ページ読めた。","prompt":"How do model cost and benchmark performance compare, and what helps me read English fiction more smoothly?"} -->
+<a id="session-2026-09-24-01"></a>
+
+## 2026年9月24日（木）— AIモデルの費用・性能比較と英語読書の進展
+
+> **Session 14 / Recorded session window:** Evening JST
+> **主な話題:** GPT-6とGPT-5.6、他社モデルのベンチマーク、英語で読む小説
+
+> [!NOTE]
+> 以下の価格とベンチマークは2026年9月24日の確認時点のスナップショット。会話能力の5指標は文字起こしを含む当日の会話から見直した。専用録音の直接分析は行っていないため、Pronunciation・WPM・ポーズは今回評価しない。
+
+### 今日の要点 / Today at a Glance
+
+Yukiは、GPT-6 Sol・Lunaと従来のGPT-5.6の費用と能力を比較し、画面上のグラフにAstraが見えないことを指摘した。さらにGPT-5.6 Terraを比較へ加え、OpenAI以外のClaude、Gemini、Grok、DeepSeekも見たいと範囲を広げた。比較表とグラフを今日のレポートへ載せることを希望した。公式API価格と独立評価機関の指標は意味が異なるため、数値と出典を分けて読む。
+
+後半は英語での読書へ戻った。Yukiは、先に見たアニメ映画が物語の手がかりになり、英語版 *The Keeper of the Camphor Tree* を一日で40ページ読めたと説明した。以前の *Silent Parade* は読み終えるまで約1年かかった。Chappyが *Silent Parade* という書名を「silently」と聞き違えた際、Yukiが自分で訂正して本題を回復した。これは発音の誤りを示す証拠ではない。
+
+### 話題別メモ / Topic Notes
+
+#### GPT-6とGPT-5.6の費用・性能
+
+[OpenAI APIの公式料金表](https://developers.openai.com/api/docs/pricing)に示される標準・短いコンテキストのテキスト価格（USD / 100万トークン）と、[Artificial Analysisの独立リーダーボード](https://artificialanalysis.ai/leaderboards/models)に示されるIntelligence Index v4.3.2・評価課題あたりの加重平均費用を並べた。後者の費用はAPIの単価ではなく、この評価課題を実行した場合の推定値である。各行は推論設定を明示し、スコアを総合的な知能の絶対値として扱わない。
+
+| OpenAIモデル・設定 | 公式API 入力 / 出力（USD/100万tokens） | AA Index | AA費用 / 課題 |
+|---|---:|---:|---:|
+| GPT-6 Astra (max) | 10.00 / 50.00 | 53 | $3.26 |
+| GPT-6 Sol (max) | 2.00 / 10.00 | 48 | $1.06 |
+| GPT-6 Luna (max) | 0.10 / 0.50 | 37 | $0.07 |
+| GPT-5.6 Sol (max) | 4.00 / 20.00 | 47 | $1.99 |
+| GPT-5.6 Terra (max) | 2.00 / 12.00 | 42 | $1.40 |
+| GPT-5.6 Luna (max) | 0.20 / 1.20 | 37 | $0.18 |
+
+同じmax設定で、この評価ではGPT-6 SolはGPT-5.6 SolよりIndexが47→48、推定費用は$1.99→$1.06。LunaはIndexが37で同じ、推定費用は$0.18→$0.07。Terraには同名のGPT-6モデルがないため、GPT-6 Solと比較するとIndexは42→48、推定費用は$1.40→$1.06となる。Astraは高いIndexを示す一方で課題あたりの費用も高い。[GPT-5.6 Solの評価](https://artificialanalysis.ai/models/releases/gpt-5-6-sol)、[GPT-5.6 Lunaの評価](https://artificialanalysis.ai/models/releases/gpt-5-6-luna)も現在の同じIndex版にそろえて確認した。過去の記事に掲載された旧版のIndex値とは混ぜない。
+
+#### 他社モデルも同じ物差しで見る
+
+次の数値は[Artificial Analysisの同じリーダーボード](https://artificialanalysis.ai/leaderboards/models)から選んだ設定の例であり、各社の全モデル・全用途の順位ではない。
+
+| 会社とモデル・設定 | AA Index | AA費用 / 課題 |
+|---|---:|---:|
+| Anthropic: Claude Opus 5.5 (max with fallback) | 58 | $5.98 |
+| Google: Gemini 3.8 Flash (high) | 41 | $1.24 |
+| xAI: Grok 4.7 (xhigh) | 46 | $3.74 |
+| DeepSeek: DeepSeek V4.1 Flash (max) | 39 | $0.27 |
+
+[![GPT-6、GPT-5.6、他社モデルの独立ベンチマークスコアと課題費用の比較](media/sessions/2026-09-24-model-benchmark-comparison.png)](media/sessions/2026-09-24-model-benchmark-comparison.png)
+
+**グラフの読み方:** 左の棒は同じAA Index（長いほど高い）、右の棒は同ベンチマークを解く費用（短いほど低い）。青はGPT-6、グレーはGPT-5.6。*max with fallback* は評価側の提供条件を含む。仕事での選択には、自分の具体的なタスクで品質、速度、費用を確かめる必要がある。画像は上記公開データに基づく本プロジェクトの自作図であり、第三者のグラフを複製していない。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. モデル選びでは「新しいか」だけでなく、同じ条件での性能と費用を並べて見たい。
+2. Astraを含むGPT-6とGPT-5.6の比較に加え、他社モデルも同じベンチマークの図で見たい。
+3. 物語を映像で知っていると、英語版の人物・展開を追いやすくなり、英語表現に集中できる。
+4. *Silent Parade* には約1年かかったが、今読んでいる *The Keeper of the Camphor Tree* は一日に40ページ進んだ。速さの違いには、既知の物語と読みたい気持ちが関係していると本人は考えている。
+
+### 役立つ英語 / Useful English
+
+**The story starts to unfold from there.** — 「そこから物語が展開し始める」。Yukiは提案後にこの形を会話内で使った。
+
+**I read forty pages in one day.** — 一日の読書量を伝える短い形。会話中の訂正後に確認した文であり、自発発話だけから文法が定着したとは判定しない。
+
+**I want to compare these models by both cost and benchmark performance.** — 価格と評価結果の両方を比べたいと伝える再利用用の言い方。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**Pronunciation: N/A（今回の直接音声評価なし）。** 書名 *Silent Parade* の聞き違いはChappy側の解釈と文字起こしの曖昧さが関与しているため、Yukiの音の誤りとして数えない。必要なときにYukiが書名を繰り返して意味を修正できた。
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+技術テーマでは「価格と知能」の比較対象を明確にし、図にAstraがないことに気づいてTerraと他社モデルまで比較範囲を調整した。読書テーマでは、前に読んだ本と現在の本を時間・読書量で対比し、聞き違いを自分から訂正した。*The story starts to unfold from there* は助言後の再利用として確認できる。一方、語探し、言い直し、文の組み替えは残り、語彙と文法を上のLへ変更するための十分な根拠はない。5指標はSession 13と同じ段階を維持し、異なる技術・文学の話題でも対話修復が再現されたと記録する。
+
+| Metric | Level | Evidence |
+|---|---:|---|
+| Task achievement | **L4・強い** | 価格、独立スコア、他社比較という目的を明確にし、必要な表と図を指定した。 |
+| Fluency & coherence | **L3・強い** | 言い直しを挟みながら技術比較と読書法を説明し、会話を進めた。 |
+| Lexical resource | **L3・強い** | cost、intelligence、benchmark、unfoldなどを文脈で確認・再利用したが、表現探しには支援が残る。 |
+| Grammar control | **L3・安定** | 文の組み替えは見られたが、比較・時間経過・理由の意味は概ね明確だった。 |
+| Interaction & repair | **L4・強い** | 比較対象の追加を指示し、書名の誤解を自分で訂正して会話を戻した。 |
+| Pronunciation | **N/A** | 専用録音の回収・直接分析なし。書名の聞き違いは採点根拠にしない。 |
+
+### 学習バンク更新 / Study Banks Update
+
+- [Expression Bank](#journal-expression-bank): 新規3件
+- [Vocabulary Bank](#journal-vocabulary-bank): 新規3件
+- [Pronunciation & Speaking Bank](#journal-speaking-bank): 追加なし。今回は音声根拠を採点していない
+
+### 次回 / Next Steps
+
+1. *The Keeper of the Camphor Tree* の続きから、気に入った英語表現を一つ持ち寄る。
+2. 自分のAI作業を一つ選び、モデル選択で重視する費用と品質を英語で短く説明する。
+
+### Sources / References
+
+[OpenAI API Pricing](https://developers.openai.com/api/docs/pricing) · [OpenAI Models](https://developers.openai.com/api/docs/models) · [Artificial Analysis LLM Leaderboard](https://artificialanalysis.ai/leaderboards/models) · [Hachette UK — Silent Parade](https://www.hachette.co.uk/titles/keigo-higashino/silent-parade/9781408714966/)
+
+[ページ先頭へ戻る](#journal-contents) · [Session Index](#journal-sessions)
+
+---
 
 <!-- session-meta: {"session_number":13,"session_id":"2026-09-12-01","date":"2026-09-12","title":"最終面接の振り返りと英語で読む日本ミステリー","tags":["Career / Interview","Reading","Literature"],"remember":"エネルギーインフラへの関心は学生時代から一貫している。英語読書では、日本語の物語や映像を足場に英語版へ進む。","prompt":"How can I explain a consistent career story and build an effective English-reading habit?"} -->
 <a id="session-2026-09-12-01"></a>
@@ -1576,7 +1677,7 @@ Why: 改善点には work on / focus on が自然。
 ## できるようになったこと
 
 **最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 13（2026年9月12日）](#session-2026-09-12-01)**
+**最新の会話評価： [Session 14（2026年9月24日）](#session-2026-09-24-01)**
 
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
@@ -1584,6 +1685,7 @@ Why: 改善点には work on / focus on が自然。
 - AIの自律性、要件定義、設計レビューのような抽象的な技術テーマでも、誤解を修正しながら自分の結論まで会話を続けられる。
 - 新卒時の会社選び、大学研究、社会的な関心、現在の転職判断を、一貫した面接ストーリーとして説明できる。
 - 読書中の困難を「人物名を追う負荷」と具体化し、日本語版・映像を足場に英語へ進む解決策を自分で提案できる。
+- モデルの費用と独立ベンチマークを区別し、比較図にないモデルを指摘して対象を広げられる。英語読書では、以前約1年かけた小説と、現在一日で40ページ進んだ小説を比べ、学習法の効果を説明できる。
 - 本人の「英語がかなりスムーズに出る」という感覚と、長い技術議論を維持できた事実が一致しており、Fluency L3内で発話の自動化が進んでいる。
 - 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
 
@@ -1596,40 +1698,41 @@ Why: 改善点には work on / focus on が自然。
 | **Session 1** | 身近な旅行の話は成立したが、流暢さ・語彙・文法はL2形成中。ここを観察上の出発点とする。 |
 | **Session 3** | 面接テーマで結論と理由を自力で展開し、Task achievementとInteraction & repairがL4形成中へ到達。 |
 | **Session 6** | 複数の技術・業務論点を目的へまとめたため、Task achievementを従来のL3から**L4形成中**へ訂正。 |
-| **Session 7〜13** | 抽象的な技術・文化・キャリアの話題を長く維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 13では面接ストーリーと読書法という異なる話題でも同じ行動を再現した。 |
+| **Session 7〜14** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 14ではモデル比較と読書法という異なる話題で再現し、書名の聞き違いを自分で訂正した。 |
 | **Pronunciation** | 直接音声があるSession 8・12だけL3安定。課題文が異なるため、両者の優劣や過去回への遡及採点は行わない。 |
 
 ## Current Snapshot
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4・強い / Session 13** | 過去と現在の会社選びを、研究・社会的関心・当時の制約へつなぎ、一貫した面接ストーリーとして完結した。 |
-| **Fluency & coherence** | **L3・強い / Session 13** | 停止や言い直しがあっても、長いキャリア説明と読書の議論を維持して結論へ進んだ。 |
-| **Lexical resource** | **L3・強い / Session 13** | 面接と文学の両方で必要な語を確認し、意図に合う表現を選びながら説明した。語探しには支援が残る。 |
-| **Grammar control** | **L3・安定 / Session 13** | 時制・語形・能動と受動に揺れはあるが、因果・対比・条件を使って主要な意図を明確に伝えた。 |
-| **Interaction & repair** | **L4・強い / Session 13** | 欲しい訳の粒度を明示し、誤解を訂正し、自分で話題転換と終了を管理した。 |
+| **Task achievement** | **L4・強い / Session 14** | GPT-6とGPT-5.6を費用とベンチマークで比べ、他社の例と表・図の提示まで目的を具体化した。 |
+| **Fluency & coherence** | **L3・強い / Session 14** | 言い直しがあっても技術比較と読書の話題を維持し、読む速さの違いを説明した。 |
+| **Lexical resource** | **L3・強い / Session 14** | cost、intelligence、benchmark、unfoldを文脈で扱ったが、語探しには支援が残る。 |
+| **Grammar control** | **L3・安定 / Session 14** | 文の組み替えは残る一方、比較、時間経過、理由をおおむね明確に伝えた。 |
+| **Interaction & repair** | **L4・強い / Session 14** | AstraとTerraを比較対象へ加え、書名を聞き違えられた場面を自ら修復した。 |
 | **Pronunciation** | **L3・安定 / Session 12直接音声** | 36秒の音読で、明瞭さの補助指標、安定した速度、音割れなしを確認。標準音素採点ではない。 |
 
 ## 発音の測定状況
 
-最新の直接発音評価はSession 12で、標準60秒課題とは別の技術英文を直接録音し、全体の明瞭さを **L3 / Mostly independent** と保守的に記録した。Session 13では専用録音を回収・直接分析していないため、PronunciationはN/Aであり、最後の実測値を上書きしない。会話能力の5指標だけをSession 13の全会話から更新した。
+最新の直接発音評価はSession 12で、標準60秒課題とは別の技術英文を直接録音し、全体の明瞭さを **L3 / Mostly independent** と保守的に記録した。Session 14では専用録音を回収・直接分析していないため、PronunciationはN/Aであり、最後の実測値を上書きしない。書名の聞き違いを発音ミスとして扱わない。
 
 ## 成長グラフ
 
-[![Session 1からSession 13までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 14までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から13までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表し、初期の大きな伸びと直近のレベル内成長を分けて読めるようにしました。Session 13の会話能力5指標は本日の会話全体から評価し、PronunciationはN/Aです。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
+Session 1から14までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表し、初期の大きな伸びと直近のレベル内成長を分けて読めるようにしました。Session 14の会話能力5指標は本日の会話から評価し、PronunciationはN/Aです。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
 
 ## 次に伸ばすこと
 
-1. 長い面接回答は最初に `There were two things...` と全体像を示し、その後に理由を一つずつ説明する。
-2. 経験を話すときは、過去形と `I enjoyed it.` のような能動形を一度だけ意識して整える。
+1. 技術比較は最初に「何を、どの尺度で比べるか」を短く示し、その後に主要な差を一つ伝える。
+2. 読書の進み方は「本の名前 → 期間・ページ数 → 理由」の順に短く話す。
 3. 直接録音がある回だけ、強勢・リズム・つながりを測定し、発音の変化を比較する。
 
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 14 — AIモデルの費用・性能比較と英語読書の進展](#session-2026-09-24-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。技術比較を具体化し、書名の誤解を自分で修復。
 - [Session 13 — 最終面接の振り返りと英語で読む日本ミステリー](#session-2026-09-12-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。異なる二つの話題でも長い説明と対話修復を再現。
 - [Session 12 — GPT-6 Astraの音読・自律性の議論と直接発音評価](#session-2026-09-06-01) — 会話全体をL4 / L3 / L3 / L3 / L4、36秒の直接音声をPronunciation L3として評価。FluencyはL3内での前進も記録。
 - [Session 11 — AI時代の価値創造と朝の集中時間](#session-2026-09-04-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。
@@ -1649,19 +1752,19 @@ Session 1から13までの6指標を時系列で表示しています。整数�
 | 試験・尺度 | 学習用レンジ | 最後に根拠を更新した回 |
 |---|---:|---:|
 | TOEIC L&R | **820–900 / 990** | Session 8 |
-| TOEIC Speaking | **140–160 / 200** | Session 13 |
+| TOEIC Speaking | **140–160 / 200** | Session 14 |
 | TOEIC Writing | **140–160 / 200** | Session 8 |
-| IELTS Speaking | **Band 5.5–6.5** | Session 13 |
-| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 13 |
-| Cambridge English | **155–170（B1上位〜B2）** | Session 13 |
-| CEFR 会話 | **B1+–B2** | Session 13 |
-| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 13 |
+| IELTS Speaking | **Band 5.5–6.5** | Session 14 |
+| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 14 |
+| Cambridge English | **155–170（B1上位〜B2）** | Session 14 |
+| CEFR 会話 | **B1+–B2** | Session 14 |
+| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 14 |
 
 [![資格スコア予測の推移グラフ](media/progress/english-test-score-estimate-trends.png)](media/progress/english-test-score-estimate-trends.png)
 
-試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジで、初期からの変化を示します。記録が十分でない回は補間していません。Session 13では、面接と読書という異なる話題で長い説明と対話修復が再現されたため、Speaking・oral interactionの6種別を最新根拠へ接続し、レンジは維持しました。発音の最後の直接測定はSession 12です。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
+試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジで、初期からの変化を示します。記録が十分でない回は補間していません。Session 14では技術比較と読書の二つの話題で目的の明確化と対話修復が再確認できたため、Speaking・oral interactionの6種別を最新根拠へ接続し、レンジは維持しました。発音の最後の直接測定はSession 12です。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
 
-いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 13の評価](#session-2026-09-12-01)で確認できます。
+いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 14の評価](#session-2026-09-24-01)で確認できます。
 
 ## 評価の読み方
 
@@ -1672,6 +1775,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年9月24日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **I want to compare these models by both cost and benchmark performance.** | 価格と評価結果を一緒に見たいときの使いやすい導入。実会話の意図を整理した学習用の文。 | [Session 14](#session-2026-09-24-01) |
+| **The story starts to unfold from there.** | 「そこから物語が展開し始める」。Chappyの提案後、Yukiが会話内で言い直して使った。 | [Session 14](#session-2026-09-24-01) |
+| **I read forty pages in one day.** | 「一日で40ページ読んだ」。読書の進み方を短く伝える。会話中の言い直し後に確認した形。 | [Session 14](#session-2026-09-24-01) |
 
 ## 2026年9月12日
 
@@ -1784,6 +1895,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年9月24日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **benchmark** /ˈbentʃ.mɑːrk/ noun | **意味:** モデルなどを共通条件で評価する基準・テスト。**Collocation:** independent benchmark / benchmark score. **Example:** I want to compare the models using the same benchmark. | [Session 14](#session-2026-09-24-01) |
+| **cost per task** /kɔːst pɚ tæsk/ noun phrase | **意味:** 一つの課題を処理する推定費用。100万トークン当たりの単価とは区別する。**Example:** Cost per task depends on how many tokens the model uses. | [Session 14](#session-2026-09-24-01) |
+| **unfold** /ʌnˈfoʊld/ verb | **意味:** 物語・計画などが徐々に展開する。**Collocation:** a story unfolds. **Example:** The story starts to unfold from there. | [Session 14](#session-2026-09-24-01) |
 
 ## 2026年9月12日
 

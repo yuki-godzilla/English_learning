@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_jst": "2026-09-06",
+  "reviewed_jst": "2026-09-24",
   "review_scope": "Visible text, identifying work or affiliation details, learner-facing suitability, attribution, and license notes",
   "publishing_rules": [
     "Use an image only when it supports concept understanding, comparison, evidence, or progress review.",
@@ -71,24 +71,37 @@
       "sha256": "5dd77d7d0802a30d80aca6c44ac1f8d998a612c0daec69581cc1b4f1b7face34"
     },
     {
+      "path": "learning-records/media/sessions/2026-09-24-model-benchmark-comparison.png",
+      "status": "published",
+      "session_id": "2026-09-24-01",
+      "role": "GPT-6, GPT-5.6, and selected cross-company benchmark comparison",
+      "alt": "GPT-6とGPT-5.6および他社の選定モデルについて、Artificial AnalysisのIndexと課題あたりの費用を二列の棒で比較",
+      "caption": "Artificial Analysis Intelligence Index v4.3.2と同評価課題の加重平均費用。推論設定を各モデル名に明示した2026年9月24日時点の自作比較図。",
+      "creator": "Yuki × Chappy, original visualization from published Artificial Analysis metrics",
+      "source_url": "https://artificialanalysis.ai/leaderboards/models",
+      "license": "Project original visualization; source metrics attributed",
+      "notice": "第三者のグラフ画像は複製していない。Indexは特定の評価課題群の結果で、一般的な知能の絶対順位ではない。課題費用はAPI単価と異なる。個人情報・勤務先固有情報を含まないことを目視確認済み。",
+      "sha256": "e1b759ef7c76cc264157f0677eebecc1503c8919383c1cd5ac16c639a8f004e8"
+    },
+    {
       "path": "learning-records/media/progress/english-growth-evidence-dashboard.png",
       "status": "generated",
       "role": "English growth dashboard",
-      "alt": "Session 1からSession 13までの英語力成長グラフ",
-      "caption": "progress.jsonから生成したSession 1〜13の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
+      "alt": "Session 1からSession 14までの英語力成長グラフ",
+      "caption": "progress.jsonから生成したSession 1〜14の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "055157c7e5c76ff24d8cae2c15d9d3cbbe38a84fe8ca4395af7668e534f40da0"
+      "sha256": "f7f8cb2ac665fc30584d9e350e803370da6330e9887ed5bfc1a2071532992a13"
     },
     {
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",
       "status": "generated",
       "role": "Estimated test score trends",
-      "alt": "Session 1からSession 13までの資格スコア予測の推移グラフ",
+      "alt": "Session 1からSession 14までの資格スコア予測の推移グラフ",
       "caption": "progress.jsonから生成した学習用の資格スコア目安。正本の会話根拠が十分な節目だけを履歴点として描画し、記録が薄い回を補間しない。各技能の最新根拠Session、確度、未測定範囲を区別し、公式試験結果とは扱わない。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "fc11218eefc3edede630351bef5d0527a21ce34ff527c54c9bd152988f7c4f62"
+      "sha256": "3881838fb852abc8f57697d7acd4387b5ceaa2fb94cba2c3d1f39e25bf77d5ce"
     },
     {
       "path": "learning-records/archive/media/electricity-demand-chart.png",

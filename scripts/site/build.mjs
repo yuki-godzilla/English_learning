@@ -192,6 +192,7 @@ function cleanSessionBody(markdown, session) {
     "2026-08-27-electricity-demand-growth.png",
     "local-cloud-hybrid-ai.png",
     "2026-08-19-hybrid-ai-comparison.png",
+    "2026-09-24-model-benchmark-comparison.png",
   ]) {
     body = body.replace(new RegExp(`^.*!\\[[^\\]]*\\]\\([^\\n)]*${fileName.replaceAll(".", "\\.")}[^\\n]*$`, "gm"), "");
   }
