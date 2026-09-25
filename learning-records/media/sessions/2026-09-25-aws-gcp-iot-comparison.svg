@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="940" viewBox="0 0 1400 940">
+  <style>
+    text { font-family: Arial, sans-serif; fill: #1f2937; }
+    .title { font-size: 48px; font-weight: 700; fill: #163a5f; }
+    .subtitle { font-size: 26px; fill: #4b5563; }
+    .head { font-size: 31px; font-weight: 700; fill: #163a5f; }
+    .service { font-size: 29px; font-weight: 700; }
+    .note { font-size: 24px; fill: #4b5563; }
+    .small { font-size: 22px; fill: #4b5563; }
+    .white { fill: #ffffff; }
+  </style>
+  <rect width="1400" height="940" fill="#ffffff"/>
+  <text x="52" y="72" class="title">AWS to GCP: start from the services we discussed</text>
+  <text x="52" y="114" class="subtitle">Conceptual roles for a hypothetical IoT system — not an exact migration plan</text>
+
+  <rect x="52" y="151" width="1296" height="90" rx="18" fill="#eaf2fb" stroke="#a9c5e4" stroke-width="2"/>
+  <text x="78" y="191" class="head">First define requirements</text>
+  <text x="78" y="225" class="note">Response time · raw-event retention · retries · auditability</text>
+
+  <rect x="52" y="275" width="620" height="396" rx="18" fill="#f7f9fc" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="728" y="275" width="620" height="396" rx="18" fill="#f2faf7" stroke="#b4ddcc" stroke-width="2"/>
+  <text x="83" y="324" class="head">AWS — familiar starting point</text>
+  <text x="759" y="324" class="head">GCP — possible counterpart</text>
+  <g stroke="#cbd5e1" stroke-width="2">
+    <line x1="75" y1="412" x2="650" y2="412"/><line x1="750" y1="412" x2="1325" y2="412"/>
+    <line x1="75" y1="498" x2="650" y2="498"/><line x1="750" y1="498" x2="1325" y2="498"/>
+    <line x1="75" y1="584" x2="650" y2="584"/><line x1="750" y1="584" x2="1325" y2="584"/>
+  </g>
+  <g class="service">
+    <text x="84" y="388">Amazon S3</text><text x="760" y="388">Cloud Storage</text>
+    <text x="84" y="474">DynamoDB</text><text x="760" y="474">Firestore or Bigtable*</text>
+    <text x="84" y="560">AWS Lambda</text><text x="760" y="560">Cloud Run functions</text>
+    <text x="84" y="646">Amazon Bedrock</text><text x="760" y="646">Vertex AI-related services*</text>
+  </g>
+  <g fill="#0f766e">
+    <path d="M685 371 l22 17 -22 17 z"/><path d="M685 457 l22 17 -22 17 z"/>
+    <path d="M685 543 l22 17 -22 17 z"/><path d="M685 629 l22 17 -22 17 z"/>
+  </g>
+
+  <text x="52" y="717" class="head">Illustrative event flow</text>
+  <rect x="52" y="739" width="1296" height="77" rx="15" fill="#edf6f4" stroke="#7bbcaf" stroke-width="2"/>
+  <text x="76" y="787" class="service">Device event  →  store raw data  →  trigger processing  →  query state</text>
+  <text x="52" y="858" class="head">Users may want speed; engineers also need traceability.</text>
+  <text x="52" y="894" class="note">Choose the path after the stakeholders agree on measurable targets.</text>
+  <text x="52" y="925" class="small">* Select by workload and feature needs. Products are not one-to-one replacements.</text>
+</svg>

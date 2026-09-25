@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 15 — キャリアの転機とAWS・GCPの設計比較](#session-2026-09-25-01)
   - [Session 14 — AIモデルの費用・性能比較と英語読書の進展](#session-2026-09-24-01)
   - [Session 13 — 最終面接の振り返りと英語で読む日本ミステリー](#session-2026-09-12-01)
   - [Session 12 — GPT-6 Astraの音読・自律性の議論と直接発音評価](#session-2026-09-06-01)
@@ -32,32 +33,32 @@
 # 今日の5分復習
 
 <details>
-<summary>二つのモデルを費用と性能の両方で比べる</summary>
+<summary>設計前に性能と追跡可能性を決める</summary>
 
-**I want to compare these models by both cost and benchmark performance.**
-
-</details>
-
-<details>
-<summary>物語の展開を伝える</summary>
-
-**The story starts to unfold from there.**
+**We should define performance and traceability requirements before designing the system.**
 
 </details>
 
 <details>
-<summary>一日の読書量を伝える</summary>
+<summary>利用者と技術者の優先事項を対比する</summary>
 
-**I read forty pages in one day.**
+**Users may prioritize speed, while engineers also need traceability.**
 
 </details>
 
 <details>
-<summary>二冊のタイトルを区別する</summary>
+<summary>業務固有の知識を説明する</summary>
 
-**<em>Silent Parade</em> / <em>The Keeper of the Camphor Tree</em>**, both by Keigo Higashino.
+**Some knowledge is specific to one service; I want to build more transferable skills.**
 
-前者は以前約1年かけて読んだ本。後者はアニメ映画を見たあと、英語版を一日に40ページ読んだ本。
+</details>
+
+<details>
+<summary>クラウド製品の近い役割と同一製品を区別する</summary>
+
+**Firestore and Bigtable can both be considered for some DynamoDB use cases, but they are not identical replacements.**
+
+データモデル、規模、読み書きの条件を見て選ぶ。
 
 </details>
 
@@ -66,6 +67,99 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":15,"session_id":"2026-09-25-01","date":"2026-09-25","title":"キャリアの転機とAWS・GCPの設計比較","tags":["Career","Cloud","AWS / GCP","IoT","Requirements"],"remember":"AWSとGCPは用途で対応づける。速度と追跡可能性は利害関係者と合意し、設計前に要件化する。","prompt":"How should we compare AWS and GCP for an IoT service, and which requirements matter before choosing an architecture?"} -->
+<a id="session-2026-09-25-01"></a>
+
+## 2026年9月25日（金）— キャリアの転機とAWS・GCPの設計比較
+
+> **Session 15 / Recorded session window:** Evening JST
+> **主な話題:** 半期の成果評価とキャリア、AWSからGCPへの学び直し、IoT設計の要件
+
+> [!NOTE]
+> 業務・キャリア内容は公開用Journalに合わせて匿名化した。会話の5指標を文字起こしから見直したが、専用録音の直接分析はないためPronunciation・WPM・ポーズは今回評価しない。図は一般化した学習用の例で、実際の勤務先システム構成ではない。
+
+### 今日の要点 / Today at a Glance
+
+Yukiは半期の成果評価を振り返り、成果を落ち着いて伝えたこと、公正で説明可能な評価を望んでいることを話した。キャリアの転機については、以前からある技術・開発への関心に対し、現職で想定した道筋が進まなかったこと、仕事で得る知識の一部が一つのサービスに特化していて将来の方向とつながりにくかったことを説明した。これは一度の出来事だけによる判断ではなく、長期的な適合と成長の問題として語られた。
+
+技術の話では、今後使うGCPを、Yukiが触れたAWSのS3、DynamoDB、Lambda、Bedrockから学びたいと明確に指定した。クラウドサービスの名前を機械的に置き換えるより、IoTのイベント処理で「何を保存し、いつ処理し、何を検証するか」を考えることが重要になった。終盤、Yukiは、利用者は応答速度を重視しやすく、技術者には追跡可能性も必要であり、どちらを優先するかは構築前の機能・性能要件として決めるべきだと述べた。GCPの具体的な設計の議論は次回続ける。
+
+### 話題別メモ / Topic Notes
+
+#### キャリアと評価をどう捉えたか
+
+- Yukiは、半期の仕事の成果を丁寧に説明できたと感じている。一方、評価の基準や退職前の扱いについては、成果そのものと分けて公正に見てほしいと考えている。
+- 直接的に意見を伝える自分の特性は強みだが、現在の組織文化と合わない場面もあった。新しい役割では、より主体的に技術へ関われることを期待している。
+- 既存システムの統合・E2Eテストを通じて仕様や要件を広く理解してきた一方、特定サービス固有の知識だけでなく、別の環境にも持ち運べる技術力を伸ばしたい。
+
+#### Yukiが知っているAWSからGCPを考える
+
+[Google Cloudの公式サービス比較](https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison?hl=en)を、厳密な移行手順ではなく役割を知る出発点として用いた。
+
+| Yukiが挙げたAWS | GCPで検討する近い役割 | 選択時に確かめること |
+|---|---|---|
+| Amazon S3 | Cloud Storage | オブジェクト保管、保持期間、アクセス制御 |
+| Amazon DynamoDB | Firestore **または** Bigtable | 文書型のアプリデータか、大規模なキー・時系列データか。完全な1対1対応ではない |
+| AWS Lambda | Cloud Run functions | イベントの発火、実行時間、再試行・重複処理 |
+| Amazon Bedrock | Vertex AIの関連機能 | 利用するモデル、推論機能、データ保護。製品全体の同一視はしない |
+
+YukiはRDSやRedshiftではなく、上記のサービスを主に使ったと訂正した。この修復を受け、図も実際に話したサービスに合わせた。GCPを使う新しいチームの構成は未確認であり、下図は一般化した**仮想のIoTイベント処理**である。
+
+[![会話で扱ったAWSとGCPのサービス対応と、速度・追跡可能性を要件で決める仮想IoT設計図](media/sessions/2026-09-25-aws-gcp-iot-comparison.png)](media/sessions/2026-09-25-aws-gcp-iot-comparison.png)
+
+#### 速度と追跡可能性は設計前の要件
+
+仮想例として、端末から来たイベントを先に原データとして残すか、すぐ処理するかを比較した。Yukiの結論は「サービス次第」。利用者が求める応答速度と、技術者・品質担当が必要とする追跡可能性や安全性は視点が異なる。したがって、保持すべきデータ、許容遅延、再試行、監査可能性を利害関係者とすり合わせ、機能要件・性能などの非機能要件へ明記してから構成を選ぶ。これらは一方だけを必ず選ぶ二者択一ではない。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. キャリア選択では、待遇だけでなく、自分の得意な伝え方や将来の技術・国際的な方向との適合も重要。
+2. AWSからGCPを学ぶなら、知っているサービスの役割とデータの流れを起点にする。サービス名だけを暗記しない。
+3. 利用者には速さ、技術者には追跡可能性が重要になり得る。目的と優先順位は、システムを作る前に要件として合意する。
+
+### 役立つ英語 / Useful English
+
+**Yukiの実発話:** “It depends on the service.” — 条件によって答えが変わると明確に述べた良い表現。
+
+**学習用の自然な言い方:** “Users may prioritize speed, while engineers also need traceability.” — 異なる立場の優先事項を一文で対比する。
+
+**学習用の自然な言い方:** “We should define performance and traceability requirements before designing the system.” — Yukiの結論を、次の技術議論にも使える形に整理。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**Pronunciation: N/A（今回の直接音声評価なし）。** 会話の文字起こしだけから個別音、強勢、速度を採点しない。
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+Yukiはキャリアの長い背景から技術設計へ話題を切り替え、GCPという希望や、自分に馴染みのあるAWSサービスを繰り返し明確化した。終盤は設計案に対して「サービス次第」と条件を置き、利用者と技術者の立場を区別して、要件定義という結論まで到達した。言い直しや語探しは残るが、会話の目的を保ち、ずれを修正する力が確認できた。整数レベル・同一L内段階は前回と同じ。発音の新規証拠はない。
+
+| Metric | Level | Evidence |
+|---|---:|---|
+| Task achievement | **L4・強い** | AWSからGCPへの比較を自分の経験に合わせ、要件定義という実務上の結論まで進めた。 |
+| Fluency & coherence | **L3・強い** | 停止や再構成はあるが、キャリアと技術の長い説明で意味の筋を保った。 |
+| Lexical resource | **L3・強い** | IoT、S3、DynamoDB、Lambda、E2E、requirements等を扱い、必要な語は確認した。 |
+| Grammar control | **L3・安定** | 条件・対比の意図は明確。語順、語形、前置詞などに揺れは残る。 |
+| Interaction & repair | **L4・強い** | GCPの希望、馴染みのないRDS/Redshiftの修正、図に会話内容を含める希望を自分から伝えた。 |
+| Pronunciation | **N/A** | 直接音声分析なし。 |
+
+### 学習バンク更新 / Study Banks Update
+
+- [Expression Bank](#journal-expression-bank): 新規3件
+- [Vocabulary Bank](#journal-vocabulary-bank): 新規3件
+- [Pronunciation & Speaking Bank](#journal-speaking-bank): 追加なし。音声根拠を採点していない
+
+### 次回 / Next Steps
+
+GCPとAWSの話を続ける。仮想の端末イベントを一つ選び、保存、処理、応答、ログ・追跡の順に、速度と追跡可能性の要件を英語で比較する。
+
+### Sources / References
+
+[Google Cloud: AWS・Azure・GCPのサービス比較](https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison?hl=en) · [Google Cloud: AI coding agents向けDeveloper Plugin](https://cloud.google.com/blog/topics/developers-practitioners/introducing-the-google-cloud-developer-plugin-for-ai-coding-agents) · [Google Cloud: Cloud Run functions](https://docs.cloud.google.com/run/docs/functions/comparison)
+
+[ページ先頭へ戻る](#journal-contents) · [Session Index](#journal-sessions)
+
+---
 
 <!-- session-meta: {"session_number":14,"session_id":"2026-09-24-01","date":"2026-09-24","title":"AIモデルの費用・性能比較と英語読書の進展","tags":["AI / Tech","Reading","Literature","Model Comparison"],"remember":"GPT-6とGPT-5.6は公式API価格と同条件の独立ベンチマークで比較する。映像で物語を知った英語版小説は一日に40ページ読めた。","prompt":"How do model cost and benchmark performance compare, and what helps me read English fiction more smoothly?"} -->
 <a id="session-2026-09-24-01"></a>
@@ -1677,7 +1771,7 @@ Why: 改善点には work on / focus on が自然。
 ## できるようになったこと
 
 **最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 14（2026年9月24日）](#session-2026-09-24-01)**
+**最新の会話評価： [Session 15（2026年9月25日）](#session-2026-09-25-01)**
 
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
@@ -1686,6 +1780,7 @@ Why: 改善点には work on / focus on が自然。
 - 新卒時の会社選び、大学研究、社会的な関心、現在の転職判断を、一貫した面接ストーリーとして説明できる。
 - 読書中の困難を「人物名を追う負荷」と具体化し、日本語版・映像を足場に英語へ進む解決策を自分で提案できる。
 - モデルの費用と独立ベンチマークを区別し、比較図にないモデルを指摘して対象を広げられる。英語読書では、以前約1年かけた小説と、現在一日で40ページ進んだ小説を比べ、学習法の効果を説明できる。
+- 馴染みのあるAWSサービスからGCPへの比較へ会話を修正し、IoT設計では利用者の速度と技術者の追跡可能性を区別して、設計前の要件定義へ結論を導ける。
 - 本人の「英語がかなりスムーズに出る」という感覚と、長い技術議論を維持できた事実が一致しており、Fluency L3内で発話の自動化が進んでいる。
 - 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
 
@@ -1698,40 +1793,41 @@ Why: 改善点には work on / focus on が自然。
 | **Session 1** | 身近な旅行の話は成立したが、流暢さ・語彙・文法はL2形成中。ここを観察上の出発点とする。 |
 | **Session 3** | 面接テーマで結論と理由を自力で展開し、Task achievementとInteraction & repairがL4形成中へ到達。 |
 | **Session 6** | 複数の技術・業務論点を目的へまとめたため、Task achievementを従来のL3から**L4形成中**へ訂正。 |
-| **Session 7〜14** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 14ではモデル比較と読書法という異なる話題で再現し、書名の聞き違いを自分で訂正した。 |
+| **Session 7〜15** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 15ではAWS・GCP比較を経験に合わせて修正し、異なる利害関係者の要件を説明した。 |
 | **Pronunciation** | 直接音声があるSession 8・12だけL3安定。課題文が異なるため、両者の優劣や過去回への遡及採点は行わない。 |
 
 ## Current Snapshot
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4・強い / Session 14** | GPT-6とGPT-5.6を費用とベンチマークで比べ、他社の例と表・図の提示まで目的を具体化した。 |
-| **Fluency & coherence** | **L3・強い / Session 14** | 言い直しがあっても技術比較と読書の話題を維持し、読む速さの違いを説明した。 |
-| **Lexical resource** | **L3・強い / Session 14** | cost、intelligence、benchmark、unfoldを文脈で扱ったが、語探しには支援が残る。 |
-| **Grammar control** | **L3・安定 / Session 14** | 文の組み替えは残る一方、比較、時間経過、理由をおおむね明確に伝えた。 |
-| **Interaction & repair** | **L4・強い / Session 14** | AstraとTerraを比較対象へ加え、書名を聞き違えられた場面を自ら修復した。 |
+| **Task achievement** | **L4・強い / Session 15** | 自分の経験を起点にクラウド比較を調整し、設計前の要件定義まで結論を進めた。 |
+| **Fluency & coherence** | **L3・強い / Session 15** | 停止や再構成を挟んでもキャリアと技術の長い説明で筋を保った。 |
+| **Lexical resource** | **L3・強い / Session 15** | IoT、クラウド製品、E2E、requirements等を文脈で扱い、必要な語は確認した。 |
+| **Grammar control** | **L3・安定 / Session 15** | 条件・対比の意図は明確。語順、語形、前置詞などに揺れは残る。 |
+| **Interaction & repair** | **L4・強い / Session 15** | GCPの希望と比較対象のずれを自分から直し、図に会話内容を入れる希望を具体化した。 |
 | **Pronunciation** | **L3・安定 / Session 12直接音声** | 36秒の音読で、明瞭さの補助指標、安定した速度、音割れなしを確認。標準音素採点ではない。 |
 
 ## 発音の測定状況
 
-最新の直接発音評価はSession 12で、標準60秒課題とは別の技術英文を直接録音し、全体の明瞭さを **L3 / Mostly independent** と保守的に記録した。Session 14では専用録音を回収・直接分析していないため、PronunciationはN/Aであり、最後の実測値を上書きしない。書名の聞き違いを発音ミスとして扱わない。
+最新の直接発音評価はSession 12で、標準60秒課題とは別の技術英文を直接録音し、全体の明瞭さを **L3 / Mostly independent** と保守的に記録した。Session 15では専用録音を回収・直接分析していないため、PronunciationはN/Aであり、最後の実測値を上書きしない。
 
 ## 成長グラフ
 
-[![Session 1からSession 14までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 15までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から14までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表し、初期の大きな伸びと直近のレベル内成長を分けて読めるようにしました。Session 14の会話能力5指標は本日の会話から評価し、PronunciationはN/Aです。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
+Session 1から15までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表し、初期の大きな伸びと直近のレベル内成長を分けて読めるようにしました。Session 15の会話能力5指標は本日の会話から評価し、PronunciationはN/Aです。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
 
 ## 次に伸ばすこと
 
-1. 技術比較は最初に「何を、どの尺度で比べるか」を短く示し、その後に主要な差を一つ伝える。
-2. 読書の進み方は「本の名前 → 期間・ページ数 → 理由」の順に短く話す。
-3. 直接録音がある回だけ、強勢・リズム・つながりを測定し、発音の変化を比較する。
+1. 次の技術議論では、結論を先に一文で置き、理由と設計上の例を一つずつ続ける。
+2. `performance requirements` と `traceability requirements` を一つの設計判断の中で使う。
+3. 発音の変化は、直接録音がある回だけ比較する。
 
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 15 — キャリアの転機とAWS・GCPの設計比較](#session-2026-09-25-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。比較の前提を修正し、速度と追跡可能性を要件として論じた。
 - [Session 14 — AIモデルの費用・性能比較と英語読書の進展](#session-2026-09-24-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。技術比較を具体化し、書名の誤解を自分で修復。
 - [Session 13 — 最終面接の振り返りと英語で読む日本ミステリー](#session-2026-09-12-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。異なる二つの話題でも長い説明と対話修復を再現。
 - [Session 12 — GPT-6 Astraの音読・自律性の議論と直接発音評価](#session-2026-09-06-01) — 会話全体をL4 / L3 / L3 / L3 / L4、36秒の直接音声をPronunciation L3として評価。FluencyはL3内での前進も記録。
@@ -1752,19 +1848,19 @@ Session 1から14までの6指標を時系列で表示しています。整数�
 | 試験・尺度 | 学習用レンジ | 最後に根拠を更新した回 |
 |---|---:|---:|
 | TOEIC L&R | **820–900 / 990** | Session 8 |
-| TOEIC Speaking | **140–160 / 200** | Session 14 |
+| TOEIC Speaking | **140–160 / 200** | Session 15 |
 | TOEIC Writing | **140–160 / 200** | Session 8 |
-| IELTS Speaking | **Band 5.5–6.5** | Session 14 |
-| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 14 |
-| Cambridge English | **155–170（B1上位〜B2）** | Session 14 |
-| CEFR 会話 | **B1+–B2** | Session 14 |
-| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 14 |
+| IELTS Speaking | **Band 5.5–6.5** | Session 15 |
+| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 15 |
+| Cambridge English | **155–170（B1上位〜B2）** | Session 15 |
+| CEFR 会話 | **B1+–B2** | Session 15 |
+| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 15 |
 
 [![資格スコア予測の推移グラフ](media/progress/english-test-score-estimate-trends.png)](media/progress/english-test-score-estimate-trends.png)
 
-試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジで、初期からの変化を示します。記録が十分でない回は補間していません。Session 14では技術比較と読書の二つの話題で目的の明確化と対話修復が再確認できたため、Speaking・oral interactionの6種別を最新根拠へ接続し、レンジは維持しました。発音の最後の直接測定はSession 12です。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
+試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジで、初期からの変化を示します。記録が十分でない回は補間していません。Session 15では技術議論で条件・利害関係者・要件を結び、対話修復も再確認できたため、Speaking・oral interactionの6種別を最新根拠へ接続し、レンジは維持しました。発音の最後の直接測定はSession 12です。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
 
-いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 14の評価](#session-2026-09-24-01)で確認できます。
+いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 15の評価](#session-2026-09-25-01)で確認できます。
 
 ## 評価の読み方
 
@@ -1775,6 +1871,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年9月25日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **It depends on the service.** | 「サービス次第」。Yukiの実発話。条件により設計判断が変わるときの短い答え。**Example:** It depends on the service and its requirements. | [Session 15](#session-2026-09-25-01) |
+| **Users may prioritize speed, while engineers also need traceability.** | 利害関係者による優先事項の違いを`while`で対比する学習用の形。Yukiの考えを整理したもので、原文そのままの発話ではない。 | [Session 15](#session-2026-09-25-01) |
+| **We should define the requirements before designing the system.** | 「設計前に要件を決める」。Yukiの結論を次回も使える短いchunkにしたもの。**Extension:** performance and traceability requirements. | [Session 15](#session-2026-09-25-01) |
 
 ## 2026年9月24日
 
@@ -1895,6 +1999,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年9月25日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **traceability** /ˌtreɪ.səˈbɪl.ə.ti/ noun | **意味:** データや処理を後から追跡できる性質。**Collocation:** event traceability. **Example:** Engineers need traceability when investigating an incident. | [Session 15](#session-2026-09-25-01) |
+| **stakeholder** /ˈsteɪkˌhoʊl.dɚ/ noun | **意味:** 利害関係者。利用者、開発者、運用者など。**Collocation:** stakeholder priorities. **Example:** Different stakeholders may have different priorities. | [Session 15](#session-2026-09-25-01) |
+| **transferable** /trænsˈfɝː.ə.bəl/ adjective | **意味:** 別の仕事や環境でも活用できる。**Collocation:** transferable skills. **Example:** I want to build more transferable cloud skills. | [Session 15](#session-2026-09-25-01) |
 
 ## 2026年9月24日
 

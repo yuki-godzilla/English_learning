@@ -185,7 +185,7 @@ function cleanSessionBody(markdown, session) {
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
-  for (const fileName of [
+  for (const fileName of new Set([
     "microgrid-data-center-grid.png",
     "2026-08-27-microgrid-diagram.png",
     "electricity-demand-chart.png",
@@ -193,7 +193,10 @@ function cleanSessionBody(markdown, session) {
     "local-cloud-hybrid-ai.png",
     "2026-08-19-hybrid-ai-comparison.png",
     "2026-09-24-model-benchmark-comparison.png",
-  ]) {
+    ...mediaManifest.files
+      .filter((entry) => entry.status === "published" && entry.session_id)
+      .map((entry) => path.basename(entry.path)),
+  ])) {
     body = body.replace(new RegExp(`^.*!\\[[^\\]]*\\]\\([^\\n)]*${fileName.replaceAll(".", "\\.")}[^\\n]*$`, "gm"), "");
   }
 

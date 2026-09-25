@@ -1,7 +1,7 @@
 {
   "methodology": {
     "name": "Exam-informed, evidence-based English conversation tracking",
-    "status": "Retrospective evidence audit completed through Session 12; current evidence updated through Session 13 on 2026-09-12",
+    "status": "Retrospective evidence audit completed through Session 12; current evidence updated through Session 15 on 2026-09-25",
     "disclaimer": "This is a personal learning record based on Daily Notes and transcript excerpts, not a standardized English proficiency test.",
     "comparison_rule": "Change the core L1-L5 level only when the recorded evidence supports the full rubric threshold. Retrospective within-level stages may show cautious progress inside the same L band, but they are not standardized scores and task-condition differences must remain explicit.",
     "design_references": [
@@ -452,15 +452,42 @@
       "evidence_quote_origin": "Spontaneous model-comparison request in the realtime transcript; pauses retained as ellipses. The later reuse of 'the story starts to unfold from there' followed an assistant suggestion and is not counted as unprompted lexical production.",
       "evidence_note_ja": "GPT-6とGPT-5.6の費用と性能を比べたいと目的を示し、Astraが図にないことを指摘し、Terraと他社モデルまで対象を広げた。読書では、以前のSilent Paradeを約1年かけて読んだことと、現在のThe Keeper of the Camphor Treeを一日で40ページ読んだことを対比し、映像で物語を知っているため読みやすいと説明した。書名をChappyが誤解した際には繰り返して訂正した。この聞き違いを本人の発音ミスとは扱わない。語探しと言い直しが残るため、TaskとInteractionはL4・強い、FluencyとLexicalはL3・強い、GrammarはL3・安定を維持する。専用録音・比較可能な60秒課題はなくPronunciationはN/A。",
       "evidence_note": "Specified a comparison of GPT-6 and GPT-5.6 by cost and benchmark performance, noticed Astra was missing from the displayed chart, and expanded the comparison to Terra and other companies. In the reading discussion, contrasted taking about a year to finish Silent Parade with reading forty pages of The Keeper of the Camphor Tree in one day, and explained why a known film adaptation helped. Explicitly repaired the assistant's misunderstanding of the title; this is not pronunciation-error evidence. Word searches and restarts remain, so retain strong L4 for task achievement and interaction, strong L3 for fluency and lexical resource, and established L3 for grammar. No dedicated recording or comparable 60-second benchmark was completed, so pronunciation is N/A."
+    },
+    {
+      "session": 15,
+      "date": "2026-09-25",
+      "task": "Career reflection and AWS-to-GCP IoT architecture comparison",
+      "task_ja": "キャリアの振り返りとAWS・GCPのIoT設計比較",
+      "data_coverage": "Realtime transcript segments covering the half-year review, career fit, familiar AWS services, GCP comparison, hypothetical IoT event design, and stakeholder priorities. No dedicated recording or comparable 60-second benchmark was directly analyzed.",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": null
+      },
+      "evidence_quote": "In my opinion, it depends on the service ... if we want to prioritize the speed ... if we want to prioritize the security or safety ... the stakeholders are different.",
+      "evidence_quote_origin": "Spontaneous technical discussion in the realtime transcript; pauses and restarts lightly regularized. The cloud-service mapping and polished requirement sentence were assistant-proposed, not counted as spontaneous learner production.",
+      "evidence_note_ja": "半期の成果評価と長期的なキャリアの適合を説明した後、GCP比較を自分に馴染みのあるS3・DynamoDB・Lambda・Bedrockから始めるよう会話を修正した。IoTの仮想設計では、速度と追跡可能性の優先度がサービスと利害関係者で異なると述べ、設計前の要件定義へ結論を導いた。停止・言い直しと語探しは残るが、目的の維持と対話の修復は安定。前回と同じTaskとInteractionのL4・強い、FluencyとLexicalのL3・強い、GrammarのL3・安定を維持する。録音の直接分析がないためPronunciationはN/A。",
+      "evidence_note": "Explained the half-year review and longer-term career fit, then redirected the GCP comparison toward familiar AWS services: S3, DynamoDB, Lambda, and Bedrock. In a hypothetical IoT architecture discussion, distinguished speed from traceability for different stakeholders and concluded that requirements should be defined before design. Pauses, restarts, and word searches remain, but task focus and interaction repair were sustained. Retain the prior stages: strong L4 for task achievement and interaction, strong L3 for fluency and lexical resource, established L3 for grammar. Pronunciation is N/A because no recording was directly analyzed."
     }
   ],
   "test_score_estimates": {
     "methodology_version": "1.1",
     "status": "Non-official learning estimates, not standardized test results or guaranteed score conversions",
-    "as_of_session": 14,
-    "as_of_date": "2026-09-24",
+    "as_of_session": 15,
+    "as_of_date": "2026-09-25",
     "official_scales_checked_on": "2026-08-28",
-    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. Sessions 13 and 14 add realtime conversation evidence for narrative, technical comparison, reading strategy, and interaction repair, but no new direct audio assessment. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
+    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. Sessions 13-15 add realtime conversation evidence for narrative, technical comparison, reading strategy, requirements discussion, and interaction repair, but no new direct audio assessment. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
     "history_policy": "Retrospective milestone estimates are permitted only where the canonical record contains enough speaking or oral-interaction evidence. Do not create a point for every session or interpolate missing sessions. Keep user-reported actual results visually and structurally separate from estimates.",
     "historical_results": [
       {
@@ -1010,6 +1037,41 @@
             "display": "Intermediate High–Advanced Low",
             "confidence": "medium-low",
             "comment_ja": "過去と現在の読書経験を比べ、技術比較では質問の範囲を広げて会話を維持した。一方、時制・語形・長い発話の構成には揺れがあるため境界レンジを維持する。"
+          }
+        }
+      },
+      {
+        "session": 15,
+        "date": "2026-09-25",
+        "update_scope": "Speaking and oral-interaction estimates are reviewed from the Session 15 realtime transcript. The learner sustained a career narrative, redirected an AWS/GCP comparison to familiar services, and reasoned about speed, traceability, and requirements. No direct audio analysis, comparable timed response, or standardized test task was completed; numerical ranges remain unchanged.",
+        "not_updated": {
+          "toeic_lr": "No new standardized or timed listening-and-reading task in Session 15; retain Session 8 as the last estimate evidence.",
+          "toeic_writing": "No direct writing task in Session 15; retain Session 8 as the last estimate evidence."
+        },
+        "estimates": {
+          "toeic_speaking": {
+            "low": 140, "mid": 150, "high": 160, "display": "140–160 / 200", "confidence": "medium-low",
+            "comment_ja": "キャリアの背景とクラウド設計の条件を説明し、比較の前提を自分で修正した。公式形式、時間制限、直接音声の確認がないためレンジを維持。"
+          },
+          "ielts_speaking": {
+            "low": 5.5, "mid": 6, "high": 6.5, "display": "Band 5.5–6.5", "confidence": "medium-low",
+            "comment_ja": "技術テーマで立場・条件・結論をつなげたが、停止や文構造の揺れは残る。発音の直接評価もないため中心予測はBand 6のまま。"
+          },
+          "toefl_speaking": {
+            "low": 3.5, "mid": 3.75, "high": 4, "display": "3.5–4.0 / 6（旧尺度目安 18–22 / 30）", "confidence": "low",
+            "comment_ja": "条件と理由を使う技術議論は確認したが、統合型課題、時間制限、deliveryの直接音声評価がないため低確度で据え置く。"
+          },
+          "cambridge_speaking": {
+            "low": 155, "mid": 162.5, "high": 170, "display": "155–170（B1上位〜B2）", "confidence": "medium-low",
+            "comment_ja": "長い会話を維持し、質問の前提や希望する比較対象を自発的に修正した。公式ペア課題と直接発音評価はないためレンジを維持。"
+          },
+          "cefr_oral": {
+            "low": 3.5, "mid": 3.75, "high": 4, "display": "B1+–B2", "confidence": "medium",
+            "comment_ja": "関心のあるクラウド技術について、経験、条件、利害関係者の違い、要件定義という結論を複数turnで述べた。B1+からB2へ向かう会話Can-doを再確認。"
+          },
+          "actfl_speaking": {
+            "low": 6, "mid": 6.5, "high": 7, "display": "Intermediate High–Advanced Low", "confidence": "medium-low",
+            "comment_ja": "過去の役割と今後の技術習得をつなぎ、条件付きの設計判断を説明した。一方、時制・語形・長い発話の構成に揺れがあるため境界レンジを維持。"
           }
         }
       }
