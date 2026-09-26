@@ -1,31 +1,14 @@
 /** Create one print-ready PDF containing the current English Journal. */
 import { execFileSync } from "node:child_process";
 import fs from "node:fs/promises";
-import { existsSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { loadJournal } from "../lib/journal-parser.mjs";
 import { projectRoot as root } from "../lib/project.mjs";
+import { findPdfBrowser, findPdfPython } from "../pdf/runtime.mjs";
 
-const chromeCandidates = [
-  "C:/Program Files/Google/Chrome/Application/chrome.exe",
-  "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
-  "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
-  "C:/Program Files/Microsoft/Edge/Application/msedge.exe",
-];
-const chrome = chromeCandidates.find(existsSync);
-if (!chrome) throw new Error("Chrome or Microsoft Edge is required to create the Journal PDF.");
-
-const python = path.join(
-  process.env.USERPROFILE ?? "C:/Users/user",
-  ".cache",
-  "codex-runtimes",
-  "codex-primary-runtime",
-  "dependencies",
-  "python",
-  "python.exe",
-);
-if (!existsSync(python)) throw new Error("The bundled Python runtime is required to merge the Journal PDF.");
+const chrome = findPdfBrowser();
+const python = findPdfPython();
 
 const outputPath = path.join(root, "output", "pdf", "yuki-chappy-english-journal.pdf");
 const scratchDir = path.join(root, "tmp", "pdf-journal");

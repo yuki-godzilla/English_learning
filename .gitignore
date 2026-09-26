@@ -8,6 +8,7 @@ node_modules/
 .generated-site-docs/
 site/
 .venv-pronunciation/
+.venv-pdf/
 __pycache__/
 *.pyc
 .env

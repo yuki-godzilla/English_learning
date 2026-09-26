@@ -4,17 +4,9 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
 import { projectRoot as root } from "../lib/project.mjs";
+import { findPdfPython } from "./runtime.mjs";
 
-const python = path.join(
-  process.env.USERPROFILE ?? "C:/Users/user",
-  ".cache",
-  "codex-runtimes",
-  "codex-primary-runtime",
-  "dependencies",
-  "python",
-  "python.exe",
-);
-if (!existsSync(python)) throw new Error("The bundled Python runtime is required to validate the Journal PDF.");
+const python = findPdfPython();
 
 const pdfPath = path.join(root, "output", "pdf", "yuki-chappy-english-journal.pdf");
 if (!existsSync(pdfPath)) throw new Error("Journal PDF is missing. Run npm run journal:pdf first.");

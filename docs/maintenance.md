@@ -11,6 +11,7 @@ learning-records/
 ├─ media-manifest.json    # 画像メタデータの正本
 ├─ media/                 # 現在使う画像
 ├─ resources/             # 発音課題など
+├─ transcripts/           # 公開前redaction済みraw evidenceとcoverage台帳
 └─ archive/               # 固定移行記録。生成処理は読まない
 
 scripts/
@@ -18,6 +19,8 @@ scripts/
 ├─ content/               # 3正本の検証
 ├─ lib/                   # Journal共通パーサー
 ├─ pronunciation/         # 録音・ローカル音声分析
+├─ pdf/                   # PDF用環境検出・生成後検査
+├─ transcripts/           # raw evidenceとcoverageの検証
 └─ site/                  # Learning Site生成・検証
 
 site-src/                 # Siteのテーマ・CSS・JavaScript
@@ -35,7 +38,10 @@ requirements/             # Python依存
 npm ci
 py -m venv .venv-site
 .\.venv-site\Scripts\python.exe -m pip install --requirement requirements/site.txt
+npm run pdf:setup
 ```
+
+`.nvmrc`をNodeの基準版とします。Codex同梱Nodeが同じ版なら利用できます。別のターミナルで`node --version`が異なる場合は、Node管理ツールで`.nvmrc`に合わせてください。PDF生成は`.venv-pdf`を優先し、`requirements/pdf.txt`で依存を再現します。Chrome/Edge/Chromiumが標準場所にない場合は`JOURNAL_PDF_BROWSER`、既存Python環境を使う場合は`JOURNAL_PDF_PYTHON`を指定できます。
 
 ## 日常コマンド
 
@@ -48,6 +54,12 @@ npm run build
 
 # ローカルプレビュー
 npm run serve
+
+# raw transcriptの形式・収録範囲・公開不可の既知パターンを検証
+npm run transcripts:check
+
+# 統合Journal PDFを生成し、機械的な収録・しおり・リンク検査まで実行
+npm run journal:pdf
 ```
 
 ## 会話ランタイムとフィードバック方針
@@ -56,19 +68,22 @@ Codexのローカル英会話では、リポジトリ直下の `AGENTS.md` が�
 
 `npm run content:check` は、会話の流れを優先する方針、冠詞・前置詞の文脈判定、ASR不確実箇所の分離、Wrap-upの1〜2項目制限、終了時に復唱を強制しない方針の必須マーカーを検証します。マーカー検査は文章の存在を保証する回帰防止であり、実際の会話品質は各セッションのWrap-upとSession Packageで確認します。
 
-評価データを変更した回だけ、目視確認後に追跡グラフを更新します。
+セッション後のレポートを作成・更新する回は、評価値が変わらなくても正式アセットを再生成し、目視確認します。
 
 ```powershell
-npm run charts:publish
+npm run report:assets
 ```
 
 ## 新しいセッション
 
-1. `journal.md` のセッション一覧先頭へ `session-meta`、固定アンカー、本文を追加する。
-2. Journalの目次、5分復習、成長説明、必要な学習バンクを更新する。
-3. 測定根拠がある場合だけ `progress.json` を更新する。未測定は推定で補わない。
-4. 画像を追加する場合は `media/` に置き、`media-manifest.json` に用途・alt・出典・利用条件・目視確認後のSHA-256を登録する。
-5. `npm run check` を通し、意図した差分だけをcommit / pushする。
+1. 元の会話ログがある場合は全発話を順に保存し、公開不可部分だけを伏せる。ない場合は[coverage台帳](../learning-records/transcripts/coverage.json)に理由を残し、要約から全文を作らない。
+2. `journal.md` のセッション一覧先頭へ `session-meta`、固定アンカー、本文を追加する。
+3. Journalの目次、5分復習、成長説明、必要な学習バンクを更新する。
+4. `progress.json`の6観点を独立に判断し、根拠不足はN/Aとする。
+5. `npm run report:assets`で正式グラフと台帳のSHA-256を更新・確認する。
+6. `npm run check`、統合Journal PDFの全ページ確認、メール送信を完了し、意図した差分だけをcommit / pushする。
+
+raw transcriptは公開リポジトリへpushされます。検証コマンドは既知のメール・認証情報・勤務先名などを止めますが、機密情報をすべて検出できるわけではありません。元の発話、redaction範囲、coverageの`partial`理由を公開前に必ず確認します。
 
 Journalの各セッションは同じメタデータと本文からGitHub表示とLearning Siteへ展開されます。生成ページを直接編集しません。
 
@@ -83,7 +98,7 @@ npm run pronunciation:setup
 
 ## GitHub Pages
 
-`.github/workflows/learning-site.yml` はpushとPull Requestで検証します。初回公開、公開範囲変更、Pages設定変更、手動デプロイはYukiの明示承認後だけ行います。
+`.github/workflows/learning-site.yml` はpushとPull RequestでSite・raw transcript・Node依存の監査を検証し、Windows上でPDFの生成・機械検査も行います。初回公開、公開範囲変更、Pages設定変更、手動デプロイはYukiの明示承認後だけ行います。
 
 手動実行で `publish` を有効にした場合だけ、検証済みの `site/` をPagesへ渡します。全ページの`noindex`は検索掲載を控える依頼であり、閲覧を防ぐ認証ではありません。正本リポジトリがPublicなら、サイトに載せないファイルや過去コミットも閲覧可能です。
 

@@ -1,7 +1,7 @@
 # English Conversation Session Rules — Yuki × Chappy
 
 > Englishプロジェクトの英会話、学習記録、評価、共有に適用する正式な運用ルール。
-> 最終更新: 2026-09-26 / 文書バージョン: 4.8
+> 最終更新: 2026-09-26 / 文書バージョン: 4.9
 
 ## 0. 優先順位・正本・完了条件
 
@@ -15,7 +15,7 @@
 - `learning-records/archive/` はGoogle Docs移行時点の匿名化済み固定記録。通常更新もLearning Site生成も行わない。
 - `.generated-site-docs/`、`site/`、`output/`、`tmp/` は再生成可能な派生物または一時物であり正本にしない。
 - 会話中は記録より自然さを優先し、終了が明示された後に記録作業へ移る。
-- ローカル記録完了は、3正本への必要な反映、取得可能なraw transcriptの保存、`npm run check` の合格まで。レポートを作成・更新する回はraw transcriptを含む対象変更をcommitし、`origin/main`へpushしてremoteが最新コミットを指すことまで確認する。push未完了ならリポジトリの更新完了とは報告しない。
+- ローカル記録完了は、3正本への必要な反映、取得可能なraw transcriptと`transcripts/coverage.json`の更新、`npm run check` の合格まで。レポートを作成・更新する回はraw transcriptを含む対象変更をcommitし、`origin/main`へpushしてremoteが最新コミットを指すことまで確認する。push未完了ならリポジトリの更新完了とは報告しない。
 - 実行できない工程は、未完了の内容と理由を明示し、完了したように扱わない。
 - セッション後のレポートを作成・更新する回は、定めた収録範囲の一冊のJournal PDFを必ず作成する。`npm run journal:pdf` で `output/pdf/yuki-chappy-english-journal.pdf` を生成し、全ページを画像で確認してから、Yukiが指定した個人メインGmailアドレスへPDFを添付して送る。PDFのみ・メールのみ・Google Docsのみを個別に求めた場合は、その明示範囲に従う。
 
@@ -174,16 +174,17 @@ Yukiが「発音を評価して」「この音読を評価して」など明示�
 終了が明示されたら、Asia/Tokyoの現在日時を再確認し、次の順で行う。
 
 1. `git status` と追跡ブランチを確認する。未コミット変更や競合を破棄しない。安全な場合だけ `git pull --rebase`。
-2. その回のリアルタイム文字起こしまたは会話ログを取得できる場合、`learning-records/transcripts/YYYY-MM-DD-session-NN.jsonl` へ **全turnを順序どおり** 保存する。Yuki / Chappy の話者、turn順、取得できる場合は時刻・source（voice ASR / typed / assistant）を保持し、英語の文法・語彙・言い直し・filler・restart・ASRらしい形を学習目的で勝手に整形しない。取得できない回は要約から全文を再構成せず、欠落理由をSession Packageへ記録する。
-3. raw transcriptをcommit対象にする前に、認証情報、個人メールアドレス、直接識別情報、非公開の勤務先固有情報・製品名・案件名・社内工程など、公開リポジトリへ置けない部分だけを `[REDACTED_*]` の明示的なプレースホルダへ置き換える。**文法上の誤りや不自然さはredaction対象にせず原文を保持する。**
-4. 保存したraw transcriptを一次根拠に会話の事実を一時的な `Session Package` に確定する。raw transcriptがない場合は、当日の利用可能な会話記録・Journal用メモを根拠にし、証拠範囲を明記する。
-5. `journal.md` のセッション一覧先頭へ新規セッションを追加し、目次・5分復習・成長説明・必要なStudy Banksを同じPackageから更新する。
-6. `learning-records/resources/whole-session-scoring.md` に従い、6観点を毎回個別に確認する。根拠のある観点だけL1〜L5と同一L内の段階を付け、根拠不足はN/Aにする。各観点の根拠、前回との比較、据え置き・変更・判定保留の理由と確度を `progress.json` に記録する。資格スコア目安も関連技能の根拠がある場合だけ見直す。過去セッションはYukiの明示指示なしに再評価しない。
-7. レポートを作成・更新するたびに、評価値の変更有無にかかわらず `npm run report:assets` を実行する。今回・前回・初回、同一L内の段階、Pronunciationの最終実測、資格目安の最終根拠Sessionへの接続を確認する。
-8. 定例レポートのグラフは固定パスの正式アセットとして再生成し、`media-manifest.json` のalt・caption・SHA-256を同期する。定例2アセット以外の画像を追加する場合だけ、用途・出典・利用条件・プライバシーを個別確認する。
-9. `npm run check`、`git diff` を確認し、対象ファイルだけcommitする。raw transcriptが取得できた回は、対応する `learning-records/transcripts/*.jsonl` がcommit対象に含まれていることを確認する。
-10. セッション後のレポートを作成・更新する回は、`npm run journal:pdf` で統合Journal PDFを生成し、PDFを全ページ画像で確認する。指定の個人メインGmailアドレスへ、Journal PDFを添付した完了メールを送信し、宛先・件名・添付有無を確認する。
-11. レポートを作成・更新する回は毎回、remote更新を確認し、force pushを使わず`origin/main`へpushする。push後に`origin/main`がローカルの最新コミットを指すことを確認する。PDFのみ・メールのみを個別に求められ、正本を変更しない回はcommitやpushを不要とする。
+2. その回のリアルタイム文字起こしまたは会話ログを取得できる場合、`learning-records/transcripts/YYYY-MM-DD-session-NN.jsonl` へ取得できた全発話単位を順序どおり保存する。Yuki / Chappy の話者、turn順、取得できる場合は時刻・source（voice ASR / typed / assistant）を保持し、英語の文法・語彙・言い直し・filler・restart・ASRらしい形を学習目的で勝手に整形しない。音声segmentだけ、途中から、または一部redaction済みなら`partial`と明記し、完全な会話と称さない。取得できない回は要約から全文を再構成しない。
+3. `learning-records/transcripts/coverage.json` へ各Sessionの`complete / partial / unavailable`と理由を記録する。重複・途中経過を含むhandoffから確かなturn順を作れない場合は無理にraw transcriptへ昇格しない。Session Packageにも欠落・制約を残す。
+4. raw transcriptをcommit対象にする前に、認証情報、個人メールアドレス、直接識別情報、個人的な健康情報、非公開の勤務先固有情報・製品名・案件名・社内工程など、公開リポジトリへ置けない部分だけを `[REDACTED_*]` の明示的なプレースホルダへ置き換える。**文法上の誤りや不自然さはredaction対象にせず原文を保持する。** `npm run transcripts:check`は既知パターンと構造だけを検査するため、公開前に内容そのものも確認する。
+5. 保存したraw transcriptを一次根拠に会話の事実を一時的な `Session Package` に確定する。raw transcriptがない場合は、当日の利用可能な会話記録・Journal用メモを根拠にし、証拠範囲を明記する。
+6. `journal.md` のセッション一覧先頭へ新規セッションを追加し、目次・5分復習・成長説明・必要なStudy Banksを同じPackageから更新する。
+7. `learning-records/resources/whole-session-scoring.md` に従い、6観点を毎回個別に確認する。根拠のある観点だけL1〜L5と同一L内の段階を付け、根拠不足はN/Aにする。各観点の根拠、前回との比較、据え置き・変更・判定保留の理由と確度を `progress.json` に記録する。資格スコア目安も関連技能の根拠がある場合だけ見直す。過去セッションはYukiの明示指示なしに再評価しない。
+8. レポートを作成・更新するたびに、評価値の変更有無にかかわらず `npm run report:assets` を実行する。今回・前回・初回、同一L内の段階、Pronunciationの最終実測、資格目安の最終根拠Sessionへの接続を確認する。
+9. 定例レポートのグラフは固定パスの正式アセットとして再生成し、`media-manifest.json` のalt・caption・SHA-256を同期する。定例2アセット以外の画像を追加する場合だけ、用途・出典・利用条件・プライバシーを個別確認する。
+10. `npm run check`（raw transcript検証を含む）と`git diff`を確認し、対象ファイルだけcommitする。raw transcriptが取得できた回は、対応する`learning-records/transcripts/*.jsonl`とcoverage更新がcommit対象に含まれていることを確認する。
+11. セッション後のレポートを作成・更新する回は、`npm run journal:pdf` で統合Journal PDFを生成し、PDFを全ページ画像で確認する。指定の個人メインGmailアドレスへ、Journal PDFを添付した完了メールを送信し、宛先・件名・添付有無を確認する。
+12. レポートを作成・更新する回は毎回、remote更新を確認し、force pushを使わず`origin/main`へpushする。push後に`origin/main`がローカルの最新コミットを指すことを確認する。PDFのみ・メールのみを個別に求められ、正本を変更しない回はcommitやpushを不要とする。
 
 過去セッションのraw transcriptを後から補完する場合は、当時の実際の会話ログ・ASR出力など一次データが残っている場合だけbackfillする。Journal、Session Package、評価メモから会話全文を生成してraw transcriptとして扱わない。
 
@@ -263,7 +264,7 @@ Journalは一冊として次の順を維持する。
 
 ## 9. 画像・プライバシー・出典
 
-- Git追跡する学習記録・画像・raw transcriptには、個人メール、直接識別情報、具体的な部署・所属、非公開製品・案件、社内工程、認証情報を入れない。raw transcriptでは該当部分だけを `[REDACTED_EMAIL]`、`[REDACTED_WORK_INFO]` などへ置換し、周囲の英語の語順・冠詞・前置詞・言い直しは評価可能なよう原文を保持する。
+- Git追跡する学習記録・画像・raw transcriptには、個人メール、直接識別情報、個人的な健康情報、具体的な部署・所属、非公開製品・案件、社内工程、認証情報を入れない。raw transcriptでは該当部分だけを `[REDACTED_EMAIL]`、`[REDACTED_WORK_INFO]` などへ置換し、周囲の英語の語順・冠詞・前置詞・言い直しは評価可能なよう原文を保持する。
 - 業務文脈は `勤務先 / employer`、`企業向けIoTサービス / enterprise IoT service` など再利用可能な匿名表現へ置き換える。
 - 画像は概念理解、比較、根拠データ、成長確認に必要な場合だけ使い、1セッション0〜2点を目安にする。
 - 現在使う画像は `learning-records/media/`、固定移行画像は `learning-records/archive/media/` に置く。
@@ -296,7 +297,9 @@ docs/               保守ガイドだけ
 通常コマンド:
 
 ```powershell
-npm run check       # 3正本、グラフ、Site、リンク、画像、プライバシー
+npm run check       # 3正本、raw transcript、グラフ、Site、リンク、画像、プライバシー
+npm run transcripts:check # raw transcriptの形式・coverage・既知の機密パターン
+npm run pdf:setup   # PDF用Python依存をプロジェクト内の.venv-pdfへ準備
 npm run build       # 検証済みSiteを生成
 npm run report:assets # 定例2グラフを正式アセット化し、台帳メタデータとSHA-256を同期
 npm run journal:pdf # 印刷テーマを検査し、全Session Index・最新3 Daily Notes・全推移・全Study BanksをPDF化
@@ -310,7 +313,8 @@ npm run serve       # ローカルプレビュー
 - [ ] Journalの目次から新セッション、成長、3 Banksへ直接移動できる
 - [ ] Session番号・ID・日付・固定アンカーが一意で、全セッションを網羅している
 - [ ] 内容、評価、グラフ、Bankが同じSession Packageに基づく
-- [ ] raw transcriptを取得できた回は `learning-records/transcripts/YYYY-MM-DD-session-NN.jsonl` に全turnを保存し、文法修正せず、公開不可情報だけを明示redactionしたうえでcommit対象に含めた
+- [ ] raw transcriptを取得できた回は `learning-records/transcripts/YYYY-MM-DD-session-NN.jsonl` に取得できた全発話単位を保存し、文法修正せず、公開不可情報だけを明示redactionしたうえでcommit対象に含めた
+- [ ] `learning-records/transcripts/coverage.json`に全Sessionの収録状態と欠落・redactionの制約を記録し、`npm run transcripts:check`と内容確認を通した
 - [ ] 過去セッションを再評価するときはraw transcriptを優先し、存在しない会話をJournal要約から再構成していない
 - [ ] 会話中の軽微な冠詞・前置詞を毎回中断せず、Wrap-upでは確実な代表例1〜2件へ集約した
 - [ ] 文脈上正しい冠詞・前置詞、自己修正、正しい再利用、ASR要確認を確定誤りと区別した

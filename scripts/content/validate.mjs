@@ -254,12 +254,18 @@ for (const legacyInput of ["daily-notes", "session-catalog.json", "session-index
   if (siteBuilder.includes(legacyInput)) fail(`Learning Site still depends on legacy input: ${legacyInput}`);
 }
 
+const publicSourceText = [
+  [journal.markdown, "Journal"],
+  [JSON.stringify(progress), "progress data"],
+  [JSON.stringify(manifest), "media manifest"],
+];
 for (const [pattern, label] of [
   [/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i, "email address"],
   [/\b(?:api[_-]?key|secret|token)\s*[:=]\s*["'][^"']+["']/i, "credential-like value"],
-  [/\b(?:Daigas Group|Osaka Gas|大阪ガス)\b/i, "specific employer name"],
+  [/\b(?:Daigas Group|Daikin|Osaka Gas|Otaka Gas|Osotogasu)\b|ダイキン|大阪ガス/i, "specific employer name"],
+  [/\bYuki\s+Okuma\b|\bOkuma\b|大熊/i, "direct identifier"],
 ]) {
-  if (pattern.test(journal.markdown)) fail(`Journal contains ${label}`);
+  for (const [source, name] of publicSourceText) if (pattern.test(source)) fail(`${name} contains ${label}`);
 }
 
 if (failures.length) {
