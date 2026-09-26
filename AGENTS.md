@@ -261,6 +261,9 @@ Journalは一冊として次の順を維持する。
 - 定例レポートアセットは `learning-records/media/progress/english-growth-evidence-dashboard.png` と `learning-records/media/progress/english-test-score-estimate-trends.png` の2点とする。どちらもJournalのGrowthへ掲載し、PDFとSiteは同じアセットを使用する。
 - 通常検証とCIの `npm run charts:build` は `output/` だけを生成し、OS差で追跡画像を変更しない。
 - JournalのCurrent Snapshot、資格スコア表、グラフは同じ `progress.json` と一致させる。PDFでは全履歴の推移を残し、能力コメントは最新評価だけを主表示する。
+- Learning SiteのGrowth画面では、既存のSkill Trendに加え、raw transcriptから自動算出する **Speaking Fingerprint / Fluency × Accuracy / Recurring Habits** を表示する。Speaking Fingerprintは `scripts/transcripts/analyze.mjs` を唯一の算出ロジックとし、redaction済みYuki発話を除外する。
+- 自動集計してよいのは、planning fillers、repair markers、ASR segmentあたりの語数、20語以上segment比率、`you know`、語彙検索マーカーなど、文字起こしでも比較的確認しやすい行動指標に限定する。冠詞・前置詞・複数形など短い機能語の誤り率はASR誤差の影響が大きいため自動算出しない。
+- Speaking Fingerprintの数値は能力スコアではない。fillerやrepairが少ないほど常に良いとは解釈せず、Task achievement、Interaction & repair、収録coverage、redaction量と合わせて読む。
 
 ## 9. 画像・プライバシー・出典
 
@@ -299,6 +302,7 @@ docs/               保守ガイドだけ
 ```powershell
 npm run check       # 3正本、raw transcript、グラフ、Site、リンク、画像、プライバシー
 npm run transcripts:check # raw transcriptの形式・coverage・既知の機密パターン
+npm run transcripts:analytics # raw transcriptからASR-safeなSpeaking Fingerprint指標を確認
 npm run pdf:setup   # PDF用Python依存をプロジェクト内の.venv-pdfへ準備
 npm run build       # 検証済みSiteを生成
 npm run report:assets # 定例2グラフを正式アセット化し、台帳メタデータとSHA-256を同期
@@ -315,6 +319,7 @@ npm run serve       # ローカルプレビュー
 - [ ] 内容、評価、グラフ、Bankが同じSession Packageに基づく
 - [ ] raw transcriptを取得できた回は `learning-records/transcripts/YYYY-MM-DD-session-NN.jsonl` に取得できた全発話単位を保存し、文法修正せず、公開不可情報だけを明示redactionしたうえでcommit対象に含めた
 - [ ] `learning-records/transcripts/coverage.json`に全Sessionの収録状態と欠落・redactionの制約を記録し、`npm run transcripts:check`と内容確認を通した
+- [ ] Growth画面のSkill Trend / Speaking Fingerprint / Fluency × Accuracy / Recurring Habitsが生成され、ASR-sensitiveな冠詞・前置詞を自動エラー率として表示していない
 - [ ] 過去セッションを再評価するときはraw transcriptを優先し、存在しない会話をJournal要約から再構成していない
 - [ ] 会話中の軽微な冠詞・前置詞を毎回中断せず、Wrap-upでは確実な代表例1〜2件へ集約した
 - [ ] 文脈上正しい冠詞・前置詞、自己修正、正しい再利用、ASR要確認を確定誤りと区別した
