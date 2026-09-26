@@ -23,7 +23,8 @@
     "pronunciation:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation/recording.ps1 -Action Status",
     "pronunciation:start": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation/recording.ps1 -Action Start",
     "pronunciation:collect": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation/recording.ps1 -Action Collect",
-    "pronunciation:analyze": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation/recording.ps1 -Action Analyze"
+    "pronunciation:analyze": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/pronunciation/recording.ps1 -Action Analyze",
+    "transcripts:analytics": "node scripts/transcripts/analyze.mjs"
   },
   "engines": {
     "node": ">=20.9.0"
