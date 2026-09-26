@@ -14,7 +14,7 @@
 - `learning-records/archive/` はGoogle Docs移行時点の匿名化済み固定記録。通常更新もLearning Site生成も行わない。
 - `.generated-site-docs/`、`site/`、`output/`、`tmp/` は再生成可能な派生物または一時物であり正本にしない。
 - 会話中は記録より自然さを優先し、終了が明示された後に記録作業へ移る。
-- ローカル記録完了は、3正本への必要な反映と `npm run check` の合格まで。PC間共有完了は、さらにcommitと`origin/main`へのpush成功確認まで。
+- ローカル記録完了は、3正本への必要な反映と `npm run check` の合格まで。レポートを作成・更新する回は対象変更をcommitし、`origin/main`へpushしてremoteが最新コミットを指すことまで確認する。push未完了ならリポジトリの更新完了とは報告しない。
 - 実行できない工程は、未完了の内容と理由を明示し、完了したように扱わない。
 - セッション後のレポートを作成・更新する回は、定めた収録範囲の一冊のJournal PDFを必ず作成する。`npm run journal:pdf` で `output/pdf/yuki-chappy-english-journal.pdf` を生成し、全ページを画像で確認してから、Yukiが指定した個人メインGmailアドレスへPDFを添付して送る。PDFのみ・メールのみ・Google Docsのみを個別に求めた場合は、その明示範囲に従う。
 
@@ -180,7 +180,7 @@ Yukiが「発音を評価して」「この音読を評価して」など明示�
 6. 定例レポートのグラフは固定パスの正式アセットとして再生成し、`media-manifest.json` のalt・caption・SHA-256を同期する。定例2アセット以外の画像を追加する場合だけ、用途・出典・利用条件・プライバシーを個別確認する。
 7. `npm run check`、`git diff` を確認し、対象ファイルだけcommitする。
 8. セッション後のレポートを作成・更新する回は、`npm run journal:pdf` で統合Journal PDFを生成し、PDFを全ページ画像で確認する。指定の個人メインGmailアドレスへ、Journal PDFを添付した完了メールを送信し、宛先・件名・添付有無を確認する。
-9. PC間共有を行う回はremote更新を確認し、force pushを使わず`origin/main`へpushする。
+9. レポートを作成・更新する回は毎回、remote更新を確認し、force pushを使わず`origin/main`へpushする。push後に`origin/main`がローカルの最新コミットを指すことを確認する。PDFのみ・メールのみを個別に求められ、正本を変更しない回はcommitやpushを不要とする。
 
 Session Packageは `tmp/session-package.json` などGit対象外へ置き、公開しない。主なフィールドは日時、タイトル、要約、Yukiの結論、根拠発話、語彙、発音、評価根拠、Bank候補、Sources、次回候補。フィードバックパターンを扱う回は、実発話と文脈、最小修正、再利用chunk、根拠確度、自力修正、助言後または後続セッションでの正しい再利用を追加し、`要確認` を確定誤りから分離する。
 
@@ -315,4 +315,4 @@ npm run serve       # ローカルプレビュー
 - [ ] `npm run check` が合格した
 - [ ] レポートを作成・更新した回は、収録範囲・印刷テーマ・静的コントラスト検査を確認し、統合Journal PDFを全ページ確認して指定アドレスへのPDF添付メール送信を確認した
 - [ ] PDF内の全Bank項目、10.5pt本文、開閉要素の静的表示、主要しおり、`file:` URI・ローカル絶対パスなしを機械検査と目視で確認した
-- [ ] `git diff` が意図した変更だけで、commit / pushの結果を確認した
+- [ ] レポート作成・更新回は`git diff`が意図した変更だけであることを確認し、commit後、`origin/main`へのpush成功とremoteの最新コミット一致を確認した
