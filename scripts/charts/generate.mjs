@@ -428,12 +428,13 @@ const estimatePanels = estimateMetricOrder.map((metricId, metricIndex) => {
     const lowY = scoreY(estimate.low);
     const midY = scoreY(estimate.mid);
     const highY = scoreY(estimate.high);
+    const showTimelineLabel = predictionPoints.length <= 6 || index === 0 || index === predictionPoints.length - 1 || index % 3 === 0;
     return `
       <line x1="${x}" y1="${highY}" x2="${x}" y2="${lowY}" stroke="#16a34a" stroke-width="8" stroke-linecap="round" opacity="0.55"/>
       <line x1="${x - 10}" y1="${highY}" x2="${x + 10}" y2="${highY}" stroke="#15803d" stroke-width="3"/>
       <line x1="${x - 10}" y1="${lowY}" x2="${x + 10}" y2="${lowY}" stroke="#15803d" stroke-width="3"/>
       <path d="M ${x} ${midY - 11} L ${x + 11} ${midY} L ${x} ${midY + 11} L ${x - 11} ${midY} Z" fill="#16a34a"/>
-      ${estimateText(x, plotBottomLocal + 24, `S${session.session} ${shortDate(session.date)}`, 'class="estimate-axis" text-anchor="middle"')}`;
+      ${showTimelineLabel ? estimateText(x, plotBottomLocal + 24, `S${session.session} ${shortDate(session.date)}`, 'class="estimate-axis" text-anchor="middle"') : ""}`;
   }).join("");
   const minLabel = ordinalEdgeLabel(definition, "min");
   const maxLabel = ordinalEdgeLabel(definition, "max");

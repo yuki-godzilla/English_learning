@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="800" viewBox="0 0 1400 800" role="img" aria-labelledby="title desc">
+  <title id="title">Google Cloud Pub/Sub and AWS SNS plus SQS</title>
+  <desc id="desc">Two conceptual event paths show an equipment event published once, then independently handled by monitoring and history services.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/></marker>
+  </defs>
+  <style>
+    text { font-family: Arial, sans-serif; fill: #1f2937; }
+    .title { font-size: 47px; font-weight: 700; fill: #163a5f; }
+    .subtitle { font-size: 27px; fill: #4b5563; }
+    .lane { font-size: 34px; font-weight: 700; fill: #163a5f; }
+    .box { font-size: 30px; font-weight: 700; text-anchor: middle; }
+    .small { font-size: 25px; fill: #4b5563; text-anchor: middle; }
+    .note { font-size: 27px; fill: #4b5563; }
+    .flow { fill: none; stroke: #0f766e; stroke-width: 5; marker-end: url(#arrow); }
+    .split { fill: none; stroke: #0f766e; stroke-width: 5; }
+  </style>
+  <rect width="1400" height="800" fill="#ffffff"/>
+  <text x="48" y="68" class="title">One event, two independent services</text>
+  <text x="48" y="110" class="subtitle">Pub/Sub on Google Cloud compared with a common SNS + SQS pattern on AWS</text>
+
+  <rect x="42" y="145" width="1316" height="275" rx="16" fill="#f7f9fc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="69" y="192" class="lane">Google Cloud</text>
+  <rect x="65" y="229" width="213" height="122" rx="12" fill="#eaf2fb" stroke="#a9c5e4" stroke-width="2"/>
+  <text x="172" y="279" class="box">Equipment</text><text x="172" y="316" class="small">event</text>
+  <rect x="346" y="229" width="253" height="122" rx="12" fill="#e3f4f0" stroke="#9ccfc4" stroke-width="2"/>
+  <text x="473" y="278" class="box">Pub/Sub</text><text x="473" y="316" class="small">topic</text>
+  <rect x="681" y="220" width="304" height="68" rx="11" fill="#eaf2fb" stroke="#a9c5e4" stroke-width="2"/>
+  <text x="833" y="262" class="box">Subscription A</text>
+  <rect x="681" y="316" width="304" height="68" rx="11" fill="#eaf2fb" stroke="#a9c5e4" stroke-width="2"/>
+  <text x="833" y="358" class="box">Subscription B</text>
+  <rect x="1082" y="220" width="251" height="68" rx="11" fill="#e3f4f0" stroke="#9ccfc4" stroke-width="2"/>
+  <text x="1208" y="262" class="box">Monitoring</text>
+  <rect x="1082" y="316" width="251" height="68" rx="11" fill="#e3f4f0" stroke="#9ccfc4" stroke-width="2"/>
+  <text x="1208" y="358" class="box">History</text>
+  <path class="flow" d="M278 290 H336"/><path class="split" d="M599 290 H635 V254 H670"/><path class="flow" d="M635 254 H671"/><path class="flow" d="M635 290 V350 H671"/>
+  <path class="flow" d="M985 254 H1071"/><path class="flow" d="M985 350 H1071"/>
+
+  <rect x="42" y="441" width="1316" height="275" rx="16" fill="#f2faf7" stroke="#b4ddcc" stroke-width="2"/>
+  <text x="69" y="488" class="lane">AWS</text>
+  <rect x="65" y="525" width="213" height="122" rx="12" fill="#eaf2fb" stroke="#a9c5e4" stroke-width="2"/>
+  <text x="172" y="575" class="box">Equipment</text><text x="172" y="612" class="small">event</text>
+  <rect x="346" y="525" width="253" height="122" rx="12" fill="#e3f4f0" stroke="#9ccfc4" stroke-width="2"/>
+  <text x="473" y="574" class="box">SNS</text><text x="473" y="612" class="small">topic</text>
+  <rect x="681" y="516" width="304" height="68" rx="11" fill="#eaf2fb" stroke="#a9c5e4" stroke-width="2"/>
+  <text x="833" y="558" class="box">SQS queue A</text>
+  <rect x="681" y="612" width="304" height="68" rx="11" fill="#eaf2fb" stroke="#a9c5e4" stroke-width="2"/>
+  <text x="833" y="654" class="box">SQS queue B</text>
+  <rect x="1082" y="516" width="251" height="68" rx="11" fill="#e3f4f0" stroke="#9ccfc4" stroke-width="2"/>
+  <text x="1208" y="558" class="box">Monitoring</text>
+  <rect x="1082" y="612" width="251" height="68" rx="11" fill="#e3f4f0" stroke="#9ccfc4" stroke-width="2"/>
+  <text x="1208" y="654" class="box">History</text>
+  <path class="flow" d="M278 586 H336"/><path class="split" d="M599 586 H635 V550 H670"/><path class="flow" d="M635 550 H671"/><path class="flow" d="M635 586 V646 H671"/>
+  <path class="flow" d="M985 550 H1071"/><path class="flow" d="M985 646 H1071"/>
+
+  <text x="48" y="759" class="note">Conceptual analogy only: the products are not exact replacements or a diagram of any real system.</text>
+</svg>

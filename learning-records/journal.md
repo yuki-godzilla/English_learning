@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 16 — GCP Pub/SubとAWSの比較・英語力評価の見直し](#session-2026-09-26-01)
   - [Session 15 — キャリアの転機とAWS・GCPの設計比較](#session-2026-09-25-01)
   - [Session 14 — AIモデルの費用・性能比較と英語読書の進展](#session-2026-09-24-01)
   - [Session 13 — 最終面接の振り返りと英語で読む日本ミステリー](#session-2026-09-12-01)
@@ -33,32 +34,32 @@
 # 今日の5分復習
 
 <details>
-<summary>設計前に性能と追跡可能性を決める</summary>
+<summary>Pub/SubをAWSに対応づけて説明する</summary>
 
-**We should define performance and traceability requirements before designing the system.**
-
-</details>
-
-<details>
-<summary>利用者と技術者の優先事項を対比する</summary>
-
-**Users may prioritize speed, while engineers also need traceability.**
+**Amazon SNS is the closest match for broadcasting; SNS with SQS supports independent processing.**
 
 </details>
 
 <details>
-<summary>業務固有の知識を説明する</summary>
+<summary>非同期を一言で説明する</summary>
 
-**Some knowledge is specific to one service; I want to build more transferable skills.**
+**Asynchronous means the sender does not have to wait for the receiver to finish.**
 
 </details>
 
 <details>
-<summary>クラウド製品の近い役割と同一製品を区別する</summary>
+<summary>AWSの近いサービスを尋ねる</summary>
 
-**Firestore and Bigtable can both be considered for some DynamoDB use cases, but they are not identical replacements.**
+**Which AWS service is most similar to Pub/Sub?**
 
-データモデル、規模、読み書きの条件を見て選ぶ。
+</details>
+
+<details>
+<summary>評価の読み方を確認する</summary>
+
+**An unchanged level does not necessarily mean I have stopped improving.**
+
+今回は6観点を個別に見直し、数値だけでなく観察できた行動と比較の限界も確認する。
 
 </details>
 
@@ -67,6 +68,98 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":16,"session_id":"2026-09-26-01","date":"2026-09-26","title":"GCP Pub/SubとAWSの比較・英語力評価の見直し","tags":["Cloud","GCP / AWS","Technical Reading","English Growth"],"remember":"Pub/Subはイベントを非同期で分配する。AWSではSNSが配信、SNSとSQSの組合せがサービスごとの独立処理に近い。英語力は数値だけでなく行動の根拠と比較条件で見る。","prompt":"How does Pub/Sub compare with SNS and SQS, and what evidence shows progress in my English?"} -->
+<a id="session-2026-09-26-01"></a>
+
+## 2026年9月26日（土）— GCP Pub/SubとAWSの比較・英語力評価の見直し
+
+> **Session 16 / Recorded session window:** Afternoon to evening JST
+> **主な話題:** 利用者と技術者の応答速度、GCP Pub/Subの音読、AWSとの比較、英語力の採点方法
+
+> [!NOTE]
+> 技術図は一般化した学習用の例であり、勤務先の実システム構成ではない。英語評価は今回から6観点を独立に判定した。音声解析で確認できた数値と、新規の総合Pronunciation判定は区別する。
+
+### 今日の要点 / Today at a Glance
+
+前回の設計議論を引き継ぎ、Yukiは「利用者にとって10秒の応答は長く感じられる場合があるが、技術者から見ると10秒の達成も難しい」と、同じ時間を異なる立場から評価した。GCPを学ぶ題材にはPub/Subを選び、[Google Cloudの公式概要](https://docs.cloud.google.com/pubsub/docs/overview)を英語で音読した。分からなかった`synchronous`と`parallelize`をその場で確認し、非同期と並列処理の意味を整理した後、知っているAWSでは何が近いかを自分から質問した。
+
+英語力については、最近のLレベルが変わらないことに疑問を示し、発音だけでなく**全6観点**の採点過程を見直すよう求めた。今回から観点別の根拠・前回比較・確度を記録する。一方、比較可能な固定自発発話課題はまだ初回を実施しておらず、最近の語探しや話速の改善率は算出しない。
+
+### 話題別メモ / Topic Notes
+
+#### 利用者の体感と技術上の目標
+
+Yukiはクラウドを使う画面の応答について、利用者は10秒でも待ち時間を長く感じ得る一方、システム側では10秒が厳しい目標になると指摘した。これは同じ数値でも利用者体験と実装・検証の視点が異なるという考えであり、応答表示と裏側の処理を分けて設計・測定する方向につながる。ここでの「10秒」はYukiの議論上の例で、特定システムの確定要件ではない。
+
+#### Pub/Subの記事で学んだこと
+
+[Google Cloudの説明](https://docs.cloud.google.com/pubsub/docs/overview)では、Pub/Subはメッセージを作るサービスと処理するサービスを切り離す非同期メッセージングとして紹介されている。**Synchronous**は相手の処理・応答を待つやり取り、**asynchronous**は送信側と受信側が同時に処理を終える必要がないやり取り。**Parallelize**は複数の仕事を同時進行できるようにすること。Yukiは記事を音読し、未知語を質問した後、概念をAWSとの比較へ進めた。記事の音読と自発的な会話は評価条件を混ぜない。
+
+#### AWSとの対応は「一つの製品名」より構成で見る
+
+| 役割 | Google Cloud Pub/Sub | AWSで近い一般的な構成 |
+|---|---|---|
+| 一つのイベントを複数のサービスへ配る | PublisherがPub/Subのtopicへ送る | ProducerがAmazon SNSのtopicへ送る |
+| 各サービスが独立して処理する | サービスごとにPub/Sub subscriptionを持つ | サービスごとにAmazon SQS queueをSNS topicへ購読させる |
+| この比較の要点 | Topicとsubscriptionの組合せ | SNSによる配信とSQSによる受信・待機の組合せ |
+
+[AWS公式のSNS–SQS fan-out説明](https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html)では、SNSが複数の購読先に配信し、SQSが後続の非同期処理用メッセージを保持する。したがって「近いAWSサービスはSNS」、複数のサービスが独立して処理する全体像は「SNS + SQS」と覚える。機能・保証・価格が完全に同じという意味ではない。
+
+[![GCP Pub/Subのtopicとsubscriptions、AWSのSNS topicとSQS queuesで、一つの仮想設備イベントを監視と履歴へ分配する概念比較図](media/sessions/2026-09-26-pubsub-sns-sqs-comparison.png)](media/sessions/2026-09-26-pubsub-sns-sqs-comparison.png)
+
+この自作図は仮想の設備イベントを使った**概念上の対応**であり、実際の勤務先の構成や移行手順を示さない。物理的な安全停止をクラウド配信へ依存させる設計を意味しない。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. 新しいクラウド技術は、既に知っているAWSの役割と比較すると理解しやすい。
+2. 技術記事で知らない語を確認しながら読み、理解した内容を次の質問に使う。
+3. 英語力は本人の実感だけでも、横ばいのグラフだけでも決めず、観察可能な行動と同条件の比較で判断したい。
+
+### 役立つ英語 / Useful English
+
+**Yukiの実発話（文字起こし）:** “What's similar service in AWS?”
+
+**最小修正:** “Which AWS service is most similar to Pub/Sub?”
+
+**Why / Chunk:** `Which ... is most similar to ...?` は二つのサービスを比較して尋ねる再利用しやすい形。発話の細部はASR確認前のため、音声上の冠詞誤り件数には数えない。
+
+**学習用の自然な言い方:** “Ten seconds can feel long to users, but it can be a difficult target for engineers.” — 利用者体験と技術上の難度を対比する。Yukiの考えを整理した文で、原文そのままの発話ではない。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**今回の新規Pronunciation総合レベル: N/A（判定保留）。前回の最終実測: Session 12のL3・安定。** 今回は標準音読の録音約50.3秒をローカルで直接処理し、音割れなし、ASRの語一致率約96.5%、認識語ベース約107語/分を補助指標として確認した。ただし、これらは個別音、単語強勢、つながり、リズム、イントネーションの十分な直接聴取評価ではない。したがってASR一致率や波形だけで今回の総合Lを新規採点・昇格させない。Pub/Subの記事音読も今回の固定自発発話課題とは別であり、過去の自然会話と単純な推移比較をしない。録音本体はJournal、Site、PDF、メールに含めない。
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+**今回から新しい6観点手順を適用。** Yukiは公式技術記事を読み、分からない語を自分で確認し、Pub/Subの役割をAWSとの比較へつなげた。図ではなく記事を読みたいときには目的を言い直し、欲しい成果物も図と表の両方へ具体化した。これはTask achievementとInteraction & repairの強さを裏付ける。一方、今回の英語発話には語探しと再構成が残り、前回と同じ条件の固定自発発話はまだない。数値が同じことを能力停止の証拠にしないが、最近の改善率も測定済みとは言わない。
+
+| Metric | 今回 | 前回 | 比較 | 今回の根拠と制約 |
+|---|---|---|---|---|
+| Task achievement | **L4・強い** | L4・強い | 維持 | 記事理解からAWS比較という自分の目的へ進め、求める図・表も明確にした。説明の専門内容そのものはChappyの支援を含む。 |
+| Fluency & coherence | **L3・強い** | L3・強い | 比較不能 | 設備イベントの例と学習上の疑問を複数turnで維持。間・速度の前回比較は同条件音声がなく不可。 |
+| Lexical resource | **L3・強い** | L3・強い | 比較不能 | 自分の経験に基づく技術語を使用。`synchronous`と`parallelize`は記事由来で質問した語であり、自力習得済みとしては数えない。 |
+| Grammar control | **L3・安定** | L3・安定 | 比較不能 | 単純文と対比を使い意図を伝えた。語形・語順の揺れは見られるが、ASRが不確かな細部を確定誤りにしない。 |
+| Interaction & repair | **L4・強い** | L4・強い | 維持 | ブラウザー記事への誘導、未知語の確認、採点手順の見直し、図・表の希望を自発的に伝えた。 |
+| Pronunciation | **N/A** | N/A（最終実測はSession 12 L3・安定） | 比較不能 | 録音は処理済みだが、個別音と韻律の総合聴取根拠が不足。音読と自発発話を混ぜない。 |
+
+### 学習バンク更新 / Study Banks Update
+
+- [Expression Bank](#journal-expression-bank): 新規2件
+- [Vocabulary Bank](#journal-vocabulary-bank): 新規3件
+- [Pronunciation & Speaking Bank](#journal-speaking-bank): 追加なし。総合発音の新規判定は保留
+
+### 次回 / Next Steps
+
+仮想の設備イベント一つをPub/SubとSNS + SQSに通し、「遅延または重複が起きたら何を検証するか」を英語で議論する。英語力の小さな変化を測る固定自発発話課題は、Yukiが希望する時に初回を実施する。
+
+### Sources / References
+
+[Google Cloud: What is Pub/Sub?](https://docs.cloud.google.com/pubsub/docs/overview) · [AWS: Fanout SNS notifications to SQS queues](https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html)
+
+[ページ先頭へ戻る](#journal-contents) · [Session Index](#journal-sessions)
+
+---
 
 <!-- session-meta: {"session_number":15,"session_id":"2026-09-25-01","date":"2026-09-25","title":"キャリアの転機とAWS・GCPの設計比較","tags":["Career","Cloud","AWS / GCP","IoT","Requirements"],"remember":"AWSとGCPは用途で対応づける。速度と追跡可能性は利害関係者と合意し、設計前に要件化する。","prompt":"How should we compare AWS and GCP for an IoT service, and which requirements matter before choosing an architecture?"} -->
 <a id="session-2026-09-25-01"></a>
@@ -1771,7 +1864,7 @@ Why: 改善点には work on / focus on が自然。
 ## できるようになったこと
 
 **最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 15（2026年9月25日）](#session-2026-09-25-01)**
+**最新の会話評価： [Session 16（2026年9月26日）](#session-2026-09-26-01)**
 
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
@@ -1781,7 +1874,8 @@ Why: 改善点には work on / focus on が自然。
 - 読書中の困難を「人物名を追う負荷」と具体化し、日本語版・映像を足場に英語へ進む解決策を自分で提案できる。
 - モデルの費用と独立ベンチマークを区別し、比較図にないモデルを指摘して対象を広げられる。英語読書では、以前約1年かけた小説と、現在一日で40ページ進んだ小説を比べ、学習法の効果を説明できる。
 - 馴染みのあるAWSサービスからGCPへの比較へ会話を修正し、IoT設計では利用者の速度と技術者の追跡可能性を区別して、設計前の要件定義へ結論を導ける。
-- 本人の「英語がかなりスムーズに出る」という感覚と、長い技術議論を維持できた事実が一致しており、Fluency L3内で発話の自動化が進んでいる。
+- GCP Pub/Subの技術記事を英語で読み、分からない語を確認したうえで、既知のAWSのSNS・SQSとの対応を質問できる。欲しい図と表、読む記事、採点の根拠も自分から指定できる。
+- 本人は英語が以前より出やすいと感じている。長い技術議論を維持できる事実は確認できるが、直近の語探しや話速の改善を示す同条件の反復測定はまだない。
 - 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
 
 ## 全履歴の再監査 / Retrospective Audit
@@ -1793,40 +1887,41 @@ Why: 改善点には work on / focus on が自然。
 | **Session 1** | 身近な旅行の話は成立したが、流暢さ・語彙・文法はL2形成中。ここを観察上の出発点とする。 |
 | **Session 3** | 面接テーマで結論と理由を自力で展開し、Task achievementとInteraction & repairがL4形成中へ到達。 |
 | **Session 6** | 複数の技術・業務論点を目的へまとめたため、Task achievementを従来のL3から**L4形成中**へ訂正。 |
-| **Session 7〜15** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 15ではAWS・GCP比較を経験に合わせて修正し、異なる利害関係者の要件を説明した。 |
+| **Session 7〜16** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 16では技術記事を読んで未知語を確認し、AWSとの比較へ自分から議論を進めた。直近の話速や語探しは同条件測定がなく、改善率を主張しない。 |
 | **Pronunciation** | 直接音声があるSession 8・12だけL3安定。課題文が異なるため、両者の優劣や過去回への遡及採点は行わない。 |
 
 ## Current Snapshot
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4・強い / Session 15** | 自分の経験を起点にクラウド比較を調整し、設計前の要件定義まで結論を進めた。 |
-| **Fluency & coherence** | **L3・強い / Session 15** | 停止や再構成を挟んでもキャリアと技術の長い説明で筋を保った。 |
-| **Lexical resource** | **L3・強い / Session 15** | IoT、クラウド製品、E2E、requirements等を文脈で扱い、必要な語は確認した。 |
-| **Grammar control** | **L3・安定 / Session 15** | 条件・対比の意図は明確。語順、語形、前置詞などに揺れは残る。 |
-| **Interaction & repair** | **L4・強い / Session 15** | GCPの希望と比較対象のずれを自分から直し、図に会話内容を入れる希望を具体化した。 |
+| **Task achievement** | **L4・強い / Session 16** | 記事の理解からAWS比較という自分の学習目標へ進み、必要な図・表も指定した。 |
+| **Fluency & coherence** | **L3・強い / Session 16** | 語探しや再構成を挟みつつ、設備イベントと英語評価の話題を保った。直近の速度変化は未測定。 |
+| **Lexical resource** | **L3・強い / Session 16** | 既知の技術語を使い、記事の未知語は自分で確認した。教わった語を自力使用済みとは数えない。 |
+| **Grammar control** | **L3・安定 / Session 16** | 対比や質問の意味は明瞭。語形・語順に揺れがあり、ASR不確かな細部は確定誤りにしない。 |
+| **Interaction & repair** | **L4・強い / Session 16** | ブラウザー記事への転換、知らない語、採点ルール、図・表の希望を自発的に明確化した。 |
 | **Pronunciation** | **L3・安定 / Session 12直接音声** | 36秒の音読で、明瞭さの補助指標、安定した速度、音割れなしを確認。標準音素採点ではない。 |
 
 ## 発音の測定状況
 
-最新の直接発音評価はSession 12で、標準60秒課題とは別の技術英文を直接録音し、全体の明瞭さを **L3 / Mostly independent** と保守的に記録した。Session 15では専用録音を回収・直接分析していないため、PronunciationはN/Aであり、最後の実測値を上書きしない。
+最新の**総合Pronunciation評価**はSession 12で、技術英文の直接録音に基づく **L3・安定 / Mostly independent** を保守的に記録した。Session 16では約50.3秒の標準音読を直接ローカル処理し、音割れなし・ASR語一致率約96.5%・認識語ベース約107語/分を確認した。ただし個別音・単語強勢・リズム・連結の直接聴取評価が足りないため、**今回の新規総合レベルはN/A**。前回のL3を今回の測定点として描かない。
 
 ## 成長グラフ
 
 [![Session 1からSession 15までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から15までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表し、初期の大きな伸びと直近のレベル内成長を分けて読めるようにしました。Session 15の会話能力5指標は本日の会話から評価し、PronunciationはN/Aです。Pronunciationは、直接音声の根拠があるSession 8とSession 12だけを測定値として扱い、未測定回を能力低下にしません。画像をタップすると原寸で確認できます。
+Session 1から16までの6指標を時系列で表示しています。整数のL1〜L5に加え、同じL内の **形成中・安定・強い** を左右位置で表します。Session 16は全6観点を別々に判定し、会話の5観点に当日の根拠、PronunciationにN/Aと理由を記録しました。Pronunciationの総合Lは直接評価が足りるSession 8と12だけを測定値として扱い、今回の音声解析値を新しいL点に変換しません。画像をタップすると原寸で確認できます。
 
 ## 次に伸ばすこと
 
-1. 次の技術議論では、結論を先に一文で置き、理由と設計上の例を一つずつ続ける。
-2. `performance requirements` と `traceability requirements` を一つの設計判断の中で使う。
-3. 発音の変化は、直接録音がある回だけ比較する。
+1. 次回は仮想イベントを一つ選び、Pub/SubとSNS + SQSの流れを自分の短い言葉で説明する。
+2. `Which AWS service is most similar to ...?` を別のクラウド比較にも使う。
+3. 本人が希望する時に固定自発発話課題の初回基準点を取り、語探しや間を今後同条件で比べる。
 
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 16 — GCP Pub/SubとAWSの比較・英語力評価の見直し](#session-2026-09-26-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。今回の総合PronunciationはN/A。新手順で観点別の根拠・比較条件を示し、語探しの直近改善率は未確認とした。
 - [Session 15 — キャリアの転機とAWS・GCPの設計比較](#session-2026-09-25-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。比較の前提を修正し、速度と追跡可能性を要件として論じた。
 - [Session 14 — AIモデルの費用・性能比較と英語読書の進展](#session-2026-09-24-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。技術比較を具体化し、書名の誤解を自分で修復。
 - [Session 13 — 最終面接の振り返りと英語で読む日本ミステリー](#session-2026-09-12-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。異なる二つの話題でも長い説明と対話修復を再現。
@@ -1848,19 +1943,19 @@ Session 1から15までの6指標を時系列で表示しています。整数�
 | 試験・尺度 | 学習用レンジ | 最後に根拠を更新した回 |
 |---|---:|---:|
 | TOEIC L&R | **820–900 / 990** | Session 8 |
-| TOEIC Speaking | **140–160 / 200** | Session 15 |
+| TOEIC Speaking | **140–160 / 200** | Session 16 |
 | TOEIC Writing | **140–160 / 200** | Session 8 |
-| IELTS Speaking | **Band 5.5–6.5** | Session 15 |
-| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 15 |
-| Cambridge English | **155–170（B1上位〜B2）** | Session 15 |
-| CEFR 会話 | **B1+–B2** | Session 15 |
-| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 15 |
+| IELTS Speaking | **Band 5.5–6.5** | Session 16 |
+| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 16 |
+| Cambridge English | **155–170（B1上位〜B2）** | Session 16 |
+| CEFR 会話 | **B1+–B2** | Session 16 |
+| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 16 |
 
 [![資格スコア予測の推移グラフ](media/progress/english-test-score-estimate-trends.png)](media/progress/english-test-score-estimate-trends.png)
 
-試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジで、初期からの変化を示します。記録が十分でない回は補間していません。Session 15では技術議論で条件・利害関係者・要件を結び、対話修復も再確認できたため、Speaking・oral interactionの6種別を最新根拠へ接続し、レンジは維持しました。発音の最後の直接測定はSession 12です。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
+試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジです。Session 16は技術記事の理解からAWS比較へ会話を進めた根拠をSpeaking・oral interactionの6種別へ接続したが、公式形式の課題や総合発音の新規判定はなく、レンジを維持しました。これは新しい測定値で点数の上昇を証明したという意味ではありません。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
 
-いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 15の評価](#session-2026-09-25-01)で確認できます。
+いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 16の評価](#session-2026-09-26-01)で確認できます。
 
 ## 評価の読み方
 
@@ -1871,6 +1966,13 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年9月26日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **Which AWS service is most similar to Pub/Sub?** | 似た役割のサービスを尋ねる。`What's similar service in AWS?`というYukiの質問意図を、再利用しやすい疑問文にした。**Chunk:** Which ... is most similar to ...? | [Session 16](#session-2026-09-26-01) |
+| **Ten seconds can feel long to users, but it can be a difficult target for engineers.** | 同じ数値を利用者体験と技術上の難度で対比する学習用の形。Yukiの意見を整理した文であり、原文そのままの発話ではない。 | [Session 16](#session-2026-09-26-01) |
 
 ## 2026年9月25日
 
@@ -1999,6 +2101,14 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年9月26日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **asynchronous** /eɪˈsɪŋ.krə.nəs/ adjective | **意味:** 非同期の。送り手が受け手の処理完了を待たずに進められる。**対語:** synchronous. **Example:** Pub/Sub supports asynchronous communication between services. | [Session 16](#session-2026-09-26-01) |
+| **parallelize** /ˈper.ə.lel.aɪz/ verb | **意味:** 複数の仕事を並列に進められるようにする。**Collocation:** parallelize tasks. **Example:** A queue can help parallelize work across several workers. | [Session 16](#session-2026-09-26-01) |
+| **subscription** /səbˈskrɪp.ʃən/ noun | **意味:** Pub/Subでtopicからメッセージを受け取るための購読設定。一般的な日常語の「定期購読」と技術文脈を区別する。**Example:** Each service can use its own subscription. | [Session 16](#session-2026-09-26-01) |
 
 ## 2026年9月25日
 

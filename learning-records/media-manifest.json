@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_jst": "2026-09-25",
+  "reviewed_jst": "2026-09-26",
   "review_scope": "Visible text, identifying work or affiliation details, learner-facing suitability, attribution, and license notes",
   "publishing_rules": [
     "Use an image only when it supports concept understanding, comparison, evidence, or progress review.",
@@ -8,6 +8,29 @@
     "Visually review every changed image for personal, employer, confidential product, and contact information before publishing."
   ],
   "files": [
+    {
+      "path": "learning-records/media/sessions/2026-09-26-pubsub-sns-sqs-comparison.png",
+      "status": "published",
+      "session_id": "2026-09-26-01",
+      "role": "Conceptual GCP Pub/Sub and AWS SNS plus SQS event-flow comparison",
+      "alt": "架空の設備イベントを、GCPのPub/Sub topicとsubscriptions、AWSのSNS topicとSQS queuesを通して監視と履歴の処理へ届ける2つの概念図",
+      "caption": "Pub/SubとSNS＋SQSで複数の処理へイベントを届ける概念比較。実際の勤務先システム構成ではない。",
+      "creator": "Yuki × Chappy, original visualization based on official Google Cloud and AWS documentation",
+      "source_url": "https://docs.cloud.google.com/pubsub/docs/overview",
+      "license": "Project original visualization",
+      "notice": "AWS側の参考資料は本文Sourcesに掲載。完全な1対1対応ではない。個人情報・勤務先固有情報を含まないことを目視確認済み。",
+      "sha256": "1ebf325a746ffea4b7ceb3ec4d660437338acdb26270e08677e72e2992672fd9"
+    },
+    {
+      "path": "learning-records/media/sessions/2026-09-26-pubsub-sns-sqs-comparison.svg",
+      "status": "source",
+      "session_id": "2026-09-26-01",
+      "role": "Editable source for the Pub/Sub and SNS plus SQS comparison",
+      "alt": "Pub/SubとSNS＋SQSの概念比較図の編集用SVG",
+      "creator": "Yuki × Chappy",
+      "license": "Project original",
+      "sha256": "82053a44bafb1927a5e7fc53a5e269df9a3544d2024a00acc45a0c3389478eb5"
+    },
     {
       "path": "learning-records/media/sessions/2026-09-25-aws-gcp-iot-comparison.png",
       "status": "published",
@@ -110,21 +133,21 @@
       "path": "learning-records/media/progress/english-growth-evidence-dashboard.png",
       "status": "generated",
       "role": "English growth dashboard",
-      "alt": "Session 1からSession 15までの英語力成長グラフ",
-      "caption": "progress.jsonから生成したSession 1〜15の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
+      "alt": "Session 1からSession 16までの英語力成長グラフ",
+      "caption": "progress.jsonから生成したSession 1〜16の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "3321d0945a785a47327de779b9f914c48072e8e3449bd8a261c9b05f19b5d69f"
+      "sha256": "9bc9f0e8e0e150af44658f4963fb63742c1365a1cf0824a23fd728a8f85f45fa"
     },
     {
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",
       "status": "generated",
       "role": "Estimated test score trends",
-      "alt": "Session 1からSession 15までの資格スコア予測の推移グラフ",
+      "alt": "Session 1からSession 16までの資格スコア予測の推移グラフ",
       "caption": "progress.jsonから生成した学習用の資格スコア目安。正本の会話根拠が十分な節目だけを履歴点として描画し、記録が薄い回を補間しない。各技能の最新根拠Session、確度、未測定範囲を区別し、公式試験結果とは扱わない。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "2c27d456a1a4facf62cf1d106c67804dc5e681f57286ae5ab8d2fc963db76720"
+      "sha256": "cfa4da9bae1841fc128b3e18f1bd12d0bb38f7ba18e6894e77e2c44ebbb59825"
     },
     {
       "path": "learning-records/archive/media/electricity-demand-chart.png",

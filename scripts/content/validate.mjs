@@ -87,16 +87,59 @@ for (const [index, session] of journal.sessions.entries()) {
 
 if (!Array.isArray(progress.sessions) || !progress.sessions.length) fail("Progress data has no sessions");
 const withinLevelStages = new Set(["emerging", "established", "strong"]);
+const scoringProtocol = progress.scoring_protocol;
+if (!scoringProtocol || scoringProtocol.effective_from_session !== 16 || typeof scoringProtocol.resource !== "string" || !await exists(path.join(root, scoringProtocol.resource))) {
+  fail("Whole-session scoring protocol is missing or invalid");
+}
+const comparisonStates = new Set(["improved", "stable", "mixed", "declined", "not_comparable"]);
 for (const session of progress.sessions ?? []) {
   const journalSession = journal.sessions.find((entry) => entry.session === session.session);
   if (!journalSession) { fail(`Progress Session ${session.session} has no Journal session`); continue; }
   if (journalSession.date !== session.date) fail(`Session ${session.session} date differs between Journal and progress data`);
   for (const metric of progress.qualitative_metrics ?? []) {
+    if (session.session >= 16 && !Object.hasOwn(session.ratings ?? {}, metric)) fail(`Session ${session.session} must explicitly rate or mark ${metric} N/A`);
     const rating = session.ratings?.[metric];
     if (rating != null && (!Number.isInteger(rating) || rating < 1 || rating > 5)) fail(`Session ${session.session} has an invalid ${metric} rating`);
+    if (session.session >= 16 && !Object.hasOwn(session.within_level_stage ?? {}, metric)) fail(`Session ${session.session} must explicitly stage or mark ${metric} N/A`);
     const stage = session.within_level_stage?.[metric];
     if (rating != null && !withinLevelStages.has(stage)) fail(`Session ${session.session} is missing a valid within-level stage for ${metric}`);
     if (rating == null && stage != null) fail(`Session ${session.session} has a within-level stage for unmeasured ${metric}`);
+    if (session.session >= 16) {
+      const evidence = session.metric_evidence?.[metric];
+      if (!evidence || typeof evidence.basis !== "string" || !evidence.basis.trim() || typeof evidence.observed !== "string" || !evidence.observed.trim() || typeof evidence.reason !== "string" || !evidence.reason.trim() || !comparisonStates.has(evidence.comparison) || !["high", "medium", "low"].includes(evidence.confidence)) {
+        fail(`Session ${session.session} is missing complete scoring evidence for ${metric}`);
+      } else if (rating == null && evidence.comparison !== "not_comparable") {
+        fail(`Session ${session.session} cannot claim ${metric} changed when it was not measured`);
+      }
+    }
+  }
+}
+
+const speakingProbe = progress.speaking_probe;
+if (!speakingProbe || speakingProbe.prompt_id !== "spontaneous-iot-explanation-v1") {
+  fail("Progress data is missing the fixed spontaneous-speaking probe protocol");
+} else {
+  if (typeof speakingProbe.resource !== "string" || !speakingProbe.resource || !await exists(path.join(root, speakingProbe.resource))) fail("Spontaneous-speaking probe resource is missing");
+  if (!Array.isArray(speakingProbe.observations)) fail("Spontaneous-speaking observations must be an array");
+  else {
+    if (speakingProbe.observations.length === 0 && speakingProbe.status !== "awaiting_first_baseline") fail("Speaking probe status must identify the missing baseline");
+    if (speakingProbe.observations.length > 0 && speakingProbe.status !== "active") fail("Speaking probe status must be active after its first observation");
+    const observedSessions = new Set();
+    for (const observation of speakingProbe.observations) {
+      const session = progress.sessions.find((item) => item.session === observation.session);
+      if (!session || session.date !== observation.date) fail("Speaking probe observation has no matching session and date");
+      if (observedSessions.has(observation.session)) fail("Speaking probe has duplicate observations for one session");
+      observedSessions.add(observation.session);
+      if (observation.prompt_id !== speakingProbe.prompt_id || observation.task_kind !== "spontaneous" || observation.purpose !== "evaluation") fail("Speaking probe observation is not comparable to the fixed prompt");
+      if (!Number.isFinite(observation.preparation_seconds) || observation.preparation_seconds < 0 || !Number.isFinite(observation.elapsed_seconds) || observation.elapsed_seconds <= 0) fail("Speaking probe timing is invalid");
+      if (typeof observation.one_take !== "boolean" || typeof observation.support !== "boolean" || typeof observation.audio_checked !== "boolean") fail("Speaking probe conditions must be recorded");
+      for (const measure of ["words", "long_pauses_ge_1s", "word_search_episodes", "successful_paraphrases"]) {
+        if (observation[measure] != null && (!Number.isInteger(observation[measure]) || observation[measure] < 0)) fail(`Speaking probe ${measure} must be a nonnegative count or null`);
+      }
+      if (!observation.audio_checked && (observation.long_pauses_ge_1s != null || observation.word_search_episodes != null)) fail("Speaking probe cannot claim audio-dependent counts without audio review");
+      if (!Number.isInteger(observation.idea_units_completed) || observation.idea_units_completed < 0 || observation.idea_units_completed > 3) fail("Speaking probe idea units must be between 0 and 3");
+      if (!["high", "medium", "low"].includes(observation.evidence_confidence) || !observation.evidence_note) fail("Speaking probe needs evidence confidence and a note");
+    }
   }
 }
 

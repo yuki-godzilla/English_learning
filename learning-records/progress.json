@@ -80,6 +80,19 @@
     "visual_offset_only": 0.2,
     "pronunciation_boundary": "Assign a pronunciation stage only when direct audio was assessed. Different passages are not treated as comparable improvement evidence."
   },
+  "speaking_probe": {
+    "protocol_version": "1.0",
+    "resource": "learning-records/resources/spontaneous-speaking-probe.md",
+    "prompt_id": "spontaneous-iot-explanation-v1",
+    "status": "awaiting_first_baseline",
+    "observations": []
+  },
+  "scoring_protocol": {
+    "version": "2.0",
+    "effective_from_session": 16,
+    "resource": "learning-records/resources/whole-session-scoring.md",
+    "comparison_states": ["improved", "stable", "mixed", "declined", "not_comparable"]
+  },
   "sessions": [
     {
       "session": 1,
@@ -479,15 +492,100 @@
       "evidence_quote_origin": "Spontaneous technical discussion in the realtime transcript; pauses and restarts lightly regularized. The cloud-service mapping and polished requirement sentence were assistant-proposed, not counted as spontaneous learner production.",
       "evidence_note_ja": "半期の成果評価と長期的なキャリアの適合を説明した後、GCP比較を自分に馴染みのあるS3・DynamoDB・Lambda・Bedrockから始めるよう会話を修正した。IoTの仮想設計では、速度と追跡可能性の優先度がサービスと利害関係者で異なると述べ、設計前の要件定義へ結論を導いた。停止・言い直しと語探しは残るが、目的の維持と対話の修復は安定。前回と同じTaskとInteractionのL4・強い、FluencyとLexicalのL3・強い、GrammarのL3・安定を維持する。録音の直接分析がないためPronunciationはN/A。",
       "evidence_note": "Explained the half-year review and longer-term career fit, then redirected the GCP comparison toward familiar AWS services: S3, DynamoDB, Lambda, and Bedrock. In a hypothetical IoT architecture discussion, distinguished speed from traceability for different stakeholders and concluded that requirements should be defined before design. Pauses, restarts, and word searches remain, but task focus and interaction repair were sustained. Retain the prior stages: strong L4 for task achievement and interaction, strong L3 for fluency and lexical resource, established L3 for grammar. Pronunciation is N/A because no recording was directly analyzed."
+    },
+    {
+      "session": 16,
+      "date": "2026-09-26",
+      "task": "GCP Pub/Sub technical reading, AWS event-service comparison, and whole-session English review",
+      "task_ja": "GCP Pub/Subの技術英文読解・AWSイベントサービスとの比較・全領域の英語評価",
+      "data_coverage": "Realtime transcript excerpts from the technical discussion and article reading, plus a locally processed 50.3-second standard read-aloud recording. No directly reviewed audio for a holistic pronunciation judgment and no fixed spontaneous-speaking probe; cross-session flow comparisons are limited.",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "strong",
+        "Fluency & coherence": "strong",
+        "Lexical resource": "strong",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": null
+      },
+      "metric_evidence": {
+        "Task achievement": {
+          "basis": "Spontaneous technical conversation and follow-up after reading the Pub/Sub overview",
+          "observed": "Explained equipment data examples, asked for an AWS analogue, and requested a diagram and table connecting the two systems.",
+          "comparison": "stable",
+          "reason": "The learner independently set the learning goal and reached a usable comparison, matching the prior strong L4 pattern; this task does not establish a higher level.",
+          "confidence": "medium"
+        },
+        "Fluency & coherence": {
+          "basis": "Realtime transcript of unscripted technical explanation and questions; read-aloud excluded from spontaneous fluency comparison",
+          "observed": "Maintained the discussion through multiple turns, while still using pauses, restarts, and word searches in longer explanations.",
+          "comparison": "not_comparable",
+          "reason": "No fixed one-minute spontaneous response from the new protocol was recorded, so a change in speed or pause rate from earlier sessions cannot be established; retain strong L3 as a broad current judgment.",
+          "confidence": "medium"
+        },
+        "Lexical resource": {
+          "basis": "Unscripted cloud discussion separated from words first encountered in the article or provided by Chappy",
+          "observed": "Used familiar IoT, equipment, AWS, and testing vocabulary to ask a specific service-comparison question; checked the meanings of synchronous and parallelize.",
+          "comparison": "not_comparable",
+          "reason": "Successful domain communication supports a current strong L3 judgment, but the article supplied much of today's vocabulary and there is no matched independent vocabulary task for measuring change.",
+          "confidence": "medium"
+        },
+        "Grammar control": {
+          "basis": "Spontaneous utterances in the realtime transcript, not the correctly printed technical article",
+          "observed": "Meaning stayed recoverable, but sentence construction, verb forms, and prepositions remained uneven in spontaneous questions and explanations.",
+          "comparison": "not_comparable",
+          "reason": "The available samples support a current established L3 judgment, but their tasks differ from earlier sessions; ASR uncertainty also prevents counting each transcript form as a confirmed error or measuring change.",
+          "confidence": "medium"
+        },
+        "Interaction & repair": {
+          "basis": "Conversation turns where the learner corrected the topic and delivery format",
+          "observed": "Clarified that the browser article, not the proposed diagram, was the reading target; later redirected to the AWS counterpart and specified both an image and table for the report.",
+          "comparison": "stable",
+          "reason": "Independent repairs maintained the learner's intended task, consistent with the prior strong L4 rating.",
+          "confidence": "high"
+        },
+        "Pronunciation": {
+          "basis": "Locally processed standard read-aloud file with waveform and ASR measures, but no dependable direct auditory review of individual sounds, stress, rhythm, or intonation",
+          "observed": "A 50.3-second recording was processed without clipping; 83 of 86 reference words matched the recognizer, an intelligibility proxy rather than a pronunciation grade.",
+          "comparison": "not_comparable",
+          "reason": "The available processing cannot support a full L1–L5 pronunciation rating or a comparison with the differently recorded Session 12 passage; mark this session N/A and retain Session 12 as the last rated session.",
+          "confidence": "high"
+        }
+      },
+      "pronunciation_evidence": {
+        "task_kind": "read_aloud",
+        "purpose": "evaluation",
+        "direct_audio_processed": true,
+        "analysis_method": "local waveform and ASR analysis; no reliable phonetic listening review",
+        "duration_seconds": 50.3,
+        "asr_reference_words": 86,
+        "asr_matched_words": 83,
+        "asr_match_ratio": 0.965,
+        "recognized_wpm": 107.2,
+        "clipping_ratio": 0,
+        "holistic_level_assigned": false,
+        "limitations": "ASR alignment is an intelligibility proxy, not direct evidence for vowel or consonant quality, stress, rhythm, linking, or intonation. The audio and local file path are excluded from the public learning records."
+      },
+      "evidence_quote": "What's similar service in AWS?",
+      "evidence_quote_origin": "Spontaneous learner question in the realtime transcript; punctuation regularized.",
+      "evidence_note_ja": "Pub/Subの公式記事を音読し、synchronousとparallelizeの意味を確認したうえで、AWSの近いサービスを自発的に質問した。読みたい対象が記事であることを明確に訂正し、レポートへ図と表の両方を入れる希望も伝えた。技術的な目的達成と対話修復はL4・強い、会話の流れと語彙はL3・強い、文法はL3・安定を維持する。標準音読の録音はローカル処理できたが、ASR一致率を発音得点に換算せず、個別音・強勢・リズムを信頼して直接聴取評価できていないため、今回のPronunciationはN/A。前回からの流暢さの増減は固定の自発発話課題が未実施で判定保留。",
+      "evidence_note": "Read the official Pub/Sub overview, asked about synchronous and parallelize, then independently requested the closest AWS service. Corrected the reading target to the browser article and specified a diagram and table for the report. Retain strong L4 for task achievement and interaction, strong L3 for fluency and lexis, and established L3 for grammar. The standard read-aloud recording was locally processed, but ASR word matching is not converted into a pronunciation score; individual sounds, stress, and rhythm were not reliably reviewed directly, so this session's pronunciation is N/A. A change in spontaneous fluency cannot be established without the fixed probe."
     }
   ],
   "test_score_estimates": {
     "methodology_version": "1.1",
     "status": "Non-official learning estimates, not standardized test results or guaranteed score conversions",
-    "as_of_session": 15,
-    "as_of_date": "2026-09-25",
+    "as_of_session": 16,
+    "as_of_date": "2026-09-26",
     "official_scales_checked_on": "2026-08-28",
-    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. Sessions 13-15 add realtime conversation evidence for narrative, technical comparison, reading strategy, requirements discussion, and interaction repair, but no new direct audio assessment. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
+    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. Sessions 13-15 add realtime conversation evidence. Session 16 adds technical reading and discussion plus a locally processed standard read-aloud recording, but no reliable holistic pronunciation review or fixed spontaneous-speaking probe. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
     "history_policy": "Retrospective milestone estimates are permitted only where the canonical record contains enough speaking or oral-interaction evidence. Do not create a point for every session or interpolate missing sessions. Keep user-reported actual results visually and structurally separate from estimates.",
     "historical_results": [
       {
@@ -1072,6 +1170,41 @@
           "actfl_speaking": {
             "low": 6, "mid": 6.5, "high": 7, "display": "Intermediate High–Advanced Low", "confidence": "medium-low",
             "comment_ja": "過去の役割と今後の技術習得をつなぎ、条件付きの設計判断を説明した。一方、時制・語形・長い発話の構成に揺れがあるため境界レンジを維持。"
+          }
+        }
+      },
+      {
+        "session": 16,
+        "date": "2026-09-26",
+        "update_scope": "All speaking and oral-interaction estimates reviewed using the Session 16 technical discussion. The standard read-aloud file was locally processed, but there is no reliable holistic pronunciation review, fixed spontaneous-speaking probe, or official timed task. Ranges are unchanged; this is an updated evidence point, not an official test score.",
+        "not_updated": {
+          "toeic_lr": "No new standardized or timed listening-and-reading task in Session 16; retain Session 8 as the last estimate evidence.",
+          "toeic_writing": "No direct writing task in Session 16; retain Session 8 as the last estimate evidence."
+        },
+        "estimates": {
+          "toeic_speaking": {
+            "low": 140, "mid": 150, "high": 160, "display": "140–160 / 200", "confidence": "medium-low",
+            "comment_ja": "Pub/Sub記事の内容を確認し、AWSとの比較を自分から求め、会話の対象を明確に修復した。公式形式の応答課題と十分な発音評価はなく、レンジは据え置く。"
+          },
+          "ielts_speaking": {
+            "low": 5.5, "mid": 6, "high": 6.5, "display": "Band 5.5–6.5", "confidence": "medium-low",
+            "comment_ja": "専門的な会話の目的を保てたが、語探しと文構造の揺れが残る。固定の自発発話課題と全体的な発音評価がないため、中心目安はBand 6のまま。"
+          },
+          "toefl_speaking": {
+            "low": 3.5, "mid": 3.75, "high": 4, "display": "3.5–4.0 / 6（旧尺度目安 18–22 / 30）", "confidence": "low",
+            "comment_ja": "技術記事を読み、意味を確認して関連質問を出したが、統合型課題、時間制限、全体的な音声評価がないため低確度で据え置く。"
+          },
+          "cambridge_speaking": {
+            "low": 155, "mid": 162.5, "high": 170, "display": "155–170（B1上位〜B2）", "confidence": "medium-low",
+            "comment_ja": "専門語を確認しつつ会話を主導し、誤解を自発的に修復した。公式ペア課題と比較可能な音声評価がないため境界レンジを維持する。"
+          },
+          "cefr_oral": {
+            "low": 3.5, "mid": 3.75, "high": 4, "display": "B1+–B2", "confidence": "medium",
+            "comment_ja": "関心のあるクラウド技術の英語記事を読み、知らない語を質問し、既知のAWSとの比較へ議論を進めた。B1+からB2へ向かう会話Can-doを再確認した。"
+          },
+          "actfl_speaking": {
+            "low": 6, "mid": 6.5, "high": 7, "display": "Intermediate High–Advanced Low", "confidence": "medium-low",
+            "comment_ja": "専門的な説明と質問を複数turnで維持し、必要な修復を自分で行った。一方、語探しと長い発話の構成には揺れが残るため境界レンジを維持する。"
           }
         }
       }
