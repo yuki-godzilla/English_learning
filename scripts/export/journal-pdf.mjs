@@ -259,15 +259,20 @@ try {
   for (const page of pages) {
     await fs.access(page.path);
     const pdfPath = path.join(scratchDir, `${page.label}.pdf`);
+    console.log(`Rendering PDF chapter: ${page.title}`);
     execFileSync(chrome, [
       "--headless=new",
       "--disable-gpu",
+      "--no-first-run",
+      "--no-default-browser-check",
+      "--disable-extensions",
+      `--user-data-dir=${path.join(scratchDir, "browser-profile", page.label)}`,
       "--allow-file-access-from-files",
       "--no-pdf-header-footer",
       "--run-all-compositor-stages-before-draw",
       `--print-to-pdf=${pdfPath}`,
       pathToFileURL(page.path).href,
-    ], { stdio: "pipe", windowsHide: true });
+    ], { stdio: "pipe", windowsHide: true, timeout: 120000 });
     inputs.push({ path: pdfPath, title: page.title });
   }
 

@@ -5,7 +5,7 @@ import path from "node:path";
 import { projectRoot as root } from "../lib/project.mjs";
 
 function canRun(command, args) {
-  const result = spawnSync(command, args, { cwd: root, stdio: "ignore", windowsHide: true, shell: false });
+  const result = spawnSync(command, args, { cwd: root, stdio: "ignore", windowsHide: true, shell: false, timeout: 5000 });
   return result.status === 0;
 }
 
@@ -58,7 +58,11 @@ export function findPdfBrowser() {
     "chrome", "msedge", "chromium", "chromium-browser", "google-chrome", "microsoft-edge",
   ];
   for (const candidate of [...new Set(candidates)]) {
-    if ((path.isAbsolute(candidate) && !existsSync(candidate)) || !canRun(candidate, probe)) continue;
+    if (path.isAbsolute(candidate)) {
+      if (!existsSync(candidate)) continue;
+      return candidate;
+    }
+    if (!canRun(candidate, probe)) continue;
     return candidate;
   }
   throw new Error("Chrome, Edge, or Chromium is required to create the Journal PDF. Install one or set JOURNAL_PDF_BROWSER.");
