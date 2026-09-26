@@ -145,6 +145,9 @@
   }
 
   .figure-frame { background: #ffffff !important; padding: 3mm !important; }
+  .scatter-figure, .fingerprint-card, .habit-card { break-inside: avoid; }
+  .scatter-legend { color: #1f2937 !important; font-size: 10.5pt !important; }
+  .scatter-legend strong { color: #1d5fa7 !important; }
   .figure-frame img, figure, img, table { break-inside: avoid; }
   .md-typeset table { border-color: #cbd5e1 !important; }
   .md-typeset table th { background: #163a5f !important; border-color: #163a5f !important; color: #ffffff !important; }

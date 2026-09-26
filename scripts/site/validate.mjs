@@ -241,6 +241,13 @@ for (const required of ["Skill Trend", "Speaking Fingerprint", "Fluency × Accur
 for (const requiredClass of ["fingerprint-grid", "fingerprint-sparkline", "fluency-accuracy-scatter", "habit-grid"]) {
   if (!progressHtml.includes(requiredClass)) fail(`Growth page is missing visualization markup: ${requiredClass}`);
 }
+const scatterSection = progressHtml.match(/<h2 id="fluency-accuracy"[\s\S]*?(?=<h2 id="recurring-habits")/)?.[0] ?? "";
+if (!/<svg class="fluency-accuracy-scatter"[^>]*><line[\s\S]*<circle[\s\S]*<\/svg>/.test(scatterSection)) {
+  fail("Growth scatter must render as an SVG chart, not escaped source text");
+}
+if (scatterSection.includes("<pre><code>") || scatterSection.includes("&lt;line")) {
+  fail("Growth scatter contains escaped SVG markup");
+}
 
 const homeHtml = await fs.readFile(path.join(siteRoot, "index.html"), "utf8");
 if (!homeHtml.includes("learning-bottom-nav")) fail("Home page is missing the mobile bottom navigation");

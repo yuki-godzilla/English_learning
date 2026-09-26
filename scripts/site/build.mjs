@@ -740,24 +740,32 @@ function fluencyAccuracyScatter() {
   const bottom = 52;
   const x = (value) => left + ((value - 1) / 4) * (width - left - right);
   const y = (value) => top + ((5 - value) / 4) * (height - top - bottom);
-  const grid = [1,2,3,4,5].map((level) => `
-    <line x1="${x(level)}" y1="${top}" x2="${x(level)}" y2="${height-bottom}" class="scatter-grid"/>
-    <line x1="${left}" y1="${y(level)}" x2="${width-right}" y2="${y(level)}" class="scatter-grid"/>
-    <text x="${x(level)}" y="${height-bottom+23}" text-anchor="middle" class="fingerprint-label">L${level}</text>
-    <text x="${left-12}" y="${y(level)+4}" text-anchor="end" class="fingerprint-label">L${level}</text>`).join("");
-  const marks = [...groups.values()].map((group) => {
+  const grid = [1,2,3,4,5].map((level) =>
+    `<line x1="${x(level)}" y1="${top}" x2="${x(level)}" y2="${height-bottom}" class="scatter-grid"/>` +
+    `<line x1="${left}" y1="${y(level)}" x2="${width-right}" y2="${y(level)}" class="scatter-grid"/>` +
+    `<text x="${x(level)}" y="${height-bottom+23}" text-anchor="middle" class="fingerprint-label">L${level}</text>` +
+    `<text x="${left-12}" y="${y(level)+4}" text-anchor="end" class="fingerprint-label">L${level}</text>`).join("");
+  const plottedGroups = [...groups.values()];
+  const marks = plottedGroups.map((group, index) => {
     const sessions = group.sessions;
     const label = sessions.length === 1 ? `S${sessions[0]}` : `S${sessions[0]}–${sessions.at(-1)}`;
-    return `<g class="scatter-point"><circle cx="${x(group.fluency)}" cy="${y(group.grammar)}" r="8"><title>${label}: Fluency ${group.fluency.toFixed(1)}, Grammar ${group.grammar.toFixed(1)}</title></circle><text x="${x(group.fluency)+11}" y="${y(group.grammar)-9}" class="scatter-label">${label}</text></g>`;
+    return `<g class="scatter-point"><circle cx="${x(group.fluency)}" cy="${y(group.grammar)}" r="11"><title>${label}: Fluency ${group.fluency.toFixed(1)}, Grammar ${group.grammar.toFixed(1)}</title></circle><text x="${x(group.fluency)}" y="${y(group.grammar)+4}" text-anchor="middle" class="scatter-point-number">${index + 1}</text></g>`;
   }).join("");
-  return `<svg class="fluency-accuracy-scatter" viewBox="0 0 ${width} ${height}" role="img" aria-label="Fluency and grammar control by session">
-    ${grid}
-    <line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" class="scatter-axis"/>
-    <line x1="${left}" y1="${top}" x2="${left}" y2="${height-bottom}" class="scatter-axis"/>
-    ${marks}
-    <text x="${(left+width-right)/2}" y="${height-8}" text-anchor="middle" class="scatter-axis-label">Fluency &amp; coherence →</text>
-    <text x="17" y="${(top+height-bottom)/2}" text-anchor="middle" transform="rotate(-90 17 ${(top+height-bottom)/2})" class="scatter-axis-label">Grammar control →</text>
-  </svg>`;
+  const legend = plottedGroups.map((group, index) => {
+    const sessions = group.sessions;
+    const label = sessions.length === 1 ? `S${sessions[0]}` : `S${sessions[0]}–${sessions.at(-1)}`;
+    return `<span><strong>${index + 1}</strong> ${label}</span>`;
+  }).join("");
+  // Keep standalone raw HTML on one line: Markdown otherwise wraps <svg> in a
+  // paragraph and renders its indented children as a literal code block.
+  return `<div class="scatter-figure"><svg class="fluency-accuracy-scatter" viewBox="0 0 ${width} ${height}" role="img" aria-label="Fluency and grammar control by session">` +
+    grid +
+    `<line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" class="scatter-axis"/>` +
+    `<line x1="${left}" y1="${top}" x2="${left}" y2="${height-bottom}" class="scatter-axis"/>` +
+    marks +
+    `<text x="${(left+width-right)/2}" y="${height-8}" text-anchor="middle" class="scatter-axis-label">Fluency &amp; coherence →</text>` +
+    `<text x="17" y="${(top+height-bottom)/2}" text-anchor="middle" transform="rotate(-90 17 ${(top+height-bottom)/2})" class="scatter-axis-label">Grammar control →</text>` +
+    `</svg><div class="scatter-legend" aria-label="Point to session key">${legend}</div></div>`;
 }
 
 const currentHabitCards = latestRawSession ? [
