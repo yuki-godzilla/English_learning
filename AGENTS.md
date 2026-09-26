@@ -15,7 +15,7 @@
 - `learning-records/archive/` はGoogle Docs移行時点の匿名化済み固定記録。通常更新もLearning Site生成も行わない。
 - `.generated-site-docs/`、`site/`、`output/`、`tmp/` は再生成可能な派生物または一時物であり正本にしない。
 - 会話中は記録より自然さを優先し、終了が明示された後に記録作業へ移る。
-- ローカル記録完了は、3正本への必要な反映と `npm run check` の合格まで。レポートを作成・更新する回は対象変更をcommitし、`origin/main`へpushしてremoteが最新コミットを指すことまで確認する。push未完了ならリポジトリの更新完了とは報告しない。
+- ローカル記録完了は、3正本への必要な反映、取得可能なraw transcriptの保存、`npm run check` の合格まで。レポートを作成・更新する回はraw transcriptを含む対象変更をcommitし、`origin/main`へpushしてremoteが最新コミットを指すことまで確認する。push未完了ならリポジトリの更新完了とは報告しない。
 - 実行できない工程は、未完了の内容と理由を明示し、完了したように扱わない。
 - セッション後のレポートを作成・更新する回は、定めた収録範囲の一冊のJournal PDFを必ず作成する。`npm run journal:pdf` で `output/pdf/yuki-chappy-english-journal.pdf` を生成し、全ページを画像で確認してから、Yukiが指定した個人メインGmailアドレスへPDFを添付して送る。PDFのみ・メールのみ・Google Docsのみを個別に求めた場合は、その明示範囲に従う。
 
@@ -184,6 +184,8 @@ Yukiが「発音を評価して」「この音読を評価して」など明示�
 9. `npm run check`、`git diff` を確認し、対象ファイルだけcommitする。raw transcriptが取得できた回は、対応する `learning-records/transcripts/*.jsonl` がcommit対象に含まれていることを確認する。
 10. セッション後のレポートを作成・更新する回は、`npm run journal:pdf` で統合Journal PDFを生成し、PDFを全ページ画像で確認する。指定の個人メインGmailアドレスへ、Journal PDFを添付した完了メールを送信し、宛先・件名・添付有無を確認する。
 11. レポートを作成・更新する回は毎回、remote更新を確認し、force pushを使わず`origin/main`へpushする。push後に`origin/main`がローカルの最新コミットを指すことを確認する。PDFのみ・メールのみを個別に求められ、正本を変更しない回はcommitやpushを不要とする。
+
+過去セッションのraw transcriptを後から補完する場合は、当時の実際の会話ログ・ASR出力など一次データが残っている場合だけbackfillする。Journal、Session Package、評価メモから会話全文を生成してraw transcriptとして扱わない。
 
 Session Packageは `tmp/session-package.json` などGit対象外へ置き、公開しない。主なフィールドは日時、タイトル、要約、Yukiの結論、根拠発話、語彙、発音、評価根拠、Bank候補、Sources、次回候補。フィードバックパターンを扱う回は、実発話と文脈、最小修正、再利用chunk、根拠確度、自力修正、助言後または後続セッションでの正しい再利用を追加し、`要確認` を確定誤りから分離する。
 
