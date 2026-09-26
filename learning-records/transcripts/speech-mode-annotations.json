@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "default_mode": "spontaneous",
+  "default_scope": "Unredacted Yuki turns in recovered voice transcripts only; exceptions below were checked against the JSONL text.",
+  "annotations": [
+    { "session_number": 12, "turn_index": 116, "speech_mode": "read_aloud", "evidence": "Reads the GPT-6 Astra introduction from the open article." },
+    { "session_number": 12, "turn_index": 131, "speech_mode": "read_aloud", "evidence": "Reads the article's What's new section." },
+    { "session_number": 12, "turn_index": 141, "speech_mode": "read_aloud", "evidence": "Reads the prompting best-practices excerpt." },
+    { "session_number": 14, "turn_index": 51, "speech_mode": "repetition", "evidence": "Repeats the suggested phrase after an explicit prompt." },
+    { "session_number": 16, "turn_index": 147, "speech_mode": "read_aloud", "evidence": "Reads the Pub/Sub overview article; the whole mixed segment is excluded conservatively." }
+  ]
+}

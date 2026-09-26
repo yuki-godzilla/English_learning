@@ -474,6 +474,8 @@
   stroke: var(--md-default-bg-color);
   stroke-width: 2;
 }
+.fingerprint-points .fingerprint-point--low { fill: #ffffff; stroke: #475569; stroke-width: 3; stroke-dasharray: 2 2; }
+.fingerprint-points .fingerprint-point--medium { fill: #ffffff; stroke: var(--learning-blue); stroke-width: 3; }
 
 .fingerprint-label,
 .scatter-label {
@@ -528,6 +530,72 @@
   margin-top: 0.35rem;
   color: var(--md-default-fg-color--light);
   font-size: 0.74rem;
+}
+
+/* Growth v2: ability judgments remain separate from transcript behaviors. */
+.growth-intro { color: var(--md-default-fg-color--light); margin-bottom: 1rem; }
+.growth-page { margin: 1.1rem 0 2.5rem; }
+.growth-page h2 small { display: inline-block; margin-left: .55rem; color: var(--md-default-fg-color--light); font-size: .72em; font-weight: 500; }
+.profile-grid { display: grid; gap: .28rem; margin: .7rem 0; }
+.profile-row { display: grid; grid-template-columns: minmax(11rem,1.6fr) minmax(7rem,.8fr) minmax(7rem,1fr); align-items: center; gap: .6rem; padding: .45rem .7rem; border-left: 4px solid var(--learning-blue); background: var(--learning-surface); }
+.profile-row.level-independent { border-left-color: #047857; }
+.profile-row small { color: var(--md-default-fg-color--light); }
+.growth-three-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .6rem; margin: .7rem 0; }
+.growth-three-cards article { border: 1px solid var(--learning-border); border-top: 4px solid var(--learning-blue); background: var(--learning-surface); padding: .65rem; }
+.growth-three-cards article:nth-child(2) { border-top-color: #0f766e; }
+.growth-three-cards article:nth-child(3) { border-top-color: #b45309; }
+.growth-three-cards p { margin: .3rem 0 0; }
+.before-now, .growth-insight { border: 1px solid var(--learning-border); border-left: 5px solid #0f766e; padding: .6rem .8rem; background: #ecfdf5; margin: .7rem 0; }
+.before-now p, .growth-insight p { margin: .25rem 0; }
+.growth-trend img, .growth-estimates img { width: 100%; height: auto; }
+.comparison-header { display: grid; grid-template-columns: 1fr 2fr 1fr; padding: .2rem .6rem; font-size: .85rem; font-weight: 700; color: var(--md-default-fg-color--light); }
+.comparison-header span:nth-child(2) { text-align: center; }
+.comparison-header span:nth-child(3) { text-align: right; }
+.comparison-chart { border: 1px solid var(--learning-border); }
+.comparison-row { display: grid; grid-template-columns: minmax(9rem,1.5fr) 5rem minmax(5rem,1fr) 5rem 4.5rem; align-items: center; gap: .45rem; padding: .5rem .7rem; border-bottom: 1px solid var(--learning-border); }
+.comparison-row:nth-child(even) { background: var(--learning-surface); }
+.comparison-name small { display: block; color: var(--md-default-fg-color--light); font-size: .75em; }
+.comparison-before, .comparison-after { font-weight: 700; white-space: nowrap; }
+.comparison-before small, .comparison-after small { display: block; font-size: .7em; font-weight: 400; }
+.comparison-change { font-weight: 700; color: #0f766e; text-align: right; }
+.delta-track { height: 1.8rem; position: relative; }
+.delta-track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px solid var(--learning-border); }
+.delta-line { position: absolute; top: 50%; border-top: 5px solid #0f766e; transform: translateY(-50%); }
+.delta-dot { position: absolute; top: 50%; width: .85rem; height: .85rem; border-radius: 50%; transform: translate(-50%,-50%); }
+.delta-dot--earlier { background: white; border: 3px solid #475569; }
+.delta-dot--recent { background: #0f766e; border: 2px solid white; box-shadow: 0 0 0 1px #0f766e; }
+.distribution-row { display: grid; grid-template-columns: 6rem 1fr 3.3rem; gap: .5rem; align-items: center; margin: .25rem 0; }
+.distribution-bar, .coverage-bar { display: block; height: .75rem; background: #e2e8f0; border: 1px solid #94a3b8; }
+.distribution-bar i, .coverage-bar i { display: block; height: 100%; background: #1d5fa7; }
+.distribution-stats, .growth-caveat { color: var(--md-default-fg-color--light); }
+.coverage-strip { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: .35rem; }
+.coverage-item { display: grid; gap: .1rem; text-align: center; padding: .35rem; border: 1px solid var(--learning-border); }
+.coverage-item em { font-style: normal; font-size: .72em; font-weight: 700; }
+.controlled-flow { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .3rem; align-items: stretch; }
+.controlled-flow article { padding: .65rem; background: var(--learning-surface); border: 1px solid var(--learning-border); }
+.controlled-flow > span { display: none; }
+.controlled-flow p { margin: .25rem 0 0; }
+.grammar-row { display: grid; grid-template-columns: 7rem 4.5rem 1fr; gap: .5rem; padding: .35rem .55rem; border-bottom: 1px solid var(--learning-border); }
+.grammar-row:nth-child(even) { background: var(--learning-surface); }
+.grammar-row span { color: #b45309; font-weight: 700; }
+.growth-page--next .fingerprint-grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: .45rem; }
+.growth-page--next .fingerprint-card { padding: .55rem; }
+.growth-page--next .fingerprint-card p { font-size: .8rem; }
+.estimate-table { display: table; width: 100%; table-layout: fixed; border-collapse: collapse; }
+.estimate-table th, .estimate-table td { padding: .35rem .45rem; border: 1px solid var(--learning-border); overflow-wrap: anywhere; }
+.estimate-table th:nth-child(1) { width: 24%; }
+.estimate-table th:nth-child(2) { width: 43%; }
+.estimate-table th:nth-child(3) { width: 14%; }
+.estimate-table th:nth-child(4) { width: 19%; }
+.estimate-table tbody th { background: var(--learning-surface); color: var(--learning-navy); text-align: left; }
+@media (max-width: 44rem) {
+  .growth-three-cards, .controlled-flow, .coverage-strip, .growth-page--next .fingerprint-grid { grid-template-columns: 1fr; }
+  .profile-row { grid-template-columns: 1fr auto; }
+  .profile-row small { grid-column: 1/-1; }
+  .comparison-row { grid-template-columns: 1fr 4rem 5rem; }
+  .comparison-name { grid-column: 1/-1; }
+  .delta-track { grid-column: 1/2; }
+  .comparison-change { grid-column: 3/4; }
 }
 
 @media (max-width: 44rem) {

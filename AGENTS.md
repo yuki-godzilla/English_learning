@@ -261,7 +261,10 @@ Journalは一冊として次の順を維持する。
 - 定例レポートアセットは `learning-records/media/progress/english-growth-evidence-dashboard.png` と `learning-records/media/progress/english-test-score-estimate-trends.png` の2点とする。どちらもJournalのGrowthへ掲載し、PDFとSiteは同じアセットを使用する。
 - 通常検証とCIの `npm run charts:build` は `output/` だけを生成し、OS差で追跡画像を変更しない。
 - JournalのCurrent Snapshot、資格スコア表、グラフは同じ `progress.json` と一致させる。PDFでは全履歴の推移を残し、能力コメントは最新評価だけを主表示する。
-- Learning SiteのGrowth画面では、既存のSkill Trendに加え、raw transcriptから自動算出する **Speaking Fingerprint / Fluency × Accuracy / Recurring Habits** を表示する。Speaking Fingerprintは `scripts/transcripts/analyze.mjs` を唯一の算出ロジックとし、redaction済みYuki発話を除外する。
+- Learning SiteとJournal PDFのGrowthは **現在地 → 自発発話の変化 → 根拠の質 → 次の重点** の順に読む構成とする。正式な6観点L評価とraw transcriptの行動統計を分離し、後者だけで前者を自動変更しない。PDFは原則3ページ、可読性を優先して最大4ページ程度を目標とする。
+- Speaking Fingerprintは `scripts/transcripts/analyze.mjs` を唯一の算出ロジックとする。`learning-records/transcripts/speech-mode-annotations.json` の根拠付き例外を使い、音読・復唱・固定課題・不明瞭な発話とredaction済み発話を自発発話統計から除外する。既存JSONLの会話をJournal要約から推測分類しない。
+- 比較は利用可能な回収済みYuki区間が80%以上かつ自発発話15区間以上の回から選び、Earlier/Recentと分布を同じ計算ロジックから生成する。低coverage回は主要比較に入れない。`coverage.json` の割合は「回収区間中のredactionなし割合」であり、全セッションの録音完備率ではないと明記する。
+- Growthには現在の6観点と最終実測Pronunciation Session、初回→現在、Earlier vs Recent比較、発話長分布、coverage strip、Controlled Fluency、質的Grammar Tracker、補助sparklineを掲載する。改善は記述的な可能性として扱い、ASR区間へ有意差検定を行わない。資格目安は連続測定を連想させる折れ線でなく、各試験の最新根拠Session・確度つきのforest/range plotを使う。
 - 自動集計してよいのは、planning fillers、repair markers、ASR segmentあたりの語数、20語以上segment比率、`you know`、語彙検索マーカーなど、文字起こしでも比較的確認しやすい行動指標に限定する。冠詞・前置詞・複数形など短い機能語の誤り率はASR誤差の影響が大きいため自動算出しない。
 - Speaking Fingerprintの数値は能力スコアではない。fillerやrepairが少ないほど常に良いとは解釈せず、Task achievement、Interaction & repair、収録coverage、redaction量と合わせて読む。
 
@@ -319,7 +322,7 @@ npm run serve       # ローカルプレビュー
 - [ ] 内容、評価、グラフ、Bankが同じSession Packageに基づく
 - [ ] raw transcriptを取得できた回は `learning-records/transcripts/YYYY-MM-DD-session-NN.jsonl` に取得できた全発話単位を保存し、文法修正せず、公開不可情報だけを明示redactionしたうえでcommit対象に含めた
 - [ ] `learning-records/transcripts/coverage.json`に全Sessionの収録状態と欠落・redactionの制約を記録し、`npm run transcripts:check`と内容確認を通した
-- [ ] Growth画面のSkill Trend / Speaking Fingerprint / Fluency × Accuracy / Recurring Habitsが生成され、ASR-sensitiveな冠詞・前置詞を自動エラー率として表示していない
+- [ ] Growth画面の現在地 / Earlier vs Recent / 発話長分布 / coverage / Controlled Fluency / 質的Grammar Tracker / 資格range plotが生成され、音読と自発発話が分離され、ASR-sensitiveな冠詞・前置詞を自動エラー率として表示していない
 - [ ] 過去セッションを再評価するときはraw transcriptを優先し、存在しない会話をJournal要約から再構成していない
 - [ ] 会話中の軽微な冠詞・前置詞を毎回中断せず、Wrap-upでは確実な代表例1〜2件へ集約した
 - [ ] 文脈上正しい冠詞・前置詞、自己修正、正しい再利用、ASR要確認を確定誤りと区別した

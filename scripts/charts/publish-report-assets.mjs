@@ -39,9 +39,9 @@ const requiredAssets = [
   },
   {
     path: "learning-records/media/progress/english-test-score-estimate-trends.png",
-    role: "Estimated test score trends",
-    alt: `Session 1からSession ${latestSession.session}までの資格スコア予測の推移グラフ`,
-    caption: "progress.jsonから生成した学習用の資格スコア目安。正本の会話根拠が十分な節目だけを履歴点として描画し、記録が薄い回を補間しない。各技能の最新根拠Session、確度、未測定範囲を区別し、公式試験結果とは扱わない。",
+    role: "Estimated external-test range plot",
+    alt: `Session ${latestSession.session}時点で利用できる各資格スコア推定レンジ。各行に最終根拠Sessionと確度を表示。`,
+    caption: "progress.jsonから生成した学習用の資格スコア推定レンジ。各試験の最新根拠Sessionと確度を示す断面図であり、連続した試験測定や公式結果ではない。過去の本人申告の実績は推定と分離する。",
   },
 ];
 

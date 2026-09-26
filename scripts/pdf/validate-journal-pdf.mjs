@@ -77,6 +77,7 @@ print(json.dumps({
     "uris": uris,
     "actions": actions,
     "widgets": widgets,
+    "page_texts": texts,
     "text": "\n".join(texts),
 }, ensure_ascii=False))
 `;
@@ -119,8 +120,18 @@ for (const action of inventory.actions) {
 if (/(?:file:\/\/\/[a-z]:|\b[a-z]:\\Users\\)/i.test(inventory.text)) fail("PDF text exposes a local Windows path");
 
 const normalizedText = normalized(inventory.text);
-for (const requiredText of ["過去の節目", "朝の集中時間", "資格スコア予測の補助グラフ"]) {
+for (const requiredText of ["WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "RAW EVIDENCE COVERAGE", "朝の集中時間", "ESTIMATED EXTERNAL-TEST RANGES"]) {
   if (!normalizedText.includes(normalized(requiredText))) fail(`Static Growth content is missing: ${requiredText}`);
+}
+const growthStart = inventory.page_texts.findIndex((value) => value.includes("English Growth Dashboard"));
+const expressionStart = inventory.page_texts.findIndex((value) => value.includes("Expression Bank") && value.includes("全"));
+if (growthStart < 0 || expressionStart <= growthStart) fail("Growth-to-Bank page boundary could not be identified");
+else {
+  const growthPages = expressionStart - growthStart;
+  if (growthPages > 4) fail(`Growth section uses ${growthPages} pages; maximum target is 4 without shrinking body text`);
+  for (let index = growthStart; index < expressionStart; index += 1) {
+    if ((inventory.page_texts[index] ?? "").trim().length < 120) fail(`Growth page ${index + 1} appears nearly empty or orphaned`);
+  }
 }
 
 const banks = {

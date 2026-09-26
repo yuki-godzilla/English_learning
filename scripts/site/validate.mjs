@@ -235,19 +235,15 @@ for (const htmlFile of htmlFiles) {
 }
 
 const progressHtml = await fs.readFile(path.join(siteRoot, "progress", "index.html"), "utf8");
-for (const required of ["Skill Trend", "Speaking Fingerprint", "Fluency × Accuracy", "Recurring Habits"]) {
+for (const required of ["English Growth Dashboard", "WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "SPONTANEOUS OUTPUT DISTRIBUTION", "RAW EVIDENCE COVERAGE", "HIGH-CONFIDENCE GRAMMAR PATTERNS", "ESTIMATED EXTERNAL-TEST RANGES"]) {
   if (!progressHtml.includes(required)) fail(`Growth page is missing transcript visualization: ${required}`);
 }
-for (const requiredClass of ["fingerprint-grid", "fingerprint-sparkline", "fluency-accuracy-scatter", "habit-grid"]) {
+for (const requiredClass of ["profile-grid", "comparison-chart", "distribution-chart", "coverage-strip", "controlled-flow", "grammar-tracker", "fingerprint-grid", "fingerprint-sparkline"]) {
   if (!progressHtml.includes(requiredClass)) fail(`Growth page is missing visualization markup: ${requiredClass}`);
 }
-const scatterSection = progressHtml.match(/<h2 id="fluency-accuracy"[\s\S]*?(?=<h2 id="recurring-habits")/)?.[0] ?? "";
-if (!/<svg class="fluency-accuracy-scatter"[^>]*><line[\s\S]*<circle[\s\S]*<\/svg>/.test(scatterSection)) {
-  fail("Growth scatter must render as an SVG chart, not escaped source text");
-}
-if (scatterSection.includes("<pre><code>") || scatterSection.includes("&lt;line")) {
-  fail("Growth scatter contains escaped SVG markup");
-}
+if (!/<svg class="fingerprint-sparkline"[^>]*>[\s\S]*<circle[\s\S]*<\/svg>/.test(progressHtml)) fail("Growth sparkline must render as SVG, not escaped source text");
+if (progressHtml.includes("<pre><code>&lt;div class=\"comparison-chart\"")) fail("Growth comparison contains escaped HTML");
+if (/fluency-accuracy-scatter/.test(progressHtml)) fail("Obsolete Fluency × Accuracy scatter must not appear in Growth");
 
 const homeHtml = await fs.readFile(path.join(siteRoot, "index.html"), "utf8");
 if (!homeHtml.includes("learning-bottom-nav")) fail("Home page is missing the mobile bottom navigation");

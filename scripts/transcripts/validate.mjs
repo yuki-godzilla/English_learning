@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
 import { projectRoot as root } from "../lib/project.mjs";
+import { analyzeTranscripts } from "./analyze.mjs";
 
 const directory = path.join(root, "learning-records", "transcripts");
 const failures = [];
@@ -10,6 +11,17 @@ const fail = (message) => failures.push(message);
 const journal = await loadJournal();
 const byNumber = new Map(journal.sessions.map((session) => [session.session, session]));
 const coverage = JSON.parse(await fs.readFile(path.join(directory, "coverage.json"), "utf8"));
+const annotations = JSON.parse(await fs.readFile(path.join(directory, "speech-mode-annotations.json"), "utf8"));
+const allowedModes = new Set(["spontaneous", "read_aloud", "repetition", "fixed_probe", "unclear"]);
+if (annotations.schema_version !== 1 || annotations.default_mode !== "spontaneous" || !Array.isArray(annotations.annotations)) fail("Invalid speech-mode annotation manifest");
+const annotationsBySession = new Map();
+for (const annotation of annotations.annotations ?? []) {
+  if (!allowedModes.has(annotation.speech_mode) || !Number.isInteger(annotation.turn_index) || annotation.turn_index < 1 || typeof annotation.evidence !== "string" || !annotation.evidence.trim()) fail(`Invalid speech-mode annotation: ${annotation.session_number}/${annotation.turn_index}`);
+  if (!annotationsBySession.has(annotation.session_number)) annotationsBySession.set(annotation.session_number, new Map());
+  const byIndex = annotationsBySession.get(annotation.session_number);
+  if (byIndex.has(annotation.turn_index)) fail(`Duplicate speech-mode annotation: ${annotation.session_number}/${annotation.turn_index}`);
+  byIndex.set(annotation.turn_index, annotation);
+}
 const statuses = new Set(["complete", "partial", "unavailable"]);
 const allowedSources = new Set(["voice_asr", "read_aloud_asr", "typed", "assistant"]);
 const privatePatterns = [
@@ -55,6 +67,14 @@ for (const entry of coverage.sessions ?? []) {
     continue;
   }
   const [meta, ...turns] = records;
+  const yukiTurns = turns.filter((turn) => turn.speaker === "yuki");
+  const usable = yukiTurns.filter((turn) => !/\[REDACTED_[A-Z_]+\]/.test(turn.text ?? ""));
+  const ratio = yukiTurns.length ? Math.round(usable.length / yukiTurns.length * 1000) / 1000 : 0;
+  if (entry.usable_recovered_ratio !== ratio) fail(`${entry.file} usable_recovered_ratio must equal ${ratio}`);
+  for (const [index, annotation] of annotationsBySession.get(entry.session_number) ?? []) {
+    const target = turns[index - 1];
+    if (!target || target.speaker !== "yuki" || /\[REDACTED_[A-Z_]+\]/.test(target.text ?? "")) fail(`Speech-mode annotation does not identify a usable Yuki turn: ${entry.session_number}/${index}`);
+  }
   if (!meta || meta.type !== "session_meta" || meta.session_number !== session.session || meta.session_id !== session.id || meta.date !== session.date || meta.timezone !== "Asia/Tokyo" || !meta.capture || !meta.completeness || meta.redaction_reviewed !== true) {
     fail(`${entry.file} is missing matching provenance, scope, or completed redaction review`);
   }
@@ -79,6 +99,18 @@ for (const entry of coverage.sessions ?? []) {
 for (const session of journal.sessions) if (!seenSessions.has(session.session)) fail(`Missing transcript coverage for Session ${session.session}`);
 for (const file of (await fs.readdir(directory)).filter((name) => name.endsWith(".jsonl"))) {
   if (!referencedFiles.has(file)) fail(`Transcript is not registered in coverage.json: ${file}`);
+}
+if (!failures.length) {
+  const analytics = await analyzeTranscripts();
+  for (const session of analytics.sessions) {
+    if (session.spontaneous_segments + session.speech_mode_counts.read_aloud + session.speech_mode_counts.repetition + session.speech_mode_counts.fixed_probe + session.speech_mode_counts.unclear !== session.usable_yuki_segments) fail(`Speech modes do not partition usable Session ${session.session} turns`);
+    if (session.spontaneous_segment_lengths.length !== session.spontaneous_segments) fail(`Missing segment-length observations for Session ${session.session}`);
+  }
+  for (const window of [analytics.comparison.earlier, analytics.comparison.recent]) {
+    if (window.sessions.some((number) => analytics.sessions.find((session) => session.session === number)?.coverage_band !== "high")) fail("Speaking comparison includes a low-coverage session");
+    if (window.buckets.reduce((total, bucket) => total + bucket.count, 0) > window.segments) fail("Length buckets exceed spontaneous segments");
+  }
+  if (analytics.comparison.earlier.sessions.some((number) => analytics.comparison.recent.sessions.includes(number))) fail("Earlier and recent speaking windows overlap");
 }
 if (failures.length) {
   console.error(`Transcript validation failed with ${failures.length} issue(s):`);

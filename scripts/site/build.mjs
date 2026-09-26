@@ -679,8 +679,8 @@ function sparklineSvg(data, key, label) {
   const y = (value) => padTop + ((max - value) / Math.max(0.001, max - min)) * (height - padTop - padBottom);
   const polyline = points.map((session) => `${x(session.session)},${y(session[key])}`).join(" ");
   const circles = points.map((session) => {
-    const opacity = session.coverage_band === "high" ? 1 : session.coverage_band === "medium" ? 0.72 : 0.38;
-    return `<circle cx="${x(session.session)}" cy="${y(session[key])}" r="5" opacity="${opacity}"><title>Session ${session.session}: ${session[key]} / coverage ${session.coverage_band}</title></circle>`;
+    const markerClass = session.coverage_band === "low" ? "fingerprint-point--low" : session.coverage_band === "medium" ? "fingerprint-point--medium" : "fingerprint-point--high";
+    return `<circle class="${markerClass}" cx="${x(session.session)}" cy="${y(session[key])}" r="5"><title>Session ${session.session}: ${session[key]} / usable recovered ${Math.round(session.usable_segment_ratio * 100)}% (${session.coverage_band})</title></circle>`;
   }).join("");
   return `<svg class="fingerprint-sparkline" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(label)}">
     <line x1="${padX}" y1="${height - padBottom}" x2="${width - padX}" y2="${height - padBottom}" class="fingerprint-axis"/>
@@ -775,89 +775,108 @@ const currentHabitCards = latestRawSession ? [
   ["Article / preposition", "Qualitative", "ASR-sensitive", "the・前置詞は音声認識誤差が大きいため自動エラー率を出さず、Wrap-upの高確度例だけ追う。"],
 ].map(([title, value, unit, note]) => `<article class="habit-card"><div class="card-meta">${escapeHtml(unit)}</div><h3>${escapeHtml(title)}</h3><div class="habit-value">${escapeHtml(value)}</div><p>${escapeHtml(note)}</p></article>`).join("\n") : "";
 
+const { earlier: earlierSpeech, recent: recentSpeech } = speakingAnalytics.comparison;
+const comparisonReady = earlierSpeech.segments > 0 && recentSpeech.segments > 0 &&
+  earlierSpeech.sessions.every((number) => rawSessions.find((session) => session.session === number)?.coverage_band === "high") &&
+  recentSpeech.sessions.every((number) => rawSessions.find((session) => session.session === number)?.coverage_band === "high");
+const comparisonDefinitions = [
+  ["repair_per_100_words", "Repair markers", "/ 100 words", "修復する力ではなく、表面化した修復の頻度"],
+  ["you_know_per_100_words", "you know", "/ 100 words", "談話標識。少なさだけを良しとしない"],
+  ["lexical_search_per_100_words", "Explicit lexical search", "/ 100 words", "how can I say / I want to say"],
+  ["japanese_fallback_pct", "Japanese fallback", "% of segments", "日本語を含む区間。必要な確認は問題ではない"],
+  ["mean_words_per_segment", "Mean output length", "words / segment", "発話長は概ね維持されているか"],
+  ["long_segment_share_pct", "20+ word share", "% of segments", "長い説明の比率"],
+];
+const comparisonRows = comparisonReady ? comparisonDefinitions.map(([key, label, unit, note], index) => {
+  const before = earlierSpeech[key];
+  const after = recentSpeech[key];
+  const max = Math.max(before, after, 0.2) * 1.12;
+  const x1 = Math.max(3, Math.min(97, before / max * 94));
+  const x2 = Math.max(3, Math.min(97, after / max * 94));
+  const maintained = index >= 4 && before > 0 && Math.abs(after - before) / before < 0.15;
+  const change = maintained ? "維持" : `${after < before ? "↓" : "↑"} ${before ? Math.round(Math.abs(after - before) / before * 100) : "—"}%`;
+  return `<div class="comparison-row"><div class="comparison-name"><strong>${escapeHtml(label)}</strong><small>${escapeHtml(note)}</small></div><span class="comparison-before">${before} <small>${unit}</small></span><div class="delta-track" aria-label="Earlier ${before}, Recent ${after}"><span class="delta-line" style="left:${Math.min(x1, x2)}%;width:${Math.abs(x2 - x1)}%"></span><span class="delta-dot delta-dot--earlier" style="left:${x1}%"></span><span class="delta-dot delta-dot--recent" style="left:${x2}%"></span></div><span class="comparison-after">${after} <small>${unit}</small></span><span class="comparison-change">${change}</span></div>`;
+}).join("\n") : "<p>比較に十分な自発発話データがありません。</p>";
+const outputStable = comparisonReady && Math.abs(recentSpeech.mean_words_per_segment - earlierSpeech.mean_words_per_segment) / earlierSpeech.mean_words_per_segment < 0.15;
+const repairDown = comparisonReady && recentSpeech.repair_per_100_words < earlierSpeech.repair_per_100_words * 0.8;
+const insightText = outputStable && repairDown
+  ? "Speaking length is broadly maintained, while visible repair burden has decreased."
+  : "The comparable samples show a descriptive change; more matched spontaneous speech is needed to interpret it.";
+const insightJa = outputStable && repairDown
+  ? "発話量を大きく落とさず、意味修復・語彙探索の負荷が下がっている可能性があります。"
+  : "条件の近い自発発話を続けて観察し、変化の方向を確かめます。";
+const evidenceStrength = comparisonReady && earlierSpeech.sessions.length >= 2 && recentSpeech.sessions.length >= 2 ? "MODERATE" : "LOW";
+const distributionRows = recentSpeech.buckets.map((bucket) => `<div class="distribution-row"><span>${bucket.label} words</span><span class="distribution-bar"><i style="width:${bucket.percent}%"></i></span><strong>${bucket.percent}%</strong></div>`).join("\n");
+const coverageRows = rawSessions.map((session) => `<div class="coverage-item"><strong>S${session.session}</strong><span class="coverage-bar"><i style="width:${Math.round(session.usable_segment_ratio * 100)}%"></i></span><span>${Math.round(session.usable_segment_ratio * 100)}%</span><em>${session.coverage_band.toUpperCase()}</em></div>`).join("\n");
+const profileRows = tracker.qualitative_metrics.map((metric) => {
+  const observed = latestObservedByMetric.get(metric);
+  const level = observed?.ratings[metric];
+  const stage = observed?.within_level_stage?.[metric];
+  const lastMeasured = observed?.session !== latestTracker.session;
+  return `<div class="profile-row ${levelClass(level)}"><span>${escapeHtml(metricJa[metric])}</span><strong>${Number.isInteger(level) ? `L${level} · ${withinLevelStageJa[stage]}` : "N/A"}</strong><small>${lastMeasured ? `最終実測 S${observed?.session ?? "—"}` : `今回 S${latestTracker.session}`}</small></div>`;
+}).join("\n");
+const recentEvidence = tracker.sessions.slice(-5).flatMap((session) => Object.entries(session.metric_evidence ?? {}).map(([metric, evidence]) => ({ metric, evidence, session: session.session })));
+const recentEvidenceFor = (metric) => [...recentEvidence].reverse().find((item) => item.metric === metric && item.evidence?.observed)?.evidence?.observed ?? "比較可能な記述はありません。";
+const grammarFocus = [
+  ["Articles", "WATCH", "確認済みのWrap-up例のみ。ASRから誤り件数は作らない。"],
+  ["Prepositions", "WATCH", "語と構文のまとまりで確認。例: discuss an issue / learn about GCP。"],
+  ["Singular / plural", "WATCH", "Journalに記述。今回は頻度未測定。"],
+  ["Verb forms", "WATCH", "最新評価に語形の揺れ。誤り件数は未確定。"],
+  ["Word order", "WATCH", "最新評価に記述。改善率は未測定。"],
+].map(([name, state, note]) => `<div class="grammar-row"><strong>${name}</strong><span>${state}</span><small>${escapeHtml(note)}</small></div>`).join("\n");
+const estimateTableRows = Object.entries(testDefinitions).map(([testId, definition]) => {
+  const evidence = latestEstimateFor(testId);
+  return `<tr><th scope="row">${escapeHtml(definition.label_ja)}</th><td>${escapeHtml(evidence.estimates[testId].display)}</td><td>S${evidence.session}</td><td>${escapeHtml(evidence.estimates[testId].confidence)}</td></tr>`;
+}).join("\n");
+
 const progress = `---
 title: 成長
 hide:
   - toc
 ---
 
-# 英語力の成長
+# English Growth Dashboard
 
-数値より先に、実際にできた行動を確認します。これは公式試験の結果ではなく、会話と測定記録に基づく学習用の評価です。
+<p class="growth-intro">Evidence-based view from conversation, raw transcripts, and direct measurements. <strong>Not an official language test score.</strong><br>Latest evaluated: Session ${latestTracker.session} · Recovered raw transcript: S${rawSessions[0]?.session ?? "—"}–S${latestRawSession?.session ?? "—"} · Pronunciation last directly rated: S${lastPronunciation?.session ?? "—"}</p>
 
-<div class="learning-grid growth-highlights">
-  <article class="learning-card learning-card--growth"><div class="card-meta">Latest Win</div><h3>今回できたこと</h3><p>${escapeHtml(redactLearnerText(firstSentence(latestTracker.evidence_note_ja)))}</p></article>
-  <article class="learning-card learning-card--context"><div class="card-meta">From Session 1</div><h3>初回からの変化</h3><p>Session 1では「${escapeHtml(redactLearnerText(firstSentence(firstTracker.evidence_note_ja, 90)))}」という出発点でした。今は経験・背景・自分の解釈をつないで長く議論できます。</p></article>
-  <article class="learning-card learning-card--remember"><div class="card-meta">Next Milestone</div><h3>次に一つ伸ばす</h3><p>${escapeHtml(nextFocus)}</p></article>
+<section class="growth-page growth-page--now"><h2>WHERE I AM NOW <small>現在の英語力</small></h2>
+<div class="profile-grid">${profileRows}</div>
+<div class="growth-three-cards">
+  <article><strong>STRENGTHS</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Interaction & repair"), 65))}</p></article>
+  <article><strong>DEVELOPING</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Fluency & coherence"), 65))}</p></article>
+  <article><strong>NEXT BOTTLENECK</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Grammar control"), 65))}</p></article>
 </div>
+<div class="before-now"><strong>SESSION 1 → CURRENT</strong><p>初回は語順とチャンクを整える段階。今は技術テーマで質問・比較・会話修復を自分で進める。初回と最新の会話評価に基づく要約です。</p></div>
+<figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="Session 1からSession ${latestTracker.session}までの6能力の観察評価。今回の発音はN/A、最後の直接評価はS${lastPronunciation?.session ?? "—"}。" loading="lazy"></a><figcaption>Skill Trend: 全履歴を残しつつ初回と現在を強調。同一L内の形成中・安定・強いも表示します。L3据え置きは変化がないという意味ではありません。</figcaption></figure>
+</section>
 
-## Current Snapshot
+<section class="growth-page growth-page--change"><h2>HOW MY SPEAKING IS CHANGING <small>話し方の変化</small></h2>
+<p>Earlier: S${earlierSpeech.sessions.join(" + S")} · Recent: S${recentSpeech.sessions.join(" + S")}。各群は利用可能割合80%以上で自発発話が15区間以上の回を選択。音読・復唱・redactionは除外しました。</p>
+<div class="comparison-header"><span>EARLIER</span><span>BEFORE → NOW</span><span>RECENT</span></div>
+<div class="comparison-chart">${comparisonRows}</div>
+<article class="growth-insight"><strong>MAIN OBSERVATION · descriptive evidence</strong><p>${insightText}</p><p>${insightJa}</p><small>Evidence strength: ${evidenceStrength}。複数のsource-backed sessionを比較しましたが、ASR区間は独立標本ではなく、収録条件・話題も完全一致しません。統計的有意差や能力レベル上昇は示しません。</small></article>
+<h3>SPONTANEOUS OUTPUT DISTRIBUTION</h3>
+<div class="distribution-chart">${distributionRows}</div>
+<p class="distribution-stats">Recent S${recentSpeech.sessions.join(" + S")} · Median ${recentSpeech.median}語 · Middle 50% ${recentSpeech.q1}–${recentSpeech.q3}語 · P90 ${recentSpeech.p90}語 · 20+語 ${recentSpeech.long_segment_share_pct}%</p>
+<h3>RAW EVIDENCE COVERAGE</h3>
+<div class="coverage-strip">${coverageRows}</div>
+<p class="growth-caveat">割合は<strong>回収済みYuki区間のうち利用できる割合</strong>で、全録音の完備率ではありません。LOWの回は主要比較から除外。ASR区間は厳密な会話turnではありません。</p>
+</section>
 
-<div class="metric-grid">
-${tracker.qualitative_metrics.map((metric) => {
-  const observedSession = latestObservedByMetric.get(metric);
-  const level = observedSession?.ratings[metric];
-  const withinLevelStage = observedSession?.within_level_stage?.[metric];
-  const measuredThisSession = observedSession?.session === latestTracker.session;
-  const evidenceLabel = measuredThisSession
-    ? `Session ${latestTracker.session}の記録から根拠を確認済み。`
-    : observedSession
-      ? `最終確認はSession ${observedSession.session}。Session ${latestTracker.session}では未測定。`
-      : "まだ直接測定していません。";
-  const stageLabel = Number.isInteger(level) && withinLevelStageJa[withinLevelStage]
-    ? `<div class="metric-stage">同一L内: ${withinLevelStageJa[withinLevelStage]}</div>`
-    : "";
-  return `<article class="metric-card ${levelClass(level)}"><div class="card-meta">${escapeHtml(metric)}</div><h3>${escapeHtml(metricJa[metric] ?? metric)}</h3><div class="metric-value">${Number.isInteger(level) ? `L${level}` : "N/A"}</div>${stageLabel}<p>${evidenceLabel}</p></article>`;
-}).join("\n")}
-</div>
-
-<div class="latest-win"><strong>今回の成長</strong><br>${escapeHtml(redactLearnerText(latestTracker.evidence_note_ja))}</div>
-
-## 発音の扱い
-
-${Number.isInteger(latestTracker.ratings.Pronunciation)
-  ? `Session ${latestTracker.session}（${formatDateJa(latestTracker.date)}）は録音そのものを直接分析し、**L${latestTracker.ratings.Pronunciation}** と評価しました。今回は標準ベンチマークと異なる音読課題のため、過去Sessionとの差は判定しません。`
-  : `Session ${latestTracker.session}は直接音声を測定していないため **N/A** です。最後に直接測定した記録は Session ${lastPronunciation.session}（${formatDateJa(lastPronunciation.date)}）の **L${lastPronunciation.ratings.Pronunciation}** です。未測定を能力低下として扱いません。`}
-
-## Skill Trend
-
-<figure class="figure-frame"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="Session 1からSession ${latestTracker.session}までの英語力成長グラフ" loading="lazy"></a><figcaption>会話で確認できた6観点の推移。L1〜L5と同一L内の形成中・安定・強いを表示します。タップすると原寸表示。</figcaption></figure>
-
-## Speaking Fingerprint
-
-raw transcriptから、ASRでも比較的安全に数えられる話し方の特徴だけを自動集計します。現在はSession ${rawSessions[0]?.session ?? "—"}〜${latestRawSession?.session ?? "—"}のsource-backed transcriptが対象で、redaction済みYuki発話は集計から除外しています。usable learner segments: **${totalUsableRawSegments}**。
-
-${latestRawSession ? `<div class="fingerprint-coverage"><strong>Latest raw coverage:</strong> Session ${latestRawSession.session} · ${coverageBandJa[latestRawSession.coverage_band]}（usable ${Math.round(latestRawSession.usable_segment_ratio * 100)}%）</div>` : ""}
-
+<section class="growth-page growth-page--next"><h2>WHAT TO WORK ON NEXT <small>次の重点</small></h2>
+<div class="controlled-flow"><article><strong>COMMUNICATION</strong><p>Task achievement L${latestObservedByMetric.get("Task achievement")?.ratings["Task achievement"]} · Interaction & repair L${latestObservedByMetric.get("Interaction & repair")?.ratings["Interaction & repair"]}。会話の目的を保ち、誤解を自分で修復できる。</p></article><span>↓</span><article><strong>AUTOMATICITY</strong><p>修復・語彙探索の表面化がEarlierより少なく、平均発話長はほぼ維持。能力評価ではなく行動統計。</p></article><span>↓</span><article><strong>CONTROLLED ACCURACY</strong><p>Grammar control L${latestObservedByMetric.get("Grammar control")?.ratings["Grammar control"]} · ${withinLevelStageJa[latestObservedByMetric.get("Grammar control")?.within_level_stage["Grammar control"]]}。意味は伝わるが、語形・語順・機能語の安定が次の焦点。</p></article></div>
+<div class="growth-three-cards"><article><strong>HABIT · TRACK</strong><p>Planning fillersと“you know”。減少そのものを目標にせず、考える間と会話の自然さを一緒に確認する。</p></article><article><strong>STRENGTH · KEEP</strong><p>自発的なself-repairと話題の軌道修正。修復能力は強み、過度な修復負荷だけを観察する。</p></article><article><strong>TARGET · PRACTISE</strong><p>語が詰まったら日本語へ移る前に短い英語で言い換え、長い説明はmain pointを先に置く。</p></article></div>
+<h3>HIGH-CONFIDENCE GRAMMAR PATTERNS</h3>
+<div class="grammar-tracker">${grammarFocus}</div>
+<p class="growth-caveat">状態はJournal・Wrap-upで確認された質的な重点。ASRの短い機能語や語尾から自動エラー率を作らず、1例だけで「再発」や「改善」を断定しません。</p>
+<h3 class="fingerprint-heading">SESSION-BY-SESSION FINGERPRINT <small>補助指標</small></h3>
 ${speakingFingerprintMarkup}
-
-!!! note "Speaking Fingerprintの読み方"
-    ASR segmentは厳密な会話turnではありません。fillerやrepairが少ないほど必ず上手いとも限りません。Task achievementとInteractionを保ったまま、負荷がどう変わるかを見ます。redactionが多いSessionの点は薄く表示します。
-
-## Fluency × Accuracy
-
-${fluencyAccuracyScatter()}
-
-<p class="growth-caption">右方向はFluency & coherence、上方向はGrammar control。最近のSessionが重なる場合は「成長なし」ではなく、L3内の差をこの図だけでは分離できないことを意味します。Speaking Fingerprintと合わせて読みます。</p>
-
-## Recurring Habits
-
-<div class="habit-grid">
-${currentHabitCards}
-</div>
-
-<div class="latest-win"><strong>現在の重点</strong><br>速さをさらに上げるより、controlled fluencyを保ちながら、語彙検索時の英語paraphraseと高確度の冠詞・前置詞パターンを少量ずつ改善します。</div>
-
-## 資格スコア目安
-
-各テスト種別は、その技能について最後に根拠が得られたSessionを表示します。測定していない技能に新しい予測点は追加しません。
-
-${scoreGridMarkup}
-
-??? note "読み方"
-    予測レンジは受験計画の参考です。Listening、Reading、Writing、発音を直接測っていない場合は、その制約を明記しています。
-
-<details class="recall-card"><summary>資格スコア予測の補助グラフ</summary><div class="recall-answer"><figure class="figure-frame"><a href="../assets/generated/english-test-score-estimate-trends.png"><img src="../assets/generated/english-test-score-estimate-trends.png" alt="試験種別ごとの資格スコア予測履歴" loading="lazy"></a><figcaption>正本の会話根拠が十分な過去の節目と、現在の広い予測レンジを分けて表示します。</figcaption></figure></div></details>
+<p class="growth-caveat">Planning fillersには明確な下降傾向がありません。LOW coverage点は白抜きで表示。各点の詳細はSiteでhoverできます。</p>
+<h3>ESTIMATED EXTERNAL-TEST RANGES</h3>
+<figure class="figure-frame growth-estimates"><a href="../assets/generated/english-test-score-estimate-trends.png"><img src="../assets/generated/english-test-score-estimate-trends.png" alt="各資格の最新推定レンジ。試験ごとに別尺度、最終根拠Sessionと確度を併記。" loading="lazy"></a><figcaption>公式試験の結果ではありません。推定レンジを横線で示し、本人申告の実績値とは分離。各試験の尺度・測定時点が違うため、横位置を試験間で比較しません。</figcaption></figure>
+<table class="estimate-table"><thead><tr><th>試験</th><th>推定レンジ</th><th>最終根拠</th><th>確度</th></tr></thead><tbody>${estimateTableRows}</tbody></table>
+<p class="growth-caveat">これは受験結果ではなく学習用目安です。Listening / Reading / Writingなど新しく測っていない技能は最終根拠Sessionを据え置き、試験間で横棒の位置を比較しません。</p>
+</section>
 `;
 
 const sourceLinks = new Map();

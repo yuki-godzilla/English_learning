@@ -130,14 +130,10 @@ const plotLeft = 330;
 const plotRight = 970;
 const scaleStep = (plotRight - plotLeft) / 4;
 const xForLevel = (level) => plotLeft + (level - 1) * scaleStep;
-const rowHeight = 91;
-const legendColumns = 3;
-const legendRows = Math.ceil(plottedSessions.length / legendColumns);
-const legendStartY = 292;
-const legendRowGap = 34;
-const chartTop = 382 + legendRows * legendRowGap;
+const rowHeight = 56;
+const chartTop = 148;
 const footerStartY = chartTop + plottedMetrics.length * rowHeight - 12;
-const height = Math.max(980, footerStartY + 85);
+const height = footerStartY + 68;
 const marker = (sessionIndex, totalSessions, x, y) => {
   const isStart = sessionIndex === 0;
   const isCurrent = sessionIndex === totalSessions - 1;
@@ -170,16 +166,16 @@ const graphRows = plottedMetrics.map((metric, metricIndex) => {
   const positions = plottedSessions.map((session) => observedPosition(session, metric));
   const rowFill = metricIndex % 2 ? "#ffffff" : "#f8fafc";
   const zone = `
-      <rect x="${plotLeft - 30}" y="${centerY - 34}" width="${xForLevel(2.5) - plotLeft + 30}" height="68" fill="#fff3e4"/>
-      <rect x="${xForLevel(2.5)}" y="${centerY - 34}" width="${xForLevel(3.5) - xForLevel(2.5)}" height="68" fill="#e8f1ff"/>
-      <rect x="${xForLevel(3.5)}" y="${centerY - 34}" width="${plotRight - xForLevel(3.5) + 30}" height="68" fill="#e6f8ee"/>`;
+      <rect x="${plotLeft - 30}" y="${centerY - 24}" width="${xForLevel(2.5) - plotLeft + 30}" height="48" fill="#fff3e4"/>
+      <rect x="${xForLevel(2.5)}" y="${centerY - 24}" width="${xForLevel(3.5) - xForLevel(2.5)}" height="48" fill="#e8f1ff"/>
+      <rect x="${xForLevel(3.5)}" y="${centerY - 24}" width="${plotRight - xForLevel(3.5) + 30}" height="48" fill="#e6f8ee"/>`;
   const common = `
-    <rect x="${left}" y="${centerY - 40}" width="${right - left}" height="80" fill="${rowFill}"/>
+    <rect x="${left}" y="${centerY - 27}" width="${right - left}" height="54" fill="${rowFill}"/>
     ${zone}
     ${text(left + 18, centerY - 2, metricJa[metric], 'class="metric-ja"')}
     ${text(left + 18, centerY + 24, metric, 'class="metric-en"')}
     <line x1="${plotLeft}" y1="${centerY}" x2="${plotRight}" y2="${centerY}" stroke="#b8c4d4" stroke-width="3"/>`;
-  const spread = Math.min(22, Math.max(0, (positions.length - 1) * 5));
+  const spread = Math.min(17, Math.max(0, (positions.length - 1) * 4));
   const offsetForIndex = (index) => positions.length === 1
     ? 0
     : -spread + (index * (spread * 2 / (positions.length - 1)));
@@ -241,16 +237,7 @@ const graphRows = plottedMetrics.map((metric, metricIndex) => {
     ${text(1010, centerY + 23, `${firstLabel}｜${guide}`, 'class="guide-ja"')}`;
 }).join("");
 
-const legend = plottedSessions.map((session, index) => {
-  // Keep the complete history in a three-column grid and move the chart down
-  // as rows are added, so Session 7+ cannot overlap earlier legend entries.
-  const column = index % legendColumns;
-  const row = Math.floor(index / legendColumns);
-  const x = 570 + column * 235;
-  const y = legendStartY + row * legendRowGap;
-  const label = index === 0 ? "開始" : index === plottedSessions.length - 1 ? "今回" : index === plottedSessions.length - 2 ? "前回" : `履歴S${session.session}`;
-  return `${marker(index, plottedSessions.length, x, y - 6)}${text(x + 16, y, `${label} 第${session.session}回 ${session.date.slice(5).replace("-", "/")}`, 'class="legend"')}`;
-}).join("");
+const legend = "";
 
 const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
@@ -276,15 +263,7 @@ const svg = `
     .foot { font-size: 18px; fill: #475569; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff"/>
-  ${text(left, 58, "英語力の成長推移", 'class="title"')}
-  ${text(left, 91, "English Growth Progress", 'class="subtitle"')}
-  ${text(left, 120, "観察記録による学習用評価。同一L内の段階も表示し、公式試験スコアとは区別します。", 'class="note"')}
-
-  <rect x="${left}" y="145" width="${right - left}" height="62" rx="12" fill="#eaf6ff"/>
-  ${text(left + 20, 172, "観察ベースライン / OBSERVED BASELINE", 'class="summary-kicker"')}
-  ${text(left + 20, 197, `第1回→第${currentSession.session}回: ${fromFirstSummary}　｜　直近: ${fromPreviousSummary}`, 'class="summary"')}
-
-  ${text(left, 264, "技能別の推移 / Skill progression", 'class="section"')}
+  ${text(left, 28, `SKILL TREND  ·  S1 → S${currentSession.session}  ·  初回比 ${fromFirstSummary}  ·  前回比 ${fromPreviousSummary}`, 'class="summary"')}
   ${legend}
   ${axis}
   ${text(1010, chartTop - 38, "現在地 / Current", 'class="summary-kicker"')}
@@ -477,7 +456,50 @@ const estimateSvg = `
   ${estimateText(estimateLeft, estimateHeight - 34, "◆ 予測レンジの中央表示値　｜　縦線 予測レンジ　｜　□ 自己申告の実績　※公式試験結果・合格保証ではありません。", 'class="estimate-foot"')}
 </svg>`;
 
-await sharp(Buffer.from(estimateSvg)).png().toFile(testEstimateOutputPath);
+// A cross-sectional forest plot is deliberately used instead of connected
+// estimates: these are broad, intermittently reviewed ranges, not repeated
+// administrations of the external tests.
+const forestWidth = 1400;
+const forestHeight = 820;
+const forestRows = estimateMetricOrder.map((metricId, index) => {
+  const definition = estimateDefinitions[metricId];
+  const { session, estimate } = latestEstimateByMetric.get(metricId);
+  const y = 175 + index * 76;
+  const plotLeft = 490;
+  const plotRight = 1075;
+  const position = (value) => plotLeft + (value - definition.scale_min) / (definition.scale_max - definition.scale_min) * (plotRight - plotLeft);
+  const lo = position(estimate.low);
+  const mid = position(estimate.mid);
+  const hi = position(estimate.high);
+  const mainDisplay = metricId === "toefl_speaking" ? "3.5–4.0 / 6" : metricId === "cambridge_speaking" ? "155–170" : metricId === "actfl_speaking" ? "Int. High–" : estimate.display;
+  const secondDisplay = metricId === "toefl_speaking" ? "旧尺度目安 18–22 / 30" : metricId === "actfl_speaking" ? "Advanced Low" : "";
+  return `<g>
+    <rect x="42" y="${y - 32}" width="1316" height="68" rx="10" fill="${index % 2 ? "#ffffff" : "#f7f9fc"}"/>
+    ${estimateText(60, y - 6, definition.label_ja, 'class="forest-label"')}
+    ${estimateText(60, y + 22, `${definition.label_en} · last evidence S${session.session}`, 'class="forest-meta"')}
+    <line x1="${plotLeft}" y1="${y}" x2="${plotRight}" y2="${y}" stroke="#cbd5e1" stroke-width="3"/>
+    <line x1="${lo}" y1="${y}" x2="${hi}" y2="${y}" stroke="#1d5fa7" stroke-width="12" stroke-linecap="round"/>
+    <line x1="${lo}" y1="${y - 12}" x2="${lo}" y2="${y + 12}" stroke="#163a5f" stroke-width="3"/>
+    <line x1="${hi}" y1="${y - 12}" x2="${hi}" y2="${y + 12}" stroke="#163a5f" stroke-width="3"/>
+    <circle cx="${mid}" cy="${y}" r="9" fill="#ffffff" stroke="#163a5f" stroke-width="4"/>
+    ${estimateText(1110, y - 9, mainDisplay, 'class="forest-value"')}
+    ${secondDisplay ? estimateText(1110, y + 14, secondDisplay, 'class="forest-meta"') : ""}
+    ${secondDisplay ? "" : estimateText(1110, y + 31, `確度 ${confidenceJa[estimate.confidence] ?? estimate.confidence}`, 'class="forest-meta"')}
+  </g>`;
+}).join("");
+const historicalActual = (estimateData.historical_results ?? [])
+  .map((result) => `${estimateDefinitions[result.test_id]?.label_ja ?? result.test_id} ${result.score}（${result.date_label_ja}・本人申告）`)
+  .join(" / ");
+const forestSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${forestWidth}" height="${forestHeight}" viewBox="0 0 ${forestWidth} ${forestHeight}">
+  <style>text{font-family:"Yu Gothic",Meiryo,Arial,sans-serif;fill:#1f2937}.forest-title{font-size:42px;font-weight:700}.forest-sub{font-size:21px;fill:#475569}.forest-label{font-size:28px;font-weight:700}.forest-meta{font-size:20px;fill:#475569}.forest-value{font-size:24px;font-weight:700;fill:#163a5f}.forest-foot{font-size:17px;fill:#475569}</style>
+  <rect width="${forestWidth}" height="${forestHeight}" fill="#ffffff"/>
+  ${estimateText(48, 60, "資格スコア目安：最新の推定レンジ", 'class="forest-title"')}
+  ${estimateText(48, 94, "Estimated external-test ranges · not official results", 'class="forest-sub"')}
+  ${estimateText(48, 124, "各行は別の試験尺度。横位置を試験間で比較せず、数値と最終根拠Sessionを確認してください。", 'class="forest-sub"')}
+  ${forestRows}
+  ${estimateText(48, 790, `実績は推定と別物：${historicalActual || "記録なし"}。連続的な試験測定を示す線は使いません。`, 'class="forest-foot"')}
+</svg>`;
+await sharp(Buffer.from(forestSvg)).png().toFile(testEstimateOutputPath);
 if (publishTrackedAssets) {
   await copyFile(testEstimateOutputPath, trackedEstimatePath);
 }

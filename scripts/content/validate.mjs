@@ -231,7 +231,7 @@ for (const entry of manifest.files ?? []) {
 const latestSessionNumber = progress.sessions?.at(-1)?.session;
 const requiredReportAssets = [
   ["learning-records/media/progress/english-growth-evidence-dashboard.png", "English growth dashboard"],
-  ["learning-records/media/progress/english-test-score-estimate-trends.png", "Estimated test score trends"],
+  ["learning-records/media/progress/english-test-score-estimate-trends.png", "Estimated external-test range plot"],
 ];
 for (const [assetPath, role] of requiredReportAssets) {
   const entry = (manifest.files ?? []).find((candidate) => candidate.path === assetPath);

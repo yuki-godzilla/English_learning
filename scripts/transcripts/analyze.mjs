@@ -25,8 +25,8 @@ function round(value, digits = 1) {
   return Math.round(value * scale) / scale;
 }
 
-function ratePer100(count, denominator) {
-  return denominator > 0 ? round((count / denominator) * 100) : null;
+function ratePer100(count, denominator, digits = 1) {
+  return denominator > 0 ? round((count / denominator) * 100, digits) : null;
 }
 
 function coverageBand(ratio) {
@@ -35,10 +35,20 @@ function coverageBand(ratio) {
   return "low";
 }
 
-function analyzeYukiTurns(turns) {
+export function tokenizeSpokenWords(value) {
+  return tokenizeWords(value);
+}
+
+function analyzeYukiTurns(turns, modeByIndex) {
   const yukiTurns = turns.filter((turn) => turn?.type === "turn" && turn.speaker === "yuki");
   const redactedTurns = yukiTurns.filter((turn) => redactionPattern.test(turn.text ?? ""));
-  const usableTurns = yukiTurns.filter((turn) => !redactionPattern.test(turn.text ?? ""));
+  const unredactedTurns = yukiTurns.filter((turn) => !redactionPattern.test(turn.text ?? ""));
+  const usableTurns = unredactedTurns.filter((turn) => (modeByIndex.get(turn.index) ?? "spontaneous") === "spontaneous");
+  const modeCounts = { spontaneous: usableTurns.length, read_aloud: 0, repetition: 0, fixed_probe: 0, unclear: 0 };
+  for (const turn of unredactedTurns) {
+    const mode = modeByIndex.get(turn.index) ?? "spontaneous";
+    if (mode !== "spontaneous") modeCounts[mode] += 1;
+  }
   const usableText = usableTurns.map((turn) => turn.text ?? "").join(" ");
   const words = tokenizeWords(usableText);
   const wordCount = words.length;
@@ -56,12 +66,16 @@ function analyzeYukiTurns(turns) {
   const japaneseFallbackTurns = usableTurns.filter((turn) => japanesePattern.test(turn.text ?? "")).length;
   const longTurns = usableTurns.filter((turn) => tokenizeWords(turn.text).length >= 20).length;
   const questionTurns = usableTurns.filter((turn) => /\?/.test(turn.text ?? "")).length;
-  const coverageRatio = yukiTurns.length > 0 ? usableTurns.length / yukiTurns.length : 0;
+  const coverageRatio = yukiTurns.length > 0 ? unredactedTurns.length / yukiTurns.length : 0;
+  const lengths = usableTurns.map((turn) => tokenizeWords(turn.text).length).sort((a, b) => a - b);
 
   return {
     yuki_segments: yukiTurns.length,
-    usable_yuki_segments: usableTurns.length,
+    usable_yuki_segments: unredactedTurns.length,
     redacted_yuki_segments: redactedTurns.length,
+    spontaneous_segments: usableTurns.length,
+    speech_mode_counts: modeCounts,
+    spontaneous_segment_lengths: lengths,
     usable_segment_ratio: round(coverageRatio, 3),
     coverage_band: coverageBand(coverageRatio),
     words: wordCount,
@@ -91,6 +105,12 @@ function analyzeYukiTurns(turns) {
 
 export async function analyzeTranscripts() {
   const coverage = JSON.parse(await fs.readFile(path.join(transcriptRoot, "coverage.json"), "utf8"));
+  const annotations = JSON.parse(await fs.readFile(path.join(transcriptRoot, "speech-mode-annotations.json"), "utf8"));
+  const modeBySession = new Map();
+  for (const annotation of annotations.annotations) {
+    if (!modeBySession.has(annotation.session_number)) modeBySession.set(annotation.session_number, new Map());
+    modeBySession.get(annotation.session_number).set(annotation.turn_index, annotation.speech_mode);
+  }
   const sessions = [];
 
   for (const entry of coverage.sessions ?? []) {
@@ -104,24 +124,66 @@ export async function analyzeTranscripts() {
       date: entry.date,
       status: entry.status,
       limitation: entry.reason ?? meta?.completeness ?? "",
-      ...analyzeYukiTurns(turns),
+      ...analyzeYukiTurns(turns, modeBySession.get(entry.session_number) ?? new Map()),
     });
   }
 
   sessions.sort((a, b) => a.session - b.session);
+  const bySession = new Map(sessions.map((session) => [session.session, session]));
+  const eligible = sessions.filter((session) => session.coverage_band === "high" && session.spontaneous_segments >= 15);
+  const recentWindow = eligible.slice(-2).map((session) => session.session);
+  // Start with the earliest comparable pair while the evidence series is
+  // short. Once six high-coverage sessions exist, use the preceding pair.
+  const earlierWindow = (eligible.length > 5 ? eligible.slice(-4, -2) : eligible.slice(0, 2))
+    .map((session) => session.session);
+  const summarizeGroup = (numbers) => {
+    const group = numbers.map((number) => bySession.get(number)).filter(Boolean);
+    const sum = (key) => group.reduce((total, session) => total + (session[key] ?? 0), 0);
+    const words = sum("words");
+    const segments = sum("spontaneous_segments");
+    const lengths = group.flatMap((session) => session.spontaneous_segment_lengths).sort((a, b) => a - b);
+    const quantile = (p) => {
+      if (!lengths.length) return null;
+      const position = (lengths.length - 1) * p;
+      const lower = Math.floor(position);
+      const upper = Math.ceil(position);
+      return round(lengths[lower] + (lengths[upper] - lengths[lower]) * (position - lower), 2);
+    };
+    const buckets = [
+      { label: "1–4", count: lengths.filter((length) => length >= 1 && length <= 4).length },
+      { label: "5–9", count: lengths.filter((length) => length >= 5 && length <= 9).length },
+      { label: "10–19", count: lengths.filter((length) => length >= 10 && length <= 19).length },
+      { label: "20–39", count: lengths.filter((length) => length >= 20 && length <= 39).length },
+      { label: "40+", count: lengths.filter((length) => length >= 40).length },
+    ].map((bucket) => ({ ...bucket, percent: segments ? round(bucket.count / segments * 100) : null }));
+    return {
+      sessions: numbers,
+      words,
+      segments,
+      repair_per_100_words: ratePer100(sum("repair_marker_count"), words, 2),
+      you_know_per_100_words: ratePer100(sum("you_know_count"), words, 2),
+      lexical_search_per_100_words: ratePer100(sum("lexical_search_count"), words, 2),
+      japanese_fallback_pct: ratePer100(sum("japanese_fallback_turns"), segments),
+      mean_words_per_segment: segments ? round(words / segments, 2) : null,
+      long_segment_share_pct: segments ? round(lengths.filter((length) => length >= 20).length / segments * 100) : null,
+      median: quantile(0.5), q1: quantile(0.25), q3: quantile(0.75), p90: quantile(0.9), buckets,
+    };
+  };
   return {
     methodology: {
-      label: "Raw transcript speaking fingerprint",
-      source: "learning-records/transcripts/coverage.json + committed JSONL",
+      label: "Spontaneous speech diagnostics from recovered raw transcripts",
+      source: "learning-records/transcripts/coverage.json + speech-mode-annotations.json + committed JSONL",
       boundaries: [
         "ASR segments are not guaranteed conversational turn boundaries.",
-        "Redacted learner segments are excluded from language counts.",
+        "Reading, prompted repetition, uncertain mode, and redacted learner segments are excluded from spontaneous-language counts.",
+        "Coverage is the usable proportion of recovered Yuki segments, not completeness of the original session.",
         "Article/preposition errors are not auto-counted because ASR can alter short function words.",
         "Transcript metrics do not score pronunciation, pause duration, or WPM.",
         "Lower filler or repair rates are not automatically better; interpret them with task achievement and interaction.",
       ],
     },
     sessions,
+    comparison: { earlier: summarizeGroup(earlierWindow), recent: summarizeGroup(recentWindow), selection: "high usable-recovered ratio (>=80%), at least 15 spontaneous segments; latest two versus earliest two until six eligible sessions, then preceding two" },
   };
 }
 
