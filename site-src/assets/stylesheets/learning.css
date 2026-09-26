@@ -411,3 +411,115 @@
     overflow-x: auto;
   }
 }
+
+
+/* Transcript-based growth visualizations */
+.fingerprint-grid,
+.habit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.9rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.fingerprint-card,
+.habit-card {
+  padding: 1rem;
+  border: 1px solid var(--learning-border);
+  border-radius: 0.85rem;
+  background: var(--learning-surface);
+}
+
+.fingerprint-card h3,
+.habit-card h3 {
+  margin: 0.2rem 0 0.3rem;
+  padding: 0;
+  border: 0;
+  color: var(--learning-navy);
+}
+
+.fingerprint-value,
+.habit-value {
+  color: var(--learning-teal);
+  font-size: 1.28rem;
+  font-weight: 800;
+}
+
+.fingerprint-sparkline,
+.fluency-accuracy-scatter {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.45rem;
+  overflow: visible;
+  color: var(--learning-blue);
+}
+
+.fingerprint-axis,
+.scatter-axis {
+  stroke: var(--learning-border);
+  stroke-width: 1.5;
+}
+
+.fingerprint-line {
+  fill: none;
+  stroke: var(--learning-blue);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fingerprint-points circle {
+  fill: var(--learning-teal);
+  stroke: var(--md-default-bg-color);
+  stroke-width: 2;
+}
+
+.fingerprint-label,
+.scatter-label {
+  fill: var(--md-default-fg-color--light);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.scatter-grid {
+  stroke: var(--learning-border);
+  stroke-width: 1;
+  opacity: 0.72;
+}
+
+.scatter-point circle {
+  fill: var(--learning-blue);
+  stroke: var(--md-default-bg-color);
+  stroke-width: 2;
+}
+
+.scatter-axis-label {
+  fill: var(--learning-navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fingerprint-coverage {
+  margin: 0.75rem 0 0.25rem;
+  padding: 0.7rem 0.85rem;
+  border-left: 0.25rem solid var(--learning-blue);
+  background: color-mix(in srgb, var(--learning-blue) 8%, transparent);
+}
+
+.growth-caption {
+  margin-top: 0.35rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.74rem;
+}
+
+@media (max-width: 44rem) {
+  .fingerprint-grid,
+  .habit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fluency-accuracy-scatter {
+    max-height: 20rem;
+  }
+}
