@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
+import { analyzeTranscripts } from "../transcripts/analyze.mjs";
 import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
 
 const outputRoot = path.join(root, ".generated-site-docs");
@@ -130,6 +131,7 @@ function removeSection(markdown, headingPattern, nextHeadingPattern) {
 const tracker = JSON.parse(await fs.readFile(path.join(recordsRoot, "progress.json"), "utf8"));
 const mediaManifest = JSON.parse(await fs.readFile(path.join(recordsRoot, "media-manifest.json"), "utf8"));
 const journal = await loadJournal();
+const speakingAnalytics = await analyzeTranscripts();
 const sessionDefinitions = [...journal.sessions];
 const trackerByNumber = new Map(tracker.sessions.map((session) => [session.session, session]));
 for (const trackerSession of tracker.sessions) {
@@ -647,6 +649,124 @@ const scoreGridMarkup = Array.from({ length: Math.ceil(scoreCards.length / 6) },
   return `<div class="score-grid${continuationClass}">${group}</div>`;
 }).join("\n");
 
+
+const rawSessions = speakingAnalytics.sessions;
+const latestRawSession = rawSessions.at(-1);
+const totalUsableRawSegments = rawSessions.reduce((sum, session) => sum + session.usable_yuki_segments, 0);
+const coverageBandJa = { high: "高", medium: "中", low: "低" };
+
+function compactNumber(value, suffix = "") {
+  return Number.isFinite(value) ? `${value.toFixed(1)}${suffix}` : "N/A";
+}
+
+function sparklineSvg(data, key, label) {
+  const points = data.filter((session) => Number.isFinite(session[key]));
+  if (!points.length) return "<p>比較可能なraw transcriptがありません。</p>";
+  const width = 360;
+  const height = 118;
+  const padX = 28;
+  const padTop = 16;
+  const padBottom = 28;
+  const values = points.map((session) => session[key]);
+  const rawMin = Math.min(...values);
+  const rawMax = Math.max(...values);
+  const span = Math.max(0.5, rawMax - rawMin);
+  const min = Math.max(0, rawMin - span * 0.15);
+  const max = rawMax + span * 0.15;
+  const minSession = Math.min(...points.map((session) => session.session));
+  const maxSession = Math.max(...points.map((session) => session.session));
+  const x = (session) => padX + ((session - minSession) / Math.max(1, maxSession - minSession)) * (width - padX * 2);
+  const y = (value) => padTop + ((max - value) / Math.max(0.001, max - min)) * (height - padTop - padBottom);
+  const polyline = points.map((session) => `${x(session.session)},${y(session[key])}`).join(" ");
+  const circles = points.map((session) => {
+    const opacity = session.coverage_band === "high" ? 1 : session.coverage_band === "medium" ? 0.72 : 0.38;
+    return `<circle cx="${x(session.session)}" cy="${y(session[key])}" r="5" opacity="${opacity}"><title>Session ${session.session}: ${session[key]} / coverage ${session.coverage_band}</title></circle>`;
+  }).join("");
+  return `<svg class="fingerprint-sparkline" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(label)}">
+    <line x1="${padX}" y1="${height - padBottom}" x2="${width - padX}" y2="${height - padBottom}" class="fingerprint-axis"/>
+    <polyline points="${polyline}" class="fingerprint-line"/>
+    <g class="fingerprint-points">${circles}</g>
+    <text x="${padX}" y="${height - 7}" class="fingerprint-label">S${minSession}</text>
+    <text x="${width - padX}" y="${height - 7}" text-anchor="end" class="fingerprint-label">S${maxSession}</text>
+  </svg>`;
+}
+
+const fingerprintDefinitions = [
+  ["filler_per_100_words", "Planning fillers", "uh / um / hmm per 100 words", "低いほど良いとは限らず、思考の間をどう作るかを見る。"],
+  ["repair_markers_per_100_words", "Repair markers", "repair markers per 100 words", "I mean / how can I say / direct correction など。修復能力と負荷の両方を示す。"],
+  ["avg_words_per_segment", "Output length", "words per ASR segment", "ASR segmentは厳密な会話turnではないため、同じ収録方式の中でだけ読む。"],
+  ["long_segment_share_pct", "Long-segment share", "20+ word segments (%)", "長い説明を維持する傾向の補助指標。長ければ常に良いわけではない。"],
+];
+
+const speakingFingerprintMarkup = rawSessions.length
+  ? `<div class="fingerprint-grid">${fingerprintDefinitions.map(([key, title, subtitle, note]) => {
+      const latest = latestRawSession?.[key];
+      const suffix = key.endsWith("_pct") ? "%" : "";
+      return `<article class="fingerprint-card">
+        <div class="card-meta">${escapeHtml(subtitle)}</div>
+        <h3>${escapeHtml(title)}</h3>
+        <div class="fingerprint-value">${compactNumber(latest, suffix)}</div>
+        ${sparklineSvg(rawSessions, key, title)}
+        <p>${escapeHtml(note)}</p>
+      </article>`;
+    }).join("\n")}</div>`
+  : "<p>raw transcriptの比較可能データはまだありません。</p>";
+
+const stageOffsetForScatter = { emerging: -0.2, established: 0, strong: 0.2 };
+const observedLevel = (session, metric) => {
+  const rating = session.ratings?.[metric];
+  if (!Number.isInteger(rating)) return null;
+  return Math.max(1, Math.min(5, rating + (stageOffsetForScatter[session.within_level_stage?.[metric]] ?? 0)));
+};
+
+function fluencyAccuracyScatter() {
+  const rawPoints = tracker.sessions.map((session) => ({
+    session: session.session,
+    fluency: observedLevel(session, "Fluency & coherence"),
+    grammar: observedLevel(session, "Grammar control"),
+  })).filter((point) => Number.isFinite(point.fluency) && Number.isFinite(point.grammar));
+  if (!rawPoints.length) return "<p>比較可能な評価点がありません。</p>";
+  const groups = new Map();
+  for (const point of rawPoints) {
+    const key = `${point.fluency.toFixed(1)}|${point.grammar.toFixed(1)}`;
+    if (!groups.has(key)) groups.set(key, { ...point, sessions: [] });
+    groups.get(key).sessions.push(point.session);
+  }
+  const width = 560;
+  const height = 330;
+  const left = 62;
+  const right = 24;
+  const top = 22;
+  const bottom = 52;
+  const x = (value) => left + ((value - 1) / 4) * (width - left - right);
+  const y = (value) => top + ((5 - value) / 4) * (height - top - bottom);
+  const grid = [1,2,3,4,5].map((level) => `
+    <line x1="${x(level)}" y1="${top}" x2="${x(level)}" y2="${height-bottom}" class="scatter-grid"/>
+    <line x1="${left}" y1="${y(level)}" x2="${width-right}" y2="${y(level)}" class="scatter-grid"/>
+    <text x="${x(level)}" y="${height-bottom+23}" text-anchor="middle" class="fingerprint-label">L${level}</text>
+    <text x="${left-12}" y="${y(level)+4}" text-anchor="end" class="fingerprint-label">L${level}</text>`).join("");
+  const marks = [...groups.values()].map((group) => {
+    const sessions = group.sessions;
+    const label = sessions.length === 1 ? `S${sessions[0]}` : `S${sessions[0]}–${sessions.at(-1)}`;
+    return `<g class="scatter-point"><circle cx="${x(group.fluency)}" cy="${y(group.grammar)}" r="8"><title>${label}: Fluency ${group.fluency.toFixed(1)}, Grammar ${group.grammar.toFixed(1)}</title></circle><text x="${x(group.fluency)+11}" y="${y(group.grammar)-9}" class="scatter-label">${label}</text></g>`;
+  }).join("");
+  return `<svg class="fluency-accuracy-scatter" viewBox="0 0 ${width} ${height}" role="img" aria-label="Fluency and grammar control by session">
+    ${grid}
+    <line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" class="scatter-axis"/>
+    <line x1="${left}" y1="${top}" x2="${left}" y2="${height-bottom}" class="scatter-axis"/>
+    ${marks}
+    <text x="${(left+width-right)/2}" y="${height-8}" text-anchor="middle" class="scatter-axis-label">Fluency &amp; coherence →</text>
+    <text x="17" y="${(top+height-bottom)/2}" text-anchor="middle" transform="rotate(-90 17 ${(top+height-bottom)/2})" class="scatter-axis-label">Grammar control →</text>
+  </svg>`;
+}
+
+const currentHabitCards = latestRawSession ? [
+  ["Planning fillers", compactNumber(latestRawSession.filler_per_100_words), "uh / um / hmm / 100 words", "planning timeの取り方を見る。無理にゼロを目指さない。"],
+  ["you know", compactNumber(latestRawSession.you_know_per_100_words), "uses / 100 words", "便利なdiscourse markerだが、連続すると癖として聞こえやすい。"],
+  ["Repair", compactNumber(latestRawSession.repair_markers_per_100_words), "markers / 100 words", "I mean / how can I say / direct correction。修復できること自体は強み。"],
+  ["Article / preposition", "Qualitative", "ASR-sensitive", "the・前置詞は音声認識誤差が大きいため自動エラー率を出さず、Wrap-upの高確度例だけ追う。"],
+].map(([title, value, unit, note]) => `<article class="habit-card"><div class="card-meta">${escapeHtml(unit)}</div><h3>${escapeHtml(title)}</h3><div class="habit-value">${escapeHtml(value)}</div><p>${escapeHtml(note)}</p></article>`).join("\n") : "";
+
 const progress = `---
 title: 成長
 hide:
@@ -691,9 +811,34 @@ ${Number.isInteger(latestTracker.ratings.Pronunciation)
   ? `Session ${latestTracker.session}（${formatDateJa(latestTracker.date)}）は録音そのものを直接分析し、**L${latestTracker.ratings.Pronunciation}** と評価しました。今回は標準ベンチマークと異なる音読課題のため、過去Sessionとの差は判定しません。`
   : `Session ${latestTracker.session}は直接音声を測定していないため **N/A** です。最後に直接測定した記録は Session ${lastPronunciation.session}（${formatDateJa(lastPronunciation.date)}）の **L${lastPronunciation.ratings.Pronunciation}** です。未測定を能力低下として扱いません。`}
 
-## 成長グラフ
+## Skill Trend
 
-<figure class="figure-frame"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="Session 1からSession ${latestTracker.session}までの英語力成長グラフ" loading="lazy"></a><figcaption>会話で確認できた行動の推移。タップすると原寸表示。</figcaption></figure>
+<figure class="figure-frame"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="Session 1からSession ${latestTracker.session}までの英語力成長グラフ" loading="lazy"></a><figcaption>会話で確認できた6観点の推移。L1〜L5と同一L内の形成中・安定・強いを表示します。タップすると原寸表示。</figcaption></figure>
+
+## Speaking Fingerprint
+
+raw transcriptから、ASRでも比較的安全に数えられる話し方の特徴だけを自動集計します。現在はSession ${rawSessions[0]?.session ?? "—"}〜${latestRawSession?.session ?? "—"}のsource-backed transcriptが対象で、redaction済みYuki発話は集計から除外しています。usable learner segments: **${totalUsableRawSegments}**。
+
+${latestRawSession ? `<div class="fingerprint-coverage"><strong>Latest raw coverage:</strong> Session ${latestRawSession.session} · ${coverageBandJa[latestRawSession.coverage_band]}（usable ${Math.round(latestRawSession.usable_segment_ratio * 100)}%）</div>` : ""}
+
+${speakingFingerprintMarkup}
+
+!!! note "Speaking Fingerprintの読み方"
+    ASR segmentは厳密な会話turnではありません。fillerやrepairが少ないほど必ず上手いとも限りません。Task achievementとInteractionを保ったまま、負荷がどう変わるかを見ます。redactionが多いSessionの点は薄く表示します。
+
+## Fluency × Accuracy
+
+${fluencyAccuracyScatter()}
+
+<p class="growth-caption">右方向はFluency & coherence、上方向はGrammar control。最近のSessionが重なる場合は「成長なし」ではなく、L3内の差をこの図だけでは分離できないことを意味します。Speaking Fingerprintと合わせて読みます。</p>
+
+## Recurring Habits
+
+<div class="habit-grid">
+${currentHabitCards}
+</div>
+
+<div class="latest-win"><strong>現在の重点</strong><br>速さをさらに上げるより、controlled fluencyを保ちながら、語彙検索時の英語paraphraseと高確度の冠詞・前置詞パターンを少量ずつ改善します。</div>
 
 ## 資格スコア目安
 
