@@ -234,6 +234,14 @@ for (const htmlFile of htmlFiles) {
   }
 }
 
+const progressHtml = await fs.readFile(path.join(siteRoot, "progress", "index.html"), "utf8");
+for (const required of ["Skill Trend", "Speaking Fingerprint", "Fluency × Accuracy", "Recurring Habits"]) {
+  if (!progressHtml.includes(required)) fail(`Growth page is missing transcript visualization: ${required}`);
+}
+for (const requiredClass of ["fingerprint-grid", "fingerprint-sparkline", "fluency-accuracy-scatter", "habit-grid"]) {
+  if (!progressHtml.includes(requiredClass)) fail(`Growth page is missing visualization markup: ${requiredClass}`);
+}
+
 const homeHtml = await fs.readFile(path.join(siteRoot, "index.html"), "utf8");
 if (!homeHtml.includes("learning-bottom-nav")) fail("Home page is missing the mobile bottom navigation");
 for (const label of ["ホーム", "記録", "復習", "成長", "資料"]) {
