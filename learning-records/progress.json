@@ -593,15 +593,98 @@
       "evidence_quote_origin": "Spontaneous learner question in the realtime transcript; punctuation regularized.",
       "evidence_note_ja": "Pub/Subの公式記事を音読し、synchronousとparallelizeの意味を確認したうえで、AWSの近いサービスを自発的に質問した。読みたい対象が記事であることを明確に訂正し、レポートへ図と表の両方を入れる希望も伝えた。技術的な目的達成と対話修復はL4・強い、会話の流れと語彙はL3・強い、文法はL3・安定を維持する。標準音読の録音はローカル処理できたが、ASR一致率を発音得点に換算せず、個別音・強勢・リズムを信頼して直接聴取評価できていないため、今回のPronunciationはN/A。前回からの流暢さの増減は固定の自発発話課題が未実施で判定保留。",
       "evidence_note": "Read the official Pub/Sub overview, asked about synchronous and parallelize, then independently requested the closest AWS service. Corrected the reading target to the browser article and specified a diagram and table for the report. Retain strong L4 for task achievement and interaction, strong L3 for fluency and lexis, and established L3 for grammar. The standard read-aloud recording was locally processed, but ASR word matching is not converted into a pronunciation score; individual sounds, stress, and rhythm were not reliably reviewed directly, so this session's pronunciation is N/A. A change in spontaneous fluency cannot be established without the fixed probe."
+    },
+    {
+      "session": 17,
+      "date": "2026-09-27",
+      "task": "Spontaneous conversation about an alternating workweek and WeatherNext 3, including energy applications and source checking",
+      "task_ja": "週末の過ごし方とAI天気予報の産業利用を英語で議論し、記事の根拠を確認",
+      "data_coverage": "All 104 available realtime voice transcript segments in source order, with assistant and learner turns. Audio and non-realtime typed messages were not archived; the final assistant segment is truncated. No directly assessed audio or fixed spontaneous-speaking probe.",
+      "ratings": {"Task achievement":4,"Fluency & coherence":3,"Lexical resource":3,"Grammar control":3,"Interaction & repair":4,"Pronunciation":null},
+      "within_level_stage": {"Task achievement":"strong","Fluency & coherence":"strong","Lexical resource":"strong","Grammar control":"established","Interaction & repair":"strong","Pronunciation":null},
+      "metric_evidence": {
+        "Task achievement": {
+          "basis": "Unscripted learner turns on weekend design, weather industry use, and verification of the article",
+          "display_summary_ja": "休み方の案を具体化し、天気予報の産業利用と記事の根拠まで議論を進めた。",
+          "observed": "Proposed alternating two- and three-day weekends, laid out a three-day plan, shifted from umbrella convenience to solar and wind applications, and challenged an unsupported accuracy generalization.",
+          "comparison": "stable",
+          "reason": "Independent topic development and source checking support strong L4, consistent with Session 16; the tasks differ and do not show an increase.",
+          "confidence": "high",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[32,36,38,67,69,71,93],"comparison_session":16,"comparison_conditions":"Different topics and assistance; compares broad task achievement only, not rate or task difficulty.","next_observation":"Independent explanation of one technical article in a comparable timed prompt."}
+        },
+        "Fluency & coherence": {
+          "basis": "Unscripted voice ASR segments, not direct timing or acoustic pause analysis",
+          "display_summary_ja": "長い計画と技術議論の筋を保った。話速や間の変化は未測定。",
+          "observed": "Sequenced the three-day plan and maintained the weather discussion while restarting and searching for wording in longer questions.",
+          "comparison": "not_comparable",
+          "reason": "The coherent plan supports a current strong L3, but segmentation and task conditions differ from Session 16, and audio timing was not assessed.",
+          "confidence": "medium",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[32,34,36,38,67,73,80],"comparison_conditions":"Session 16 concerned cloud reading and design; no matched fixed response or directly timed audio.","next_observation":"One independently produced 60-second response with directly measured timing and pauses."}
+        },
+        "Lexical resource": {
+          "basis": "Learner-origin words in spontaneous turns, excluding terminology supplied by the article or Chappy",
+          "display_summary_ja": "野球、発電、物理などの語を自発的に使い、複雑な問いでは語を探した。",
+          "observed": "Used batting, pitching, catching, solar power, wind, supercomputer, physics, and industry; sought a verb for combining physics and AI.",
+          "comparison": "not_comparable",
+          "reason": "Range across familiar and technical topics supports current strong L3, but the topic and amount of supplied vocabulary differ from Session 16.",
+          "confidence": "medium",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[19,21,67,69,71,73,78,80],"comparison_conditions":"Different domain from Session 16; article and assistant supplied additional weather terminology.","next_observation":"Independent explanation of a fresh technical topic without modelled vocabulary."}
+        },
+        "Grammar control": {
+          "basis": "Spontaneous learner ASR segments; uncertain articles and prepositions not counted as confirmed errors",
+          "display_summary_ja": "意図は通じるが複雑な疑問文の組立てに揺れがある。ASR細部は要確認。",
+          "observed": "The alternating-weekend explanation was intelligible; longer technical questions had restarts and unstable sentence frames, including the question about combining physics and AI.",
+          "comparison": "not_comparable",
+          "reason": "Current established L3 is supported, but transcription uncertainty and differing topics prevent error-rate comparison or a confirmed recurring article/preposition judgment.",
+          "confidence": "medium",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[32,36,67,73,80,89,91],"comparison_conditions":"Different syntax opportunities and ASR segmentation than Session 16; no verified audio for fine-grained error counts.","next_observation":"A comparable spontaneous explanation with direct audio review of sentence structure."}
+        },
+        "Interaction & repair": {
+          "basis": "Spontaneous learner corrections, topic steering, and source challenge",
+          "display_summary_ja": "自力修正、話題転換、対話形式の変更、記事の根拠確認を行った。",
+          "observed": "Corrected game to practice, redirected the repeated questions to a new topic and later to discussion rather than quiz, and asked whether an accuracy statement was in the article.",
+          "comparison": "stable",
+          "reason": "Multiple independent repairs support strong L4, consistent with Session 16; assistant misunderstandings are recorded separately rather than as learner deficits.",
+          "confidence": "high",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"independent","preparation_seconds":null,"turn_indices":[17,25,40,65,93],"comparison_session":16,"comparison_conditions":"Both sessions include independent repairs but prompts and assistant errors differ; compare broad interaction ability only.","next_observation":"Observe source checking and repair in a conversation with fewer assistant-led questions."}
+        },
+        "Pronunciation": {
+          "basis": "Voice ASR text only; no direct audio processing or holistic listening review",
+          "observed": "No defensible evidence for segmental sounds, stress, rhythm, linking, or intonation in this session.",
+          "comparison": "not_comparable",
+          "reason": "No direct audio review; N/A. Session 12 remains the last rated pronunciation session under an older limited protocol.",
+          "confidence": "high",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"not_observed","support":"unknown","preparation_seconds":null,"turn_indices":[],"comparison_conditions":"No audio reviewed; cannot compare with Session 16's processed read-aloud or Session 12's earlier rating.","next_observation":"Directly process and listen to a learner-authorized recording covering individual sounds and prosody."}
+        }
+      },
+      "conversation_quality": {
+        "status":"partial_manual_audit",
+        "source":"learning-records/transcripts/2026-09-27-session-01.jsonl",
+        "observations":[
+          {"kind":"assistant_repetitive_questions","assistant_turns":[10,12,14,16,18,20,22,24],"learner_turns":[25],"note":"The assistant relied on short follow-up questions until the learner redirected the topic; not a learner deficit."},
+          {"kind":"assistant_format_mismatch","assistant_turns":[64,66],"learner_turns":[65],"note":"The learner requested discussion rather than a quiz; the assistant continued with a question."},
+          {"kind":"assistant_accuracy_overclaim","assistant_turns":[90,95,96],"learner_turns":[93],"note":"The assistant initially generalized short-term/local accuracy beyond the article, then narrowed the claim after the learner requested source support."}
+        ],
+        "unmeasured":["interruption_duration","actual_audio_timing","overall_question_balance"]
+      },
+      "evidence_index":[
+        {"turn_indices":[32,36,38],"activity":"proposes alternating weekends and explains the three-day plan","support":"independent proposal; Chappy supplied the initial four-day-workweek topic"},
+        {"turn_indices":[67,69,71,73,78,80,93],"activity":"develops energy-industry implications and checks the article","support":"learner-led reasoning after an assistant-selected article"}
+      ],
+      "pronunciation_evidence": {"task_kind":"spontaneous","purpose":"practice","direct_audio_processed":false,"analysis_method":"voice ASR transcript only","holistic_level_assigned":false,"holistic_audio_review":false,"limitations":"No direct audio or reliable phonetic listening review; ASR text cannot support a new overall pronunciation level or WPM."},
+      "evidence_quote":"how... Uh, do they... fusion... the physics and AI... predicting",
+      "evidence_quote_origin":"Learner question in the realtime voice ASR transcript; wording and hesitations preserved, with uncertain word recognition not treated as a confirmed grammar error.",
+      "evidence_note_ja":"週末の2日・3日休み交互案を具体化し、AI天気予報の利点を個人の便利さから太陽光・風力の計画へ広げた。物理とAIの組合せを問い、記事に本当に精度の主張があるかを確認した。TaskとInteractionはL4・強い、FluencyとLexicalはL3・強い、GrammarはL3・安定。比較条件は異なり改善率は判定しない。直接音声評価がないためPronunciationはN/A。Chappyの反復質問と精度説明の言いすぎは別の会話品質問題とする。",
+      "evidence_note":"Proposed an alternating weekend schedule, explained a three-day plan, extended weather forecasting from personal convenience to solar and wind planning, and checked whether an accuracy claim was supported by the article. Strong L4 task and interaction, strong L3 fluency and lexical range, established L3 grammar; no matched task for measuring rate of change. Pronunciation is N/A without direct audio review. Assistant questioning and overclaim are separate conversation-quality observations."
     }
   ],
   "test_score_estimates": {
     "methodology_version": "1.1",
     "status": "Non-official learning estimates, not standardized test results or guaranteed score conversions",
-    "as_of_session": 16,
-    "as_of_date": "2026-09-26",
+    "as_of_session": 17,
+    "as_of_date": "2026-09-27",
     "official_scales_checked_on": "2026-08-28",
-    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. Sessions 13-15 add realtime conversation evidence. Session 16 adds technical reading and discussion plus a locally processed standard read-aloud recording, but no reliable holistic pronunciation review or fixed spontaneous-speaking probe. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
+    "evidence_boundary": "The 2026-09-06 retrospective audit uses only the canonical Session 1-12 notes and preserved transcript evidence. Speaking and oral-interaction estimates are backfilled at Sessions 1, 3, and 7 as broad learning-reference milestones; unobserved sessions are not interpolated. Session 12 adds full-conversation evidence plus a directly processed 36.05-second read-aloud recording. Sessions 13-15 add realtime conversation evidence. Session 16 adds technical reading and discussion plus a locally processed standard read-aloud recording, but no reliable holistic pronunciation review. Session 17 adds spontaneous discussion and article-source checking from a partial realtime transcript, without direct audio or a fixed speaking probe. No standardized timed listening, reading, writing, or integrated-speaking task was completed.",
     "history_policy": "Retrospective milestone estimates are permitted only where the canonical record contains enough speaking or oral-interaction evidence. Do not create a point for every session or interpolate missing sessions. Keep user-reported actual results visually and structurally separate from estimates.",
     "historical_results": [
       {
@@ -1222,6 +1305,23 @@
             "low": 6, "mid": 6.5, "high": 7, "display": "Intermediate High–Advanced Low", "confidence": "medium-low",
             "comment_ja": "専門的な説明と質問を複数turnで維持し、必要な修復を自分で行った。一方、語探しと長い発話の構成には揺れが残るため境界レンジを維持する。"
           }
+        }
+      },
+      {
+        "session": 17,
+        "date": "2026-09-27",
+        "update_scope": "Speaking and oral-interaction estimates reviewed from Session 17's spontaneous discussion, weekend explanation, energy-industry reasoning, and article-source challenge. No direct audio review, comparable fixed response, or standardized timed test; numerical ranges remain unchanged.",
+        "not_updated": {
+          "toeic_lr": "No standardized or timed listening-and-reading task in Session 17; Session 8 remains the last estimate evidence.",
+          "toeic_writing": "No direct writing task in Session 17; Session 8 remains the last estimate evidence."
+        },
+        "estimates": {
+          "toeic_speaking": {"low":140,"mid":150,"high":160,"display":"140–160 / 200","confidence":"medium-low","comment_ja":"週末の計画を順序立て、技術記事の産業利用と根拠を自分から確認した。公式応答課題と直接音声の評価はないためレンジを維持する。"},
+          "ielts_speaking": {"low":5.5,"mid":6,"high":6.5,"display":"Band 5.5–6.5","confidence":"medium-low","comment_ja":"日常と技術の二つの話題で意見と理由を述べ、対話を修復した。語探しと文構造の揺れがあり、発音の直接評価もないため中心目安は据え置く。"},
+          "toefl_speaking": {"low":3.5,"mid":3.75,"high":4,"display":"3.5–4.0 / 6（旧尺度目安 18–22 / 30）","confidence":"low","comment_ja":"根拠を問う技術議論は確認したが、統合型課題、時間制限、直接音声評価がないため低確度で据え置く。"},
+          "cambridge_speaking": {"low":155,"mid":162.5,"high":170,"display":"155–170（B1上位〜B2）","confidence":"medium-low","comment_ja":"複数話題を維持し、ゲームと練習の訂正、議論形式の希望、記事の根拠確認を自発的に行った。公式ペア課題と直接発音評価はない。"},
+          "cefr_oral": {"low":3.5,"mid":3.75,"high":4,"display":"B1+–B2","confidence":"medium","comment_ja":"休み方の案を展開し、AI天気予報の産業面と物理・AIの組合せを質問した。異なる話題でも会話を方向づけるCan-doを再確認した。"},
+          "actfl_speaking": {"low":6,"mid":6.5,"high":7,"display":"Intermediate High–Advanced Low","confidence":"medium-low","comment_ja":"計画の順序と技術的な仮説を複数turnで説明した。一方、複雑な質問の構成と語探しには揺れがあり、境界レンジを維持する。"}
         }
       }
     ]

@@ -3,6 +3,11 @@
   "description": "Accepted item identity ledger; content remains solely in journal.md. Retire only with reason and existing merged_into key.",
   "items": [
     {
+      "id": "expressions-d7bd9812c110eed8",
+      "bank": "expressions",
+      "key": "how do they combine physics and ai to make predictions?"
+    },
+    {
       "id": "expressions-381127ac02f62ea3",
       "bank": "expressions",
       "key": "which aws service is most similar to pub/sub?"

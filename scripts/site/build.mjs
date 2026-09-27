@@ -789,7 +789,7 @@ hide:
 </section>
 
 <section class="growth-page growth-page--change"><h2>HOW MY SPEAKING IS CHANGING <small>話し方の変化</small></h2>
-<p>固定基準 Earlier: ${earlierSpeech.sessions.map(n => `S${n}`).join(' + ') || '比較待ち'} · Recent: ${recentSpeech.sessions.map(n => `S${n}`).join(' + ') || '比較待ち'}。各群は利用可能割合80%以上・自発発話15区間以上の別々の2回。音読・入力文・復唱・redactionは除外。</p>
+<p>固定基準 Earlier: ${earlierSpeech.sessions.map(n => `S${n}`).join(' + ') || '比較待ち'} · Recent: ${recentSpeech.sessions.map(n => `S${n}`).join(' + ') || '比較待ち'}。各群80%以上・自発15区間以上の別々の2回。音読・入力・復唱等は除外。</p>
 <div class="comparison-header"><span>EARLIER</span><span>BEFORE → NOW</span><span>RECENT</span></div>
 <div class="comparison-chart">${comparisonRows}</div>
 <article class="growth-insight"><strong>MAIN OBSERVATION · descriptive evidence</strong><p>${insightText}</p><p>${insightJa}</p><small>Evidence strength: ${evidenceStrength}。複数のsource-backed sessionを比較しましたが、ASR区間は独立標本ではなく、収録条件・話題も完全一致しません。統計的有意差や能力レベル上昇は示しません。</small></article>

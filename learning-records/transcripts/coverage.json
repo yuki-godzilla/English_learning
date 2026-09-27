@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "sessions": [
+    { "session_number": 17, "session_id": "2026-09-27-01", "date": "2026-09-27", "status": "partial", "file": "2026-09-27-session-01.jsonl", "usable_recovered_ratio": 1, "reason": "All 104 available realtime voice transcript segments were recovered in source order; audio and non-realtime typed messages were not included, and the final assistant segment is truncated in the source." },
     { "session_number": 16, "session_id": "2026-09-26-01", "date": "2026-09-26", "status": "partial", "file": "2026-09-26-session-01.jsonl", "usable_recovered_ratio": 0.865, "reason": "Original realtime voice segments were recovered; non-realtime typed follow-ups and audio were not included, and nonpublic work context was redacted." },
     { "session_number": 15, "session_id": "2026-09-25-01", "date": "2026-09-25", "status": "partial", "file": "2026-09-25-session-01.jsonl", "usable_recovered_ratio": 0.241, "reason": "Original realtime voice segments were recovered; substantial personal and nonpublic work discussion was redacted before public commit." },
     { "session_number": 14, "session_id": "2026-09-24-01", "date": "2026-09-24", "status": "partial", "file": "2026-09-24-session-01.jsonl", "usable_recovered_ratio": 1, "reason": "Original realtime voice segments were recovered; non-realtime typed follow-ups and audio were not included." },

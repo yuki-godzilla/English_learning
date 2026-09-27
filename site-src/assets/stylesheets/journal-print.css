@@ -152,6 +152,7 @@
   .growth-page h3 { margin: 4mm 0 2mm !important; }
   .growth-page--change p { margin: 1mm 0 !important; line-height: 1.35 !important; }
   .growth-page--change .growth-insight p:first-of-type { display: none !important; }
+  .growth-page--change .growth-insight small { display: none !important; }
   .growth-intro { margin: 0 0 2mm !important; font-size: 10.5pt !important; }
   .profile-row { grid-template-columns: minmax(0,1.5fr) minmax(0,.8fr) minmax(0,.8fr) !important; padding: 1mm 2mm !important; font-size: 10.5pt !important; break-inside: avoid; }
   .profile-row small { font-size: 9pt !important; }

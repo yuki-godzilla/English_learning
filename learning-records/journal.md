@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 17 — 週末の過ごし方とAI天気予報の産業への影響](#session-2026-09-27-01)
   - [Session 16 — GCP Pub/SubとAWSの比較・英語力評価の見直し](#session-2026-09-26-01)
   - [Session 15 — キャリアの転機とAWS・GCPの設計比較](#session-2026-09-25-01)
   - [Session 14 — AIモデルの費用・性能比較と英語読書の進展](#session-2026-09-24-01)
@@ -32,6 +33,27 @@
 <a id="journal-five-minute-review"></a>
 
 # 今日の5分復習
+
+<details>
+<summary>物理モデルとAIの組合せを尋ねる</summary>
+
+**How do they combine physics and AI to make predictions?**
+
+</details>
+
+<details>
+<summary>天気予報の産業面への関心を伝える</summary>
+
+**I'm interested in how weather forecasts affect industry, especially solar and wind power.**
+
+</details>
+
+<details>
+<summary>記事に根拠があるか確認する</summary>
+
+**Does the article actually say that?**
+
+</details>
 
 <details>
 <summary>Pub/SubをAWSに対応づけて説明する</summary>
@@ -68,6 +90,85 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":17,"session_id":"2026-09-27-01","date":"2026-09-27","title":"週末の過ごし方とAI天気予報の産業への影響","tags":["Daily Life","Workweek","AI / Tech","Weather","Energy"],"remember":"2日・3日の休みを交互にすると楽しみと仕事のリズムを両立できる。AI天気予報は日常の便利さだけでなく太陽光・風力の計画にも関わる。記事の主張と自分の推測を分ける。","prompt":"How can physics-based analysis and AI work together in weather forecasting, and why does that matter to energy companies?"} -->
+<a id="session-2026-09-27-01"></a>
+
+## 2026年9月27日（日）— 週末の過ごし方とAI天気予報の産業への影響
+
+> **Session 17 / Recorded session window:** Late morning to midday JST
+> **主な話題:** 野球の練習、2日・3日休みの交互運用、AI天気予報、太陽光・風力、物理とAIの役割
+
+### 今日の要点 / Today at a Glance
+
+Yukiは野球の練習で疲れた翌朝によく眠れたと話し、会話を自分で労働時間の議論へ移した。毎週3日休むより、2日休みと3日休みを交互にする案を提案した。3連休なら野球、読書や学習を伴う休息、翌週に向けた準備を一日ずつ置く。ただし「休むこと自体も準備」と補足した。
+
+次に技術ニュースを希望し、[GoogleのWeatherNext 3紹介記事](https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-weathernext-3/)をブラウザーで確認した。日常では傘を持つ判断に便利だが、産業、とくに太陽光・風力発電の計画への影響が大きいと考えた。従来の物理ベースの予報とAIをどう組み合わせるかを掘り下げ、最後にChappyの精度に関する説明が記事に本当にあるかを確認した。
+
+### 話題別メモ / Topic Notes
+
+#### 交互に長い週末をつくる
+
+Yukiの案は、2日休みの週と3日休みの週を交互にすること。長い休みが毎週続くと少し長く感じ、通常の2日だけでは短いという感覚から出た。3日目の「仕事の準備」は重い作業ではなく、休息や勉強も含むという本人の定義が重要だった。
+
+#### AI天気予報と電力計画
+
+Yukiは、一般利用者にとって短時間先の予報は傘や予定の便利さだが、企業では発電量と需給の計画に影響し得ると視点を広げた。太陽光には日射、風力には風の見通しが関わる。ただし実際の発電事業者に対する利益や費用削減額をこの会話だけで実証したわけではない。
+
+[Googleの発表](https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-weathernext-3/)では、WeatherNext 3が近時の衛星観測と大気の解析データを入力に使い、予報を毎時更新すると説明している。[研究論文](https://arxiv.org/abs/2609.03582)も、物理に基づく大気解析と衛星画像をAI予報の入力に使う構成を示す。これはAIが各ステップで物理方程式をそのまま解くという意味ではない。物理法則は安定していても、観測の不足や初期条件への敏感さから予報には不確実性が残る。
+
+記事は降水予報について、**1日以上先の一部比較で最大50%の改善**を述べる。Chappyは当初「特に短期・局地で精度が上がる」と広く言いすぎた。Yukiが記事の根拠を確認した後、この範囲へ言い直した。すべての場所・時刻・指標で50%改善したという意味ではない。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. 2日・3日休みを交互にすると、休みへの期待と仕事のリズムを両立しやすそうだ。
+2. AI天気予報の価値は個人の便利さだけでなく、太陽光・風力などの産業利用にある。
+3. 物理の安定した法則と、変化する観測データを生かすAIのバランスが重要だ。記事の主張と推測は区別して聞きたい。
+
+### 役立つ英語 / Useful English
+
+**Yukiの実発話（ASR）:** “how... Uh, do they... fusion... the physics and AI... predicting”
+
+**最小修正:** “How do they combine physics and AI to make predictions?”
+
+**Why / Chunk:** 動詞は `combine A and B`、目的は `to make predictions`。`fusion` は通常ここでは名詞。発話の細部はASRのため、音声上の確定誤り件数には数えない。
+
+**内容をまとめる学習用表現:** “I'm interested in how weather forecasts affect industry, especially solar and wind power.” Yukiの関心を整理した文で、原文そのままの発話ではない。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**今回の新規Pronunciation総合レベル: N/A（判定保留）。前回の最終実測: Session 12のL3・安定（旧基準・限定根拠）。** 今回は音声そのものを直接解析・総合聴取していない。ASR上の言い直しや文字列から個別音、強勢、リズム、話速を採点しない。`game` を `practice` に自力で言い直したことや、クイズではなく議論を希望したことは対話修復の根拠とする。
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+3連休の計画を具体的な順序で説明し、天気予報の議論を生活上の便利さからエネルギー産業へ広げた。記事を根拠にChappyの説明を問い直した点も強い。複雑な質問には言い直しや語探しが残ったが、ASR文字起こしだけで速度や冠詞・前置詞の誤り件数は確定しない。Session 16と話題・支援・収録条件が異なるため、数値が同じでも変化率は判定しない。
+
+| Metric | 今回 | 前回 | 比較 | 今回の根拠と制約 |
+|---|---|---|---|---|
+| Task achievement | **L4・強い** | L4・強い | 維持 | 休み方の案を具体化し、天気予報の産業利用・仕組み・記事根拠まで自分の目的で追った。 |
+| Fluency & coherence | **L3・強い** | L3・強い | 比較不能 | 3日間の計画と技術議論の筋を保った。ASRだけで話速や間の改善は測らない。 |
+| Lexical resource | **L3・強い** | L3・強い | 比較不能 | 野球、太陽光・風力、物理、スーパーコンピューターなどを自発的に使った。記事・Chappy由来の語は除く。 |
+| Grammar control | **L3・安定** | L3・安定 | 比較不能 | 意図は通じるが複雑な疑問文の組立てには揺れがある。ASRが不確かな箇所は要確認。 |
+| Interaction & repair | **L4・強い** | L4・強い | 維持 | `practice`への自己修正、話題・会話形式の変更、根拠の確認を自分で行った。 |
+| Pronunciation | **N/A** | N/A（最終実測 Session 12 L3・安定） | 比較不能 | 今回は直接音声評価なし。 |
+
+### 学習バンク更新 / Study Banks Update
+
+- [Expression Bank](#journal-expression-bank): 新規1件（物理とAIを組み合わせる質問）
+- [Vocabulary Bank](#journal-vocabulary-bank): 追加なし
+- [Pronunciation & Speaking Bank](#journal-speaking-bank): 追加なし
+
+### 次回 / Next Steps
+
+AI天気予報について、自分が重視する効果を先に一文で述べ、理由と一例を続ける。記事に根拠があるか確かめる姿勢を保つ。
+
+### Sources / References
+
+[Google: Introducing WeatherNext 3](https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-weathernext-3/) · [WeatherNext 3 research paper](https://arxiv.org/abs/2609.03582)
+
+[ページ先頭へ戻る](#journal-contents) · [Session Index](#journal-sessions)
+
+---
 
 <!-- session-meta: {"session_number":16,"session_id":"2026-09-26-01","date":"2026-09-26","title":"GCP Pub/SubとAWSの比較・英語力評価の見直し","tags":["Cloud","GCP / AWS","Technical Reading","English Growth"],"remember":"Pub/Subはイベントを非同期で分配する。AWSではSNSが配信、SNSとSQSの組合せがサービスごとの独立処理に近い。英語力は数値だけでなく行動の根拠と比較条件で見る。","prompt":"How does Pub/Sub compare with SNS and SQS, and what evidence shows progress in my English?"} -->
 <a id="session-2026-09-26-01"></a>
@@ -1864,7 +1965,7 @@ Why: 改善点には work on / focus on が自然。
 ## できるようになったこと
 
 **最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 16（2026年9月26日）](#session-2026-09-26-01)**
+**最新の会話評価： [Session 17（2026年9月27日）](#session-2026-09-27-01)**
 
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
@@ -1875,6 +1976,7 @@ Why: 改善点には work on / focus on が自然。
 - モデルの費用と独立ベンチマークを区別し、比較図にないモデルを指摘して対象を広げられる。英語読書では、以前約1年かけた小説と、現在一日で40ページ進んだ小説を比べ、学習法の効果を説明できる。
 - 馴染みのあるAWSサービスからGCPへの比較へ会話を修正し、IoT設計では利用者の速度と技術者の追跡可能性を区別して、設計前の要件定義へ結論を導ける。
 - GCP Pub/Subの技術記事を英語で読み、分からない語を確認したうえで、既知のAWSのSNS・SQSとの対応を質問できる。欲しい図と表、読む記事、採点の根拠も自分から指定できる。
+- 週末の計画を具体的に説明し、AI天気予報を日常の便利さから発電産業への影響へ広げられる。記事が実際に主張している範囲を確認し、Chappyの言いすぎを問い直した。
 - 本人は英語が以前より出やすいと感じている。回収済みraw transcriptの自発発話だけを比べると、Session 11・12より14・16で修復・明示的な語探しの表面化が少なく、平均発話長は概ね維持された。ただし話題・ASR区間・収録条件が異なり、固定課題の同条件反復測定はまだない。能力レベルの自動昇格には使わない。
 - 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
 
@@ -1887,40 +1989,41 @@ Why: 改善点には work on / focus on が自然。
 | **Session 1** | 身近な旅行の話は成立したが、流暢さ・語彙・文法はL2形成中。ここを観察上の出発点とする。 |
 | **Session 3** | 面接テーマで結論と理由を自力で展開し、Task achievementとInteraction & repairがL4形成中へ到達。 |
 | **Session 6** | 複数の技術・業務論点を目的へまとめたため、Task achievementを従来のL3から**L4形成中**へ訂正。 |
-| **Session 7〜16** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 16では技術記事を読んで未知語を確認し、AWSとの比較へ自分から議論を進めた。自発発話の記述的比較は別図に示すが、同条件の固定課題がないため能力の改善率は主張しない。 |
+| **Session 7〜17** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 17ではAI天気予報の産業利用と記事根拠へ議論を進めた。自発発話の記述的比較は別図に示すが、同条件の固定課題がないため能力の改善率は主張しない。 |
 | **Pronunciation** | 直接音声があるSession 8・12だけL3安定。課題文が異なるため、両者の優劣や過去回への遡及採点は行わない。 |
 
 ## Current Snapshot
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4・強い / Session 16** | 記事の理解からAWS比較という自分の学習目標へ進み、必要な図・表も指定した。 |
-| **Fluency & coherence** | **L3・強い / Session 16** | 語探しや再構成を挟みつつ、設備イベントと英語評価の話題を保った。直近の速度変化は未測定。 |
-| **Lexical resource** | **L3・強い / Session 16** | 既知の技術語を使い、記事の未知語は自分で確認した。教わった語を自力使用済みとは数えない。 |
-| **Grammar control** | **L3・安定 / Session 16** | 対比や質問の意味は明瞭。語形・語順に揺れがあり、ASR不確かな細部は確定誤りにしない。 |
-| **Interaction & repair** | **L4・強い / Session 16** | ブラウザー記事への転換、知らない語、採点ルール、図・表の希望を自発的に明確化した。 |
-| **Pronunciation** | **N/A / 今回 Session 16** | 過去の最終記録はSession 12 L3・安定（旧基準・限定根拠）。ASR・波形中心の旧評価を、現基準の音声総合審査済みと読み替えない。 |
+| **Task achievement** | **L4・強い / Session 17** | 週末案を具体化し、天気予報の産業利用・AIと物理・記事根拠へ議論を進めた。 |
+| **Fluency & coherence** | **L3・強い / Session 17** | 長い計画と技術議論の筋を保った。話速・間の変化は音声未確認で測らない。 |
+| **Lexical resource** | **L3・強い / Session 17** | 野球、発電、物理などを自発的に使った。記事・Chappy由来の語は自力使用済みと数えない。 |
+| **Grammar control** | **L3・安定 / Session 17** | 意図は通じるが複雑な疑問文の組立てに揺れがある。ASRの不確かな細部は要確認。 |
+| **Interaction & repair** | **L4・強い / Session 17** | 自己修正、話題・会話形式の変更、記事の根拠確認を自発的に行った。 |
+| **Pronunciation** | **N/A / 今回 Session 17** | 今回は直接音声評価なし。過去の最終記録はSession 12 L3・安定（旧基準・限定根拠）。 |
 
 ## 発音の測定状況
 
-過去の最終Pronunciation記録はSession 12の **L3・安定** です。ただし旧手順の限定的な根拠による評価であり、現在求める個別音・強勢・リズム等の総合聴取を満たした新評価とは区別します。過去値自体は再採点していません。Session 16では約50.3秒の標準音読をローカル処理し、音割れなし・ASR語一致率約96.5%・認識語ベース約107語/分を確認しましたが、**今回の新規総合レベルはN/A**です。
+過去の最終Pronunciation記録はSession 12の **L3・安定** です。ただし旧手順の限定的な根拠による評価であり、現在求める個別音・強勢・リズム等の総合聴取を満たした新評価とは区別します。過去値自体は再採点していません。Session 16では約50.3秒の標準音読をローカル処理しましたが、総合判定はN/Aでした。Session 17は直接音声評価を行っておらず、**今回の新規総合レベルもN/A**です。
 
 ## 成長グラフ
 
-[![Session 1からSession 15までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 17までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から16までの6指標を、横軸Session・縦軸Lの時系列で表示しています。同じL内の **形成中・安定・強い** はマーカー形状で区別します。N/Aは欠測として残し、線で補間しません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点の間隔やマーカー形状を公式試験の精密な尺度と解釈しないでください。
+Session 1から17までの6指標を、横軸Session・縦軸Lの時系列で表示しています。同じL内の **形成中・安定・強い** はマーカー形状で区別します。N/Aは欠測として残し、線で補間しません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点の間隔やマーカー形状を公式試験の精密な尺度と解釈しないでください。
 
 ## 次に伸ばすこと
 
-1. 次回は仮想イベントを一つ選び、Pub/SubとSNS + SQSの流れを自分の短い言葉で説明する。
-2. `Which AWS service is most similar to ...?` を別のクラウド比較にも使う。
+1. 次回はAI天気予報など身近な技術について、まず結論を一文で述べ、理由と一例を続ける。
+2. `How do they combine A and B to ...?` を別の技術の仕組みにも使う。
 3. 本人が希望する時に固定自発発話課題の初回基準点を取り、語探しや間を今後同条件で比べる。
 
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 17 — 週末の過ごし方とAI天気予報の産業への影響](#session-2026-09-27-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。発音はN/A。記事の根拠を確認し、過大な精度説明を修正させた。
 - [Session 16 — GCP Pub/SubとAWSの比較・英語力評価の見直し](#session-2026-09-26-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。今回の総合PronunciationはN/A。新手順で観点別の根拠・比較条件を示し、語探しの直近改善率は未確認とした。
 - [Session 15 — キャリアの転機とAWS・GCPの設計比較](#session-2026-09-25-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。比較の前提を修正し、速度と追跡可能性を要件として論じた。
 - [Session 14 — AIモデルの費用・性能比較と英語読書の進展](#session-2026-09-24-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。技術比較を具体化し、書名の誤解を自分で修復。
@@ -1943,19 +2046,19 @@ Session 1から16までの6指標を、横軸Session・縦軸Lの時系列で表
 | 試験・尺度 | 学習用レンジ | 最後に根拠を更新した回 |
 |---|---:|---:|
 | TOEIC L&R | **820–900 / 990** | Session 8 |
-| TOEIC Speaking | **140–160 / 200** | Session 16 |
+| TOEIC Speaking | **140–160 / 200** | Session 17 |
 | TOEIC Writing | **140–160 / 200** | Session 8 |
-| IELTS Speaking | **Band 5.5–6.5** | Session 16 |
-| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 16 |
-| Cambridge English | **155–170（B1上位〜B2）** | Session 16 |
-| CEFR 会話 | **B1+–B2** | Session 16 |
-| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 16 |
+| IELTS Speaking | **Band 5.5–6.5** | Session 17 |
+| TOEFL iBT Speaking | **3.5–4.0 / 6（旧尺度目安 18–22 / 30）** | Session 17 |
+| Cambridge English | **155–170（B1上位〜B2）** | Session 17 |
+| CEFR 会話 | **B1+–B2** | Session 17 |
+| ACTFL Speaking | **Intermediate High–Advanced Low** | Session 17 |
 
 [![資格スコア予測の推移グラフ](media/progress/english-test-score-estimate-trends.png)](media/progress/english-test-score-estimate-trends.png)
 
-試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジです。Session 16は技術記事の理解からAWS比較へ会話を進めた根拠をSpeaking・oral interactionの6種別へ接続したが、公式形式の課題や総合発音の新規判定はなく、レンジを維持しました。これは新しい測定値で点数の上昇を証明したという意味ではありません。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
+試験ごとに異なる尺度を分離して表示しています。全履歴の再監査では、十分な会話根拠が残るSession 1・3・7を過去の節目として遡及追加しました。たとえばTOEIC Speakingは **100–125 → 125–145 → 135–155 → 現在140–160**、IELTS Speakingは **Band 4.0–5.0 → 5.0–6.0 → 5.5–6.0 → 現在5.5–6.5** という広い低確度レンジです。Session 17は週末案の説明と、天気予報の記事に根拠を求めた対話をSpeaking・oral interactionの6種別へ接続したが、公式形式の課題や総合発音の新規判定はなく、レンジを維持しました。これは新しい測定値で点数の上昇を証明したという意味ではありません。TOEIC L&RとWritingは直接対応する時間制限付き課題がないため、Session 8を最終根拠として維持します。画像をタップすると原寸で確認できます。
 
-いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 16の評価](#session-2026-09-26-01)で確認できます。
+いずれも公式形式の試験結果ではなく、会話記録に基づく学習計画用のレンジです。最新のSpeaking・oral interactionの根拠は[Session 17の評価](#session-2026-09-27-01)で確認できます。
 
 ## 評価の読み方
 
@@ -1966,6 +2069,12 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年9月27日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **How do they combine physics and AI to make predictions?** | 物理ベースの方法とAIの併用を尋ねる。Yukiの実際の質問意図を短い形へ整えた。**Chunk:** How do they combine A and B to ...? | [Session 17](#session-2026-09-27-01) |
 
 ## 2026年9月26日
 
