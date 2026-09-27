@@ -1,0 +1,641 @@
+{
+  "schema_version": 1,
+  "description": "Accepted item identity ledger; content remains solely in journal.md. Retire only with reason and existing merged_into key.",
+  "items": [
+    {
+      "id": "expressions-381127ac02f62ea3",
+      "bank": "expressions",
+      "key": "which aws service is most similar to pub/sub?"
+    },
+    {
+      "id": "expressions-c3970a6b0d407d6d",
+      "bank": "expressions",
+      "key": "ten seconds can feel long to users, but it can be a difficult target for engineers."
+    },
+    {
+      "id": "expressions-cace4abc03221bee",
+      "bank": "expressions",
+      "key": "it depends on the service."
+    },
+    {
+      "id": "expressions-7f0142a40ecd01a7",
+      "bank": "expressions",
+      "key": "users may prioritize speed, while engineers also need traceability."
+    },
+    {
+      "id": "expressions-74e7cd7d2d6fc4c6",
+      "bank": "expressions",
+      "key": "we should define the requirements before designing the system."
+    },
+    {
+      "id": "expressions-4770a220ac5429bf",
+      "bank": "expressions",
+      "key": "i want to compare these models by both cost and benchmark performance."
+    },
+    {
+      "id": "expressions-2dc4045dfe984a3c",
+      "bank": "expressions",
+      "key": "the story starts to unfold from there."
+    },
+    {
+      "id": "expressions-34d5e0e31df2e659",
+      "bank": "expressions",
+      "key": "i read forty pages in one day."
+    },
+    {
+      "id": "expressions-469a72b8e90edc7c",
+      "bank": "expressions",
+      "key": "there were two things that were important to me when i chose a company."
+    },
+    {
+      "id": "expressions-abb3b3be5dd57661",
+      "bank": "expressions",
+      "key": "i saw a connection between my research and the company’s role in energy infrastructure."
+    },
+    {
+      "id": "expressions-e65efd23fd55885c",
+      "bank": "expressions",
+      "key": "i had made up my mind."
+    },
+    {
+      "id": "expressions-31a00cacc109cc9a",
+      "bank": "expressions",
+      "key": "before reading a book in english, i read it in japanese or watch an adaptation first."
+    },
+    {
+      "id": "expressions-3aa684f6d380eb08",
+      "bank": "expressions",
+      "key": "ai can assist with complex workflows, while people remain accountable for final decisions."
+    },
+    {
+      "id": "expressions-d40098b19e4740fa",
+      "bank": "expressions",
+      "key": "ai should work autonomously within clear requirements and checkpoints."
+    },
+    {
+      "id": "expressions-15a8be0c474fef1d",
+      "bank": "expressions",
+      "key": "an application may work well on the surface, while hidden problems remain in the backend."
+    },
+    {
+      "id": "expressions-b19b67b2bd4c77e2",
+      "bank": "expressions",
+      "key": "it helps clear my head."
+    },
+    {
+      "id": "expressions-94dbb408485cd695",
+      "bank": "expressions",
+      "key": "when it helps both the company and my own growth, i feel really motivated."
+    },
+    {
+      "id": "expressions-f3ab7a41cf3f7fc9",
+      "bank": "expressions",
+      "key": "in the ai era, ai can handle simple tasks, but people need to focus on creating value."
+    },
+    {
+      "id": "expressions-2c56193d42ffc7d1",
+      "bank": "expressions",
+      "key": "i’m keeping both options open until i have enough information."
+    },
+    {
+      "id": "expressions-cc4b339ec86c7ab3",
+      "bank": "expressions",
+      "key": "i don’t want to make a rushed decision."
+    },
+    {
+      "id": "expressions-097fc78021cbc034",
+      "bank": "expressions",
+      "key": "i want to make a calm, well-informed decision."
+    },
+    {
+      "id": "expressions-3686b1986eb298b0",
+      "bank": "expressions",
+      "key": "we want to get away from our usual routine."
+    },
+    {
+      "id": "expressions-e385e6f436287344",
+      "bank": "expressions",
+      "key": "godzilla symbolizes nuclear fear."
+    },
+    {
+      "id": "expressions-64655b07927f1d2f",
+      "bank": "expressions",
+      "key": "that’s one of the things that makes godzilla so appealing."
+    },
+    {
+      "id": "expressions-f432d7b36a572f68",
+      "bank": "expressions",
+      "key": "i’m skeptical about the recent trend toward placing greater emphasis on electricity."
+    },
+    {
+      "id": "expressions-1900b4df350964d6",
+      "bank": "expressions",
+      "key": "electricity is only as clean as how it’s generated."
+    },
+    {
+      "id": "expressions-9d4965c5147cb506",
+      "bank": "expressions",
+      "key": "my goal is to use ai across the entire development lifecycle—not just testing—to make our work more efficient and effective."
+    },
+    {
+      "id": "expressions-65f9fc305eb58e75",
+      "bank": "expressions",
+      "key": "cost reduction is our top priority because our department is highly conscious of development costs."
+    },
+    {
+      "id": "expressions-5585399654e3b8e5",
+      "bank": "expressions",
+      "key": "i coordinate an external engineering team on system-level quality work."
+    },
+    {
+      "id": "expressions-1bb9adfab1dac610",
+      "bank": "expressions",
+      "key": "although this initiative is not directly related to the target service area, it demonstrates my ability to identify process issues, design a technical solution, and lead continuous improvement."
+    },
+    {
+      "id": "expressions-e9de7624a5d4533e",
+      "bank": "expressions",
+      "key": "i’m looking for a role that matches my technical experience and offers clearer career development."
+    },
+    {
+      "id": "expressions-939c9c5babf05a40",
+      "bank": "expressions",
+      "key": "in my first year, i’ll focus on adapting quickly while delivering concrete results."
+    },
+    {
+      "id": "expressions-78e2fd617c9fa39c",
+      "bank": "expressions",
+      "key": "can you choose a topic for us today?"
+    },
+    {
+      "id": "expressions-4c63ad1cdb8d1275",
+      "bank": "expressions",
+      "key": "is the answer in the article, or do you want my opinion?"
+    },
+    {
+      "id": "expressions-c66c011fdc4a07ac",
+      "bank": "expressions",
+      "key": "could you summarize the article and teach me the key points?"
+    },
+    {
+      "id": "expressions-37cec2f05c44ef33",
+      "bank": "expressions",
+      "key": "what do you think about it?"
+    },
+    {
+      "id": "expressions-2d54756db6ad757e",
+      "bank": "expressions",
+      "key": "for my personal work, terra is a good fit."
+    },
+    {
+      "id": "expressions-5662812f3c19ce7a",
+      "bank": "expressions",
+      "key": "when the coding spans multiple features, luna starts to feel limited."
+    },
+    {
+      "id": "expressions-7b1af36158edefe9",
+      "bank": "expressions",
+      "key": "i think prompt caching reduces the cost of using ai."
+    },
+    {
+      "id": "expressions-3132d2d855f0bcd6",
+      "bank": "expressions",
+      "key": "usage-based pricing makes cost sharing easier for a team."
+    },
+    {
+      "id": "expressions-37f520bdb4d1e543",
+      "bank": "expressions",
+      "key": "let’s have a casual chat."
+    },
+    {
+      "id": "expressions-7d936dfc42447e7c",
+      "bank": "expressions",
+      "key": "let’s stop here for today."
+    },
+    {
+      "id": "expressions-c47851d13a188bd6",
+      "bank": "expressions",
+      "key": "i want to talk about my trip."
+    },
+    {
+      "id": "expressions-548d0483aacd2acb",
+      "bank": "expressions",
+      "key": "we hit the casino on our first day."
+    },
+    {
+      "id": "expressions-9dbca4065c7e1dc4",
+      "bank": "expressions",
+      "key": "wasn’t feeling well"
+    },
+    {
+      "id": "expressions-74bdc62b5780d682",
+      "bank": "expressions",
+      "key": "she absolutely loved it."
+    },
+    {
+      "id": "expressions-38bafe5fe9979109",
+      "bank": "expressions",
+      "key": "i bought my wife a gift."
+    },
+    {
+      "id": "expressions-fbfcfa9b3851fad9",
+      "bank": "expressions",
+      "key": "myeong-dong is this huge shopping district, kind of like namba in osaka."
+    },
+    {
+      "id": "expressions-cf6b57ffee0c4238",
+      "bank": "expressions",
+      "key": "i treated myself to a massage."
+    },
+    {
+      "id": "expressions-e2a87377b6b885bf",
+      "bank": "expressions",
+      "key": "i got back to japan yesterday."
+    },
+    {
+      "id": "expressions-eaea2385395ba7d9",
+      "bank": "expressions",
+      "key": "exactly what i needed"
+    },
+    {
+      "id": "expressions-c76bca1def6395b1",
+      "bank": "expressions",
+      "key": "go with the flow"
+    },
+    {
+      "id": "expressions-64f40537f9976380",
+      "bank": "expressions",
+      "key": "what should i focus on if i want to sound more natural?"
+    },
+    {
+      "id": "vocabulary-85d77698094c3709",
+      "bank": "vocabulary",
+      "key": "asynchronous /eɪˈsɪŋ.krə.nəs/ adjective"
+    },
+    {
+      "id": "vocabulary-c118fa2640902f6d",
+      "bank": "vocabulary",
+      "key": "parallelize /ˈper.ə.lel.aɪz/ verb"
+    },
+    {
+      "id": "vocabulary-f9c49f1464de09e4",
+      "bank": "vocabulary",
+      "key": "subscription /səbˈskrɪp.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-7b7501204e428f78",
+      "bank": "vocabulary",
+      "key": "traceability /ˌtreɪ.səˈbɪl.ə.ti/ noun"
+    },
+    {
+      "id": "vocabulary-761180aab37f4764",
+      "bank": "vocabulary",
+      "key": "stakeholder /ˈsteɪkˌhoʊl.dɚ/ noun"
+    },
+    {
+      "id": "vocabulary-35a35829bca04fe9",
+      "bank": "vocabulary",
+      "key": "transferable /trænsˈfɝː.ə.bəl/ adjective"
+    },
+    {
+      "id": "vocabulary-c1e397b695956fc7",
+      "bank": "vocabulary",
+      "key": "benchmark /ˈbentʃ.mɑːrk/ noun"
+    },
+    {
+      "id": "vocabulary-0f2347dc84fd7772",
+      "bank": "vocabulary",
+      "key": "cost per task /kɔːst pɚ tæsk/ noun phrase"
+    },
+    {
+      "id": "vocabulary-915578f6b57f5fe0",
+      "bank": "vocabulary",
+      "key": "unfold /ʌnˈfoʊld/ verb"
+    },
+    {
+      "id": "vocabulary-563d712e6ea8f5a3",
+      "bank": "vocabulary",
+      "key": "graduate recruitment /ˈɡrædʒ.u.ət rɪˈkruːt.mənt/ noun phrase"
+    },
+    {
+      "id": "vocabulary-a020aac86169aecf",
+      "bank": "vocabulary",
+      "key": "criterion / criteria /kraɪˈtɪr.i.ən/ /kraɪˈtɪr.i.ə/ noun"
+    },
+    {
+      "id": "vocabulary-e5bbabac7eb47f77",
+      "bank": "vocabulary",
+      "key": "sincerity /sɪnˈser.ə.t̬i/ noun"
+    },
+    {
+      "id": "vocabulary-9b6682f7d2809679",
+      "bank": "vocabulary",
+      "key": "determination /dɪˌtɝː.məˈneɪ.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-8ef6628bdc716bd0",
+      "bank": "vocabulary",
+      "key": "hesitation /ˌhez.əˈteɪ.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-812684511bec98bc",
+      "bank": "vocabulary",
+      "key": "adaptation /ˌæd.æpˈteɪ.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-356dfa1e227457af",
+      "bank": "vocabulary",
+      "key": "multi-step /ˌmʌl.tiˈstep/ adjective"
+    },
+    {
+      "id": "vocabulary-1b65fb904cb75355",
+      "bank": "vocabulary",
+      "key": "autonomy /ɔːˈtɑː.nə.mi/ noun"
+    },
+    {
+      "id": "vocabulary-7bb20ce794bb088e",
+      "bank": "vocabulary",
+      "key": "checkpoint /ˈtʃek.pɔɪnt/ noun"
+    },
+    {
+      "id": "vocabulary-7c841b8dbef8ef07",
+      "bank": "vocabulary",
+      "key": "requirement /rɪˈkwaɪr.mənt/ noun"
+    },
+    {
+      "id": "vocabulary-0e89a54424fcc682",
+      "bank": "vocabulary",
+      "key": "efficient /ɪˈfɪʃ.ənt/ adjective"
+    },
+    {
+      "id": "vocabulary-6e1b9cce86b60ac6",
+      "bank": "vocabulary",
+      "key": "working hours /ˈwɝː.kɪŋ ˈaʊ.ɚz/ plural noun"
+    },
+    {
+      "id": "vocabulary-4e31dae6c80492eb",
+      "bank": "vocabulary",
+      "key": "conflicted /kənˈflɪk.tɪd/ adjective"
+    },
+    {
+      "id": "vocabulary-09ab20ebb40579b8",
+      "bank": "vocabulary",
+      "key": "fallback /ˈfɔːl.bæk/ noun"
+    },
+    {
+      "id": "vocabulary-7eecf3a73d6effbe",
+      "bank": "vocabulary",
+      "key": "vibe /vaɪb/ noun"
+    },
+    {
+      "id": "vocabulary-6230da6b0a1ed04c",
+      "bank": "vocabulary",
+      "key": "sleek /sliːk/ adjective"
+    },
+    {
+      "id": "vocabulary-89524743c6fe0dcf",
+      "bank": "vocabulary",
+      "key": "symbolize /ˈsɪm.bə.laɪz/ verb"
+    },
+    {
+      "id": "vocabulary-3db36297c263d0a3",
+      "bank": "vocabulary",
+      "key": "spectacle /ˈspek.tə.kəl/ noun"
+    },
+    {
+      "id": "vocabulary-5e40d969c8b57137",
+      "bank": "vocabulary",
+      "key": "microgrid /ˈmaɪ.kroʊ.ɡrɪd/ noun"
+    },
+    {
+      "id": "vocabulary-1b13616c66e56b8f",
+      "bank": "vocabulary",
+      "key": "primary energy /ˈpraɪ.mer.i ˈen.ɚ.dʒi/ noun"
+    },
+    {
+      "id": "vocabulary-6ad0a056f2a6aa23",
+      "bank": "vocabulary",
+      "key": "energy carrier /ˈen.ɚ.dʒi ˈker.i.ɚ/ noun"
+    },
+    {
+      "id": "vocabulary-431de13576e53083",
+      "bank": "vocabulary",
+      "key": "electrification /ɪˌlek.trə.fəˈkeɪ.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-e57914f09d387bf0",
+      "bank": "vocabulary",
+      "key": "initiative /ɪˈnɪʃ.ə.t̬ɪv/ noun"
+    },
+    {
+      "id": "vocabulary-9d8a610b523475aa",
+      "bank": "vocabulary",
+      "key": "specifically /spəˈsɪf.ɪ.kəl.i/ adverb"
+    },
+    {
+      "id": "vocabulary-3bf36f5692317780",
+      "bank": "vocabulary",
+      "key": "gooey /ˈɡuː.i/ adjective"
+    },
+    {
+      "id": "vocabulary-040b4172ceabf214",
+      "bank": "vocabulary",
+      "key": "concrete /ˈkɑːn.kriːt/ adjective"
+    },
+    {
+      "id": "vocabulary-54d3e52b3ba059de",
+      "bank": "vocabulary",
+      "key": "deliverables /dɪˈlɪv.ɚ.ə.bəlz/ plural noun"
+    },
+    {
+      "id": "vocabulary-3b70e4a9e4ecbd77",
+      "bank": "vocabulary",
+      "key": "auxiliary equipment /ɔːɡˈzɪl.jə.ri ɪˈkwɪp.mənt/ noun"
+    },
+    {
+      "id": "vocabulary-f03de06bb638eec5",
+      "bank": "vocabulary",
+      "key": "hyperscale /ˈhaɪ.pɚ.skeɪl/ adjective"
+    },
+    {
+      "id": "vocabulary-7d761f368aa40ffd",
+      "bank": "vocabulary",
+      "key": "colocation /ˌkoʊ.loʊˈkeɪ.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-c4edf5461178d2ce",
+      "bank": "vocabulary",
+      "key": "explicit /ɪkˈsplɪs.ɪt/ adjective"
+    },
+    {
+      "id": "vocabulary-b55753d769ef00da",
+      "bank": "vocabulary",
+      "key": "autonomous /ɑːˈtɑː.nə.məs/ adjective"
+    },
+    {
+      "id": "vocabulary-73d8a1b1405514aa",
+      "bank": "vocabulary",
+      "key": "inference /ˈɪn.fɚ.əns/ noun"
+    },
+    {
+      "id": "vocabulary-1b8568998f9bbde3",
+      "bank": "vocabulary",
+      "key": "endpoint /ˈendˌpɔɪnt/ noun"
+    },
+    {
+      "id": "vocabulary-23f12ba86df00b47",
+      "bank": "vocabulary",
+      "key": "scaling /ˈskeɪ.lɪŋ/ noun"
+    },
+    {
+      "id": "vocabulary-a3541df0563a9ad4",
+      "bank": "vocabulary",
+      "key": "completion /kəmˈpliː.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-321bec31bc603c27",
+      "bank": "vocabulary",
+      "key": "migrate /ˈmaɪ.ɡreɪt/ verb"
+    },
+    {
+      "id": "vocabulary-d66aaa8d608cafaf",
+      "bank": "vocabulary",
+      "key": "cadence /ˈkeɪ.dəns/ noun"
+    },
+    {
+      "id": "vocabulary-6812350d58aed7b9",
+      "bank": "vocabulary",
+      "key": "durable /ˈdʊr.ə.bəl/ adjective"
+    },
+    {
+      "id": "vocabulary-5cc2f4066f7c62cb",
+      "bank": "vocabulary",
+      "key": "tier /tɪr/ noun"
+    },
+    {
+      "id": "vocabulary-4923f4b37dfa59ac",
+      "bank": "vocabulary",
+      "key": "latency-sensitive /ˈleɪ.tən.si ˈsen.sə.t̬ɪv/ adjective"
+    },
+    {
+      "id": "vocabulary-456f18e901042da2",
+      "bank": "vocabulary",
+      "key": "workload /ˈwɝːk.loʊd/ noun"
+    },
+    {
+      "id": "vocabulary-d7b8862953a521ef",
+      "bank": "vocabulary",
+      "key": "governance /ˈɡʌv.ɚ.nəns/ noun"
+    },
+    {
+      "id": "vocabulary-aa185479c558499c",
+      "bank": "vocabulary",
+      "key": "commitment /kəˈmɪt.mənt/ noun"
+    },
+    {
+      "id": "vocabulary-0db7063ee0cb0ccb",
+      "bank": "vocabulary",
+      "key": "classification /ˌklæs.ə.fəˈkeɪ.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-a8ebc1ad67e72a55",
+      "bank": "vocabulary",
+      "key": "summarization /ˌsʌm.ɚ.əˈzeɪ.ʃən/ noun"
+    },
+    {
+      "id": "vocabulary-d0adb5e77d860e06",
+      "bank": "vocabulary",
+      "key": "routing /ˈruː.t̬ɪŋ/ or /ˈraʊ.t̬ɪŋ/ noun"
+    },
+    {
+      "id": "vocabulary-435ad858d8e762b2",
+      "bank": "vocabulary",
+      "key": "feature /ˈfiː.tʃɚ/ noun"
+    },
+    {
+      "id": "vocabulary-4161ad832672d6ff",
+      "bank": "vocabulary",
+      "key": "stall /stɑːl/ noun"
+    },
+    {
+      "id": "vocabulary-5659190f638fe9d3",
+      "bank": "vocabulary",
+      "key": "district /ˈdɪs.trɪkt/ noun"
+    },
+    {
+      "id": "vocabulary-d72c76a751b64fd5",
+      "bank": "vocabulary",
+      "key": "mall /mɑːl/ noun"
+    },
+    {
+      "id": "vocabulary-ecc172fbf91458eb",
+      "bank": "vocabulary",
+      "key": "winnings /ˈwɪn.ɪŋz/ plural noun"
+    },
+    {
+      "id": "vocabulary-c0044ef8c8bd7882",
+      "bank": "vocabulary",
+      "key": "full-body /ˌfʊl ˈbɑː.di/ adjective"
+    },
+    {
+      "id": "speaking-a0fb7b2dd88518d5",
+      "bank": "speaking",
+      "key": "i enjoyed the movie."
+    },
+    {
+      "id": "speaking-1c2bc32d82b4be1d",
+      "bank": "speaking",
+      "key": "g-p-t six astra"
+    },
+    {
+      "id": "speaking-95d981bba945abfa",
+      "bank": "speaking",
+      "key": "long conversations / multi-step tasks"
+    },
+    {
+      "id": "speaking-dd0e94f681eaf2e3",
+      "bank": "speaking",
+      "key": "keep the final decision with people"
+    },
+    {
+      "id": "speaking-d7ae052e4335f765",
+      "bank": "speaking",
+      "key": "a calm, relaxing vibe"
+    },
+    {
+      "id": "speaking-e385e6f436287344",
+      "bank": "speaking",
+      "key": "godzilla symbolizes nuclear fear."
+    },
+    {
+      "id": "speaking-d00c0d0b565d3c01",
+      "bank": "speaking",
+      "key": "technology can make everyday life safer and more convenient."
+    },
+    {
+      "id": "speaking-cbad66b54e1d96dd",
+      "bank": "speaking",
+      "key": "trust is just as important as innovation."
+    },
+    {
+      "id": "speaking-266689d6bd2b7589",
+      "bank": "speaking",
+      "key": "team /tiːm/ vs theme /θiːm/"
+    },
+    {
+      "id": "speaking-2b39fa1852c2398a",
+      "bank": "speaking",
+      "key": "adapting quickly while delivering concrete results"
+    },
+    {
+      "id": "speaking-b05d47c60776414d",
+      "bank": "speaking",
+      "key": "spans multiple features / starts to feel limited"
+    },
+    {
+      "id": "speaking-352032ca6fbc5111",
+      "bank": "speaking",
+      "key": "i got a full-body massage."
+    }
+  ]
+}

@@ -235,7 +235,7 @@ for (const htmlFile of htmlFiles) {
 }
 
 const progressHtml = await fs.readFile(path.join(siteRoot, "progress", "index.html"), "utf8");
-for (const required of ["English Growth Dashboard", "WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "SPONTANEOUS OUTPUT DISTRIBUTION", "RAW EVIDENCE COVERAGE", "HIGH-CONFIDENCE GRAMMAR PATTERNS", "ESTIMATED EXTERNAL-TEST RANGES"]) {
+for (const required of ["English Growth Dashboard", "WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "SPONTANEOUS OUTPUT DISTRIBUTION", "RAW EVIDENCE COVERAGE", "GRAMMAR EVIDENCE", "ESTIMATED EXTERNAL-TEST RANGES"]) {
   if (!progressHtml.includes(required)) fail(`Growth page is missing transcript visualization: ${required}`);
 }
 for (const requiredClass of ["profile-grid", "comparison-chart", "distribution-chart", "coverage-strip", "controlled-flow", "grammar-tracker", "fingerprint-grid", "fingerprint-sparkline"]) {

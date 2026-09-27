@@ -1,5 +1,19 @@
 # Whole-session scoring protocol (effective from Session 16)
 
+## Traceable evidence contract v3 (new ratings from Session 17)
+
+Each metric_evidence keeps basis / observed / comparison / reason / confidence and adds provenance:
+
+```json
+{"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"independent","preparation_seconds":null,"turn_indices":[153],"alternative_evidence":null,"comparison_session":null,"comparison_conditions":null,"next_observation":"Observe the same skill in a new unprompted explanation."}
+```
+
+The example is a schema illustration, not a new learner assessment. References identify real learner turn indices in that Session's JSONL. If raw evidence is unavailable, alternative_evidence must identify the preserved source and its limitation. Unknown preparation time stays null. A changed/stable comparison needs a prior Session and an explicit account of topic, task, support and capture comparability. N/A does not mean failure. New holistic Pronunciation ratings require pronunciation_evidence.holistic_audio_review=true after actual audio review; ASR processing alone does not qualify.
+
+Keep a separate conversation_quality audit with assistant-turn references for misunderstanding, unsolicited correction, repetitive questions, and UI/tool confusion. Do not penalize the learner for repairing an assistant-caused misunderstanding. Marker counts describe all visible repair markers and cannot assign fault automatically. Record an independent successful reuse only when the learner uses the expression without a supplied model; a single success is not mastery.
+
+Future reports show one observed success, the evidence limit or reason for a flat score, and one (at most two) next practice targets. No fabricated trend, punitive streak, or required extra task when the learner wants to finish.
+
 This protocol supplements the L1–L5 rubric in `progress.json`. It applies after every completed conversation, not during the natural exchange. Earlier sessions are not silently rescored. All ratings are learning observations, not official examination results.
 
 ## Decision sequence for every dimension

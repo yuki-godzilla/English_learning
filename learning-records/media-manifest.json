@@ -134,10 +134,19 @@
       "status": "generated",
       "role": "English growth dashboard",
       "alt": "Session 1からSession 16までの英語力成長グラフ",
-      "caption": "progress.jsonから生成したSession 1〜16の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession 8・12だけを測定値として扱う。",
+      "caption": "progress.jsonから生成したSession 1〜16の英語力推移。L1〜L5と同一L内の段階を表示。発音の過去記録S8・12は限定的な旧評価を含み、現基準の直接総合審査とは区別する。N/Aは欠測。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "d9c0d7bf69a2674a9ce32ae6e015e8dc29f67042abd645441cded936bbd24cce"
+      "sha256": "ca26d59e8060c56a086c67059780cada0b69363ca746c4608cc3b82d4412604d",
+      "provenance": {
+        "schema_version": 1,
+        "inputs": {
+          "learning-records/progress.json": "f9d4330597cbf5058baacc9d916ec6a8a4535f4c2e12f7c4ded65f64aa2a70f6",
+          "scripts/charts/generate.mjs": "309c4855b99ae16a96765a8a8c5bbc5b6c476ef05fb0b480141375ba6f1096c2",
+          "scripts/lib/evidence.mjs": "865a1bb9ee8c852df94a43b53bf60fa38302d1cf4791f6e4ec4d57619ba73b16",
+          "scripts/charts/skill-timeline.mjs": "42709340cbbaaa90d4fc311a1dfbb2123269520b5dcbe83c1cafb2ab785c57f9"
+        }
+      }
     },
     {
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",
@@ -147,7 +156,16 @@
       "caption": "progress.jsonから生成した学習用の資格スコア推定レンジ。各試験の最新根拠Sessionと確度を示す断面図であり、連続した試験測定や公式結果ではない。過去の本人申告の実績は推定と分離する。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "bb4881964493091b74aaa304fee28a21515582d8fe210ecef4c0479c3c25cbd1"
+      "sha256": "1b4817a5a1307232e136d2514f495892547929ff8a3e985056a64da2f2ddc6ac",
+      "provenance": {
+        "schema_version": 1,
+        "inputs": {
+          "learning-records/progress.json": "f9d4330597cbf5058baacc9d916ec6a8a4535f4c2e12f7c4ded65f64aa2a70f6",
+          "scripts/charts/generate.mjs": "309c4855b99ae16a96765a8a8c5bbc5b6c476ef05fb0b480141375ba6f1096c2",
+          "scripts/lib/evidence.mjs": "865a1bb9ee8c852df94a43b53bf60fa38302d1cf4791f6e4ec4d57619ba73b16",
+          "scripts/charts/skill-timeline.mjs": "42709340cbbaaa90d4fc311a1dfbb2123269520b5dcbe83c1cafb2ab785c57f9"
+        }
+      }
     },
     {
       "path": "learning-records/archive/media/electricity-demand-chart.png",

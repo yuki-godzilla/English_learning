@@ -2,6 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
 import { analyzeTranscripts } from "../transcripts/analyze.mjs";
+import { buildReportModel, ratingLabel, pronunciationBasis } from "../lib/evidence.mjs";
+import { tableRows as sharedTableRows } from '../lib/markdown-table.mjs';
 import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
 
 const outputRoot = path.join(root, ".generated-site-docs");
@@ -100,15 +102,7 @@ function normalizeKey(value) {
     .trim();
 }
 
-function parseTableRows(markdown) {
-  return markdown
-    .split(/\r?\n/)
-    .filter((line) => line.trim().startsWith("|") && line.trim().endsWith("|"))
-    .map((line) => line.trim().slice(1, -1).split("|").map((cell) => cell.trim()))
-    .filter((cells) => cells.length >= 3)
-    .filter((cells) => !cells.every((cell) => /^:?-{3,}:?$/.test(cell)))
-    .filter((cells) => !/^(Expression|Word \/ IPA|Word \/ Chunk|目的|Metric|テスト種別)/i.test(stripMarkdown(cells[0])));
-}
+function parseTableRows(markdown) { return sharedTableRows(markdown).filter(c => !/^(目的|Metric|テスト種別)/i.test(stripMarkdown(c[0]))); }
 
 function extractRange(markdown, startPattern, endPattern) {
   const start = markdown.search(startPattern);
@@ -293,14 +287,18 @@ function latestRows(rows, sessionNumber, limit) {
   return rows.filter((row) => sourceSessionNumber(row[2]) === sessionNumber).slice(0, limit);
 }
 
+const bankLedger = JSON.parse(await fs.readFile(path.join(recordsRoot, 'resources/bank-ledger.json'), 'utf8'));
 function recallCard(summary, answer, key) {
-  return `<details class="recall-card" data-recall-id="${escapeHtml(key)}">
+  const bank = key.startsWith('expression-') ? 'expressions' : key.startsWith('vocabulary-') ? 'vocabulary' : key.startsWith('speaking-') ? 'speaking' : null;
+  const plainKey = key.replace(/^[^-]+-/, '');
+  const identity = bankLedger.items.find(item => item.bank === bank && normalizeKey(item.key) === plainKey)?.id;
+  return `<details class="recall-card" data-recall-id="${escapeHtml(identity ?? key)}" data-legacy-recall-id="${escapeHtml(key)}">
   <summary>${summary}</summary>
   <div class="recall-answer">${answer}
     <div class="recall-rating" aria-label="この端末での復習状態">
       <button type="button" data-recall-rating="again">もう一度</button>
       <button type="button" data-recall-rating="remembered">思い出せた</button>
-      <button type="button" data-recall-rating="mastered">定着</button>
+      <button type="button" data-recall-rating="mastered">自信あり（自己申告）</button>
       <span data-recall-status aria-live="polite"></span>
     </div>
   </div>
@@ -570,6 +568,16 @@ hide:
 
 復習状態はこの端末のブラウザだけに保存します。Gitや別端末へは送信しません。
 
+<div class="recall-tools"><button type="button" data-recall-export>復習履歴を保存</button> <label>別端末の履歴を取り込む <input type="file" accept="application/json" data-recall-import></label><p data-recall-message aria-live="polite">日数の連続記録は競いません。今日は一つ思い出せれば十分です。</p></div>
+
+## 今日の復習候補（最大5項目）
+
+<div data-due-queue>${[
+  ...expressionRows.map(row => recallCard(escapeHtml(truncate(row[1],80)), `<strong>${escapeHtml(stripMarkdown(row[0]))}</strong>`, `expression-${normalizeKey(row[0])}`)),
+  ...vocabularyRows.map(row => recallCard(escapeHtml(stripMarkdown(row[0])), inlineMarkdown(row[1]), `vocabulary-${normalizeKey(row[0])}`)),
+  ...speakingRows.map(row => recallCard(escapeHtml(stripMarkdown(row[0])), inlineMarkdown(row[1]), `speaking-${normalizeKey(row[0])}`)),
+].join('\n')}</div>
+
 ## 1. 表現を思い出す
 
 ${reviewExpressions.map((row) => recallCard(escapeHtml(truncate(row[1], 80)), `<strong>${escapeHtml(stripMarkdown(row[0]))}</strong>`, `expression-${normalizeKey(row[0])}`)).join("\n")}
@@ -638,16 +646,6 @@ const withinLevelStageJa = {
   established: "安定",
   strong: "強い",
 };
-const scoreCards = Object.entries(testDefinitions).map(([testId, definition]) => {
-  const estimateSession = latestEstimateFor(testId);
-  const estimate = estimateSession.estimates[testId];
-  return `<article class="score-card"><div class="card-meta">Latest evidence: Session ${estimateSession.session}</div><h3>${escapeHtml(definition.label_ja)}</h3><div class="score-value">${escapeHtml(estimate.display)}</div><p>${escapeHtml(estimate.comment_ja)}</p><p><strong>確度:</strong> ${escapeHtml(estimate.confidence)}</p></article>`;
-});
-const scoreGridMarkup = Array.from({ length: Math.ceil(scoreCards.length / 6) }, (_, groupIndex) => {
-  const group = scoreCards.slice(groupIndex * 6, groupIndex * 6 + 6).join("\n");
-  const continuationClass = groupIndex === 0 ? "" : " score-grid--continuation";
-  return `<div class="score-grid${continuationClass}">${group}</div>`;
-}).join("\n");
 
 
 const rawSessions = speakingAnalytics.sessions;
@@ -712,61 +710,6 @@ const speakingFingerprintMarkup = rawSessions.length
     }).join("\n")}</div>`
   : "<p>raw transcriptの比較可能データはまだありません。</p>";
 
-const stageOffsetForScatter = { emerging: -0.2, established: 0, strong: 0.2 };
-const observedLevel = (session, metric) => {
-  const rating = session.ratings?.[metric];
-  if (!Number.isInteger(rating)) return null;
-  return Math.max(1, Math.min(5, rating + (stageOffsetForScatter[session.within_level_stage?.[metric]] ?? 0)));
-};
-
-function fluencyAccuracyScatter() {
-  const rawPoints = tracker.sessions.map((session) => ({
-    session: session.session,
-    fluency: observedLevel(session, "Fluency & coherence"),
-    grammar: observedLevel(session, "Grammar control"),
-  })).filter((point) => Number.isFinite(point.fluency) && Number.isFinite(point.grammar));
-  if (!rawPoints.length) return "<p>比較可能な評価点がありません。</p>";
-  const groups = new Map();
-  for (const point of rawPoints) {
-    const key = `${point.fluency.toFixed(1)}|${point.grammar.toFixed(1)}`;
-    if (!groups.has(key)) groups.set(key, { ...point, sessions: [] });
-    groups.get(key).sessions.push(point.session);
-  }
-  const width = 560;
-  const height = 330;
-  const left = 62;
-  const right = 24;
-  const top = 22;
-  const bottom = 52;
-  const x = (value) => left + ((value - 1) / 4) * (width - left - right);
-  const y = (value) => top + ((5 - value) / 4) * (height - top - bottom);
-  const grid = [1,2,3,4,5].map((level) =>
-    `<line x1="${x(level)}" y1="${top}" x2="${x(level)}" y2="${height-bottom}" class="scatter-grid"/>` +
-    `<line x1="${left}" y1="${y(level)}" x2="${width-right}" y2="${y(level)}" class="scatter-grid"/>` +
-    `<text x="${x(level)}" y="${height-bottom+23}" text-anchor="middle" class="fingerprint-label">L${level}</text>` +
-    `<text x="${left-12}" y="${y(level)+4}" text-anchor="end" class="fingerprint-label">L${level}</text>`).join("");
-  const plottedGroups = [...groups.values()];
-  const marks = plottedGroups.map((group, index) => {
-    const sessions = group.sessions;
-    const label = sessions.length === 1 ? `S${sessions[0]}` : `S${sessions[0]}–${sessions.at(-1)}`;
-    return `<g class="scatter-point"><circle cx="${x(group.fluency)}" cy="${y(group.grammar)}" r="11"><title>${label}: Fluency ${group.fluency.toFixed(1)}, Grammar ${group.grammar.toFixed(1)}</title></circle><text x="${x(group.fluency)}" y="${y(group.grammar)+4}" text-anchor="middle" class="scatter-point-number">${index + 1}</text></g>`;
-  }).join("");
-  const legend = plottedGroups.map((group, index) => {
-    const sessions = group.sessions;
-    const label = sessions.length === 1 ? `S${sessions[0]}` : `S${sessions[0]}–${sessions.at(-1)}`;
-    return `<span><strong>${index + 1}</strong> ${label}</span>`;
-  }).join("");
-  // Keep standalone raw HTML on one line: Markdown otherwise wraps <svg> in a
-  // paragraph and renders its indented children as a literal code block.
-  return `<div class="scatter-figure"><svg class="fluency-accuracy-scatter" viewBox="0 0 ${width} ${height}" role="img" aria-label="Fluency and grammar control by session">` +
-    grid +
-    `<line x1="${left}" y1="${height-bottom}" x2="${width-right}" y2="${height-bottom}" class="scatter-axis"/>` +
-    `<line x1="${left}" y1="${top}" x2="${left}" y2="${height-bottom}" class="scatter-axis"/>` +
-    marks +
-    `<text x="${(left+width-right)/2}" y="${height-8}" text-anchor="middle" class="scatter-axis-label">Fluency &amp; coherence →</text>` +
-    `<text x="17" y="${(top+height-bottom)/2}" text-anchor="middle" transform="rotate(-90 17 ${(top+height-bottom)/2})" class="scatter-axis-label">Grammar control →</text>` +
-    `</svg><div class="scatter-legend" aria-label="Point to session key">${legend}</div></div>`;
-}
 
 const currentHabitCards = latestRawSession ? [
   ["Planning fillers", compactNumber(latestRawSession.filler_per_100_words), "uh / um / hmm / 100 words", "planning timeの取り方を見る。無理にゼロを目指さない。"],
@@ -775,15 +718,16 @@ const currentHabitCards = latestRawSession ? [
   ["Article / preposition", "Qualitative", "ASR-sensitive", "the・前置詞は音声認識誤差が大きいため自動エラー率を出さず、Wrap-upの高確度例だけ追う。"],
 ].map(([title, value, unit, note]) => `<article class="habit-card"><div class="card-meta">${escapeHtml(unit)}</div><h3>${escapeHtml(title)}</h3><div class="habit-value">${escapeHtml(value)}</div><p>${escapeHtml(note)}</p></article>`).join("\n") : "";
 
+const reportModel = buildReportModel(tracker, speakingAnalytics);
 const { earlier: earlierSpeech, recent: recentSpeech } = speakingAnalytics.comparison;
-const comparisonReady = earlierSpeech.segments > 0 && recentSpeech.segments > 0 &&
+const comparisonReady = speakingAnalytics.comparison.ready && earlierSpeech.segments > 0 && recentSpeech.segments > 0 &&
   earlierSpeech.sessions.every((number) => rawSessions.find((session) => session.session === number)?.coverage_band === "high") &&
   recentSpeech.sessions.every((number) => rawSessions.find((session) => session.session === number)?.coverage_band === "high");
 const comparisonDefinitions = [
   ["repair_per_100_words", "Repair markers", "/ 100 words", "修復する力ではなく、表面化した修復の頻度"],
   ["you_know_per_100_words", "you know", "/ 100 words", "談話標識。少なさだけを良しとしない"],
   ["lexical_search_per_100_words", "Explicit lexical search", "/ 100 words", "how can I say / I want to say"],
-  ["japanese_fallback_pct", "Japanese fallback", "% of segments", "日本語を含む区間。必要な確認は問題ではない"],
+  ["japanese_fallback_pct", "Japanese-script segments", "% of segments", "日本語文字を含む区間のみ。ローマ字の日本語は検出対象外"],
   ["mean_words_per_segment", "Mean output length", "words / segment", "発話長は概ね維持されているか"],
   ["long_segment_share_pct", "20+ word share", "% of segments", "長い説明の比率"],
 ];
@@ -794,7 +738,7 @@ const comparisonRows = comparisonReady ? comparisonDefinitions.map(([key, label,
   const x1 = Math.max(3, Math.min(97, before / max * 94));
   const x2 = Math.max(3, Math.min(97, after / max * 94));
   const maintained = index >= 4 && before > 0 && Math.abs(after - before) / before < 0.15;
-  const change = maintained ? "維持" : `${after < before ? "↓" : "↑"} ${before ? Math.round(Math.abs(after - before) / before * 100) : "—"}%`;
+  const change = after === before ? "同値" : maintained ? "小変動" : `${after < before ? "↓" : "↑"} ${before ? Math.round(Math.abs(after - before) / before * 100) : "—"}%`;
   return `<div class="comparison-row"><div class="comparison-name"><strong>${escapeHtml(label)}</strong><small>${escapeHtml(note)}</small></div><span class="comparison-before">${before} <small>${unit}</small></span><div class="delta-track" aria-label="Earlier ${before}, Recent ${after}"><span class="delta-line" style="left:${Math.min(x1, x2)}%;width:${Math.abs(x2 - x1)}%"></span><span class="delta-dot delta-dot--earlier" style="left:${x1}%"></span><span class="delta-dot delta-dot--recent" style="left:${x2}%"></span></div><span class="comparison-after">${after} <small>${unit}</small></span><span class="comparison-change">${change}</span></div>`;
 }).join("\n") : "<p>比較に十分な自発発話データがありません。</p>";
 const outputStable = comparisonReady && Math.abs(recentSpeech.mean_words_per_segment - earlierSpeech.mean_words_per_segment) / earlierSpeech.mean_words_per_segment < 0.15;
@@ -803,27 +747,21 @@ const insightText = outputStable && repairDown
   ? "Speaking length is broadly maintained, while visible repair burden has decreased."
   : "The comparable samples show a descriptive change; more matched spontaneous speech is needed to interpret it.";
 const insightJa = outputStable && repairDown
-  ? "発話量を大きく落とさず、意味修復・語彙探索の負荷が下がっている可能性があります。"
+  ? "平均区間語数を大きく落とさず、修復マーカーが減っています。認知負荷や能力の改善を直接測った値ではありません。"
   : "条件の近い自発発話を続けて観察し、変化の方向を確かめます。";
 const evidenceStrength = comparisonReady && earlierSpeech.sessions.length >= 2 && recentSpeech.sessions.length >= 2 ? "MODERATE" : "LOW";
-const distributionRows = recentSpeech.buckets.map((bucket) => `<div class="distribution-row"><span>${bucket.label} words</span><span class="distribution-bar"><i style="width:${bucket.percent}%"></i></span><strong>${bucket.percent}%</strong></div>`).join("\n");
+const distributionRows = recentSpeech.buckets.filter(b => b.label !== '0' || b.count > 0).map((bucket) => `<div class="distribution-row"><span>${bucket.label} words</span><span class="distribution-bar"><i style="width:${bucket.percent ?? 0}%"></i></span><strong>${bucket.percent ?? 'N/A'}%</strong></div>`).join("\n");
 const coverageRows = rawSessions.map((session) => `<div class="coverage-item"><strong>S${session.session}</strong><span class="coverage-bar"><i style="width:${Math.round(session.usable_segment_ratio * 100)}%"></i></span><span>${Math.round(session.usable_segment_ratio * 100)}%</span><em>${session.coverage_band.toUpperCase()}</em></div>`).join("\n");
 const profileRows = tracker.qualitative_metrics.map((metric) => {
   const observed = latestObservedByMetric.get(metric);
-  const level = observed?.ratings[metric];
-  const stage = observed?.within_level_stage?.[metric];
-  const lastMeasured = observed?.session !== latestTracker.session;
-  return `<div class="profile-row ${levelClass(level)}"><span>${escapeHtml(metricJa[metric])}</span><strong>${Number.isInteger(level) ? `L${level} · ${withinLevelStageJa[stage]}` : "N/A"}</strong><small>${lastMeasured ? `最終実測 S${observed?.session ?? "—"}` : `今回 S${latestTracker.session}`}</small></div>`;
+  const level = latestTracker.ratings[metric];
+  const history = observed && observed.session !== latestTracker.session ? ` / 過去 S${observed.session} ${ratingLabel(observed, metric)}${metric === 'Pronunciation' && pronunciationBasis(observed) === 'legacy_limited' ? '（旧基準・限定根拠）' : ''}` : '';
+  return `<div class="profile-row ${levelClass(level)}"><span>${escapeHtml(metricJa[metric])}</span><strong>${ratingLabel(latestTracker, metric)}</strong><small>今回 S${latestTracker.session}${history}</small></div>`;
 }).join("\n");
 const recentEvidence = tracker.sessions.slice(-5).flatMap((session) => Object.entries(session.metric_evidence ?? {}).map(([metric, evidence]) => ({ metric, evidence, session: session.session })));
-const recentEvidenceFor = (metric) => [...recentEvidence].reverse().find((item) => item.metric === metric && item.evidence?.observed)?.evidence?.observed ?? "比較可能な記述はありません。";
-const grammarFocus = [
-  ["Articles", "WATCH", "確認済みのWrap-up例のみ。ASRから誤り件数は作らない。"],
-  ["Prepositions", "WATCH", "語と構文のまとまりで確認。例: discuss an issue / learn about GCP。"],
-  ["Singular / plural", "WATCH", "Journalに記述。今回は頻度未測定。"],
-  ["Verb forms", "WATCH", "最新評価に語形の揺れ。誤り件数は未確定。"],
-  ["Word order", "WATCH", "最新評価に記述。改善率は未測定。"],
-].map(([name, state, note]) => `<div class="grammar-row"><strong>${name}</strong><span>${state}</span><small>${escapeHtml(note)}</small></div>`).join("\n");
+const recentEvidenceFor = (metric) => { const e = [...recentEvidence].reverse().find(item => item.metric === metric && item.evidence?.observed)?.evidence; return e?.display_summary_ja ?? e?.observed ?? '比較可能な記述はありません。'; };
+const grammarFocus = (latestTracker.pattern_observations?.length ? latestTracker.pattern_observations : [{ pattern: 'Grammar control', status: '未細分化', note: recentEvidenceFor('Grammar control') }])
+  .map(item => `<div class="grammar-row"><strong>${escapeHtml(item.pattern)}</strong><span>${escapeHtml(item.status)}</span><small>${escapeHtml(item.note)}</small></div>`).join("\n");
 const estimateTableRows = Object.entries(testDefinitions).map(([testId, definition]) => {
   const evidence = latestEstimateFor(testId);
   return `<tr><th scope="row">${escapeHtml(definition.label_ja)}</th><td>${escapeHtml(evidence.estimates[testId].display)}</td><td>S${evidence.session}</td><td>${escapeHtml(evidence.estimates[testId].confidence)}</td></tr>`;
@@ -837,7 +775,7 @@ hide:
 
 # English Growth Dashboard
 
-<p class="growth-intro">Evidence-based view from conversation, raw transcripts, and direct measurements. <strong>Not an official language test score.</strong><br>Latest evaluated: Session ${latestTracker.session} · Recovered raw transcript: S${rawSessions[0]?.session ?? "—"}–S${latestRawSession?.session ?? "—"} · Pronunciation last directly rated: S${lastPronunciation?.session ?? "—"}</p>
+<p class="growth-intro">最新評価 S${latestTracker.session} · 回収済み発話 S${rawSessions[0]?.session ?? '—'}–S${latestRawSession?.session ?? '—'}。個人学習用の観察値で、公式試験結果ではありません。</p>
 
 <section class="growth-page growth-page--now"><h2>WHERE I AM NOW <small>現在の英語力</small></h2>
 <div class="profile-grid">${profileRows}</div>
@@ -846,12 +784,12 @@ hide:
   <article><strong>DEVELOPING</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Fluency & coherence"), 65))}</p></article>
   <article><strong>NEXT BOTTLENECK</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Grammar control"), 65))}</p></article>
 </div>
-<div class="before-now"><strong>SESSION 1 → CURRENT</strong><p>初回は語順とチャンクを整える段階。今は技術テーマで質問・比較・会話修復を自分で進める。初回と最新の会話評価に基づく要約です。</p></div>
-<figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="Session 1からSession ${latestTracker.session}までの6能力の観察評価。今回の発音はN/A、最後の直接評価はS${lastPronunciation?.session ?? "—"}。" loading="lazy"></a><figcaption>Skill Trend: 全履歴を残しつつ初回と現在を強調。同一L内の形成中・安定・強いも表示します。L3据え置きは変化がないという意味ではありません。</figcaption></figure>
+<div class="before-now"><strong>INITIAL → CURRENT</strong><p>${escapeHtml(reportModel.initialSummary)}</p></div>
+<figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="全履歴の6観点評価。今回の発音: ${ratingLabel(latestTracker, 'Pronunciation')}。過去の最終記録 S${lastPronunciation?.session ?? '—'}は現基準の音声総合審査と区別。" loading="lazy"></a><figcaption>横軸はSession、縦軸はL評価。N/Aは欠測、線で補間しません。発音の過去値は旧基準・限定根拠を含みます。段階は形成中 / 安定 / 強い。</figcaption></figure>
 </section>
 
 <section class="growth-page growth-page--change"><h2>HOW MY SPEAKING IS CHANGING <small>話し方の変化</small></h2>
-<p>Earlier: S${earlierSpeech.sessions.join(" + S")} · Recent: S${recentSpeech.sessions.join(" + S")}。各群は利用可能割合80%以上で自発発話が15区間以上の回を選択。音読・復唱・redactionは除外しました。</p>
+<p>固定基準 Earlier: ${earlierSpeech.sessions.map(n => `S${n}`).join(' + ') || '比較待ち'} · Recent: ${recentSpeech.sessions.map(n => `S${n}`).join(' + ') || '比較待ち'}。各群は利用可能割合80%以上・自発発話15区間以上の別々の2回。音読・入力文・復唱・redactionは除外。</p>
 <div class="comparison-header"><span>EARLIER</span><span>BEFORE → NOW</span><span>RECENT</span></div>
 <div class="comparison-chart">${comparisonRows}</div>
 <article class="growth-insight"><strong>MAIN OBSERVATION · descriptive evidence</strong><p>${insightText}</p><p>${insightJa}</p><small>Evidence strength: ${evidenceStrength}。複数のsource-backed sessionを比較しましたが、ASR区間は独立標本ではなく、収録条件・話題も完全一致しません。統計的有意差や能力レベル上昇は示しません。</small></article>
@@ -864,15 +802,15 @@ hide:
 </section>
 
 <section class="growth-page growth-page--next"><h2>WHAT TO WORK ON NEXT <small>次の重点</small></h2>
-<div class="controlled-flow"><article><strong>COMMUNICATION</strong><p>Task achievement L${latestObservedByMetric.get("Task achievement")?.ratings["Task achievement"]} · Interaction & repair L${latestObservedByMetric.get("Interaction & repair")?.ratings["Interaction & repair"]}。会話の目的を保ち、誤解を自分で修復できる。</p></article><span>↓</span><article><strong>AUTOMATICITY</strong><p>修復・語彙探索の表面化がEarlierより少なく、平均発話長はほぼ維持。能力評価ではなく行動統計。</p></article><span>↓</span><article><strong>CONTROLLED ACCURACY</strong><p>Grammar control L${latestObservedByMetric.get("Grammar control")?.ratings["Grammar control"]} · ${withinLevelStageJa[latestObservedByMetric.get("Grammar control")?.within_level_stage["Grammar control"]]}。意味は伝わるが、語形・語順・機能語の安定が次の焦点。</p></article></div>
+<div class="controlled-flow"><article><strong>COMMUNICATION</strong><p>${escapeHtml(firstSentence(recentEvidenceFor('Task achievement'), 95))}</p></article><span>↓</span><article><strong>AUTOMATICITY · OBSERVED COUNTS</strong><p>${escapeHtml(reportModel.automaticity)}能力の自動採点ではありません。</p></article><span>↓</span><article><strong>CONTROLLED ACCURACY</strong><p>${escapeHtml(firstSentence(recentEvidenceFor('Grammar control'), 95))}</p></article></div>
 <div class="growth-three-cards"><article><strong>HABIT · TRACK</strong><p>Planning fillersと“you know”。減少そのものを目標にせず、考える間と会話の自然さを一緒に確認する。</p></article><article><strong>STRENGTH · KEEP</strong><p>自発的なself-repairと話題の軌道修正。修復能力は強み、過度な修復負荷だけを観察する。</p></article><article><strong>TARGET · PRACTISE</strong><p>語が詰まったら日本語へ移る前に短い英語で言い換え、長い説明はmain pointを先に置く。</p></article></div>
-<h3>HIGH-CONFIDENCE GRAMMAR PATTERNS</h3>
+<h3>GRAMMAR EVIDENCE · 観察範囲</h3>
 <div class="grammar-tracker">${grammarFocus}</div>
 <p class="growth-caveat">状態はJournal・Wrap-upで確認された質的な重点。ASRの短い機能語や語尾から自動エラー率を作らず、1例だけで「再発」や「改善」を断定しません。</p>
 <h3 class="fingerprint-heading">SESSION-BY-SESSION FINGERPRINT <small>補助指標</small></h3>
 ${speakingFingerprintMarkup}
-<p class="growth-caveat">Planning fillersには明確な下降傾向がありません。LOW coverage点は白抜きで表示。各点の詳細はSiteでhoverできます。</p>
-<h3>ESTIMATED EXTERNAL-TEST RANGES</h3>
+<p class="growth-caveat">${escapeHtml(reportModel.fillerSummary)}減少だけで上達とは判定しません。LOW coverage点は白抜き。各点の詳細はSiteでhoverできます。</p>
+<h3 class="estimate-heading">ESTIMATED EXTERNAL-TEST RANGES</h3>
 <figure class="figure-frame growth-estimates"><a href="../assets/generated/english-test-score-estimate-trends.png"><img src="../assets/generated/english-test-score-estimate-trends.png" alt="各資格の最新推定レンジ。試験ごとに別尺度、最終根拠Sessionと確度を併記。" loading="lazy"></a><figcaption>公式試験の結果ではありません。推定レンジを横線で示し、本人申告の実績値とは分離。各試験の尺度・測定時点が違うため、横位置を試験間で比較しません。</figcaption></figure>
 <table class="estimate-table"><thead><tr><th>試験</th><th>推定レンジ</th><th>最終根拠</th><th>確度</th></tr></thead><tbody>${estimateTableRows}</tbody></table>
 <p class="growth-caveat">これは受験結果ではなく学習用目安です。Listening / Reading / Writingなど新しく測っていない技能は最終根拠Sessionを据え置き、試験間で横棒の位置を比較しません。</p>
@@ -929,11 +867,12 @@ await writeGenerated("404.md", "# ページが見つかりません\n\n[学習�
 await copyGenerated(path.join(root, "site-src", "assets", "stylesheets", "learning.css"), path.join("assets", "stylesheets", "learning.css"));
 await copyGenerated(path.join(root, "site-src", "assets", "stylesheets", "journal-print.css"), path.join("assets", "stylesheets", "journal-print.css"));
 await copyGenerated(path.join(root, "site-src", "assets", "javascripts", "learning.js"), path.join("assets", "javascripts", "learning.js"));
+await copyGenerated(path.join(root, "site-src", "assets", "javascripts", "recall-state.js"), path.join("assets", "javascripts", "recall-state.js"));
 
 for (const media of [...mediaBySession.values()].flat()) {
   await copyGenerated(path.join(root, media.path), path.join("assets", "media", media.file));
 }
-await copyGenerated(path.join(root, "output", "english-growth-evidence-dashboard.png"), path.join("assets", "generated", "english-growth-evidence-dashboard.png"));
-await copyGenerated(path.join(root, "output", "english-test-score-estimate-trends.png"), path.join("assets", "generated", "english-test-score-estimate-trends.png"));
+await copyGenerated(path.join(recordsRoot, "media/progress/english-growth-evidence-dashboard.png"), path.join("assets", "generated", "english-growth-evidence-dashboard.png"));
+await copyGenerated(path.join(recordsRoot, "media/progress/english-test-score-estimate-trends.png"), path.join("assets", "generated", "english-test-score-estimate-trends.png"));
 
 console.log(`Prepared learning site: ${sessionDefinitions.length} sessions, ${expressionRows.length} expressions, ${vocabularyRows.length} vocabulary items, ${speakingRows.length} speaking items.`);

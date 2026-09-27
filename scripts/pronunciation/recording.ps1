@@ -14,6 +14,11 @@ param(
     [ValidateSet('read_aloud', 'spontaneous')]
     [string]$TaskKind = 'read_aloud',
 
+    [ValidateSet('practice', 'evaluation')]
+    [string]$Purpose = 'evaluation',
+
+    [string]$PromptId = 'pronunciation-benchmark-v1',
+
     [ValidateSet('tiny.en', 'base.en', 'small.en')]
     [string]$Model,
 
@@ -24,6 +29,7 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'candidate-selection.ps1')
 
 $projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $workRoot = Join-Path $projectRoot 'tmp\pronunciation-recordings'
@@ -228,6 +234,12 @@ if ($Action -eq 'Analyze') {
     if (-not (Test-Path -LiteralPath $venvPython)) {
         throw 'The local pronunciation environment is not ready. Run npm run pronunciation:setup first.'
     }
+    $capture = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
+    if ($null -ne $capture.PSObject.Properties['conditions']) {
+        if (-not $PSBoundParameters.ContainsKey('TaskKind')) { $TaskKind = $capture.conditions.taskKind }
+        if (-not $PSBoundParameters.ContainsKey('ExpectedFile')) { $ExpectedFile = $capture.conditions.expectedFile }
+        if (-not $PSBoundParameters.ContainsKey('ExpectedText')) { $ExpectedText = $capture.conditions.expectedText }
+    }
     if (-not (Test-Path -LiteralPath (Join-Path $modelPath 'model.bin'))) {
         throw "The local speech model is not ready: $modelPath. Run npm run pronunciation:setup first."
     }
@@ -258,6 +270,7 @@ if ($Action -eq 'Analyze') {
 }
 
 if ($Action -eq 'Start') {
+    if ($TaskKind -eq 'spontaneous' -and -not $PSBoundParameters.ContainsKey('PromptId')) { $PromptId = 'spontaneous-unspecified' }
     New-Item -ItemType Directory -Force -Path $workRoot | Out-Null
     $snapshot = Get-AudioCandidates -Roots $scanRoots
     $state = [ordered]@{
@@ -266,6 +279,11 @@ if ($Action -eq 'Start') {
         packageFamily = $packageFamilyName
         scanRoots = $scanRoots
         snapshot = $snapshot
+        taskKind = $TaskKind
+        purpose = $Purpose
+        promptId = $PromptId
+        expectedFile = $ExpectedFile
+        expectedText = $ExpectedText
     }
     $state | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $StatePath -Encoding UTF8
 
@@ -349,9 +367,12 @@ else {
         }
     }
 
-    $selected = $newOrChanged |
-        Sort-Object -Property @{ Expression = 'lastWriteTicks'; Descending = $true }, @{ Expression = 'length'; Descending = $true } |
-        Select-Object -First 1
+    $selection = Select-RecordingCandidate -Candidates @($newOrChanged)
+    if ($selection.status -eq 'ambiguous_recordings') {
+        Write-JsonResult -Value @{ status = 'ambiguous_recordings'; candidates = $selection.candidates; instructions = 'Choose the existing recording and supply its exact path with -AudioPath. Do not record again.' }
+        exit 2
+    }
+    $selected = $selection.selected
 }
 
 if ($null -eq $selected) {
@@ -369,6 +390,13 @@ Copy-Item -LiteralPath ([string]$selected.path) -Destination $capturePath
 
 $captured = Get-Item -LiteralPath $capturePath
 $sha256 = Get-Sha256Hex -Path $capturePath
+$conditions = @{ taskKind = $TaskKind; purpose = $Purpose; promptId = $PromptId; expectedFile = $ExpectedFile; expectedText = $ExpectedText }
+if (Test-Path -LiteralPath $StatePath) {
+    $savedState = Get-Content -Raw -LiteralPath $StatePath | ConvertFrom-Json
+    foreach ($key in @($conditions.Keys)) {
+        if ($null -ne $savedState.PSObject.Properties[$key] -and -not $PSBoundParameters.ContainsKey($key)) { $conditions[$key] = $savedState.$key }
+    }
+}
 $manifest = [ordered]@{
     schemaVersion = 2
     capturedAtUtc = [DateTime]::UtcNow.ToString('o')
@@ -378,6 +406,8 @@ $manifest = [ordered]@{
     sha256 = $sha256
     containerSignatureVerified = $true
     directAudioReviewRequired = $true
+    conditions = $conditions
+    evaluationStatus = 'captured_not_rated'
     nextAction = 'npm run pronunciation:analyze'
 }
 $manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $manifestPath -Encoding UTF8

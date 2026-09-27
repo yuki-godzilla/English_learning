@@ -67,6 +67,7 @@ extra_css:
   - assets/stylesheets/journal-print.css
 
 extra_javascript:
+  - assets/javascripts/recall-state.js
   - assets/javascripts/learning.js
 
 nav:

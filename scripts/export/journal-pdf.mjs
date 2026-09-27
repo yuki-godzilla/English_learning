@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { loadJournal } from "../lib/journal-parser.mjs";
+import { tableRows as sharedTableRows } from '../lib/markdown-table.mjs';
 import { projectRoot as root } from "../lib/project.mjs";
 import { findPdfBrowser, findPdfPython } from "../pdf/runtime.mjs";
 
@@ -11,7 +12,12 @@ const chrome = findPdfBrowser();
 const python = findPdfPython();
 
 const outputPath = path.join(root, "output", "pdf", "yuki-chappy-english-journal.pdf");
-const scratchDir = path.join(root, "tmp", "pdf-journal");
+await fs.mkdir(path.join(root, 'tmp'), { recursive: true });
+const scratchDir = await fs.mkdtemp(path.join(root, 'tmp', 'pdf-journal-'));
+const lockPath = path.join(root, 'tmp', 'journal-pdf.lock');
+const lock = await fs.open(lockPath, 'wx').catch(() => { throw new Error('PDF export already running. Inspect tmp/journal-pdf.lock before recovering an interrupted run.'); });
+await lock.writeFile(JSON.stringify({ pid: process.pid, started: new Date().toISOString() }));
+const candidatePath = path.join(scratchDir, 'candidate.pdf');
 const siteRoot = path.join(root, "site");
 const journal = await loadJournal();
 const sessions = [...journal.sessions].sort((a, b) => b.date.localeCompare(a.date) || b.session - a.session);
@@ -31,14 +37,7 @@ function inlineMarkdown(value) {
     .replace(/`(.+?)`/g, "<code>$1</code>");
 }
 
-function tableRows(markdown) {
-  return markdown.split(/\r?\n/)
-    .filter((line) => line.trim().startsWith("|") && line.trim().endsWith("|"))
-    .map((line) => line.trim().slice(1, -1).split("|").map((cell) => cell.trim()))
-    .filter((cells) => cells.length >= 3)
-    .filter((cells) => !cells.every((cell) => /^:?-{3,}:?$/.test(cell)))
-    .filter((cells) => !/^(Expression|Word \/ IPA|Word \/ Chunk)/i.test(cells[0]));
-}
+const tableRows = sharedTableRows;
 
 function removeLocalLinkTargets(html) {
   // Only neutralize learner-facing anchors. Stylesheet <link> elements must
@@ -178,8 +177,6 @@ ${rows}
 }
 
 await fs.access(siteRoot);
-await fs.rm(scratchDir, { recursive: true, force: true });
-await fs.mkdir(scratchDir, { recursive: true });
 await fs.mkdir(path.dirname(outputPath), { recursive: true });
 
 const temporarySitePaths = [];
@@ -224,8 +221,14 @@ try {
 <h1>English Journal</h1>
 <p class="subtitle">全履歴を追える、最新状態の学習記録</p>
 <hr class="rule">
-<h2>収録内容</h2>
-<ol>${sessions.map((session) => `<li><strong>Session ${session.session}</strong> — ${escapeHtml(session.title)}<br><span>${escapeHtml(session.date)}</span></li>`).join("")}</ol>
+<h2>まずは5分だけ / Start here</h2>
+<p><strong>最新 Session ${sessions[0].session} · ${escapeHtml(sessions[0].date)}</strong></p>
+<p>${escapeHtml(sessions[0].remember)}</p>
+<h2>次の会話へ持ち帰ること</h2>
+<p>${escapeHtml(sessions[0].prompt)}</p>
+<p>短く自分の言葉で説明する → 気になる表現を一つ確認する → 別の場面で使ってみる。毎日完璧に続ける必要はありません。</p>
+<h2>この一冊の読み方</h2>
+<p>全${sessions.length}回の索引 → 最新3回のDaily Notes → 成長と根拠 → 3種類のBank。過去の詳細は正本Journalへ。</p>
 <div class="footer"><strong>このPDFについて</strong><br>全Session Index、直近3回のDaily Note、全履歴の英語力推移、3種類のStudy Bankを一冊にまとめています。Daily Noteの原本はJournalに保持し、PDFでは最新の学習状況を読みやすく確認します。</div>
 </body></html>`, "utf8");
 
@@ -325,10 +328,20 @@ if len(reader.pages) < 2:
     raise RuntimeError("The merged Journal PDF has too few pages.")
 print(f"Created {output.name}: {len(reader.pages)} pages")
 `;
-  execFileSync(python, ["-c", merger, outputPath, manifestPath], { stdio: "inherit", windowsHide: true });
+  execFileSync(python, ["-c", merger, candidatePath, manifestPath], { stdio: "inherit", windowsHide: true });
+  try {
+    execFileSync(process.execPath, [path.join(root, 'scripts/pdf/validate-journal-pdf.mjs'), candidatePath], { stdio: 'inherit', windowsHide: true });
+  } catch (error) {
+    await fs.copyFile(candidatePath, path.join(root, 'tmp', 'journal-failed-candidate.pdf'));
+    throw error;
+  }
+  // Do not replace the last usable PDF until candidate postflight succeeds.
+  await fs.rename(candidatePath, outputPath);
 } finally {
   await Promise.all(temporarySitePaths.map((printPath) => fs.rm(printPath, { force: true })));
   await fs.rm(scratchDir, { recursive: true, force: true });
+  await lock.close();
+  await fs.rm(lockPath, { force: true });
 }
 
 console.log(`Journal PDF created: ${path.relative(root, outputPath)}`);

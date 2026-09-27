@@ -6,6 +6,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
+import { assetProvenance } from '../lib/asset-provenance.mjs';
 
 const execFileAsync = promisify(execFile);
 const generatorPath = path.join(root, "scripts", "charts", "generate.mjs");
@@ -35,7 +36,7 @@ const requiredAssets = [
     path: "learning-records/media/progress/english-growth-evidence-dashboard.png",
     role: "English growth dashboard",
     alt: `Session 1からSession ${latestSession.session}までの英語力成長グラフ`,
-    caption: `progress.jsonから生成したSession 1〜${latestSession.session}の英語力推移。L1〜L5と同一レベル内の形成中・安定・強いを表示し、Pronunciationは直接音声を確認したSession ${pronunciationSessions || "なし"}だけを測定値として扱う。`,
+    caption: `progress.jsonから生成したSession 1〜${latestSession.session}の英語力推移。L1〜L5と同一L内の段階を表示。発音の過去記録S${pronunciationSessions || 'なし'}は限定的な旧評価を含み、現基準の直接総合審査とは区別する。N/Aは欠測。`,
   },
   {
     path: "learning-records/media/progress/english-test-score-estimate-trends.png",
@@ -57,6 +58,7 @@ for (const asset of requiredAssets) {
   entry.creator = "Generated from learning-records/progress.json";
   entry.license = "Project generated";
   entry.sha256 = crypto.createHash("sha256").update(bytes).digest("hex");
+  entry.provenance = await assetProvenance();
 }
 
 await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");

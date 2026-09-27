@@ -1,5 +1,25 @@
 # 保守ガイド
 
+## v5.0 レポートの安全な発行
+
+1. Git状態とremoteを確認し、安全なときだけpull。正本と必要な匿名化済み根拠を更新。
+2. `npm run report:prepare`。画像・Site・候補PDF・単体テストを検証し、`tmp/report-runs/current.json` に入力/PDFハッシュを固定する。
+3. レイアウト変更時は `npm run ui:check`。これは実ブラウザーで390px/1440px、横はみ出し、復習保存、計算済み印刷色/文字サイズを検証し、tmpへ画像を保存する。PlaywrightはCodex同梱runtime、または `PLAYWRIGHT_MODULE` に指定したモジュールを使用する。依存がない環境では未検証と明示し、合格扱いにしない。
+4. PDF全ページと主要実寸ページ、PC/スマホ画像を実際に確認し、`npm run report:state -- reviewed "確認内容"`。
+5. 対象差分をcommit/push。`npm run report:state -- verify-send` 後に検証済みPDFを送信し、`npm run report:state -- sent <provider-message-id>`。
+
+ソースまたはPDFが変わるとreceiptが失効する。同一PDFを再送しない。送信直後の接続切れは、メールの送信済み検索で件名・宛先・添付サイズを照合してからreceiptを更新する。receiptは認証情報を持たず、メールを自動送信しない。
+
+`tmp/report-prepare.lock` / `tmp/journal-pdf.lock` が残っていた場合、記載PIDのプロセスが存在せず処理が終了していることを確認してから、そのlockだけを除去する。広いtmpディレクトリを削除しない。候補PDFのpostflightに失敗した場合、最後の有効なPDFは維持される。
+
+### 評価・Bank・復習の保守
+
+- Session 17以降は `scripts/lib/scoring-contract.mjs` が新規根拠参照を検証。旧スコアの再監査は別依頼でのみ行う。
+- Bank項目の追加時は本文をJournalへ、IDと正規化キーを `learning-records/resources/bank-ledger.json` へ追加する。IDは `bank + '-' + sha256(normalized_key).slice(0,16)` が初期値。既存項目の改名ではIDを変えない。統合元は `retired_reason` と `merged_into`（存続項目のキー）を残す。
+- 復習履歴JSONはユーザー自身で保存・取込。旧ラベルは引き継ぐが日時は不明のまま。自己申告と会話中の独立した再利用観察は別情報。
+- `npm run test:unit` は入力文・音読混入、比較群の重複、増減逆転、全N/A、旧発音根拠、Markdown表、復習履歴を回帰テストする。
+- PDF本文の正本3ファイルとは別に、transcriptsは根拠、Bank台帳は同一性契約、receiptは一時的な送信状態である。固定Archiveは生成処理に含めない。
+
 学習内容は [English Journal](../learning-records/journal.md) で読みます。この文書は、別PCで検証・生成・同期するための技術情報です。
 
 ## 構成

@@ -12,7 +12,7 @@ const journal = await loadJournal();
 const byNumber = new Map(journal.sessions.map((session) => [session.session, session]));
 const coverage = JSON.parse(await fs.readFile(path.join(directory, "coverage.json"), "utf8"));
 const annotations = JSON.parse(await fs.readFile(path.join(directory, "speech-mode-annotations.json"), "utf8"));
-const allowedModes = new Set(["spontaneous", "read_aloud", "repetition", "fixed_probe", "unclear"]);
+const allowedModes = new Set(["spontaneous", "read_aloud", "repetition", "fixed_probe", "unclear", "typed"]);
 if (annotations.schema_version !== 1 || annotations.default_mode !== "spontaneous" || !Array.isArray(annotations.annotations)) fail("Invalid speech-mode annotation manifest");
 const annotationsBySession = new Map();
 for (const annotation of annotations.annotations ?? []) {
@@ -83,6 +83,7 @@ for (const entry of coverage.sessions ?? []) {
   for (const [offset, turn] of turns.entries()) {
     const line = offset + 2;
     if (turn.type !== "turn" || turn.index !== offset + 1) fail(`${entry.file}:${line} has a missing or out-of-order turn index`);
+    if (turn.speech_mode != null && !allowedModes.has(turn.speech_mode)) fail(`${entry.file}:${line} has an invalid speech mode`);
     if (!["yuki", "chappy"].includes(turn.speaker) || !allowedSources.has(turn.source) || (turn.speaker === "chappy") !== (turn.source === "assistant")) fail(`${entry.file}:${line} has an invalid speaker/source pair`);
     if (typeof turn.text !== "string" || !turn.text.trim()) fail(`${entry.file}:${line} has empty text`);
     if (turn.timestamp != null) {
@@ -103,12 +104,12 @@ for (const file of (await fs.readdir(directory)).filter((name) => name.endsWith(
 if (!failures.length) {
   const analytics = await analyzeTranscripts();
   for (const session of analytics.sessions) {
-    if (session.spontaneous_segments + session.speech_mode_counts.read_aloud + session.speech_mode_counts.repetition + session.speech_mode_counts.fixed_probe + session.speech_mode_counts.unclear !== session.usable_yuki_segments) fail(`Speech modes do not partition usable Session ${session.session} turns`);
+    if (Object.values(session.speech_mode_counts).reduce((a, b) => a + b, 0) !== session.usable_yuki_segments) fail(`Speech modes do not partition usable Session ${session.session} turns`);
     if (session.spontaneous_segment_lengths.length !== session.spontaneous_segments) fail(`Missing segment-length observations for Session ${session.session}`);
   }
   for (const window of [analytics.comparison.earlier, analytics.comparison.recent]) {
     if (window.sessions.some((number) => analytics.sessions.find((session) => session.session === number)?.coverage_band !== "high")) fail("Speaking comparison includes a low-coverage session");
-    if (window.buckets.reduce((total, bucket) => total + bucket.count, 0) > window.segments) fail("Length buckets exceed spontaneous segments");
+    if (window.buckets.reduce((total, bucket) => total + bucket.count, 0) !== window.segments) fail("Length buckets must account for every spontaneous segment");
   }
   if (analytics.comparison.earlier.sessions.some((number) => analytics.comparison.recent.sessions.includes(number))) fail("Earlier and recent speaking windows overlap");
 }

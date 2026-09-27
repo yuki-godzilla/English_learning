@@ -1,7 +1,7 @@
 {
   "methodology": {
     "name": "Exam-informed, evidence-based English conversation tracking",
-    "status": "Retrospective evidence audit completed through Session 12; current evidence updated through Session 15 on 2026-09-25",
+    "status": "Retrospective evidence audit completed through Session 12; current evidence updated through Session 16. Historical ratings are preserved; limited legacy pronunciation evidence is not relabelled as a new holistic audio assessment.",
     "disclaimer": "This is a personal learning record based on Daily Notes and transcript excerpts, not a standardized English proficiency test.",
     "comparison_rule": "Change the core L1-L5 level only when the recorded evidence supports the full rubric threshold. Retrospective within-level stages may show cautious progress inside the same L band, but they are not standardized scores and task-condition differences must remain explicit.",
     "design_references": [
@@ -89,6 +89,7 @@
   },
   "scoring_protocol": {
     "version": "2.0",
+    "provenance_contract": { "version": "whole-session-v3", "effective_from_session": 17 },
     "effective_from_session": 16,
     "resource": "learning-records/resources/whole-session-scoring.md",
     "comparison_states": ["improved", "stable", "mixed", "declined", "not_comparable"]
@@ -518,6 +519,7 @@
       "metric_evidence": {
         "Task achievement": {
           "basis": "Spontaneous technical conversation and follow-up after reading the Pub/Sub overview",
+          "display_summary_ja": "AWSとの比較を自分から求め、図と表の希望まで具体化した。",
           "observed": "Explained equipment data examples, asked for an AWS analogue, and requested a diagram and table connecting the two systems.",
           "comparison": "stable",
           "reason": "The learner independently set the learning goal and reached a usable comparison, matching the prior strong L4 pattern; this task does not establish a higher level.",
@@ -525,6 +527,7 @@
         },
         "Fluency & coherence": {
           "basis": "Realtime transcript of unscripted technical explanation and questions; read-aloud excluded from spontaneous fluency comparison",
+          "display_summary_ja": "語探しがあっても技術的な説明と質問を続けた。速度の変化は未確認。",
           "observed": "Maintained the discussion through multiple turns, while still using pauses, restarts, and word searches in longer explanations.",
           "comparison": "not_comparable",
           "reason": "No fixed one-minute spontaneous response from the new protocol was recorded, so a change in speed or pause rate from earlier sessions cannot be established; retain strong L3 as a broad current judgment.",
@@ -532,6 +535,7 @@
         },
         "Lexical resource": {
           "basis": "Unscripted cloud discussion separated from words first encountered in the article or provided by Chappy",
+          "display_summary_ja": "既知の技術語を使って質問し、未知語の意味を確認した。",
           "observed": "Used familiar IoT, equipment, AWS, and testing vocabulary to ask a specific service-comparison question; checked the meanings of synchronous and parallelize.",
           "comparison": "not_comparable",
           "reason": "Successful domain communication supports a current strong L3 judgment, but the article supplied much of today's vocabulary and there is no matched independent vocabulary task for measuring change.",
@@ -539,6 +543,7 @@
         },
         "Grammar control": {
           "basis": "Spontaneous utterances in the realtime transcript, not the correctly printed technical article",
+          "display_summary_ja": "意図は伝わるが語形・語順に揺れがある。ASRから誤り率は出さない。",
           "observed": "Meaning stayed recoverable, but sentence construction, verb forms, and prepositions remained uneven in spontaneous questions and explanations.",
           "comparison": "not_comparable",
           "reason": "The available samples support a current established L3 judgment, but their tasks differ from earlier sessions; ASR uncertainty also prevents counting each transcript form as a confirmed error or measuring change.",
@@ -546,6 +551,7 @@
         },
         "Interaction & repair": {
           "basis": "Conversation turns where the learner corrected the topic and delivery format",
+          "display_summary_ja": "記事を読みたい意図を伝え直し、会話を自分の目的へ戻した。",
           "observed": "Clarified that the browser article, not the proposed diagram, was the reading target; later redirected to the AWS counterpart and specified both an image and table for the report.",
           "comparison": "stable",
           "reason": "Independent repairs maintained the learner's intended task, consistent with the prior strong L4 rating.",
@@ -559,6 +565,16 @@
           "confidence": "high"
         }
       },
+      "conversation_quality": {
+        "status": "partial_manual_audit",
+        "source": "learning-records/transcripts/2026-09-26-session-01.jsonl",
+        "observations": [{ "kind": "assistant_misunderstanding", "assistant_turns": [132, 136, 137], "learner_turns": [133, 134], "note": "The learner asked to read the browser article; Chappy continued the diagram. This repair is not evidence of a learner comprehension deficit." }],
+        "unmeasured": ["interruption_duration", "overall_question_balance", "unsolicited_correction_rate"]
+      },
+      "evidence_index": [
+        { "turn_indices": [149, 151], "activity": "asks about unfamiliar vocabulary", "support": "article supplied the terms; not independent lexical mastery" },
+        { "turn_indices": [153, 157, 159, 162], "activity": "requests AWS comparison and report formats", "support": "independent requests following supported article discussion" }
+      ],
       "pronunciation_evidence": {
         "task_kind": "read_aloud",
         "purpose": "evaluation",

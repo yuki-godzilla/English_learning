@@ -7,6 +7,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { recordsRoot } from "../lib/project.mjs";
+import { speechMode, selectComparisonWindows } from "../lib/evidence.mjs";
 
 const transcriptRoot = path.join(recordsRoot, "transcripts");
 const redactionPattern = /\[REDACTED_[A-Z_]+\]/;
@@ -39,17 +40,18 @@ export function tokenizeSpokenWords(value) {
   return tokenizeWords(value);
 }
 
-function analyzeYukiTurns(turns, modeByIndex) {
+export function analyzeYukiTurns(turns, modeByIndex = new Map()) {
   const yukiTurns = turns.filter((turn) => turn?.type === "turn" && turn.speaker === "yuki");
   const redactedTurns = yukiTurns.filter((turn) => redactionPattern.test(turn.text ?? ""));
   const unredactedTurns = yukiTurns.filter((turn) => !redactionPattern.test(turn.text ?? ""));
-  const usableTurns = unredactedTurns.filter((turn) => (modeByIndex.get(turn.index) ?? "spontaneous") === "spontaneous");
-  const modeCounts = { spontaneous: usableTurns.length, read_aloud: 0, repetition: 0, fixed_probe: 0, unclear: 0 };
+  const usableTurns = unredactedTurns.filter((turn) => speechMode(turn, modeByIndex.get(turn.index)) === "spontaneous");
+  const modeCounts = { spontaneous: usableTurns.length, read_aloud: 0, repetition: 0, fixed_probe: 0, unclear: 0, typed: 0 };
   for (const turn of unredactedTurns) {
-    const mode = modeByIndex.get(turn.index) ?? "spontaneous";
+    const mode = speechMode(turn, modeByIndex.get(turn.index));
     if (mode !== "spontaneous") modeCounts[mode] += 1;
   }
-  const usableText = usableTurns.map((turn) => turn.text ?? "").join(" ");
+  // Boundary token prevents phrases being invented across unrelated ASR turns.
+  const usableText = usableTurns.map((turn) => turn.text ?? "").join(" \u0000 ");
   const words = tokenizeWords(usableText);
   const wordCount = words.length;
 
@@ -130,12 +132,9 @@ export async function analyzeTranscripts() {
 
   sessions.sort((a, b) => a.session - b.session);
   const bySession = new Map(sessions.map((session) => [session.session, session]));
-  const eligible = sessions.filter((session) => session.coverage_band === "high" && session.spontaneous_segments >= 15);
-  const recentWindow = eligible.slice(-2).map((session) => session.session);
-  // Start with the earliest comparable pair while the evidence series is
-  // short. Once six high-coverage sessions exist, use the preceding pair.
-  const earlierWindow = (eligible.length > 5 ? eligible.slice(-4, -2) : eligible.slice(0, 2))
-    .map((session) => session.session);
+  const windows = selectComparisonWindows(sessions);
+  const recentWindow = windows.recent;
+  const earlierWindow = windows.baseline;
   const summarizeGroup = (numbers) => {
     const group = numbers.map((number) => bySession.get(number)).filter(Boolean);
     const sum = (key) => group.reduce((total, session) => total + (session[key] ?? 0), 0);
@@ -150,6 +149,7 @@ export async function analyzeTranscripts() {
       return round(lengths[lower] + (lengths[upper] - lengths[lower]) * (position - lower), 2);
     };
     const buckets = [
+      { label: "0", count: lengths.filter((length) => length === 0).length },
       { label: "1–4", count: lengths.filter((length) => length >= 1 && length <= 4).length },
       { label: "5–9", count: lengths.filter((length) => length >= 5 && length <= 9).length },
       { label: "10–19", count: lengths.filter((length) => length >= 10 && length <= 19).length },
@@ -161,6 +161,7 @@ export async function analyzeTranscripts() {
       words,
       segments,
       repair_per_100_words: ratePer100(sum("repair_marker_count"), words, 2),
+      filler_per_100_words: ratePer100(sum("filler_count"), words, 2),
       you_know_per_100_words: ratePer100(sum("you_know_count"), words, 2),
       lexical_search_per_100_words: ratePer100(sum("lexical_search_count"), words, 2),
       japanese_fallback_pct: ratePer100(sum("japanese_fallback_turns"), segments),
@@ -183,7 +184,7 @@ export async function analyzeTranscripts() {
       ],
     },
     sessions,
-    comparison: { earlier: summarizeGroup(earlierWindow), recent: summarizeGroup(recentWindow), selection: "high usable-recovered ratio (>=80%), at least 15 spontaneous segments; latest two versus earliest two until six eligible sessions, then preceding two" },
+    comparison: { ready: windows.ready, earlier: summarizeGroup(earlierWindow), recent: summarizeGroup(recentWindow), previous: summarizeGroup(windows.previous), selection: "Fixed baseline: earliest two eligible sessions; recent: latest two; rolling previous pair reported separately. Requires four distinct eligible sessions (>=80% usable recovered, >=15 spontaneous segments)." },
   };
 }
 

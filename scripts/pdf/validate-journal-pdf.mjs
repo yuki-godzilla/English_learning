@@ -3,29 +3,23 @@ import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
+import { tableRows as sharedTableRows } from '../lib/markdown-table.mjs';
 import { projectRoot as root } from "../lib/project.mjs";
 import { findPdfPython } from "./runtime.mjs";
 
 const python = findPdfPython();
 
-const pdfPath = path.join(root, "output", "pdf", "yuki-chappy-english-journal.pdf");
+const pdfPath = process.argv[2] ? path.resolve(process.argv[2]) : path.join(root, "output", "pdf", "yuki-chappy-english-journal.pdf");
 if (!existsSync(pdfPath)) throw new Error("Journal PDF is missing. Run npm run journal:pdf first.");
 
-function tableRows(markdown) {
-  return markdown.split(/\r?\n/)
-    .filter((line) => line.trim().startsWith("|") && line.trim().endsWith("|"))
-    .map((line) => line.trim().slice(1, -1).split("|").map((cell) => cell.trim()))
-    .filter((cells) => cells.length >= 3)
-    .filter((cells) => !cells.every((cell) => /^:?-{3,}:?$/.test(cell)))
-    .filter((cells) => !/^(Expression|Word \/ IPA|Word \/ Chunk)/i.test(cells[0]));
-}
+const tableRows = sharedTableRows;
 
 function plain(value) {
   return String(value).replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[*_`\\]/g, "").trim();
 }
 
 function normalized(value) {
-  return plain(value).normalize("NFKC").toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+  return plain(value).normalize("NFKC").replaceAll('⻑','長').toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
 }
 
 const inspector = String.raw`
@@ -45,6 +39,15 @@ def outline_titles(items):
             title = getattr(item, "title", None)
             if title:
                 result.append(str(title))
+    return result
+
+def outline_pages(items):
+    result = {}
+    for item in items:
+        if isinstance(item, list):
+            result.update(outline_pages(item))
+        else:
+            result[str(item.title)] = reader.get_destination_page_number(item)
     return result
 
 uris = []
@@ -71,6 +74,7 @@ for page in reader.pages:
                 uris.append(uri)
 
 print(json.dumps({
+    "outline_pages": outline_pages(reader.outline),
     "pages": len(reader.pages),
     "page_sizes": page_sizes,
     "outlines": outline_titles(reader.outline),
@@ -120,11 +124,11 @@ for (const action of inventory.actions) {
 if (/(?:file:\/\/\/[a-z]:|\b[a-z]:\\Users\\)/i.test(inventory.text)) fail("PDF text exposes a local Windows path");
 
 const normalizedText = normalized(inventory.text);
-for (const requiredText of ["WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "RAW EVIDENCE COVERAGE", "朝の集中時間", "ESTIMATED EXTERNAL-TEST RANGES"]) {
+for (const requiredText of ["WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "RAW EVIDENCE COVERAGE", "ESTIMATED EXTERNAL-TEST RANGES"]) {
   if (!normalizedText.includes(normalized(requiredText))) fail(`Static Growth content is missing: ${requiredText}`);
 }
-const growthStart = inventory.page_texts.findIndex((value) => value.includes("English Growth Dashboard"));
-const expressionStart = inventory.page_texts.findIndex((value) => value.includes("Expression Bank") && value.includes("全"));
+const growthStart = inventory.outline_pages['English Growth & Evaluation'];
+const expressionStart = inventory.outline_pages['Expression Bank'];
 if (growthStart < 0 || expressionStart <= growthStart) fail("Growth-to-Bank page boundary could not be identified");
 else {
   const growthPages = expressionStart - growthStart;
@@ -140,11 +144,20 @@ const banks = {
   speaking: tableRows(journal.sections.speaking),
 };
 for (const [name, rows] of Object.entries(banks)) {
-  if (!normalizedText.includes(normalized(`全${rows.length}項目`))) fail(`${name} bank count is not printed (${rows.length})`);
+  const names = { expressions: 'Expression Bank', vocabulary: 'Vocabulary Bank', speaking: 'Pronunciation & Speaking Bank' };
+  const start = inventory.outline_pages[names[name]];
+  const next = Object.keys(banks)[Object.keys(banks).indexOf(name) + 1];
+  const end = next ? inventory.outline_pages[names[next]] : inventory.pages;
+  const bankText = normalized(inventory.page_texts.slice(start, end).join('\n'));
+  if (start < 0 || end <= start) fail(`${name} section boundaries missing`);
+  if (!bankText.includes(normalized(`全${rows.length}項目`))) fail(`${name} bank count is not printed (${rows.length})`);
   for (const cells of rows) {
     let key = plain(cells[0]);
     if (name === "vocabulary" || name === "speaking") key = key.split(" /")[0];
-    if (!normalizedText.includes(normalized(key))) fail(`${name} bank item is missing from PDF: ${key}`);
+    if (!bankText.includes(normalized(key))) fail(`${name} bank item is missing from its section: ${key}`);
+    const meaning = plain(cells[1]).slice(0, 28);
+    if (!bankText.includes(normalized(meaning))) fail(`${name} bank explanation missing: ${key}`);
+    for (const source of cells[2].matchAll(/Session\s+(\d+)/g)) if (!bankText.includes(normalized(`Session ${source[1]}`))) fail(`${name} Source missing: ${source[1]}`);
   }
 }
 

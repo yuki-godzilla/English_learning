@@ -608,3 +608,7 @@
     max-height: 20rem;
   }
 }
+/* Component display rules must never override native filtering visibility. */
+[data-recall-id][hidden], [data-review-item][hidden], [data-session-item][hidden] { display: none !important; }
+.recall-tools { padding: 1rem; border: 1px solid var(--learning-border); border-radius: .6rem; }
+.recall-tools input { max-width: 100%; }

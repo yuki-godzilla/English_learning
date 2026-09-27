@@ -3,6 +3,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
 import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
+import { tableRows as sharedTableRows, normalizeBankKey } from "../lib/markdown-table.mjs";
+import { ratingLabel } from "../lib/evidence.mjs";
+import { assetProvenance } from "../lib/asset-provenance.mjs";
+import { validateScoringEvidence } from '../lib/scoring-contract.mjs';
 
 const failures = [];
 const fail = (message) => failures.push(message);
@@ -25,14 +29,7 @@ async function walk(directory) {
 }
 
 const normalizeRelative = (target) => path.relative(root, target).replaceAll("\\", "/");
-function tableRows(markdown) {
-  return markdown.split(/\r?\n/)
-    .filter((line) => line.trim().startsWith("|") && line.trim().endsWith("|"))
-    .map((line) => line.trim().slice(1, -1).split("|").map((cell) => cell.trim()))
-    .filter((cells) => cells.length >= 3)
-    .filter((cells) => !cells.every((cell) => /^:?-{3,}:?$/.test(cell)))
-    .filter((cells) => !/^(Expression|Word \/ IPA|Word \/ Chunk)/i.test(cells[0]));
-}
+const tableRows = sharedTableRows;
 
 let journal;
 let progress;
@@ -96,6 +93,10 @@ for (const session of progress.sessions ?? []) {
   const journalSession = journal.sessions.find((entry) => entry.session === session.session);
   if (!journalSession) { fail(`Progress Session ${session.session} has no Journal session`); continue; }
   if (journalSession.date !== session.date) fail(`Session ${session.session} date differs between Journal and progress data`);
+  let turnIds = new Set();
+  const transcriptPath = path.join(recordsRoot, 'transcripts', `${journalSession.date}-session-${journalSession.id.slice(-2)}.jsonl`);
+  if (await exists(transcriptPath)) turnIds = new Set((await fs.readFile(transcriptPath, 'utf8')).trim().split(/\r?\n/).map(JSON.parse).filter(t => t.type === 'turn' && t.speaker === 'yuki').map(t => t.index));
+  for (const message of validateScoringEvidence(session, progress.qualitative_metrics, turnIds)) fail(`Session ${session.session}: ${message}`);
   for (const metric of progress.qualitative_metrics ?? []) {
     if (session.session >= 16 && !Object.hasOwn(session.ratings ?? {}, metric)) fail(`Session ${session.session} must explicitly rate or mark ${metric} N/A`);
     const rating = session.ratings?.[metric];
@@ -148,7 +149,8 @@ if (latestProgress) {
   const stageJa = { emerging: "形成中", established: "安定", strong: "強い" };
   for (const [metric, rating] of Object.entries(latestProgress.ratings ?? {})) {
     const expected = rating == null ? "N/A" : `L${rating}`;
-    if (!journal.sections.growth.includes(expected)) fail(`Growth section does not show ${metric}: ${expected}`);
+    const metricRow = sharedTableRows(journal.sections.growth, { bankOnly: false }).find(row => row[0].replace(/[*_`]/g, '') === metric);
+    if (!metricRow || !metricRow[1].includes(ratingLabel(latestProgress, metric))) fail(`Growth current row does not match ${metric}: ${ratingLabel(latestProgress, metric)}`);
     const stage = latestProgress.within_level_stage?.[metric];
     if (rating != null && !journal.sections.growth.includes(`L${rating}・${stageJa[stage]}`)) fail(`Growth section does not show ${metric} within-level stage`);
   }
@@ -158,8 +160,14 @@ for (const requiredImage of ["media/progress/english-growth-evidence-dashboard.p
 }
 
 const bankRowsByName = {};
+const bankLedger = JSON.parse(await fs.readFile(path.join(recordsRoot, 'resources/bank-ledger.json'), 'utf8'));
+const bankIds = new Set();
+for (const item of bankLedger.items) {
+  if (bankIds.has(item.id) || !/^(expressions|vocabulary|speaking)-[a-f0-9]{16}$/.test(item.id)) fail(`Invalid or duplicate Bank ID: ${item.id}`);
+  bankIds.add(item.id);
+}
 for (const [name, markdown] of Object.entries({ expressions: journal.sections.expressions, vocabulary: journal.sections.vocabulary, speaking: journal.sections.speaking })) {
-  const rows = tableRows(markdown);
+  const rows = sharedTableRows(markdown);
   bankRowsByName[name] = rows;
   if (!rows.length) fail(`${name} bank has no entries`);
   const keys = new Set();
@@ -169,6 +177,10 @@ for (const [name, markdown] of Object.entries({ expressions: journal.sections.ex
     keys.add(key);
     if (!/#session-\d{4}-\d{2}-\d{2}-\d{2}/.test(cells[2])) fail(`${name} bank entry has no fixed Session source: ${cells[0]}`);
   }
+  for (const item of bankLedger.items.filter(item => item.bank === name)) {
+    if (!keys.has(item.key) && !(item.retired_reason && item.merged_into && keys.has(item.merged_into))) fail(`Accepted Bank item removed without documented merge: ${item.id}`);
+  }
+  for (const key of keys) if (!bankLedger.items.some(item => item.bank === name && item.key === key)) fail(`Bank item missing stable ledger ID: ${name}/${key}`);
 }
 
 // These are accepted-history floors from the final Google Docs migration plus
@@ -218,6 +230,7 @@ for (const relativeDocument of ["README.md", "docs/maintenance.md", "AGENTS.md",
 
 if (!Array.isArray(manifest.files) || !manifest.files.length) fail("Media manifest has no files");
 const manifestPaths = new Set();
+const expectedProvenance = await assetProvenance();
 for (const entry of manifest.files ?? []) {
   if (!entry.path || !entry.status || !entry.role || !entry.sha256) { fail(`Incomplete media manifest entry: ${JSON.stringify(entry)}`); continue; }
   if (manifestPaths.has(entry.path)) fail(`Duplicate media manifest path: ${entry.path}`);
@@ -226,6 +239,7 @@ for (const entry of manifest.files ?? []) {
   if (!await exists(target)) { fail(`Manifest file is missing: ${entry.path}`); continue; }
   const digest = crypto.createHash("sha256").update(await fs.readFile(target)).digest("hex");
   if (digest !== entry.sha256) fail(`Media changed without a new visual review and hash: ${entry.path}`);
+  if (entry.path.startsWith('learning-records/media/progress/') && JSON.stringify(entry.provenance) !== JSON.stringify(expectedProvenance)) fail(`Stale chart inputs: run npm run report:assets (${entry.path})`);
   if (["published", "generated"].includes(entry.status) && (!entry.alt || !entry.caption || !entry.creator || !entry.license)) fail(`Published media metadata is incomplete: ${entry.path}`);
 }
 const latestSessionNumber = progress.sessions?.at(-1)?.session;

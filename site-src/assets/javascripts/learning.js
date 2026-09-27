@@ -8,38 +8,62 @@ function initializeLearningPage() {
     else link.removeAttribute("aria-current");
   }
 
-  const ratingLabels = {
-    again: "もう一度に設定",
-    remembered: "思い出せたに設定",
-    mastered: "定着に設定",
-  };
-  for (const card of document.querySelectorAll("[data-recall-id]")) {
-    const storageKey = `learning-recall:${card.dataset.recallId}`;
-    const buttons = [...card.querySelectorAll("[data-recall-rating]")];
-    const status = card.querySelector("[data-recall-status]");
-    const showRating = (rating) => {
-      for (const button of buttons) button.setAttribute("aria-pressed", String(button.dataset.recallRating === rating));
-      if (status) status.textContent = rating ? ratingLabels[rating] ?? "保存済み" : "未設定";
-    };
-    let saved = "";
-    try {
-      saved = window.localStorage.getItem(storageKey) ?? "";
-    } catch {
-      saved = "";
+  const api = globalThis.LearningRecall;
+  const storageKey = 'learning-recall-history-v2';
+  let state = api.empty(), storageOK = true;
+  try { const saved = localStorage.getItem(storageKey); if (saved) state = api.validate(JSON.parse(saved)); }
+  catch { storageOK = false; }
+  const message = document.querySelector('[data-recall-message]');
+  const say = text => { if (message) message.textContent = text; };
+  const save = () => { if (!storageOK) return; try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch { storageOK = false; say('このブラウザでは保存できません。履歴をファイルに保存してください。'); } };
+  const recallCards = [...document.querySelectorAll('[data-recall-id]')];
+  function refresh() {
+    const queue = document.querySelector('[data-due-queue]');
+    const due = new Set(api.dueIds(state, [...new Set([...queue?.querySelectorAll('[data-recall-id]') ?? []].map(c => c.dataset.recallId))]));
+    for (const card of recallCards) {
+      const item = state.cards[card.dataset.recallId], rating = item?.history.at(-1)?.rating;
+      for (const button of card.querySelectorAll('[data-recall-rating]')) button.setAttribute('aria-pressed', String(button.dataset.recallRating === rating));
+      const status = card.querySelector('[data-recall-status]');
+      if (status) status.textContent = item ? '次回目安 ' + new Date(item.due).toLocaleDateString('ja-JP') + ' / ' + item.history.length + '回（自己申告）' : '未復習';
+      if (queue?.contains(card)) card.hidden = !due.has(card.dataset.recallId);
     }
-    showRating(saved);
-    for (const button of buttons) {
-      button.addEventListener("click", () => {
-        const rating = button.dataset.recallRating;
-        try {
-          window.localStorage.setItem(storageKey, rating);
-        } catch {
-          // The interaction still works when storage is unavailable.
+  }
+  for (const card of recallCards) {
+    const id = card.dataset.recallId;
+    const stable = /^(expressions|vocabulary|speaking)-[a-f0-9]{16}$/.test(id);
+    if (stable && !state.cards[id]) {
+      try {
+        const legacy = localStorage.getItem('learning-recall:' + card.dataset.legacyRecallId);
+        if (['again','remembered','mastered'].includes(legacy)) {
+          // No historical date was recorded. Preserve the label, but do not invent an event.
+          state.cards[id] = { history: [], due: new Date(0).toISOString(), legacy_rating: legacy };
+          save();
         }
-        showRating(rating);
+      } catch { storageOK = false; }
+    }
+    for (const button of card.querySelectorAll('[data-recall-rating]')) {
+      if (button.dataset.recallBound) continue;
+      button.dataset.recallBound = 'true';
+      button.addEventListener('click', () => {
+        if (stable) { state = api.record(state,id,button.dataset.recallRating); save(); refresh(); }
+        else { const status = card.querySelector('[data-recall-status]'); if (status) status.textContent = '練習しました（今回のみ）'; }
       });
     }
   }
+  const exportButton = document.querySelector('[data-recall-export]');
+  exportButton?.addEventListener('click', () => {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));
+    const link = document.createElement('a'); link.href = url; link.download = 'english-review-history.json'; link.click(); URL.revokeObjectURL(url);
+  });
+  document.querySelector('[data-recall-import]')?.addEventListener('change', async event => {
+    try {
+      const file = event.target.files[0]; if (!file || file.size > 2000000) throw new Error('size');
+      const imported = api.validate(JSON.parse(await file.text()));
+      state = api.merge(state, imported); save(); refresh(); say('履歴を統合しました。外部送信はしていません。');
+    } catch { say('対応形式の復習履歴JSONを選んでください。既存履歴は保持しました。'); }
+  });
+  if (!storageOK) say('保存領域を読み込めません。元データは上書きせず、履歴ファイルを確認してください。');
+  refresh();
 
   const sessionFilter = document.querySelector("[data-session-filter]");
   const sessionCards = [...document.querySelectorAll("[data-session-item]")];
