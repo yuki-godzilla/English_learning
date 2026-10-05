@@ -760,6 +760,13 @@ const profileRows = tracker.qualitative_metrics.map((metric) => {
 }).join("\n");
 const recentEvidence = tracker.sessions.slice(-5).flatMap((session) => Object.entries(session.metric_evidence ?? {}).map(([metric, evidence]) => ({ metric, evidence, session: session.session })));
 const recentEvidenceFor = (metric) => { const e = [...recentEvidence].reverse().find(item => item.metric === metric && item.evidence?.observed)?.evidence; return e?.display_summary_ja ?? e?.observed ?? '比較可能な記述はありません。'; };
+const grammarCardLabel = Number.isInteger(latestTracker.ratings['Grammar control']) ? 'NEXT BOTTLENECK' : 'EVIDENCE LIMIT';
+const grammarCardText = Number.isInteger(latestTracker.ratings['Grammar control'])
+  ? firstSentence(recentEvidenceFor('Grammar control'), 65)
+  : recentEvidenceFor('Grammar control');
+const reportPracticeTargets = latestTracker.assessment_summary?.next_targets?.length
+  ? latestTracker.assessment_summary.next_targets.join(' ')
+  : '語が詰まったら日本語へ移る前に短い英語で言い換え、長い説明はmain pointを先に置く。';
 const grammarFocus = (latestTracker.pattern_observations?.length ? latestTracker.pattern_observations : [{ pattern: 'Grammar control', status: '未細分化', note: recentEvidenceFor('Grammar control') }])
   .map(item => `<div class="grammar-row"><strong>${escapeHtml(item.pattern)}</strong><span>${escapeHtml(item.status)}</span><small>${escapeHtml(item.note)}</small></div>`).join("\n");
 const estimateTableRows = Object.entries(testDefinitions).map(([testId, definition]) => {
@@ -782,7 +789,7 @@ hide:
 <div class="growth-three-cards">
   <article><strong>STRENGTHS</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Interaction & repair"), 65))}</p></article>
   <article><strong>DEVELOPING</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Fluency & coherence"), 65))}</p></article>
-  <article><strong>NEXT BOTTLENECK</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Grammar control"), 65))}</p></article>
+  <article><strong>${grammarCardLabel}</strong><p>${escapeHtml(grammarCardText)}</p></article>
 </div>
 <div class="before-now"><strong>INITIAL → CURRENT</strong><p>${escapeHtml(reportModel.initialSummary)}</p></div>
 <figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="全履歴の6観点評価。今回の発音: ${ratingLabel(latestTracker, 'Pronunciation')}。過去の最終記録 S${lastPronunciation?.session ?? '—'}は現基準の音声総合審査と区別。" loading="lazy"></a><figcaption>横軸はSession、縦軸はL評価。N/Aは欠測、線で補間しません。発音の過去値は旧基準・限定根拠を含みます。段階は形成中 / 安定 / 強い。</figcaption></figure>
@@ -803,7 +810,7 @@ hide:
 
 <section class="growth-page growth-page--next"><h2>WHAT TO WORK ON NEXT <small>次の重点</small></h2>
 <div class="controlled-flow"><article><strong>COMMUNICATION</strong><p>${escapeHtml(firstSentence(recentEvidenceFor('Task achievement'), 95))}</p></article><span>↓</span><article><strong>AUTOMATICITY · OBSERVED COUNTS</strong><p>${escapeHtml(reportModel.automaticity)}能力の自動採点ではありません。</p></article><span>↓</span><article><strong>CONTROLLED ACCURACY</strong><p>${escapeHtml(firstSentence(recentEvidenceFor('Grammar control'), 95))}</p></article></div>
-<div class="growth-three-cards"><article><strong>HABIT · TRACK</strong><p>Planning fillersと“you know”。減少そのものを目標にせず、考える間と会話の自然さを一緒に確認する。</p></article><article><strong>STRENGTH · KEEP</strong><p>自発的なself-repairと話題の軌道修正。修復能力は強み、過度な修復負荷だけを観察する。</p></article><article><strong>TARGET · PRACTISE</strong><p>語が詰まったら日本語へ移る前に短い英語で言い換え、長い説明はmain pointを先に置く。</p></article></div>
+<div class="growth-three-cards"><article><strong>HABIT · TRACK</strong><p>Planning fillersと“you know”。減少そのものを目標にせず、考える間と会話の自然さを一緒に確認する。</p></article><article><strong>STRENGTH · KEEP</strong><p>自発的なself-repairと話題の軌道修正。修復能力は強み、過度な修復負荷だけを観察する。</p></article><article><strong>TARGET · PRACTISE</strong><p>${escapeHtml(reportPracticeTargets)}</p></article></div>
 <h3>GRAMMAR EVIDENCE · 観察範囲</h3>
 <div class="grammar-tracker">${grammarFocus}</div>
 <p class="growth-caveat">状態はJournal・Wrap-upで確認された質的な重点。ASRの短い機能語や語尾から自動エラー率を作らず、1例だけで「再発」や「改善」を断定しません。</p>

@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 19 — 点数より根拠、レポート全体の評価方法を見直す](#session-2026-10-05-02)
   - [Session 18 — 宇宙記事からパスキーへ、発音評価の根拠を問い直す](#session-2026-10-05-01)
   - [Session 17 — 週末の過ごし方とAI天気予報の産業への影響](#session-2026-09-27-01)
   - [Session 16 — GCP Pub/SubとAWSの比較・英語力評価の見直し](#session-2026-09-26-01)
@@ -34,6 +35,24 @@
 <a id="journal-five-minute-review"></a>
 
 # 今日の5分復習
+
+<details>
+<summary>レポートがどう変わるか、具体的に尋ねる</summary>
+
+**How will the report change?**
+
+実際の質問意図から整理した学習用表現。ASR断片を確定した文法誤りとして採点したものではない。
+
+</details>
+
+<details>
+<summary>発音だけでなく、評価全体へ変更の範囲を広げる</summary>
+
+**I mean the whole evaluation, not only pronunciation.**
+
+今回自分で伝えた “Not only pronunciation” を、一文で使いやすくした練習案。
+
+</details>
 
 <details>
 <summary>新しい分野に入る前に、自分の理解度を確認してもらう</summary>
@@ -112,6 +131,90 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":19,"session_id":"2026-10-05-02","date":"2026-10-05","title":"点数より根拠、レポート全体の評価方法を見直す","tags":["Learning Strategy","Assessment","Report","Pronunciation"],"remember":"会話の観察・ローカル実測・過去値を分け、根拠が足りない技能には無理に点数を付けない。","prompt":"What should an evaluation report show besides a score?"} -->
+<a id="session-2026-10-05-02"></a>
+
+## 2026年10月5日（月）— 点数より根拠、レポート全体の評価方法を見直す
+
+> **Session 19 / Recorded session window:** 22:05〜22:15 JST。終了済みの追加音声会話から37の原発話区間（Yuki 13区間）を原順で保存。音声本体、入力テキスト、backendの説明は含まないためraw coverageはpartial。
+
+### 今日の要点 / Today at a Glance
+
+**今回確認できた成功:** Yukiは “Not only pronunciation” と自分から範囲を明示し、発音だけでなくレポート全体の評価方法を見直す方向へ対話を戻した。その後も、レポートが具体的にどう変わるかを質問した。
+
+**評価の制約:** 今回は短い方法相談が中心で、理由と例をつなげた長い独立説明や、比較可能な音声測定はない。会話運営のL4・強いは今回の行動から確認できるが、他の4会話観点の新規L判定は保留する。N/Aは能力低下や0点を意味しない。
+
+**次の重点:** 期待する変更を一文で示すこと、身近なITの話でまず結論と理由を述べることに絞る。
+
+### 話題別メモ / Topic Notes
+
+#### 発音の新規総合判定は一時停止する
+
+前のSession 18では録音をローカルで処理できたが、母音・子音、強勢、リズム、つながり、イントネーションを信頼して総合聴取する手段は確認できなかった。今回、Yukiは「解決策がなければN/Aが続く」と指摘し、新規総合Pronunciationレベルの判定を一時停止する方針に合意した。過去の数値や録音は削除せず、信頼できるレビュー手段を既存録音で確認して再開を相談する。方法が整わないまま追加録音を求めない。
+
+#### レポート全体を「実際に確認できる根拠」へ合わせる
+
+会話・文字起こしからの観察、ローカル音声の実測、過去の評価を別々に扱う。各技能は、実際の発話または具体的な行動、何を示すか、根拠の限界を確認してから、十分な場合だけレベルと段階を決める。ASR一致率は発音正確率ではなく、話速も英語力全体のスコアではない。専門外の記事と身近な会話を単純比較せず、Chappyの誤解や操作上の混乱をYukiの減点理由にしない。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. 解決していない分析の限界を、追加録音だけで解決したことにしない。
+2. 発音だけでなく、レポート全体をChappyが実際に確認できる範囲へ合わせる。
+3. 点数だけでなく、その根拠、変化または保留の理由、次に練習することを具体的に見たい。
+
+### 役立つ英語 / Useful English
+
+**Yukiの実発話（ASR・turn 29の一部）:** “Not only pronunciation”
+
+この文脈では変更範囲を伝える短い補足として機能した。訂正が必要な誤りとは扱わない。独立した一文で範囲を示す練習案は “I mean the whole evaluation, not only pronunciation.”。実際にこの一文を発話したと記録しない。
+
+**Yukiの質問意図から整理した学習用表現:** “How will the report change?” 元のASRは “the report, how change”。直接音声を確認していないため、確定した語順誤りや再発回数へ含めない。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**今回のPronunciation: N/A（新規総合判定を一時停止）。過去の最終数値記録: Session 12のL3・安定（旧基準・限定根拠）。** 今回は新規録音、WPM、無音率、個別音や韻律の測定を行っていない。Session 18の約114語/分などを今回の測定として掲載しない。
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+#### Task achievement — 今回N/A / 前回L4・強い / 比較不能
+
+**根拠:** turn 1・4・13・29・32で方法変更や範囲を求め、相談の目的を達成した。**判定理由・制約:** 要望は伝わったが、L4の基準全体に当たる結論・理由・例・まとめの独立説明は観察していない。前回値をコピーせず新規判定を保留する。**確度:** 保留判断は高。
+
+#### Fluency & coherence — 今回N/A / 前回L3・強い / 比較不能
+
+**根拠:** turn 4・6・22・25・29・32で方法とレポートの話題を保った。**判定理由・制約:** 短い確認中心で継続発話の材料が少なく、直接測った話速・間もない。ASRイベント時刻を発話時間へ読み替えない。**確度:** 保留判断は高。
+
+#### Lexical resource — 今回N/A / 前回L3・強い / 比較不能
+
+**根拠:** turn 1・13・25・29で evaluation method、report、overall pronunciationを用いた。**判定理由・制約:** 繰り返し扱った少数の語から幅広い語彙運用や前回からの変化は判定しない。Chappyが供給した専門語を独立習得として数えない。**確度:** 保留判断は高。
+
+#### Grammar control — 今回N/A / 前回L3・安定 / 比較不能
+
+**根拠:** turn 1・19・22・29・32で要望は伝わった。**判定理由・制約:** 文型の観察範囲が狭く、ASR断片の冠詞・語順・語尾を実音声で確認できない。確定誤りや新しい文法レベルを作らない。**確度:** 保留判断は高。
+
+#### Interaction & repair — 今回L4・強い / 前回L4・強い / 維持
+
+**根拠:** turn 29の “Not only pronunciation” で変更範囲を自分から修正し、turn 22・25・32で具体的な説明を求めた。turn 19・36では記録の時期と会話終了も指定した。**比較理由・制約:** 前回と同様に独立した確認・修復が複数回見られたためL4・強いを確認。ただし短い方法相談だけでL5や精密な改善率は判断しない。Chappyの説明範囲のずれは本人の弱点ではない。**確度:** 高。
+
+#### Pronunciation — 今回N/A / 前回N/A / 比較不能
+
+**根拠:** turn 6・13・16で新規総合判定の停止方針を相談・承認した。**判定理由・制約:** 今回の実音声・韻律の直接確認はなく、信頼できるレビュー手段も未確認。方法上の制約であり発音の能力低下ではない。**確度:** 保留判断は高。
+
+### 学習バンク更新 / Study Banks Update
+
+- Expression Bank: 新規1件 “How will the report change?”。今回の質問意図を練習用に整理した形。
+- Vocabulary Bank: 追加なし。少数の評価用語を使ったことだけで語彙習得を認定しない。
+- Pronunciation & Speaking Bank: 追加なし。今回の個別音評価はない。
+
+### 次回 / Next Steps
+
+1. 欲しい変更を “I mean the whole evaluation, not only pronunciation.” のように一文で示す。
+2. 身近なITについて、まず主張と理由を一つずつ述べ、余裕があれば具体例を足す。
+
+### Sources / Evidence
+
+終了済み音声会話の37の原発話区間を一次根拠とする。raw archiveは学習本文へ自動掲載せず、音声本体・個人情報は公開しない。外部の記事や新しい製品仕様は今回の討論対象ではない。
 
 <!-- session-meta: {"session_number":18,"session_id":"2026-10-05-01","date":"2026-10-05","title":"宇宙記事からパスキーへ、発音評価の根拠を問い直す","tags":["Learning Strategy","Space","IT / Security","Passkeys","Pronunciation"],"remember":"未知の分野では先に理解度を確認し、専門語を一度に増やさない。発音評価では音声の自動認識と総合聴取の限界を分けて考える。","prompt":"How can we choose a topic at the right level, and what evidence would make a pronunciation evaluation trustworthy?"} -->
 <a id="session-2026-10-05-01"></a>
@@ -2048,7 +2151,9 @@ Why: 改善点には work on / focus on が自然。
 ## できるようになったこと
 
 **最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 18（2026年10月5日）](#session-2026-10-05-01)**
+**最新の会話評価： [Session 19（2026年10月5日）](#session-2026-10-05-02)**
+
+- 今回の成功は、変更範囲を “Not only pronunciation” と自分で明示し、具体的なレポートの変更を求めたこと。短い確認会話なので、会話運営以外の新規レベルは保留した。未測定は能力低下を意味しない。
 
 - 未知の分野に入る前の予備知識確認を求め、記事の難度が合わないときは身近なITへ話題を切り替えられる。発音評価についても測定と判定の違いを問い直した。
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
@@ -2080,33 +2185,33 @@ Why: 改善点には work on / focus on が自然。
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4・強い / Session 18** | 記事の難度を見直してITへ切り替え、発音評価の信頼性を問い直した。 |
-| **Fluency & coherence** | **L3・強い / Session 18** | 言い直しながらも話題選びと評価方法の意図を伝えた。ASRから話速・間の推移は測らない。 |
-| **Lexical resource** | **L3・強い / Session 18** | familiar、security、evaluationなどを自分で使い、未知の専門語は意味を確認した。 |
-| **Grammar control** | **L3・安定 / Session 18** | 意図は通じるが長い質問には組立ての揺れがある。ASRの細部は要確認。 |
-| **Interaction & repair** | **L4・強い / Session 18** | 言語、話題、説明の深さ、発音採点の方法を自発的に修正・確認した。 |
-| **Pronunciation** | **N/A / 今回 Session 18** | 音読2本はローカル処理済みだが総合聴取は不足。過去の最終記録はSession 12 L3・安定（旧基準・限定根拠）。 |
+| **Task achievement** | **N/A / Session 19** | 要望は達成したが、理由・例までの独立説明は未観察。過去の最終判定はSession 18 L4・強い。 |
+| **Fluency & coherence** | **N/A / Session 19** | 短い確認中心で、継続発話と直接の時間測定は不足。過去の最終判定はSession 18 L3・強い。 |
+| **Lexical resource** | **N/A / Session 19** | 評価用語を使ったが語彙範囲の材料は少ない。過去の最終判定はSession 18 L3・強い。 |
+| **Grammar control** | **N/A / Session 19** | ASR断片だけで語順・冠詞の誤りを確定しない。過去の最終判定はSession 18 L3・安定。 |
+| **Interaction & repair** | **L4・強い / Session 19** | “Not only pronunciation” と変更範囲を明示し、具体的な説明と終了を自分で管理した。 |
+| **Pronunciation** | **N/A / 今回 Session 19** | 新規総合判定を一時停止。過去の最終数値はSession 12 L3・安定（旧基準・限定根拠）。 |
 
 ## 発音の測定状況
 
-過去の最終Pronunciation記録はSession 12の **L3・安定** です。ただし旧手順の限定的な根拠による評価であり、現在求める個別音・強勢・リズム等の総合聴取を満たした新評価とは区別します。過去値自体は再採点していません。Session 18では音読を2本ローカル処理し、自動診断も短く試しましたが、個別音と韻律の信頼できる総合聴取が不足するため、**今回の新規総合レベルはN/A**です。録音本体は公開しません。
+過去の最終Pronunciation記録はSession 12の **L3・安定** です。ただし旧手順の限定的な根拠による評価であり、現在求める総合聴取を満たした新評価とは区別します。過去値自体は再採点していません。Session 18の音読2本のローカル実測も、その回の補助情報として残します。Session 19では新しい音声測定はせず、**新規総合レベルの判定を一時停止**しました。信頼できる音・韻律レビューを既存録音で確認し、Yukiと再開を相談するまで追加録音を求めません。録音本体は公開しません。
 
 ## 成長グラフ
 
-[![Session 1からSession 18までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 19までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から18までの6指標を、横軸Session・縦軸Lの時系列で表示しています。同じL内の **形成中・安定・強い** はマーカー形状で区別します。N/Aは欠測として残し、線で補間しません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点の間隔やマーカー形状を公式試験の精密な尺度と解釈しないでください。
+Session 1から19までの6指標を、横軸Session・縦軸Lの時系列で表示しています。同じL内の **形成中・安定・強い** はマーカー形状で区別します。N/Aは欠測として残し、線で補間しません。Session 19の判定保留は短い相談の観察範囲を示し、能力低下ではありません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点の間隔やマーカー形状を公式試験の精密な尺度と解釈しないでください。
 
 ## 次に伸ばすこと
 
-1. 次回の題材は身近なITから選び、最初に既知の点と曖昧な点を一つずつ示す。
-2. `I'm not familiar with this field yet.` のように、自分に合う深さを一文で伝える。
-3. 発音の総合採点を再開するなら、録音前に直接音声確認の方法と判定可能な範囲を決める。
+1. 期待する変更や説明の範囲を、一文で示す。
+2. 身近なITについて、まず結論と理由を一つずつ述べる。発音の総合判定は手段を検証して再開を合意するまで停止する。
 
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 19 — 点数より根拠、レポート全体の評価方法を見直す](#session-2026-10-05-02) — InteractionはL4・強い。短い相談では他の会話技能の根拠が足りず新規判定を保留。発音は総合判定を一時停止。
 - [Session 18 — 宇宙記事からパスキーへ、発音評価の根拠を問い直す](#session-2026-10-05-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。発音はN/A。難度の変更と採点方法の確認を自分で進めた。
 - [Session 17 — 週末の過ごし方とAI天気予報の産業への影響](#session-2026-09-27-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。発音はN/A。記事の根拠を確認し、過大な精度説明を修正させた。
 - [Session 16 — GCP Pub/SubとAWSの比較・英語力評価の見直し](#session-2026-09-26-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。今回の総合PronunciationはN/A。新手順で観点別の根拠・比較条件を示し、語探しの直近改善率は未確認とした。
@@ -2154,6 +2259,12 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年10月5日 — Session 19
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **How will the report change?** | レポートの変更内容を具体的に尋ねる。今回の質問意図を練習用に整理した形で、Yukiの実発話そのままではない。**Chunk:** How will ... change? | [Session 19](#session-2026-10-05-02) |
 
 ## 2026年10月5日
 

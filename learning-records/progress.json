@@ -1,7 +1,8 @@
 {
   "methodology": {
     "name": "Exam-informed, evidence-based English conversation tracking",
-    "status": "Retrospective evidence audit completed through Session 12; current evidence updated through Session 16. Historical ratings are preserved; limited legacy pronunciation evidence is not relabelled as a new holistic audio assessment.",
+    "status": "Current evidence reviewed through Session 19. New reports distinguish conversation observations, local audio measurements and historical ratings. New holistic pronunciation ratings are temporarily paused; historical ratings are preserved without retrospective rescoring.",
+    "report_assessment_policy": {"effective_from_session":19,"evidence_categories":["conversation/transcript observations","local audio measurements","historical ratings"],"summary":"One observed success, evidence limits or reasons for withheld/stable ratings, and one or two next practice targets. No forced scores, ASR-to-pronunciation conversion, or penalty for assistant-caused misunderstandings.","pronunciation_status":"holistic_rating_paused","resumption":"Verify a reliable direct audio review method on existing recordings and agree resumption with Yuki before requesting a new holistic-evaluation recording."},
     "disclaimer": "This is a personal learning record based on Daily Notes and transcript excerpts, not a standardized English proficiency test.",
     "comparison_rule": "Change the core L1-L5 level only when the recorded evidence supports the full rubric threshold. Retrospective within-level stages may show cautious progress inside the same L band, but they are not standardized scores and task-condition differences must remain explicit.",
     "design_references": [
@@ -759,6 +760,66 @@
       "evidence_quote_origin":"Learner's spontaneous voice ASR turn 171, unchanged; later self-used 'I'm familiar with that' at turn 209.",
       "evidence_note_ja":"未知の宇宙記事について語彙負荷を説明し、身近なITのパスキーへ変更した。説明前に分野理解を確認することと、発音評価では自動認識と総合聴取を分けることを要求した。TaskとInteractionはL4・強い、FluencyとLexicalはL3・強い、GrammarはL3・安定。六通話の条件は前回と異なるため改善率は判定しない。音読2本を処理したが総合聴取が不足し、今回のPronunciationはN/A。",
       "evidence_note":"Explained why the unfamiliar space article was too difficult, redirected to familiar IT and passkeys, and demanded a distinction between automated speech diagnostics and a dependable holistic pronunciation judgment. Strong L4 task and interaction, strong L3 fluency and lexis, established L3 grammar; no matched task for rate-of-change claims. Two local read-aloud files were processed but no holistic listening supported a new pronunciation level, so this session is N/A."
+    },
+    {
+      "session":19,"date":"2026-10-05",
+      "task":"Short follow-up discussion to revise the report's evidence-based evaluation method",
+      "task_ja":"発音だけでなくレポート全体の評価方法を見直す",
+      "data_coverage":"37 original realtime segments from a roughly ten-minute follow-up call, including 13 learner segments. Voice ASR only; no new recording, direct listening, timed response or fixed probe. Backend text is not treated as spoken learner evidence.",
+      "ratings":{"Task achievement":null,"Fluency & coherence":null,"Lexical resource":null,"Grammar control":null,"Interaction & repair":4,"Pronunciation":null},
+      "within_level_stage":{"Task achievement":null,"Fluency & coherence":null,"Lexical resource":null,"Grammar control":null,"Interaction & repair":"strong","Pronunciation":null},
+      "metric_evidence":{
+        "Task achievement":{
+          "basis":"Short spontaneous requests about evaluation scope and report changes",
+          "display_summary_ja":"評価の範囲を発音から全体へ広げた。理由・例を含む独立した長い説明は未観察。",
+          "observed":"Requested a method change, asked how to handle the limitation and expanded the report update beyond pronunciation.",
+          "comparison":"not_comparable","reason":"The immediate discussion goal was achieved, but brief requests do not demonstrate the full L4 conclusion/reason/example threshold. Withhold a new rating rather than copying Session 18 or treating a narrower task as decline.","confidence":"high",
+          "provenance":{"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[1,4,13,29,32],"comparison_conditions":"Session 18 included several substantive topics; Session 19 was a short method-setting dialogue, not a matched explanation task.","next_observation":"Explain a familiar IT choice with a main point, one reason and a concrete example, without supplied wording."}
+        },
+        "Fluency & coherence":{
+          "basis":"Short voice ASR requests, with no directly measured conversational timing",
+          "display_summary_ja":"短い確認で話題の目的を保った。継続発話・速度・間の新規判定は保留。",
+          "observed":"Kept returning to the report's assessment method and requested a concrete description of the changes.",
+          "comparison":"not_comparable","reason":"Most utterances were brief confirmations or requests. Direct conversational audio timing and a sustained comparable response were unavailable, so no new fluency level or decline is inferred.","confidence":"high",
+          "provenance":{"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[4,6,22,25,29,32],"comparison_conditions":"Brief method-setting requests differ from Session 18's discussions and read-aloud tasks; event timestamps are not speech durations.","next_observation":"Observe connected spontaneous speech in a familiar topic; measure timing only if a suitable recording is available."}
+        },
+        "Lexical resource":{
+          "basis":"Learner-origin evaluation vocabulary in a narrow discussion",
+          "display_summary_ja":"evaluation method、report、overall pronunciationを使ったが、語彙範囲の判定材料は少ない。",
+          "observed":"Used evaluation method, report and overall pronunciation to request scope and method changes.",
+          "comparison":"not_comparable","reason":"The small set of repeatedly discussed terms does not support a broad lexical rating or a reliable comparison with the wider topics in Session 18. Assistant-supplied terminology is not independent vocabulary evidence.","confidence":"high",
+          "provenance":{"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[1,13,25,29],"comparison_conditions":"Narrow report-method vocabulary, unlike Session 18's topic changes and technical discussion.","next_observation":"Use self-selected vocabulary to explain an everyday IT benefit and one concern."}
+        },
+        "Grammar control":{
+          "basis":"Short ASR fragments and requests without direct audio confirmation",
+          "display_summary_ja":"要望は伝わった。ASR断片だけで冠詞・語順の誤りや文法レベルを確定しない。",
+          "observed":"Requests conveyed the intended scope, but the ASR includes fragmented wording such as 'the report, how change'.",
+          "comparison":"not_comparable","reason":"Insufficient independent sentence range and no direct audio confirmation of uncertain function words. No confirmed recurring grammar error, error-rate comparison or new overall grammar rating is assigned.","confidence":"high",
+          "provenance":{"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[1,19,22,29,32],"comparison_conditions":"Short questions provide different grammatical opportunities from the longer explanations in Session 18.","next_observation":"Observe complete sentence choices and self-repair in a new spontaneous explanation; verify uncertain ASR wording before treating it as an error."}
+        },
+        "Interaction & repair":{
+          "basis":"Independent clarification of the evaluation scope and requests for concrete report changes",
+          "display_summary_ja":"「Not only pronunciation」で変更範囲を明示し、具体的な説明を自分から求めた。",
+          "observed":"Independently expanded the requested update with 'Not only pronunciation' and repeatedly asked what the report would actually change. Also controlled report timing and ended the session explicitly.",
+          "comparison":"stable","reason":"Several independent clarification and scope-setting acts support L4 strong, consistent with Session 18's learner-led repair. No rise to L5 is claimed from this narrow dialogue, and assistant emphasis on pronunciation is not a learner deficit.","confidence":"high",
+          "provenance":{"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"independent","preparation_seconds":null,"turn_indices":[13,19,22,25,27,29,32,36],"comparison_session":18,"comparison_conditions":"Compare independent scope clarification only; topic breadth and turn length differ from Session 18, so there is no fine-grained improvement claim.","next_observation":"Observe independent clarification and topic management during a substantive familiar-IT discussion."}
+        },
+        "Pronunciation":{
+          "basis":"Holistic rating temporarily paused by agreement; voice ASR only in this session",
+          "display_summary_ja":"総合判定を一時停止。評価手段の制約であり、発音能力の低下ではない。",
+          "observed":"Agreed to pause new overall pronunciation ratings while retaining past results and useful measurements separately. No new audio evaluation occurred.",
+          "comparison":"not_comparable","reason":"N/A means holistic assessment is paused because a reliable review method has not been verified. Session 12's L3 established remains historical, with its legacy evidence limitations; it is not copied as a current score.","confidence":"high",
+          "provenance":{"rubric_version":"whole-session-v3","task_kind":"not_observed","support":"unknown","preparation_seconds":null,"turn_indices":[6,13,16],"comparison_conditions":"No current recording or holistic sound/prosody review; historical recordings used different tasks and evidence standards.","next_observation":"Verify a dependable direct sound/prosody review on existing recordings and agree resumption before another holistic-evaluation task."}
+        }
+      },
+      "conversation_quality":{"status":"partial_manual_audit","source":"learning-records/transcripts/2026-10-05-session-02.jsonl","observations":[{"kind":"assistant_scope_mismatch","assistant_turns":[24],"learner_turns":[29],"note":"The assistant emphasized pronunciation; the learner explicitly requested a report-wide update. Treat this clarification as interaction evidence, not learner weakness."}],"unmeasured":["conversational_audio_timing","individual_sounds_and_prosody"]},
+      "assessment_summary":{"observed_success":{"turn_index":29,"quote":"Not only pronunciation","meaning_ja":"発音だけでなく、レポート全体へ変更の範囲を自分で広げた。"},"limitations_ja":"13の短い学習者ASR区間。長い独立説明・多様な構文・比較可能な音声実測はない。会話運営以外の新規Lは保留。","next_targets":["Explain the expected change in one complete sentence.","In a familiar IT discussion, give a main point and one reason before expanding."]},
+      "evidence_index":[{"turn_indices":[29,32],"activity":"expands the scope and asks for concrete report changes","support":"independent clarification after an assistant explanation"}],
+      "pronunciation_evidence":{"task_kind":"not_observed","purpose":"practice","direct_audio_processed":false,"analysis_method":"voice ASR transcript only; no new local sound analysis","holistic_level_assigned":false,"holistic_audio_review":false,"assessment_status":"holistic_rating_paused","limitations":"No current sound/prosody review. Prior local measurements remain attached to Session 18; no new WPM or phonetic score is inferred."},
+      "evidence_quote":"Sure. You know, your skill, your local score, like this. Please... update... our report, evaluation Not only pronunciation",
+      "evidence_quote_origin":"Original learner voice ASR segment 29; wording preserved. The final phrase independently clarifies scope, not a repeated supplied sentence.",
+      "evidence_note_ja":"今回確認できた成功は、Not only pronunciationでレポート全体へ対象を広げ、変更の具体像を質問したこと。InteractionはL4・強いを確認。短い方法相談だけでは他の4会話観点の新規Lを付ける根拠が足りずN/Aとする。発音総合判定は手段の制約により一時停止。過去値のコピーや能力低下の推定はせず、次回は期待する変更を一文で述べることと、身近なITを結論・理由で説明することに絞る。",
+      "evidence_note":"Independently broadened the update with 'Not only pronunciation' and asked for concrete report changes. L4 strong interaction is supported; four other conversation levels are withheld because the brief method-setting dialogue lacks broad independent production. Holistic pronunciation is paused because of method limitations, not learner decline. Historical ratings and prior local measurements remain separate."
     }
   ],
   "test_score_estimates": {

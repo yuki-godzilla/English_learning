@@ -42,4 +42,20 @@ The separate fixed spontaneous-speaking probe can provide finer evidence for tas
 
 ## Reporting rule
 
+### Evidence-first report assessment (2026-10-05)
+
+Start by identifying the methods actually available in that session and what each can establish. Keep conversation/transcript observations, locally measured audio data, and historical ratings separate. Processing a recording does not establish that Chappy listened to it or judged its individual sounds and prosody.
+
+For the five assessable conversation dimensions, connect an actual utterance or concrete behavior to what it demonstrates, its evidence limits, and a level/stage only when supported. Keep current/previous ratings, comparison reasons, and confidence traceable. Compare topic familiarity, task, support, preparation, and capture conditions; unfamiliar specialist reading and familiar conversation are not interchangeable. Assistant-caused misunderstandings or UI confusion are not learner deficits, and transcript text alone cannot establish timing.
+
+Lead the report with one observed success, the limitation or reason for a stable/withheld rating, and one or two next practice targets. A clearer explanation, self-repair, or independently reused expression can be meaningful without a level increase. If no success or change is established, say it is unconfirmed rather than inventing one. Keep ASR matching and pace as method-labeled measurements, not pronunciation percentages, L ratings, or examination scores. Apply this policy to new reports without silently rescoring history.
+
+### Temporary pause on new holistic Pronunciation ratings (2026-10-05)
+
+At Yuki's request, suspend new holistic Pronunciation L1–L5 ratings and within-level stages until a reliable direct audio review method is verified and resumption is agreed with Yuki. Keep the Pronunciation dimension in the data as N/A, with the reason that holistic assessment is paused because of the review-method limitation. Continue assessing the other five dimensions independently when their evidence is sufficient.
+
+N/A is neither zero nor a low rating. Do not use an unmeasured pronunciation value in an overall score or describe the other five dimensions as a complete assessment including pronunciation. Preserve past ratings and identify their historical evidence limits separately; do not rescore or remove history under this policy.
+
+Local pace, pauses, recording quality, and ASR results may still be reported as limited measurements, not sound-accuracy ratings. Before requesting another recording for a holistic rating, test the review method on existing audio. New software or an automatic score alone does not establish valid sound/prosody review. Any external audio transfer still requires the explicit approval specified in AGENTS.md.
+
 For each dimension, show the current rating or N/A, the previous rating, the comparison decision, one evidence sentence, and a limitation when relevant. Explain specifically why a rating remained unchanged. Do not imply that six unchanged numbers prove no learning, or that a richer conversation alone proves a level increase. If the evidence is mixed, say so plainly and give the next observation that would resolve it.
