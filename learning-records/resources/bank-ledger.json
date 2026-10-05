@@ -3,6 +3,16 @@
   "description": "Accepted item identity ledger; content remains solely in journal.md. Retire only with reason and existing merged_into key.",
   "items": [
     {
+      "id": "expressions-b6f78d8cef092458",
+      "bank": "expressions",
+      "key": "before we start, could you check how familiar i am with this field?"
+    },
+    {
+      "id": "vocabulary-30a0c0241398be6a",
+      "bank": "vocabulary",
+      "key": "passkey /ˈpæs.kiː/ noun"
+    },
+    {
       "id": "expressions-d7bd9812c110eed8",
       "bank": "expressions",
       "key": "how do they combine physics and ai to make predictions?"

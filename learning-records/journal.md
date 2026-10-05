@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 18 — 宇宙記事からパスキーへ、発音評価の根拠を問い直す](#session-2026-10-05-01)
   - [Session 17 — 週末の過ごし方とAI天気予報の産業への影響](#session-2026-09-27-01)
   - [Session 16 — GCP Pub/SubとAWSの比較・英語力評価の見直し](#session-2026-09-26-01)
   - [Session 15 — キャリアの転機とAWS・GCPの設計比較](#session-2026-09-25-01)
@@ -33,6 +34,27 @@
 <a id="journal-five-minute-review"></a>
 
 # 今日の5分復習
+
+<details>
+<summary>新しい分野に入る前に、自分の理解度を確認してもらう</summary>
+
+**Before we start, could you check how familiar I am with this field?**
+
+</details>
+
+<details>
+<summary>専門的すぎる記事から、身近なITへ話題を変える</summary>
+
+**This article is interesting, but it's a little too technical for me. Could we switch to an IT topic?**
+
+</details>
+
+<details>
+<summary>発音評価の方法と根拠を確かめる</summary>
+
+**Is this evaluation method reliable? What can it actually measure?**
+
+</details>
 
 <details>
 <summary>物理モデルとAIの組合せを尋ねる</summary>
@@ -90,6 +112,67 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":18,"session_id":"2026-10-05-01","date":"2026-10-05","title":"宇宙記事からパスキーへ、発音評価の根拠を問い直す","tags":["Learning Strategy","Space","IT / Security","Passkeys","Pronunciation"],"remember":"未知の分野では先に理解度を確認し、専門語を一度に増やさない。発音評価では音声の自動認識と総合聴取の限界を分けて考える。","prompt":"How can we choose a topic at the right level, and what evidence would make a pronunciation evaluation trustworthy?"} -->
+<a id="session-2026-10-05-01"></a>
+
+## 2026年10月5日（月）— 宇宙記事からパスキーへ、発音評価の根拠を問い直す
+
+> **Session 18 / Recorded session window:** 六つの音声通話（夕方から夜、JST）。公開用のraw記録は取得できた339発話単位を原順に保存し、個人的な健康情報を含む35単位を明示的に伏せた。音声本体と音声通話外のテキストは含めない。
+> **主な話題:** 話題選び、NASAの小型宇宙機の記事、パスキー、音読と発音評価の信頼性
+
+### 今日の要点 / Today at a Glance
+
+Yukiは、話題を提案する前に過去の会話と自分の分野理解を確かめ、AIに偏らず幅広いニュースから選んでほしいと明確に伝えた。[NASAの小型宇宙機の記事](https://www.nasa.gov/blogs/smallsatellites/2026/10/01/nasa-smallsats-launch-to-advance-science-technology-orbital-operations/)は興味深かった一方、推進・衛星点検の専門語が多く、内容を議論する前に語の理解で止まった。Yukiはこのずれを指摘し、より馴染みのあるITへ切り替えた。パスキーの話では、日常利用には慣れているがセキュリティの仕組みは新しい、という境界を自分で示した。
+
+さらに、発音評価用の音読を2回録音し、文字起こしの一致率や話速だけから総合レベルを出す方法に疑問を投げた。これは採点の拒否ではなく、**何を測れたかと何を測れていないか**を正確に知りたいという要求だった。ローカル診断ツールも短い範囲で試したが、自然な弱形などを誤検出し得るため、今回のL1〜L5総合判定には使わない。
+
+### 話題別メモ / Topic Notes
+
+#### 新分野では「説明の前に理解度」を確認する
+
+記事に出た `propulsion`（推進）、`thruster`（小さな推進器）、`CubeSat`（規格化された超小型衛星）、`maneuver`（位置や向きを変える操作）などを確認した。[NASAの記事](https://www.nasa.gov/blogs/smallsatellites/2026/10/01/nasa-smallsats-launch-to-advance-science-technology-orbital-operations/)は、同じ推進剤を使う強い推進と微小な推進、宇宙の観測、停止した衛星への接近・点検という三つの小型機ミッションを紹介する。点検は状態を調べることで、除去そのものではない。Yukiはこの違いを自分の言葉で確認したが、分野が遠く語彙負荷が高いと述べた。次回の話題選びでは、記事の難しさと本人の予備知識を先に確かめる。
+
+#### 身近なIT: パスキー
+
+YukiはiPhoneやPCでのパスキー利用を知っており、セキュリティの説明を希望した。[FIDO Allianceの仕様説明](https://fidoalliance.org/specifications/)によると、パスキーはサービスごとに固有の暗号鍵の組を使い、偽サイトへ入力する共有パスワードをなくすことでフィッシングに強くする。今回の会話では仕組みを平易な言葉に絞り、深い暗号技術の理解をYukiがすでに持つと決めつけなかった。
+
+#### 発音評価: 測定できたことと保留したこと
+
+二つの音読録音はローカル保存され、録音品質・認識された語・話速などの補助情報を確認した。2本目は約84.6秒、音割れなし、認識語ベースで約114語/分だった。ただし語の一致率は音の正確さの百分率ではなく、母音・子音、強勢、リズム、linking、イントネーションを信頼して総合聴取した記録もない。したがって**今回の新規Pronunciation総合レベルはN/A**。最後に数値を付けたSession 12のL3・安定は旧手順・限定根拠の過去値であり、今日の採点ではない。録音や試行中の音声断片は公開リポジトリ、Site、PDF、メールへ入れない。
+
+### Yukiの意見・結論 / Yuki’s Takeaways
+
+1. 新しい分野を選ぶときは、最近の話題との重複だけでなく、自分がどこまで知っているかを先に確認してほしい。
+2. 興味がある記事でも専門語が多すぎると討論が難しい。身近なITなら経験を足場にできる。
+3. 発音の数値評価は、認識率や速度と、実際に音・強勢・リズムを聞いて判断することを分けてほしい。
+
+### 役立つ英語 / Useful English
+
+**Yukiの実発話（ASR）:** “Today's article is difficult for me because I am not professional this field. About this field.”
+
+**最小修正:** “Today's article is difficult for me because I'm not familiar with this field.”
+
+**Why / Chunk:** `not familiar with this field` は「この分野に詳しくない」を自然に伝えるまとまり。専門職でないことを強調するなら `I'm not a professional in this field.`。この会話で後に `I'm familiar with that` を自分で使ったので、最初の表現を繰り返す確定した癖として数えない。
+
+**評価方法を問い直す学習用表現:** “Is this evaluation method reliable? What can it actually measure?” Yukiの質問意図を再利用しやすい英語へ整理したもので、原文そのままではない。
+
+### 発音・スピーキング / Speaking & Pronunciation
+
+**今回のPronunciation: N/A（総合判定保留）。前回の最終実測: Session 12のL3・安定（旧基準・限定根拠）。** 音読2本はローカルで処理できたが、個別音と韻律の総合聴取が不足する。NASA記事を会話中に読み上げた発話と、後で保存した二つの音読は、自発発話の流暢さと混ぜて採点しない。音声で確かめられなかった `propulsion` などの個別発音を誤りと断定しない。
+
+### 英語力の成長メモ / English Growth & Evaluation
+
+未知の話題への戸惑いを言語化し、相手の説明言語、記事の難度、評価方法まで会話の条件を自分で変えた点が強い。Chappy側の聞き違い、短い質問の繰り返し、音読を求めた後に総合採点できなかった設計上の問題は、Yukiの能力不足へ転嫁しない。長い説明では言い直しや文の組み替えがある一方、目的は保たれた。Session 17とは話題・支援・通話数が異なり、改善率は比較しない。
+
+| Metric | 今回 | 前回 | 比較 | 今回の根拠と制約 |
+|---|---|---|---|---|
+| Task achievement | **L4・強い** | L4・強い | 維持 | 記事の難度を評価し、ITへ切替え、信頼できる発音評価という目的まで自力で追った。 |
+| Fluency & coherence | **L3・強い** | L3・強い | 比較不能 | 言い直しがあっても、話題選びから評価方法まで意図をつないだ。ASRから話速・間は採点しない。 |
+| Lexical resource | **L3・強い** | L3・強い | 比較不能 | familiar、security、evaluation、pluginなどを使い、専門語は意味を確認した。記事由来の語を自力習得済みとは数えない。 |
+| Grammar control | **L3・安定** | L3・安定 | 比較不能 | 意味は通るが長い質問は組み替えが多い。`professional this field` は文脈を踏まえた代表例とし、ASR細部の誤り件数は確定しない。 |
+| Interaction & repair | **L4・強い** | L4・強い | 維持 | 「英語で」「話題変更」「実音声に基づく評価」を繰り返し明確にし、方法の限界を問い直した。 |
+| Pronunciation | **N/A** | N/A（最終実測Session 12 L3・安定） | 比較不能 | ローカル音声処理はあるが、十分な総合聴取評価がなく新規L判定は保留。 |
 
 <!-- session-meta: {"session_number":17,"session_id":"2026-09-27-01","date":"2026-09-27","title":"週末の過ごし方とAI天気予報の産業への影響","tags":["Daily Life","Workweek","AI / Tech","Weather","Energy"],"remember":"2日・3日の休みを交互にすると楽しみと仕事のリズムを両立できる。AI天気予報は日常の便利さだけでなく太陽光・風力の計画にも関わる。記事の主張と自分の推測を分ける。","prompt":"How can physics-based analysis and AI work together in weather forecasting, and why does that matter to energy companies?"} -->
 <a id="session-2026-09-27-01"></a>
@@ -1965,8 +2048,9 @@ Why: 改善点には work on / focus on が自然。
 ## できるようになったこと
 
 **最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 17（2026年9月27日）](#session-2026-09-27-01)**
+**最新の会話評価： [Session 18（2026年10月5日）](#session-2026-10-05-01)**
 
+- 未知の分野に入る前の予備知識確認を求め、記事の難度が合わないときは身近なITへ話題を切り替えられる。発音評価についても測定と判定の違いを問い直した。
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
 - 分からない語や質問の意図を確認し、誤解を自分で修復できる。
 - 朝のルーティンからAI支援開発、AI時代の価値創造まで、身近な例と抽象的な考えをつないで説明できる。
@@ -1989,40 +2073,41 @@ Why: 改善点には work on / focus on が自然。
 | **Session 1** | 身近な旅行の話は成立したが、流暢さ・語彙・文法はL2形成中。ここを観察上の出発点とする。 |
 | **Session 3** | 面接テーマで結論と理由を自力で展開し、Task achievementとInteraction & repairがL4形成中へ到達。 |
 | **Session 6** | 複数の技術・業務論点を目的へまとめたため、Task achievementを従来のL3から**L4形成中**へ訂正。 |
-| **Session 7〜17** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 17ではAI天気予報の産業利用と記事根拠へ議論を進めた。自発発話の記述的比較は別図に示すが、同条件の固定課題がないため能力の改善率は主張しない。 |
+| **Session 7〜18** | 抽象的な技術・文化・キャリアの話題を維持し、自発的な修復も安定。TaskとInteractionはL4強い、FluencyとLexicalはL3強い。Session 18では難しすぎる題材を自分で切り替え、採点方法の根拠を確認した。自発発話の記述的比較は別図に示すが、同条件の固定課題がないため能力の改善率は主張しない。 |
 | **Pronunciation** | 直接音声があるSession 8・12だけL3安定。課題文が異なるため、両者の優劣や過去回への遡及採点は行わない。 |
 
 ## Current Snapshot
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **L4・強い / Session 17** | 週末案を具体化し、天気予報の産業利用・AIと物理・記事根拠へ議論を進めた。 |
-| **Fluency & coherence** | **L3・強い / Session 17** | 長い計画と技術議論の筋を保った。話速・間の変化は音声未確認で測らない。 |
-| **Lexical resource** | **L3・強い / Session 17** | 野球、発電、物理などを自発的に使った。記事・Chappy由来の語は自力使用済みと数えない。 |
-| **Grammar control** | **L3・安定 / Session 17** | 意図は通じるが複雑な疑問文の組立てに揺れがある。ASRの不確かな細部は要確認。 |
-| **Interaction & repair** | **L4・強い / Session 17** | 自己修正、話題・会話形式の変更、記事の根拠確認を自発的に行った。 |
-| **Pronunciation** | **N/A / 今回 Session 17** | 今回は直接音声評価なし。過去の最終記録はSession 12 L3・安定（旧基準・限定根拠）。 |
+| **Task achievement** | **L4・強い / Session 18** | 記事の難度を見直してITへ切り替え、発音評価の信頼性を問い直した。 |
+| **Fluency & coherence** | **L3・強い / Session 18** | 言い直しながらも話題選びと評価方法の意図を伝えた。ASRから話速・間の推移は測らない。 |
+| **Lexical resource** | **L3・強い / Session 18** | familiar、security、evaluationなどを自分で使い、未知の専門語は意味を確認した。 |
+| **Grammar control** | **L3・安定 / Session 18** | 意図は通じるが長い質問には組立ての揺れがある。ASRの細部は要確認。 |
+| **Interaction & repair** | **L4・強い / Session 18** | 言語、話題、説明の深さ、発音採点の方法を自発的に修正・確認した。 |
+| **Pronunciation** | **N/A / 今回 Session 18** | 音読2本はローカル処理済みだが総合聴取は不足。過去の最終記録はSession 12 L3・安定（旧基準・限定根拠）。 |
 
 ## 発音の測定状況
 
-過去の最終Pronunciation記録はSession 12の **L3・安定** です。ただし旧手順の限定的な根拠による評価であり、現在求める個別音・強勢・リズム等の総合聴取を満たした新評価とは区別します。過去値自体は再採点していません。Session 16では約50.3秒の標準音読をローカル処理しましたが、総合判定はN/Aでした。Session 17は直接音声評価を行っておらず、**今回の新規総合レベルもN/A**です。
+過去の最終Pronunciation記録はSession 12の **L3・安定** です。ただし旧手順の限定的な根拠による評価であり、現在求める個別音・強勢・リズム等の総合聴取を満たした新評価とは区別します。過去値自体は再採点していません。Session 18では音読を2本ローカル処理し、自動診断も短く試しましたが、個別音と韻律の信頼できる総合聴取が不足するため、**今回の新規総合レベルはN/A**です。録音本体は公開しません。
 
 ## 成長グラフ
 
-[![Session 1からSession 17までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 18までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から17までの6指標を、横軸Session・縦軸Lの時系列で表示しています。同じL内の **形成中・安定・強い** はマーカー形状で区別します。N/Aは欠測として残し、線で補間しません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点の間隔やマーカー形状を公式試験の精密な尺度と解釈しないでください。
+Session 1から18までの6指標を、横軸Session・縦軸Lの時系列で表示しています。同じL内の **形成中・安定・強い** はマーカー形状で区別します。N/Aは欠測として残し、線で補間しません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点の間隔やマーカー形状を公式試験の精密な尺度と解釈しないでください。
 
 ## 次に伸ばすこと
 
-1. 次回はAI天気予報など身近な技術について、まず結論を一文で述べ、理由と一例を続ける。
-2. `How do they combine A and B to ...?` を別の技術の仕組みにも使う。
-3. 本人が希望する時に固定自発発話課題の初回基準点を取り、語探しや間を今後同条件で比べる。
+1. 次回の題材は身近なITから選び、最初に既知の点と曖昧な点を一つずつ示す。
+2. `I'm not familiar with this field yet.` のように、自分に合う深さを一文で伝える。
+3. 発音の総合採点を再開するなら、録音前に直接音声確認の方法と判定可能な範囲を決める。
 
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 18 — 宇宙記事からパスキーへ、発音評価の根拠を問い直す](#session-2026-10-05-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。発音はN/A。難度の変更と採点方法の確認を自分で進めた。
 - [Session 17 — 週末の過ごし方とAI天気予報の産業への影響](#session-2026-09-27-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。発音はN/A。記事の根拠を確認し、過大な精度説明を修正させた。
 - [Session 16 — GCP Pub/SubとAWSの比較・英語力評価の見直し](#session-2026-09-26-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。今回の総合PronunciationはN/A。新手順で観点別の根拠・比較条件を示し、語探しの直近改善率は未確認とした。
 - [Session 15 — キャリアの転機とAWS・GCPの設計比較](#session-2026-09-25-01) — 会話評価：L4 / L3 / L3 / L3 / L4、発音は未測定。比較の前提を修正し、速度と追跡可能性を要件として論じた。
@@ -2069,6 +2154,12 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年10月5日
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **Before we start, could you check how familiar I am with this field?** | 新分野の説明に入る前に、理解度に合う深さを相談する。Yukiの実際の要望を学習用の一文に整理した形。**Chunk:** How familiar am I with ...? | [Session 18](#session-2026-10-05-01) |
 
 ## 2026年9月27日
 
@@ -2210,6 +2301,12 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年10月5日
+
+| Word / IPA / POS | Meaning / Collocation / Example | Source |
+|---|---|---|
+| **passkey** /ˈpæs.kiː/ noun | **意味:** サービスごとに作る暗号鍵を使い、共有パスワードの入力なしでサインインする認証方式。**Plain English:** a phishing-resistant way to sign in without typing a password. **Example:** I use a passkey on my phone and PC. | [Session 18](#session-2026-10-05-01) |
 
 ## 2026年9月26日
 

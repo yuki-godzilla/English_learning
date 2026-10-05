@@ -676,6 +676,89 @@
       "evidence_quote_origin":"Learner question in the realtime voice ASR transcript; wording and hesitations preserved, with uncertain word recognition not treated as a confirmed grammar error.",
       "evidence_note_ja":"週末の2日・3日休み交互案を具体化し、AI天気予報の利点を個人の便利さから太陽光・風力の計画へ広げた。物理とAIの組合せを問い、記事に本当に精度の主張があるかを確認した。TaskとInteractionはL4・強い、FluencyとLexicalはL3・強い、GrammarはL3・安定。比較条件は異なり改善率は判定しない。直接音声評価がないためPronunciationはN/A。Chappyの反復質問と精度説明の言いすぎは別の会話品質問題とする。",
       "evidence_note":"Proposed an alternating weekend schedule, explained a three-day plan, extended weather forecasting from personal convenience to solar and wind planning, and checked whether an accuracy claim was supported by the article. Strong L4 task and interaction, strong L3 fluency and lexical range, established L3 grammar; no matched task for measuring rate of change. Pronunciation is N/A without direct audio review. Assistant questioning and overclaim are separate conversation-quality observations."
+    },
+    {
+      "session": 18,
+      "date": "2026-10-05",
+      "task": "Learner-led adjustment of a technical topic, passkey discussion, and challenge to pronunciation-evaluation evidence",
+      "task_ja": "未知の宇宙記事から身近なITへ話題を変え、発音評価の根拠を確認",
+      "data_coverage": "All 339 available realtime voice transcript segments across six calls in source order; 35 private-health segments redacted. Audio and non-realtime typed messages excluded. Two separate local read-aloud recordings were processed but not holistically listened to; no fixed spontaneous-speaking probe.",
+      "ratings": {"Task achievement":4,"Fluency & coherence":3,"Lexical resource":3,"Grammar control":3,"Interaction & repair":4,"Pronunciation":null},
+      "within_level_stage": {"Task achievement":"strong","Fluency & coherence":"strong","Lexical resource":"strong","Grammar control":"established","Interaction & repair":"strong","Pronunciation":null},
+      "metric_evidence": {
+        "Task achievement": {
+          "basis": "Unscripted requests and explanations about topic difficulty, prior knowledge, and evaluation evidence",
+          "display_summary_ja": "記事の難度を見直し、ITへ切り替え、発音評価の信頼性を自分で問い直した。",
+          "observed": "Asked for broad topic rotation and familiarity checks; explained why the space article blocked discussion; selected familiar IT and challenged whether automated measures justified a pronunciation level.",
+          "comparison": "stable",
+          "reason": "Multiple independent goal changes with reasons support strong L4, consistent with Session 17; no measured rate of improvement is claimed.",
+          "confidence": "high",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[11,17,21,179,188,201,203,264,268,271],"comparison_session":17,"comparison_conditions":"Session 17 was a continuous weather discussion; Session 18 has six calls, unfamiliar terminology, assistant misunderstandings and two separate read-aloud tasks. Broad achievement only is compared.","next_observation":"Independent explanation of a familiar IT topic with one reason and example in a comparable short conversation."}
+        },
+        "Fluency & coherence": {
+          "basis": "Spontaneous voice ASR turns, excluding known read-aloud segments and redacted personal material",
+          "display_summary_ja": "言い直しがあっても目的を保った。ASRから速度や間の改善は測らない。",
+          "observed": "Maintained the reason for changing fields and the logic of seeking a more reliable evaluation despite restarts and word searches.",
+          "comparison": "not_comparable",
+          "reason": "Coherent goal pursuit supports current strong L3, but six interrupted calls, different tasks and unavailable direct conversational timing prevent comparison with Session 17.",
+          "confidence": "medium",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[171,177,179,205,221,268,271],"comparison_conditions":"Different topic, interruption pattern and recording conditions; read-aloud and ASR segment lengths are not spontaneous fluency measures.","next_observation":"Comparable 60-second spontaneous response with directly measured timing, pauses and topic support."}
+        },
+        "Lexical resource": {
+          "basis": "Learner-origin spontaneous vocabulary, excluding words merely read from the NASA article or supplied by Chappy",
+          "display_summary_ja": "familiar、security、evaluationなどを使い、未知の専門語は意味を確認した。",
+          "observed": "Used familiar, security, evaluation and plugin while asking for the meanings of propulsion, thruster, CubeSat and maneuver rather than pretending to know them.",
+          "comparison": "not_comparable",
+          "reason": "Functional range and repair support current strong L3; the article and assistant provided much of the specialist vocabulary, so it is not credited as independent mastery.",
+          "confidence": "medium",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[124,126,171,177,209,211,264,268,285],"comparison_conditions":"Session 17 used daily-life and weather language; Session 18 included unfamiliar NASA text and audio-tool vocabulary supplied by the assistant.","next_observation":"Explain a familiar security concept with self-selected vocabulary, without a reading passage."}
+        },
+        "Grammar control": {
+          "basis": "Spontaneous learner ASR segments; uncertain small-word transcription not counted as confirmed errors",
+          "display_summary_ja": "意味は通るが長い質問に組み替えがある。ASR細部は要確認。",
+          "observed": "The learner communicated a reason for the article's difficulty and evaluation concerns; longer requests restarted and some sentence frames were incomplete. Later used 'I'm familiar with that' correctly in a different context.",
+          "comparison": "not_comparable",
+          "reason": "Current established L3 is supported, but ASR uncertainty, differing opportunities and self-repair prevent a reliable error-rate comparison with Session 17.",
+          "confidence": "medium",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"mixed","preparation_seconds":null,"turn_indices":[171,179,188,205,209,221,268],"comparison_conditions":"Different discourse tasks and voice segmentation than Session 17; no direct audio review for article/preposition confirmation.","next_observation":"One independent explanation with audio review of actual sentence structures and self-repair."}
+        },
+        "Interaction & repair": {
+          "basis": "Independent learner corrections of language, topic, explanation depth and evaluation method",
+          "display_summary_ja": "説明言語・話題・深さ・採点方法を自分で修正し、対話目的を守った。",
+          "observed": "Asked for English after a Japanese response, rejected an overtechnical article, moved to IT, explained the desired reading length, and pressed for the reason a holistic pronunciation level had not been assigned.",
+          "comparison": "stable",
+          "reason": "Repeated independent repair supports strong L4 as in Session 17; several repairs were necessitated by Chappy's mismatches and are not learner deficits.",
+          "confidence": "high",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"spontaneous","support":"independent","preparation_seconds":null,"turn_indices":[175,179,201,203,205,260,262,264,271],"comparison_session":17,"comparison_conditions":"Both sessions show learner-led repair, but different assistant errors and interruption patterns preclude finer comparison.","next_observation":"Observe repairs in a discussion with fewer assistant-driven choices and no technical reading burden."}
+        },
+        "Pronunciation": {
+          "basis": "Two locally processed read-aloud recordings, but no dependable holistic listening review of sounds and prosody",
+          "observed": "The recordings were saved and basic waveform/ASR diagnostics were available; a short local phoneme-flagging trial was inconclusive. Individual sounds, stress, rhythm, linking and intonation were not sufficiently judged by direct listening.",
+          "comparison": "not_comparable",
+          "reason": "ASR matching, pace and flagged sounds do not justify a new L1-L5 holistic level. This session is N/A; Session 12 remains the last rated pronunciation session under an older limited protocol.",
+          "confidence": "high",
+          "provenance": {"rubric_version":"whole-session-v3","task_kind":"read_aloud","support":"mixed","preparation_seconds":null,"turn_indices":[192,205,221,226,240,243,246,253,258,264,271],"comparison_conditions":"Two different passages and no dependable holistic listening; cannot compare with Session 12's older recording or Session 16's different passage.","next_observation":"Direct human or validated auditory review of the original audio for segmental sounds, stress, rhythm, linking and intonation, with task conditions stated before recording."}
+        }
+      },
+      "conversation_quality": {
+        "status":"partial_manual_audit",
+        "source":"learning-records/transcripts/2026-10-05-session-01.jsonl",
+        "observations":[
+          {"kind":"assistant_language_mismatch","assistant_turns":[172,174,176,200,217,218],"learner_turns":[175],"note":"The assistant answered partly in Japanese when the learner wanted English; this is an assistant-side mismatch."},
+          {"kind":"assistant_evaluation_design_mismatch","assistant_turns":[194,248,245,256,257,267],"learner_turns":[243,246,253,258,260,262,264],"note":"The assistant requested two readings without a method capable of a reliable holistic L-level; later clarified the limits. Do not attribute this to learner pronunciation."},
+          {"kind":"assistant_misunderstanding","assistant_turns":[154,156,308,310,312,314],"learner_turns":[153,155,307,309,311,313],"note":"Voice/ASR misunderstandings required repair; no sound-level error is inferred."}
+        ],
+        "unmeasured":["conversational_audio_timing","holistic_pronunciation","overall_question_balance"]
+      },
+      "evidence_index":[
+        {"turn_indices":[171,177,179,188,201,203],"activity":"names the obstacle in a new field and redirects the topic","support":"independent learner requests; article and initial topic supplied by Chappy"},
+        {"turn_indices":[221,240,258,264,268,271,285],"activity":"defines requirements for a trustworthy local pronunciation evaluation","support":"independent challenge after two assistant-selected reading passages"}
+      ],
+      "pronunciation_evidence": {"task_kind":"read_aloud","purpose":"evaluation","direct_audio_processed":true,"analysis_method":"local waveform and ASR on two recordings; short local diagnostic trial; no dependable holistic auditory review","recording_count":2,"second_duration_seconds":84.59,"second_recognized_wpm":113.6,"second_clipping_ratio":0,"holistic_level_assigned":false,"holistic_audio_review":false,"limitations":"Word recognition and acoustic diagnostics are not an L-level or reliable segmental/prosodic judgment. Original audio, absolute local paths and generated excerpts remain outside public records and email."},
+      "evidence_quote":"Okay. Today's article is difficult for me because I am not professional this field. About this field. Right",
+      "evidence_quote_origin":"Learner's spontaneous voice ASR turn 171, unchanged; later self-used 'I'm familiar with that' at turn 209.",
+      "evidence_note_ja":"未知の宇宙記事について語彙負荷を説明し、身近なITのパスキーへ変更した。説明前に分野理解を確認することと、発音評価では自動認識と総合聴取を分けることを要求した。TaskとInteractionはL4・強い、FluencyとLexicalはL3・強い、GrammarはL3・安定。六通話の条件は前回と異なるため改善率は判定しない。音読2本を処理したが総合聴取が不足し、今回のPronunciationはN/A。",
+      "evidence_note":"Explained why the unfamiliar space article was too difficult, redirected to familiar IT and passkeys, and demanded a distinction between automated speech diagnostics and a dependable holistic pronunciation judgment. Strong L4 task and interaction, strong L3 fluency and lexis, established L3 grammar; no matched task for rate-of-change claims. Two local read-aloud files were processed but no holistic listening supported a new pronunciation level, so this session is N/A."
     }
   ],
   "test_score_estimates": {
