@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 20 — 野球で切り替える時間と欧州の持続可能な交通](#session-2026-10-10-01)
   - [Session 19 — 点数より根拠、レポート全体の評価方法を見直す](#session-2026-10-05-02)
   - [Session 18 — 宇宙記事からパスキーへ、発音評価の根拠を問い直す](#session-2026-10-05-01)
   - [Session 17 — 週末の過ごし方とAI天気予報の産業への影響](#session-2026-09-27-01)
@@ -35,6 +36,35 @@
 <a id="journal-five-minute-review"></a>
 
 # 今日の5分復習
+
+<details>
+<summary>趣味が仕事と別の世界であることを伝える</summary>
+
+**Baseball helps me switch off because it's a totally different world from work.**
+
+今日のYukiの説明からAriaが作ったモデル文。自分で独立して再利用できた証拠ではない。仕事への教訓につなげず、別の人・別の会話があるという意図を保つ。
+
+</details>
+
+<details>
+<summary>野球を始めた時期を説明する</summary>
+
+**I started playing baseball when I started working.**
+
+実際の話の意味を保った練習案。確定した反復誤りへの訂正ではなく、使いやすい **started playing ... when ...** のチャンク。
+
+</details>
+
+<details>
+<summary>記事で原因と詳しい検討を読み取る</summary>
+
+**stemmed from** = came from / resulted from（〜に由来した）
+
+**under increasing scrutiny** = being examined more closely（より詳しく調べられるようになっている）
+
+意味を確認した語。次回は短い記事の主旨と自分の見方を、理由を一つ添えて話す。今回の音読だけでは独立した表現運用や発音の習得を判定しない。
+
+</details>
 
 <details>
 <summary>レポートがどう変わるか、具体的に尋ねる</summary>
@@ -131,6 +161,70 @@
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":20,"session_id":"2026-10-10-01","date":"2026-10-10","title":"野球で切り替える時間と欧州の持続可能な交通","tags":["Hobby","Transport","Reading","Vocabulary","Learning Strategy"],"remember":"野球は仕事とは別の世界。専門記事の音読と、自分の言葉での説明を区別して学ぶ。","prompt":"What would make trains a practical alternative to cars or short flights?"} -->
+<a id="session-2026-10-10-01"></a>
+
+## 2026年10月10日 — 野球で切り替える時間と欧州の持続可能な交通
+
+### 今日の要点
+
+- **確認できた成功:** 野球の価値は仕事に応用することではなく、仕事と別の世界であることだと自分の意図を保ち、違う人・違う会話という具体的な理由を加えた。
+- **評価の範囲:** 同日の2回の音声接続を一つの学習セッションとして扱う。元ログの243区間（Yuki 105区間）を部分的な文字起こしとして保存。音読と自発発話を分け、速度・間・音や韻律は未測定とする。
+- **次の重点:** 短い記事を読んだ後に、主旨と自分の見方を理由付きで述べる。追加の録音・復唱・課題は今夜要求しない。
+
+### 話題別メモ
+
+**野球と仕事からの切り替え**
+
+二塁を守った試合で、声を出してフライを捕った場面を説明した。試合は負けたが、プレーが少しずつ良くなっていく実感を楽しんでいる。Ariaが仕事へ応用できる教訓を尋ねたのに対し、Yukiは趣味を仕事と結び付けないことが重要だと説明した。チームの人たちや話す内容が勤務中と異なることを、自分の言葉で理由にした。
+
+**欧州の持続可能な交通**
+
+[EEAの交通・環境レポート](https://www.eea.europa.eu/en/analysis/publications/sustainability-of-europes-mobility-systems-2025)の導入部を一緒に読んだ。交通は経済・生活を支える一方で排出や騒音などの負担もある。記事では、車の大きな役割、長距離列車・寝台列車への関心、鉄道網の接続の課題を扱っている。貨物、航空・海運、投資・技術・規制にも読み進めたが、レポート全章の読了や詳しい政策議論をしたとは扱わない。
+
+Yukiは車が中心であることと、鉄道網の接続が十分ではないという点を確認し、鉄道の成長は重要だと述べた。「公共交通が存在しない」という意味ではなく、広い範囲で車や飛行機の代替になるには統合・接続が足りないという記事の主旨に区別する。航空等の将来予測や政策の日程は記事の記述であり、今回の会話だけで最新法令の独立検証をしたものではない。
+
+### Yukiの意見・会話の進め方
+
+- 野球は仕事や日常とは別の世界であることに価値がある。**“So not connected, is important”** はその意図を自分で保った実際のASR発話。
+- 読んでいる途中で遮らないことを明示し、分からない段落は要約を求めた。最後の段落では未知語を集め、「後で説明して」と指定してから読み終えた。
+- 最新・先端技術の記事への希望も伝えた。次回の記事選びでこの希望を優先し、今日の交通レポートを最先端技術の紹介と置き換えて扱わない。
+- アシスタントの会話名をAriaへ変更し、開始・再開時の日本日時確認、具体的な推薦、事前読解、見える記事、読んでから議論する順をルールへ明記した。過去の記録・ファイル名のChappyは保持する。
+
+### 役立つ英語
+
+**趣味と仕事の区別 — Ariaが提示したモデル**
+
+Baseball helps me switch off because it's a totally different world from work.
+
+**始めた時期 — 内容から整理した練習案**
+
+I started playing baseball when I started working.
+
+どちらもYukiが独立して再利用した実績とは数えない。過去の試合を述べる際の **“we lose … we lost”** は、自力で時制を整えた一回の観察として残す。二件の誤り、完全定着、ASR由来の反復誤りとは扱わない。
+
+記事では **formalises**（正式なものにする）、**climate neutrality**（温室効果ガスを減らし、残る排出と除去を釣り合わせる状態）、**stemmed from**（〜に由来した）、**aviation**（航空）、**scrutiny**（精査）を確認。続いてlegislation、mandates、modernization、combustion、incentivize、resilient、equitableの意味を説明した。全12項目は語彙バンクへまとめ、意味を確認したことと習得・独立運用は分ける。
+
+### 発音・スピーキングと成長メモ
+
+身近な話の理由と例から、Task achievement **L4・形成中**、Fluency & coherence **L3・安定**、Lexical resource **L3・安定**、Grammar control **L3・安定**を個別に判断。Fluencyは意味のつながりに限る観察であり、速度・間の実測ではない。説明の範囲、タブの表示、同日の続き、音読中の割り込みを自分で管理したInteraction & repairは **L4・強い**。
+
+前回Session 19の最初の4観点はN/Aなので、「N/Aから点数が上がった」とは比較しない。Session 18との段階差も、話題・支援・課題の違いによる今日の根拠の範囲であり、能力低下を示すものではない。Interactionの独立した修復行動だけは前回と同じL4・強いを確認。**PronunciationはN/A / 総合判定を一時停止**。過去のSession 12 L3・安定は旧基準・限定根拠として別に保持する。資格目安と過去の評価は更新していない。
+
+Ariaの一般的すぎる開始、同日再開のリセット、見えないタブ、音読中の割り込みは会話品質の別観察に記録し、Yukiの能力不足へ転嫁しない。
+
+### 次回
+
+読む範囲を短く区切り、読了後に主旨と自分の見方を理由付きで話す。身近な話では **started playing ... when ...** を自然に使う機会を作る。理解テストや復唱を既定にしない。
+
+### Sources
+
+- [EEA: Sustainability of Europe's mobility systems 2025](https://www.eea.europa.eu/en/analysis/publications/sustainability-of-europes-mobility-systems-2025) — 今回は導入・概要を使用。全章読了ではない。
+- [Cambridge Dictionary: formalize](https://dictionary.cambridge.org/dictionary/english/formalize) — 英国で一般的なformaliseとformalizeの綴りの確認。
+- [Council of the EU: Carbon removals](https://www.consilium.europa.eu/en/policies/carbon-removals/) — 気候中立と残余排出・除去の関係を理解する補助資料。
+
+[目次へ戻る](#journal-contents)
 
 <!-- session-meta: {"session_number":19,"session_id":"2026-10-05-02","date":"2026-10-05","title":"点数より根拠、レポート全体の評価方法を見直す","tags":["Learning Strategy","Assessment","Report","Pronunciation"],"remember":"会話の観察・ローカル実測・過去値を分け、根拠が足りない技能には無理に点数を付けない。","prompt":"What should an evaluation report show besides a score?"} -->
 <a id="session-2026-10-05-02"></a>
@@ -2150,10 +2244,10 @@ Why: 改善点には work on / focus on が自然。
 
 ## できるようになったこと
 
-**最新の直接発音評価： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 19（2026年10月5日）](#session-2026-10-05-02)**
+**過去の最終発音記録（旧基準・限定根拠）： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
+**最新の会話評価： [Session 20（2026年10月10日）](#session-2026-10-10-01)**
 
-- 今回の成功は、変更範囲を “Not only pronunciation” と自分で明示し、具体的なレポートの変更を求めたこと。短い確認会話なので、会話運営以外の新規レベルは保留した。未測定は能力低下を意味しない。
+- 今回の成功は、野球の価値が仕事と別の世界にあることを自分で説明し、別の人・別の会話という理由を添えたこと。記事の音読中は必要な支援と順序も自分で指定した。会話5観点を個別に判断し、専門語の音読を独立運用、文字起こしを音声実測とは扱わない。
 
 - 未知の分野に入る前の予備知識確認を求め、記事の難度が合わないときは身近なITへ話題を切り替えられる。発音評価についても測定と判定の違いを問い直した。
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
@@ -2166,7 +2260,7 @@ Why: 改善点には work on / focus on が自然。
 - 馴染みのあるAWSサービスからGCPへの比較へ会話を修正し、IoT設計では利用者の速度と技術者の追跡可能性を区別して、設計前の要件定義へ結論を導ける。
 - GCP Pub/Subの技術記事を英語で読み、分からない語を確認したうえで、既知のAWSのSNS・SQSとの対応を質問できる。欲しい図と表、読む記事、採点の根拠も自分から指定できる。
 - 週末の計画を具体的に説明し、AI天気予報を日常の便利さから発電産業への影響へ広げられる。記事が実際に主張している範囲を確認し、Chappyの言いすぎを問い直した。
-- 本人は英語が以前より出やすいと感じている。回収済みraw transcriptの自発発話だけを比べると、Session 11・12より14・16で修復・明示的な語探しの表面化が少なく、平均発話長は概ね維持された。ただし話題・ASR区間・収録条件が異なり、固定課題の同条件反復測定はまだない。能力レベルの自動昇格には使わない。
+- 回収済みraw transcriptの自発発話だけを比較する記述的な図を更新した。今回の長い記事音読・混合区間は除外している。設定相談、身近な趣味、専門記事の応答では発話機会が異なり、同条件の固定課題もまだないため、マーカー数や区間長から能力の改善率・低下を主張しない。
 - 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
 
 ## 全履歴の再監査 / Retrospective Audit
@@ -2185,32 +2279,33 @@ Why: 改善点には work on / focus on が自然。
 
 | 評価観点 | 現在 | 会話で確認できたこと |
 |---|---:|---|
-| **Task achievement** | **N/A / Session 19** | 要望は達成したが、理由・例までの独立説明は未観察。過去の最終判定はSession 18 L4・強い。 |
-| **Fluency & coherence** | **N/A / Session 19** | 短い確認中心で、継続発話と直接の時間測定は不足。過去の最終判定はSession 18 L3・強い。 |
-| **Lexical resource** | **N/A / Session 19** | 評価用語を使ったが語彙範囲の材料は少ない。過去の最終判定はSession 18 L3・強い。 |
-| **Grammar control** | **N/A / Session 19** | ASR断片だけで語順・冠詞の誤りを確定しない。過去の最終判定はSession 18 L3・安定。 |
-| **Interaction & repair** | **L4・強い / Session 19** | “Not only pronunciation” と変更範囲を明示し、具体的な説明と終了を自分で管理した。 |
-| **Pronunciation** | **N/A / 今回 Session 19** | 新規総合判定を一時停止。過去の最終数値はSession 12 L3・安定（旧基準・限定根拠）。 |
+| **Task achievement** | **L4・形成中 / Session 20** | 捕球の出来事と結果、趣味が仕事と別の世界である理由・例を説明。前回はN/Aで比較不能。支援と課題が違うため過去の段階との差を低下としない。 |
+| **Fluency & coherence** | **L3・安定 / Session 20** | 野球の話と理由説明のつながりを維持。速度・間は未測定で、前回の短い相談とは比較不能。 |
+| **Lexical resource** | **L3・安定 / Session 20** | 身近な語彙で趣味と仕事の違いを伝えた。専門語は意味確認・音読であり独立運用の証拠ではない。前回N/Aとは比較不能。 |
+| **Grammar control** | **L3・安定 / Session 20** | 叙述と理由説明は通じ、自力修正も一例確認。ASR-sensitiveな冠詞・前置詞を確定誤りとして数えない。前回N/Aとは比較不能。 |
+| **Interaction & repair** | **L4・強い / Session 20** | 範囲、タブ表示、同日再開、音読中の支援を自分で管理。独立した修復行動に限り前回L4・強いと同様と確認。 |
+| **Pronunciation** | **N/A / 今回 Session 20** | 新規総合判定を一時停止。過去の最終数値はSession 12 L3・安定（旧基準・限定根拠）。音・強勢・リズムの新規評価はない。 |
 
 ## 発音の測定状況
 
-過去の最終Pronunciation記録はSession 12の **L3・安定** です。ただし旧手順の限定的な根拠による評価であり、現在求める総合聴取を満たした新評価とは区別します。過去値自体は再採点していません。Session 18の音読2本のローカル実測も、その回の補助情報として残します。Session 19では新しい音声測定はせず、**新規総合レベルの判定を一時停止**しました。信頼できる音・韻律レビューを既存録音で確認し、Yukiと再開を相談するまで追加録音を求めません。録音本体は公開しません。
+過去の最終Pronunciation記録はSession 12の **L3・安定** です。ただし旧手順の限定的な根拠による評価であり、現在求める総合聴取を満たした新評価とは区別します。過去値自体は再採点していません。Session 18の音読2本のローカル実測も、その回の補助情報として残します。Session 19で**新規総合レベルの判定を一時停止**し、Session 20でも音声の新規実測・直接聴取はしていません。信頼できる音・韻律レビューを既存録音で確認し、Yukiと再開を相談するまで追加録音を求めません。録音本体は公開しません。
 
 ## 成長グラフ
 
-[![Session 1からSession 19までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 20までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から19までの6指標を、横軸Session・縦軸Lの時系列で表示しています。同じL内の **形成中・安定・強い** はマーカー形状で区別します。N/Aは欠測として残し、線で補間しません。Session 19の判定保留は短い相談の観察範囲を示し、能力低下ではありません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点の間隔やマーカー形状を公式試験の精密な尺度と解釈しないでください。
+Session 1から20までの6指標を、横軸Session・縦軸Lの時系列で表示しています。同じL内の **形成中・安定・強い** はマーカー形状で区別します。N/Aは欠測として残し、線で補間しません。Session 19の判定保留とSession 20の身近な話に限る段階は、各回の観察範囲を示し、能力の低下やN/Aからの上昇を証明しません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点やマーカー形状を公式試験の精密な尺度と解釈しないでください。
 
 ## 次に伸ばすこと
 
-1. 期待する変更や説明の範囲を、一文で示す。
-2. 身近なITについて、まず結論と理由を一つずつ述べる。発音の総合判定は手段を検証して再開を合意するまで停止する。
+1. 短い記事の主旨と自分の見方を、理由を一つ添えて説明する。
+2. 個人の経験では **I started playing ... when ...** を自然に使う機会を作る。復唱を強制せず、発音総合判定も手段を検証して再開を合意するまで停止する。
 
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
 
+- [Session 20 — 野球で切り替える時間と欧州の持続可能な交通](#session-2026-10-10-01) — 身近な理由・例から会話5観点を個別に判断。音読は自発発話と分離し、前回N/Aや過去の段階差から改善・低下を主張しない。発音はN/A。
 - [Session 19 — 点数より根拠、レポート全体の評価方法を見直す](#session-2026-10-05-02) — InteractionはL4・強い。短い相談では他の会話技能の根拠が足りず新規判定を保留。発音は総合判定を一時停止。
 - [Session 18 — 宇宙記事からパスキーへ、発音評価の根拠を問い直す](#session-2026-10-05-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。発音はN/A。難度の変更と採点方法の確認を自分で進めた。
 - [Session 17 — 週末の過ごし方とAI天気予報の産業への影響](#session-2026-09-27-01) — 会話5観点はL4 / L3 / L3 / L3 / L4。発音はN/A。記事の根拠を確認し、過大な精度説明を修正させた。
@@ -2259,6 +2354,13 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年10月10日 — Session 20
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **Baseball helps me switch off because it's a totally different world from work.** | 趣味が仕事と別の世界であることを伝える。Yukiの内容を受けてAriaが提示したモデル文で、独立した再利用の実績ではない。**Chunk:** help me switch off / a different world from work | [Session 20](#session-2026-10-10-01) |
+| **I started playing baseball when I started working.** | 始めた時期と生活の変化をつなぐ学習用の練習案。実際の発話そのままでも、確定した反復誤りの訂正でもない。**Chunk:** started playing ... when ... | [Session 20](#session-2026-10-10-01) |
 
 ## 2026年10月5日 — Session 19
 
@@ -2413,6 +2515,25 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 
 # 語彙バンク / Vocabulary Bank
 
+## 2026年10月10日 — Session 20
+
+今回意味を確認した語とチャンク。例文は短い学習用のモデルで、Yukiの独立した再利用や習得を示すものではない。IPAと強勢は標準的な発音の参考であり、今回の音声採点ではない。
+
+| Word / IPA / POS | 意味・用法・例 | Source |
+|---|---|---|
+| **formalise** /ˈfɔː.mə.laɪz/ verb | 正式なものにする。**Plain English:** make official. 記事のformalisesは三人称単数現在。formaliseは英国で一般的、formalizeも米国と英国で使われる。**Example:** The agreement formalises our plan. | [Session 20](#session-2026-10-10-01) |
+| **climate neutrality** noun phrase | 温室効果ガスの排出を減らし、残る排出と除去を釣り合わせる状態。すべての排出が完全にゼロという意味ではない。**Chunk:** achieve climate neutrality. **Example:** The goal is to achieve climate neutrality. | [Session 20](#session-2026-10-10-01) |
+| **stem from** verb phrase | 〜に由来する、〜が原因で生じる。過去形はstemmed from。**Plain English:** come from / result from. **Example:** The progress stemmed from better technology. | [Session 20](#session-2026-10-10-01) |
+| **aviation** /ˌeɪ.viˈeɪ.ʃən/ noun | 航空、飛行機による輸送や関連活動。**Chunk:** aviation emissions. **Example:** Aviation is one part of the transport sector. | [Session 20](#session-2026-10-10-01) |
+| **scrutiny** /ˈskruː.tɪ.ni/ noun | 注意深い検討・精査。**Chunk:** under increasing scrutiny = being examined more closely. **Example:** The environmental effects are under scrutiny. | [Session 20](#session-2026-10-10-01) |
+| **legislation** /ˌledʒ.ɪˈsleɪ.ʃən/ noun | 法律・法令、法律のまとまり。**Chunk:** existing legislation. **Example:** The plan must follow existing legislation. | [Session 20](#session-2026-10-10-01) |
+| **mandate** /ˈmæn.deɪt/ verb | 公的に義務づける。記事のmandatesは「法律で要求する」という動詞。**Plain English:** officially require. **Example:** The rule mandates regular checks. | [Session 20](#session-2026-10-10-01) |
+| **modernization / modernisation** noun | 新しい基準・技術へ更新すること、近代化。前者は米国で一般的、記事は英国式modernisation。**Example:** Modernization can improve old infrastructure. | [Session 20](#session-2026-10-10-01) |
+| **combustion** /kəmˈbʌs.tʃən/ noun | 燃焼。**Chunk:** fuel combustion = burning fuel. **Example:** Fuel combustion releases emissions. | [Session 20](#session-2026-10-10-01) |
+| **incentivize / incentivise** /ɪnˈsen.tɪ.vaɪz/ verb | 利点・動機を与えて行動を促す。記事はincentivise。**Example:** The policy aims to incentivize cleaner transport. | [Session 20](#session-2026-10-10-01) |
+| **resilient** /rɪˈzɪl.i.ənt/ adjective | 困難や混乱に耐え、回復できる。単に壊れないという意味に限らない。**Example:** A resilient system can recover after disruption. | [Session 20](#session-2026-10-10-01) |
+| **equitable** /ˈek.wɪ.tə.bəl/ adjective | 異なる事情や必要性を考慮した、公平な。全員へ同じものを配ることと必ずしも同じではない。**Example:** Transport should provide equitable access. | [Session 20](#session-2026-10-10-01) |
+
 ## 2026年10月5日
 
 | Word / IPA / POS | Meaning / Collocation / Example | Source |
@@ -2562,6 +2683,12 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-speaking-bank"></a>
 
 # 発音・スピーキングバンク / Pronunciation & Speaking Bank
+
+## 2026年10月10日 — Session 20
+
+| Word / Chunk | Speaking / Focus / Practice | Source |
+|---|---|---|
+| **scrutiny - SKROO-tuh-nee** | 第一音節に強勢。**Chunk:** under increasing scrutiny. 語の説明として提示した標準発音の参考で、Yukiの音を直接確認した訂正・採点ではない。希望しない復唱は要求しない。 | [Session 20](#session-2026-10-10-01) |
 
 ## 2026年9月12日
 

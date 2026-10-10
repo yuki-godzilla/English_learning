@@ -1,7 +1,7 @@
 {
   "methodology": {
     "name": "Exam-informed, evidence-based English conversation tracking",
-    "status": "Current evidence reviewed through Session 19. New reports distinguish conversation observations, local audio measurements and historical ratings. New holistic pronunciation ratings are temporarily paused; historical ratings are preserved without retrospective rescoring.",
+    "status": "Current evidence reviewed through Session 20. New reports distinguish conversation observations, local audio measurements and historical ratings. Article reading is separated from spontaneous production. New holistic pronunciation ratings are temporarily paused; historical ratings are preserved without retrospective rescoring.",
     "report_assessment_policy": {"effective_from_session":19,"evidence_categories":["conversation/transcript observations","local audio measurements","historical ratings"],"summary":"One observed success, evidence limits or reasons for withheld/stable ratings, and one or two next practice targets. No forced scores, ASR-to-pronunciation conversion, or penalty for assistant-caused misunderstandings.","pronunciation_status":"holistic_rating_paused","resumption":"Verify a reliable direct audio review method on existing recordings and agree resumption with Yuki before requesting a new holistic-evaluation recording."},
     "disclaimer": "This is a personal learning record based on Daily Notes and transcript excerpts, not a standardized English proficiency test.",
     "comparison_rule": "Change the core L1-L5 level only when the recorded evidence supports the full rubric threshold. Retrospective within-level stages may show cautious progress inside the same L band, but they are not standardized scores and task-condition differences must remain explicit.",
@@ -820,6 +820,311 @@
       "evidence_quote_origin":"Original learner voice ASR segment 29; wording preserved. The final phrase independently clarifies scope, not a repeated supplied sentence.",
       "evidence_note_ja":"今回確認できた成功は、Not only pronunciationでレポート全体へ対象を広げ、変更の具体像を質問したこと。InteractionはL4・強いを確認。短い方法相談だけでは他の4会話観点の新規Lを付ける根拠が足りずN/Aとする。発音総合判定は手段の制約により一時停止。過去値のコピーや能力低下の推定はせず、次回は期待する変更を一文で述べることと、身近なITを結論・理由で説明することに絞る。",
       "evidence_note":"Independently broadened the update with 'Not only pronunciation' and asked for concrete report changes. L4 strong interaction is supported; four other conversation levels are withheld because the brief method-setting dialogue lacks broad independent production. Holistic pronunciation is paused because of method limitations, not learner decline. Historical ratings and prior local measurements remain separate."
+    },
+    {
+      "session": 20,
+      "date": "2026-10-10",
+      "task": "Baseball narrative and hobby-work boundaries; shared reading of the EEA transport introduction with learner-directed vocabulary support",
+      "task_ja": "野球で切り替える時間と欧州の持続可能な交通",
+      "data_coverage": "243 original voice segments across two same-day calls, including 105 learner segments. One personal-health phrase was redacted. Transcript only; no direct audio review, reliable speech timing, fixed probe or official-format test. Thirteen mixed/read-aloud segments are conservatively excluded from spontaneous-speaking statistics. Article wording is not independent production.",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "emerging",
+        "Fluency & coherence": "established",
+        "Lexical resource": "established",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": null
+      },
+      "metric_evidence": {
+        "Task achievement": {
+          "basis": "Learner-origin baseball narrative and explanation of hobby-work separation",
+          "display_summary_ja": "捕球の出来事と結果、仕事とは別の人・会話があるという理由を自分の内容で説明した。",
+          "observed": "Told a fly-ball story with action and outcome, described improvement in baseball, and explained why different people and conversations make separation from work valuable. Follow-up prompts elicited details, but the substantive content was his own.",
+          "comparison": "not_comparable",
+          "reason": "Familiar-topic purpose, reasons and examples support L4 emerging. A fully organized unprompted explanation was not consistently observed, so strong L4 is not assigned. Session19 was N/A; historical Session18 had different task conditions. Today's narrower stage is not demonstrated regression, nor improvement from N/A.",
+          "confidence": "medium",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "prompted",
+            "preparation_seconds": null,
+            "turn_indices": [
+              137,
+              141,
+              149,
+              151,
+              153
+            ],
+            "comparison_session": 19,
+            "comparison_conditions": "Previous Session19 lacked a comparable explanation task; Session18 involved different topics and support. No fine-grained improvement or decline is inferred.",
+            "next_observation": "After a short article section, independently give its main point, a personal view and one reason."
+          }
+        },
+        "Fluency & coherence": {
+          "basis": "Connected meaning in learner-origin baseball ASR, without measured audio delivery",
+          "display_summary_ja": "出来事から上達の実感、仕事と別の世界という説明へ意味のつながりを保った。速度・間は未測定。",
+          "observed": "Maintained the baseball story and hobby-work distinction across turns despite visible reformulation.",
+          "comparison": "not_comparable",
+          "reason": "L3 established is supported for continuity and coherence of meaning only. Event timestamps are not speech durations. No WPM, pause duration, hesitation rate or L4 delivery threshold can be established. Short prior requests and technical discussions are not matched fluency samples.",
+          "confidence": "medium",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "prompted",
+            "preparation_seconds": null,
+            "turn_indices": [
+              137,
+              141,
+              149,
+              151,
+              153
+            ],
+            "comparison_session": 19,
+            "comparison_conditions": "Previous Session19 lacked a comparable explanation task; Session18 involved different topics and support. No fine-grained improvement or decline is inferred.",
+            "next_observation": "Observe a connected main-point-and-reason explanation; measure timing only from suitable audio."
+          }
+        },
+        "Lexical resource": {
+          "basis": "Independent familiar-topic vocabulary, separate from article wording and supplied models",
+          "display_summary_ja": "second、team members、hobby、separatedなどで意図を伝えた。記事の未知語は学習項目であり習得済みとはしない。",
+          "observed": "Used words for a fielding position, teammates, catching, improvement, hobbies and separation from work to convey familiar experiences. Asked for a paragraph summary and described the rail-network gap.",
+          "comparison": "not_comparable",
+          "reason": "Learner-origin choices support L3 established. Aviation, scrutiny and other article terms were read or explained, not independently reused. Supplied switch-off sentences are models, not mastery evidence. Unfamiliarity with specialist vocabulary is not decline, and different lexical opportunities prevent a matched comparison.",
+          "confidence": "medium",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "mixed",
+            "preparation_seconds": null,
+            "turn_indices": [
+              135,
+              137,
+              141,
+              149,
+              151,
+              153,
+              212,
+              224
+            ],
+            "comparison_session": 19,
+            "comparison_conditions": "Previous Session19 lacked a comparable explanation task; Session18 involved different topics and support. No fine-grained improvement or decline is inferred.",
+            "next_observation": "Use one article chunk in an original opinion with a reason, without repeating a supplied model."
+          }
+        },
+        "Grammar control": {
+          "basis": "Simple narrative and causal explanation with visible self-repair and ASR limits",
+          "display_summary_ja": "簡単な叙述・理由説明は伝わり、「we lose … we lost」の自力修正が残る。確定誤り件数は付けない。",
+          "observed": "Communicated actions and outcomes, used because to explain a hobby's role, and visibly repaired 'we lose' to 'we lost' in one segment.",
+          "comparison": "not_comparable",
+          "reason": "Simple structures and some linked explanation support L3 established while meaning remains clear. The repair is one monitoring behavior, not two errors or proof of mastery. Article syntax belongs to its author. Uncertain function words and restarts are not confirmed mistakes; no recurring-error count or matched accuracy rate is assigned.",
+          "confidence": "medium",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "mixed",
+            "preparation_seconds": null,
+            "turn_indices": [
+              133,
+              137,
+              141,
+              149,
+              151,
+              153
+            ],
+            "comparison_session": 19,
+            "comparison_conditions": "Previous Session19 lacked a comparable explanation task; Session18 involved different topics and support. No fine-grained improvement or decline is inferred.",
+            "next_observation": "Observe I started playing ... when ... in a natural personal-history explanation, without forced repetition."
+          }
+        },
+        "Interaction & repair": {
+          "basis": "Repeated learner-led scope clarification, topic direction and management of reading support",
+          "display_summary_ja": "答えるだけの範囲、見えないタブ、同日再開、音読中の割り込みを自分で指摘し、説明を後にまとめた。",
+          "observed": "Distinguished answer-only from action, requested article visibility and preparation, clarified 'Lead me', reported the invisible tab, preserved same-day continuity and requested no interruption while reading.",
+          "comparison": "stable",
+          "reason": "Repeated independent clarification supports L4 strong, consistent with Session19's scope repair. Only independent interaction behavior is compared, not topic breadth or duration. Assistant misunderstanding, premature questions and UI confusion are not learner deficits. No L5 or fine-grained improvement is claimed.",
+          "confidence": "high",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "independent",
+            "preparation_seconds": null,
+            "turn_indices": [
+              56,
+              92,
+              94,
+              121,
+              124,
+              145,
+              162,
+              169,
+              175,
+              208,
+              212,
+              242
+            ],
+            "comparison_session": 19,
+            "comparison_conditions": "Both sessions contain independent scope clarification. Today's hobby and shared-reading contexts are broader, so only that interaction behavior is considered comparable.",
+            "next_observation": "Continue learner-led clarification during a substantive article discussion, with space to finish a turn."
+          }
+        },
+        "Pronunciation": {
+          "basis": "Holistic rating remains paused; no direct sound or prosody review",
+          "display_summary_ja": "総合発音判定はN/A。文字起こしから音・強勢・リズム・速度を採点しない。",
+          "observed": "Read the EEA introduction aloud and requested word support, but only ASR text was available.",
+          "comparison": "not_comparable",
+          "reason": "A reliable holistic review method has not been verified or resumption agreed. N/A is a method limitation, not a low score or decline. Historical Session12 L3 established remains separate with legacy evidence limits; it is not copied as a current score.",
+          "confidence": "high",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "read_aloud",
+            "support": "mixed",
+            "preparation_seconds": null,
+            "turn_indices": [
+              189,
+              191,
+              214,
+              235,
+              239
+            ],
+            "comparison_session": 19,
+            "comparison_conditions": "Neither current nor previous session includes new holistic audio review; different historical passages and standards preclude comparison.",
+            "next_observation": "Verify reliable direct sound/prosody review on existing audio and agree resumption before another holistic rating."
+          }
+        }
+      },
+      "conversation_quality": {
+        "status": "source-backed manual audit",
+        "source": "learning-records/transcripts/2026-10-10-session-01.jsonl",
+        "observations": [
+          {
+            "kind": "generic_opening_and_same_day_reset",
+            "assistant_turns": [
+              91,
+              105,
+              166,
+              168,
+              170
+            ],
+            "learner_turns": [
+              92,
+              169,
+              175
+            ],
+            "note": "Learner had to request a specific recommendation and same-day continuity. Assistant application issue, not learner weakness."
+          },
+          {
+            "kind": "casual_first_and_browser_visibility_mismatch",
+            "assistant_turns": [
+              123,
+              161,
+              164
+            ],
+            "learner_turns": [
+              121,
+              124,
+              162
+            ],
+            "note": "Premature article discussion and queued/loaded tab did not establish the requested visible casual-first flow."
+          },
+          {
+            "kind": "imposed_work_transfer_framing",
+            "assistant_turns": [
+              146,
+              148,
+              150
+            ],
+            "learner_turns": [
+              149,
+              151,
+              153
+            ],
+            "note": "Learner explained that keeping a hobby separate from work was the point; not failure to identify a work lesson."
+          },
+          {
+            "kind": "reading_interruption_and_unnecessary_practice",
+            "assistant_turns": [
+              157,
+              194,
+              196,
+              207,
+              211,
+              223,
+              225,
+              229,
+              232
+            ],
+            "learner_turns": [
+              158,
+              208,
+              212,
+              228,
+              231,
+              239
+            ],
+            "note": "Source preserves a no-interruption request and continued reading around explanations. Audio timing not reviewed. Smooth-reading praise and supplied models are not measured delivery or independent reuse."
+          }
+        ],
+        "unmeasured": [
+          "conversational_audio_timing",
+          "individual_sounds_and_prosody"
+        ]
+      },
+      "assessment_summary": {
+        "observed_success": {
+          "turn_index": 151,
+          "quote": "So not connected, is important",
+          "meaning_ja": "趣味の価値は仕事と別の世界であることだと自分の意図を保ち、具体例を加えた。"
+        },
+        "limitations_ja": "音読と自発発話を分離。速度・間・発音は未測定。前回の4観点はN/Aで数値比較できず、段階差から能力低下も判定しない。",
+        "next_targets": [
+          "After a short article section, explain its main point and one personal view with a reason in your own words.",
+          "Optionally reuse I started playing baseball when ... in a personal history; no forced drill."
+        ]
+      },
+      "evidence_index": [
+        {
+          "turn_indices": [
+            137,
+            141,
+            149,
+            151,
+            153
+          ],
+          "activity": "baseball action/outcome and hobby-work separation",
+          "support": "light prompts; content chosen by learner"
+        },
+        {
+          "turn_indices": [
+            208,
+            212,
+            239
+          ],
+          "activity": "no-interruption request, summary request and deferred word explanations",
+          "support": "learner-directed support; read-aloud portion of239 is not independent production"
+        }
+      ],
+      "pronunciation_evidence": {
+        "task_kind": "read_aloud",
+        "purpose": "practice",
+        "direct_audio_processed": false,
+        "analysis_method": "source-ordered voice ASR only; no audio measurements",
+        "holistic_level_assigned": false,
+        "holistic_audio_review": false,
+        "assessment_status": "holistic_rating_paused",
+        "limitations": "No direct sound/prosody review or WPM. Segment timestamps are not speaking duration."
+      },
+      "evidence_quote": "So this is totally separated from my daily life. Yeah, this is important. So not connected, is important",
+      "evidence_quote_origin": "Original learner ASR segment151; wording preserved. Assistant switch-off model sentences followed and are not credited as independent reuse.",
+      "evidence_note_ja": "野球を仕事とは別の世界として説明し、別の人・別の会話という理由を自分で加えた。会話5観点を個別に判断し、音読の専門語を独立した語彙・文法運用として数えない。前回N/Aからの改善、段階差からの低下、速度・発音・資格点の上昇はいずれも主張しない。次回は短い記事の主旨と自分の見方を理由付きで述べることを中心にする。",
+      "evidence_note": "Explained baseball's value as separate from work with learner-origin reasons. Interaction management remained strong. Current ratings are limited familiar-topic observations, not a matched change test. Read-aloud vocabulary, supplied models and ASR-uncertain function words are not independent mastery. Test estimates and historical ratings are unchanged."
     }
   ],
   "test_score_estimates": {
