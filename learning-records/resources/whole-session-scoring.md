@@ -42,6 +42,34 @@ The separate fixed spontaneous-speaking probe can provide finer evidence for tas
 
 ## Reporting rule
 
+### Recent change review v1 (effective from Session 21, 2026-10-11)
+
+Answer three different questions separately: what the learner can do now, what succeeded today, and what has changed recently. An unchanged L band does not establish a plateau. A successful current example alone does not establish improvement over an earlier conversation.
+
+After each completed session, select one to three observable behaviors with a genuine opportunity in the natural discussion. Prefer independent point/reason/example development, paraphrase or expression reuse, verified construction control or self-repair, and purposeful interaction. Do not introduce mandatory recordings, quizzes or repetition to fill a measurement gap. Keep the existing six-dimensional L/stage assessment separate; these observations are not new numerical proficiency scores.
+
+Look first at the immediately preceding session and then, when needed, the nearest comparable earlier opportunity. Explain why a different earlier session is selected. Record the actual earlier and current turn references and observations, topic familiarity, task, preparation, support and capture differences. A preserved summary may supply limited alternative evidence but must never be rewritten as an original utterance. If no fair earlier example exists, retain the current success and mark recent change unconfirmed.
+
+Use `observed_gain`, `stable`, `mixed`, `observed_loss`, or `unconfirmed`. Stable requires comparable evidence of similar performance; it is not the default when a number stays unchanged. One fair pair supports only a narrowly described observed difference, not a sustained trend or mastery. Confirm persistence in another independent later session before claiming consistent growth. Do not infer daily gains, construct decimal scores, or select flattering comparison partners. No demonstration opportunity and no error found are different observations.
+
+Where counts are genuinely verified, record successful attempts and opportunities, not errors alone. Do not compare raw error totals across unequal output or task complexity. Transcript-only ASR uncertainties do not become confirmed grammar errors, speech durations or word-search counts. Read-aloud timing remains a separate measurement and cannot establish spontaneous-speaking progress. Pronunciation remains N/A under the existing pause.
+
+New sessions carry this structure in `progress.json`:
+
+```json
+{"version":"recent-change-v1","summary":"A concise answer about recent change, including an unconfirmed result when appropriate.","observations":[{"metric":"Task achievement","behavior":"Develop a point with an independent reason","earlier":{"session":20,"turn_indices":[1],"observation":"Schema example only; use real preserved evidence."},"current":{"session":21,"turn_indices":[1],"observation":"Schema example only; use real preserved evidence."},"comparison_conditions":"Explain task, familiarity, preparation, support and capture comparability, plus the reason for selecting the earlier session.","decision":"unconfirmed","confidence":"low","next_observation":"One specific natural opportunity to check again."}]}
+```
+
+This is a schema illustration, not a learner observation. For unavailable raw references, use an empty `turn_indices` plus `alternative_evidence` identifying the preserved source and limitation. `earlier` may be null only for `unconfirmed`. Journal and the report show a compact earlier/current/decision comparison, the evidence limit, and one next focus. Historical scores and prior reports remain unchanged unless Yuki explicitly requests reassessment.
+
+### Fresh score decision and sensitivity review (2026-10-11)
+
+Decide each new L/stage from the current evidence before consulting the prior numerical value, then check the prior evidence for context. Do not carry a number forward as a default or raise it to make progress visible. Test the descriptor at the proposed L and the next L: identify the demonstrated behavior, required assistance, and which threshold is or is not met. Where a higher threshold lacks an opportunity, do not describe that as a demonstrated failure. If the task supports only a narrower behavior, limit the conclusion accordingly.
+
+Review the within-level stage separately: emerging describes demonstrated but inconsistent/support-dependent performance; established needs repeated evidence at that L; strong needs repeated upper-band behavior without establishing the next full L threshold. One polished response or unchanged number does not settle a stage. Prior relevant observations may inform stability only when their task/support limitations are stated. Record a specific reason for every unchanged, changed or withheld score. A lower current task observation under different conditions is not automatically a decline in underlying ability.
+
+The finer-grained record is the behavioral comparison, not an invented daily numerical scale. Check whether any real pair supports a change inside the unchanged L/stage. If not, explicitly report an insufficient comparison rather than adding arbitrary decimals. In each report, audit all six dimensions, task classification, assistant influence, recent-change references, audio limitations and score-estimate freshness before generating graphs. Official-test estimates change only with relevant skill evidence; today's read-aloud pace cannot update an examination score.
+
 ### Evidence-first report assessment (2026-10-05)
 
 Start by identifying the methods actually available in that session and what each can establish. Keep conversation/transcript observations, locally measured audio data, and historical ratings separate. Processing a recording does not establish that Chappy listened to it or judged its individual sounds and prosody.

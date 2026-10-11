@@ -743,12 +743,8 @@ const comparisonRows = comparisonReady ? comparisonDefinitions.map(([key, label,
 }).join("\n") : "<p>比較に十分な自発発話データがありません。</p>";
 const outputStable = comparisonReady && Math.abs(recentSpeech.mean_words_per_segment - earlierSpeech.mean_words_per_segment) / earlierSpeech.mean_words_per_segment < 0.15;
 const repairDown = comparisonReady && recentSpeech.repair_per_100_words < earlierSpeech.repair_per_100_words * 0.8;
-const insightText = outputStable && repairDown
-  ? "Speaking length is broadly maintained, while visible repair burden has decreased."
-  : "The comparable samples show a descriptive change; more matched spontaneous speech is needed to interpret it.";
-const insightJa = outputStable && repairDown
-  ? "平均区間語数を大きく落とさず、修復マーカーが減っています。認知負荷や能力の改善を直接測った値ではありません。"
-  : "条件の近い自発発話を続けて観察し、変化の方向を確かめます。";
+const insightText = "Recovered ASR counts describe these samples, not matched proficiency growth. Topic, support and segmentation differences remain material.";
+const insightJa = "回収済みASRの記述的な差です。話題・支援・設定相談の割合が異なるため、最近の能力向上や認知負荷の改善とは判定しません。";
 const evidenceStrength = comparisonReady && earlierSpeech.sessions.length >= 2 && recentSpeech.sessions.length >= 2 ? "MODERATE" : "LOW";
 const distributionRows = recentSpeech.buckets.filter(b => b.label !== '0' || b.count > 0).map((bucket) => `<div class="distribution-row"><span>${bucket.label} words</span><span class="distribution-bar"><i style="width:${bucket.percent ?? 0}%"></i></span><strong>${bucket.percent ?? 'N/A'}%</strong></div>`).join("\n");
 const coverageRows = rawSessions.map((session) => `<div class="coverage-item"><strong>S${session.session}</strong><span class="coverage-bar"><i style="width:${Math.round(session.usable_segment_ratio * 100)}%"></i></span><span>${Math.round(session.usable_segment_ratio * 100)}%</span><em>${session.coverage_band.toUpperCase()}</em></div>`).join("\n");
@@ -760,6 +756,9 @@ const profileRows = tracker.qualitative_metrics.map((metric) => {
 }).join("\n");
 const recentEvidence = tracker.sessions.slice(-5).flatMap((session) => Object.entries(session.metric_evidence ?? {}).map(([metric, evidence]) => ({ metric, evidence, session: session.session })));
 const recentEvidenceFor = (metric) => { const e = [...recentEvidence].reverse().find(item => item.metric === metric && item.evidence?.observed)?.evidence; return e?.display_summary_ja ?? e?.observed ?? '比較可能な記述はありません。'; };
+const changeLabels = {observed_gain:'この行動で前進を観察',stable:'同程度の再現',mixed:'混在',observed_loss:'この行動で後退を観察',unconfirmed:'変化は未確認'};
+const changeReview = latestTracker.recent_change_review;
+const recentChangeMarkup = changeReview ? `<article class="before-now"><strong>RECENT CHANGE · 最近の比較</strong><p>${escapeHtml(changeReview.compact_summary ?? changeReview.summary)}</p><p>${changeReview.observations.map(o => `${o.earlier ? `S${o.earlier.session}` : '以前の例なし'} → S${o.current.session} · ${escapeHtml(metricJa[o.metric])}: ${escapeHtml(changeLabels[o.decision])}（${{high:'高',medium:'中',low:'低'}[o.confidence]}確度）`).join('<br>')}</p></article>` : '';
 const grammarCardLabel = Number.isInteger(latestTracker.ratings['Grammar control']) ? 'NEXT BOTTLENECK' : 'EVIDENCE LIMIT';
 const grammarCardText = Number.isInteger(latestTracker.ratings['Grammar control'])
   ? firstSentence(recentEvidenceFor('Grammar control'), 65)
@@ -786,12 +785,12 @@ hide:
 
 <section class="growth-page growth-page--now"><h2>WHERE I AM NOW <small>現在の英語力</small></h2>
 <div class="profile-grid">${profileRows}</div>
-<div class="growth-three-cards">
+${changeReview ? '' : `<div class="growth-three-cards">
   <article><strong>STRENGTHS</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Interaction & repair"), 65))}</p></article>
   <article><strong>DEVELOPING</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Fluency & coherence"), 65))}</p></article>
   <article><strong>${grammarCardLabel}</strong><p>${escapeHtml(grammarCardText)}</p></article>
-</div>
-<div class="before-now"><strong>INITIAL → CURRENT</strong><p>${escapeHtml(reportModel.initialSummary)}</p></div>
+</div>`}
+${recentChangeMarkup || `<div class="before-now"><strong>INITIAL → CURRENT</strong><p>${escapeHtml(reportModel.initialSummary)}</p></div>`}
 <figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="全履歴の6観点評価。今回の発音: ${ratingLabel(latestTracker, 'Pronunciation')}。過去の最終記録 S${lastPronunciation?.session ?? '—'}は現基準の音声総合審査と区別。" loading="lazy"></a><figcaption>横軸はSession、縦軸はL評価。N/Aは欠測、線で補間しません。発音の過去値は旧基準・限定根拠を含みます。段階は形成中 / 安定 / 強い。</figcaption></figure>
 </section>
 

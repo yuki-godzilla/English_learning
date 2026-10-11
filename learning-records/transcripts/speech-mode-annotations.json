@@ -3,6 +3,8 @@
   "default_mode": "spontaneous",
   "default_scope": "Unredacted Yuki turns in recovered voice transcripts only; exceptions below were checked against the JSONL text.",
   "annotations": [
+    { "session_number": 21, "turn_index": 54, "speech_mode": "repetition", "evidence": "Repeats the assistant's name during explicit name/pronunciation clarification; not independent expression reuse." },
+    { "session_number": 21, "turn_index": 96, "speech_mode": "read_aloud", "evidence": "Reads the British Council article title. Full article reading was recorded separately and is not part of this live voice transcript." },
     { "session_number": 20, "turn_index": 189, "speech_mode": "read_aloud", "evidence": "Reads the EEA report overview from the visible article." },
     { "session_number": 20, "turn_index": 191, "speech_mode": "read_aloud", "evidence": "Reads the introduction on transport's economic role and environmental impacts." },
     { "session_number": 20, "turn_index": 197, "speech_mode": "read_aloud", "evidence": "Mixed segment starts reading the climate-law sentence, then asks a word meaning; exclude conservatively." },

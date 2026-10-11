@@ -16,3 +16,24 @@ export function validateScoringEvidence(session, metrics, turnIds) {
   }
   return errors;
 }
+
+/** New small-change reviews cannot substitute a flat score for a comparison. */
+export function validateRecentChangeReview(session, metrics, turnsBySession) {
+  if (session.session < 21) return [];
+  const errors = [];
+  const review = session.recent_change_review;
+  if (review?.version !== 'recent-change-v1' || !review.summary?.trim() || !Array.isArray(review.observations) || review.observations.length < 1 || review.observations.length > 3) return ['missing recent-change review'];
+  const decisions = new Set(['observed_gain', 'stable', 'mixed', 'observed_loss', 'unconfirmed']);
+  const checkReference = (ref, current) => {
+    if (!ref || !Number.isInteger(ref.session) || (current ? ref.session !== session.session : ref.session >= session.session) || !ref.observation?.trim()) return false;
+    if (!Array.isArray(ref.turn_indices) || ref.turn_indices.some(id => !turnsBySession.get(ref.session)?.has(id))) return false;
+    return ref.turn_indices.length > 0 || Boolean(ref.alternative_evidence?.trim());
+  };
+  for (const o of review.observations) {
+    if (!metrics.includes(o.metric) || !o.behavior?.trim() || !decisions.has(o.decision) || !['high', 'medium', 'low'].includes(o.confidence) || !o.comparison_conditions?.trim() || !o.next_observation?.trim()) errors.push('incomplete recent-change observation');
+    if (!checkReference(o.current, true)) errors.push('invalid current change reference');
+    if (o.earlier !== null ? !checkReference(o.earlier, false) : o.decision !== 'unconfirmed') errors.push('invalid earlier change reference');
+    if (o.metric === 'Pronunciation' && o.decision !== 'unconfirmed' && session.pronunciation_evidence?.holistic_audio_review !== true) errors.push('pronunciation change requires direct holistic review');
+  }
+  return errors;
+}

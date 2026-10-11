@@ -6,7 +6,7 @@ import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
 import { tableRows as sharedTableRows, normalizeBankKey } from "../lib/markdown-table.mjs";
 import { ratingLabel } from "../lib/evidence.mjs";
 import { assetProvenance } from "../lib/asset-provenance.mjs";
-import { validateScoringEvidence } from '../lib/scoring-contract.mjs';
+import { validateScoringEvidence, validateRecentChangeReview } from '../lib/scoring-contract.mjs';
 
 const failures = [];
 const fail = (message) => failures.push(message);
@@ -54,6 +54,7 @@ const requiredFeedbackPolicies = [
   "feedback-policy: asr-uncertainty-v1",
   "feedback-policy: wrap-up-focus-1-or-2-v1",
   "feedback-policy: no-forced-repeat-v1",
+  "feedback-policy: recent-change-review-v1",
 ];
 for (const policy of requiredFeedbackPolicies) {
   if (!agentsRules.includes(policy)) fail(`Runtime conversation policy is missing: ${policy}`);
@@ -89,6 +90,12 @@ if (!scoringProtocol || scoringProtocol.effective_from_session !== 16 || typeof 
   fail("Whole-session scoring protocol is missing or invalid");
 }
 const comparisonStates = new Set(["improved", "stable", "mixed", "declined", "not_comparable"]);
+const turnsBySession = new Map();
+for (const entry of journal.sessions) {
+  const file = path.join(recordsRoot, 'transcripts', `${entry.date}-session-${entry.id.slice(-2)}.jsonl`);
+  const rows = await exists(file) ? (await fs.readFile(file, 'utf8')).trim().split(/\r?\n/).map(JSON.parse) : [];
+  turnsBySession.set(entry.session, new Set(rows.filter(t => t.type === 'turn' && t.speaker === 'yuki').map(t => t.index)));
+}
 for (const session of progress.sessions ?? []) {
   const journalSession = journal.sessions.find((entry) => entry.session === session.session);
   if (!journalSession) { fail(`Progress Session ${session.session} has no Journal session`); continue; }
@@ -97,6 +104,7 @@ for (const session of progress.sessions ?? []) {
   const transcriptPath = path.join(recordsRoot, 'transcripts', `${journalSession.date}-session-${journalSession.id.slice(-2)}.jsonl`);
   if (await exists(transcriptPath)) turnIds = new Set((await fs.readFile(transcriptPath, 'utf8')).trim().split(/\r?\n/).map(JSON.parse).filter(t => t.type === 'turn' && t.speaker === 'yuki').map(t => t.index));
   for (const message of validateScoringEvidence(session, progress.qualitative_metrics, turnIds)) fail(`Session ${session.session}: ${message}`);
+  for (const message of validateRecentChangeReview(session, progress.qualitative_metrics, turnsBySession)) fail(`Session ${session.session}: ${message}`);
   for (const metric of progress.qualitative_metrics ?? []) {
     if (session.session >= 16 && !Object.hasOwn(session.ratings ?? {}, metric)) fail(`Session ${session.session} must explicitly rate or mark ${metric} N/A`);
     const rating = session.ratings?.[metric];

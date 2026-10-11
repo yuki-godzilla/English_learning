@@ -2,6 +2,7 @@
   "schema_version": 1,
   "description": "Accepted item identity ledger; content remains solely in journal.md. Retire only with reason and existing merged_into key.",
   "items": [
+    {"id":"expressions-d38dab65498239c5","bank":"expressions","key":"i find it hard to make friends online."},
     {"id":"expressions-832c5d43c31a6d11","bank":"expressions","key":"baseball helps me switch off because it's a totally different world from work."},
     {"id":"expressions-fc322f17ddac2bb5","bank":"expressions","key":"i started playing baseball when i started working."},
     {"id":"vocabulary-e5d99107a24a8276","bank":"vocabulary","key":"formalise /ˈfɔː.mə.laɪz/ verb"},

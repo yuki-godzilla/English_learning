@@ -133,18 +133,18 @@
       "path": "learning-records/media/progress/english-growth-evidence-dashboard.png",
       "status": "generated",
       "role": "English growth dashboard",
-      "alt": "Session 1からSession 20までの英語力成長グラフ",
-      "caption": "progress.jsonから生成したSession 1〜20の英語力推移。L1〜L5と同一L内の段階を表示。発音の過去記録S8・12は限定的な旧評価を含み、現基準の直接総合審査とは区別する。N/Aは欠測。",
+      "alt": "Session 1からSession 21までの英語力成長グラフ",
+      "caption": "progress.jsonから生成したSession 1〜21の英語力推移。L1〜L5と同一L内の段階を表示。発音の過去記録S8・12は限定的な旧評価を含み、現基準の直接総合審査とは区別する。N/Aは欠測。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "d68865726320818ba0d50097846f0f5d61b0cacf815a4c44b7bcb0f212a5b783",
+      "sha256": "2493a2c102ec3ed23690096c8ab827740033bc2afa2bcc8c29ebed9cc4da7cfb",
       "provenance": {
         "schema_version": 1,
         "inputs": {
-          "learning-records/progress.json": "7bbdc987ed12137243978a113a5cdf0e4363165efdb224e2bf939491140504f2",
+          "learning-records/progress.json": "7fc0563fa97586c9bebfe9198c77d3b77fa206e661ff967cc0555385bdf5195f",
           "scripts/charts/generate.mjs": "309c4855b99ae16a96765a8a8c5bbc5b6c476ef05fb0b480141375ba6f1096c2",
           "scripts/lib/evidence.mjs": "865a1bb9ee8c852df94a43b53bf60fa38302d1cf4791f6e4ec4d57619ba73b16",
-          "scripts/charts/skill-timeline.mjs": "42709340cbbaaa90d4fc311a1dfbb2123269520b5dcbe83c1cafb2ab785c57f9"
+          "scripts/charts/skill-timeline.mjs": "5c8721486ae69cb21e60c607f7254a211eded81ae054aedbc73fe803f2a21ce0"
         }
       }
     },
@@ -152,7 +152,7 @@
       "path": "learning-records/media/progress/english-test-score-estimate-trends.png",
       "status": "generated",
       "role": "Estimated external-test range plot",
-      "alt": "Session 20時点で利用できる各資格スコア推定レンジ。各行に最終根拠Sessionと確度を表示。",
+      "alt": "Session 21時点で利用できる各資格スコア推定レンジ。各行に最終根拠Sessionと確度を表示。",
       "caption": "progress.jsonから生成した学習用の資格スコア推定レンジ。各試験の最新根拠Sessionと確度を示す断面図であり、連続した試験測定や公式結果ではない。過去の本人申告の実績は推定と分離する。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
@@ -160,10 +160,10 @@
       "provenance": {
         "schema_version": 1,
         "inputs": {
-          "learning-records/progress.json": "7bbdc987ed12137243978a113a5cdf0e4363165efdb224e2bf939491140504f2",
+          "learning-records/progress.json": "7fc0563fa97586c9bebfe9198c77d3b77fa206e661ff967cc0555385bdf5195f",
           "scripts/charts/generate.mjs": "309c4855b99ae16a96765a8a8c5bbc5b6c476ef05fb0b480141375ba6f1096c2",
           "scripts/lib/evidence.mjs": "865a1bb9ee8c852df94a43b53bf60fa38302d1cf4791f6e4ec4d57619ba73b16",
-          "scripts/charts/skill-timeline.mjs": "42709340cbbaaa90d4fc311a1dfbb2123269520b5dcbe83c1cafb2ab785c57f9"
+          "scripts/charts/skill-timeline.mjs": "5c8721486ae69cb21e60c607f7254a211eded81ae054aedbc73fe803f2a21ce0"
         }
       }
     },

@@ -300,14 +300,14 @@ if ($Action -eq 'Start') {
             @(
                 'Record with an available local app.',
                 "Export or copy the completed audio file into: $inboxRoot",
-                'Then tell Chappy that the recording is finished.'
+                'Then tell Astra that the recording is finished.'
             )
         }
         else {
             @(
                 'Press Ctrl+R in Sound Recorder to start.',
                 'After reading, use the stop control shown by Sound Recorder; it saves automatically.',
-                'Confirm that the new recording appears with a duration, then tell Chappy that it is finished.'
+                'Confirm that the new recording appears with a duration, then tell Astra that it is finished.'
             )
         }
     }
