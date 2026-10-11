@@ -2,6 +2,11 @@
   "schema_version": 1,
   "description": "Accepted item identity ledger; content remains solely in journal.md. Retire only with reason and existing merged_into key.",
   "items": [
+    {"id":"expressions-caa9c26b70eed98c","bank":"expressions","key":"for me, understanding something means being able to explain it in my own words."},
+    {"id":"expressions-35b4426bf736705a","bank":"expressions","key":"could you explain what \"take charge\" means?"},
+    {"id":"vocabulary-e4c970a738b7b1de","bank":"vocabulary","key":"cozy / cosy /ˈkoʊ.zi/ adjective"},
+    {"id":"vocabulary-2f5d24aa1cc4b48b","bank":"vocabulary","key":"take charge /teɪk tʃɑːrdʒ/ verb phrase"},
+    {"id":"vocabulary-f03407282646ed81","bank":"vocabulary","key":"statistically /stəˈtɪs.tɪ.kli/ adverb"},
     {"id":"expressions-d38dab65498239c5","bank":"expressions","key":"i find it hard to make friends online."},
     {"id":"expressions-832c5d43c31a6d11","bank":"expressions","key":"baseball helps me switch off because it's a totally different world from work."},
     {"id":"expressions-fc322f17ddac2bb5","bank":"expressions","key":"i started playing baseball when i started working."},

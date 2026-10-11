@@ -1198,6 +1198,371 @@
       "evidence_quote_origin":"Original learner ASR segment146, preserved including restarts and uncertain word forms; no pronunciation or tiny-word error inference.",
       "evidence_note_ja":"映画では場面が見えるため表現を会話へつなげやすいと理由を説明し、話題の種類ではなく相手と機会が必要だと具体化した。採点は各記述から新規に判断し、前回と同じ数値でも理由を記録。自力の理由説明・範囲指定の再現は確認したが、小さな語彙・文法改善や停滞は確定できない。次回は自然な議論で主張・理由・具体例を一つにつなぐ。",
       "evidence_note":"Own reasons and specific conversational needs were communicated. Scores were freshly descriptor-checked; no forced increase or historical rescoring. Recent source-paired explanations and scope management recur at a similar level, while lexical/grammar change is unconfirmed. Full read-aloud audio measurements are separate; holistic pronunciation remains N/A and test estimates are not updated."
+    },
+    {
+      "session": 22,
+      "date": "2026-10-11",
+      "task": "Casual animal-cafe narrative and discussion of understanding, efficiency and assessment concepts; questionnaire ratings excluded from English-production assessment",
+      "task_ja": "動物カフェの休日と、自分の学び方を英語で説明する",
+      "data_coverage": "All 310 available original voice segments, including 126 learner segments, retained in source order through closure. Private personality responses/results and two background-audio segments redacted before public commit. English assessment uses substantive nonredacted discussion, not numerical questionnaire answers or supplied item wording. No independent audio file, direct sound/prosody review, spontaneous audio timing, fixed probe or official-format test.",
+      "ratings": {
+        "Task achievement": 4,
+        "Fluency & coherence": 3,
+        "Lexical resource": 3,
+        "Grammar control": 3,
+        "Interaction & repair": 4,
+        "Pronunciation": null
+      },
+      "within_level_stage": {
+        "Task achievement": "emerging",
+        "Fluency & coherence": "established",
+        "Lexical resource": "established",
+        "Grammar control": "established",
+        "Interaction & repair": "strong",
+        "Pronunciation": null
+      },
+      "metric_evidence": {
+        "Task achievement": {
+          "basis": "Learner-origin narrative, personal definition and qualified position",
+          "display_summary_ja": "休日の出来事を説明し、「理解とは自分で説明できること」と定義。効率を好むが休憩も大切だと例と理由を加えた。",
+          "observed": "Described contrasting animal moods and the difficulty of photographing living animals. Defined familiarity as being able to explain, then qualified efficiency with examples of chilling out and taking breaks and his own reason that time is limited. These ideas were not supplied as questionnaire answers.",
+          "comparison": "stable",
+          "reason": "Fresh L4 emerging decision for completing short familiar purposes with independently supplied content, examples and a conclusion across conversational prompts. Session21 also had own reasons/examples. Support-dependent organization remains; sustained unprompted explanation and flexible unfamiliar-topic L5 were not tested. Same numerical level does not establish a plateau.",
+          "confidence": "medium",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "prompted",
+            "preparation_seconds": null,
+            "turn_indices": [
+              27,
+              38,
+              42,
+              46,
+              85,
+              91,
+              95
+            ],
+            "comparison_session": 21,
+            "comparison_conditions": "Immediately preceding same-day Session21: familiar personal viewpoints after conversational prompts, no measured preparation. Topic and question structure differ; compare independent ideas and reasons, not speed or overall task difficulty.",
+            "next_observation": "In a natural discussion, connect a main point, one reason and a specific personal example without a supplied model."
+          }
+        },
+        "Fluency & coherence": {
+          "basis": "Connected meaning in spontaneous transcript text, not measured delivery",
+          "display_summary_ja": "動物カフェの出来事と学び方の説明で、言い直しても意味の軸を保った。声の速度・間は未測定。",
+          "observed": "Linked the animal-cafe visit to photography and walking home, and kept the explanation of learning and efficiency coherent across visible restarts. No pause duration or speaking rate was recovered from ASR boundaries.",
+          "comparison": "stable",
+          "reason": "L3 established is supported by repeated continuity of meaning across narrative and viewpoints, as in Session21. Text alone cannot establish the small-hesitation delivery required at L4. Questionnaire response speed, short numerical answers and wall-clock session duration are not fluency evidence.",
+          "confidence": "medium",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "prompted",
+            "preparation_seconds": null,
+            "turn_indices": [
+              27,
+              38,
+              42,
+              46,
+              85,
+              91,
+              95
+            ],
+            "comparison_session": 21,
+            "comparison_conditions": "Immediately preceding same-day Session21: familiar personal viewpoints after conversational prompts, no measured preparation. Topic and question structure differ; compare independent ideas and reasons, not speed or overall task difficulty. Segmentation and interruptions differ; only meaning continuity is comparable.",
+            "next_observation": "Observe an independently connected explanation in ordinary conversation; check audio before making timing claims."
+          }
+        },
+        "Lexical resource": {
+          "basis": "Learner-selected vocabulary versus immediate definitions and repetition",
+          "display_summary_ja": "sleepy、scared、familiar、practically、efficientlyで具体的な様子と考えを伝えた。新しく説明された語は習得・独立再利用に数えない。",
+          "observed": "Used familiar words for animal states and learning priorities. Requested the meaning of cozy and take charge. Statistically followed an assistant definition; sugar glider and trait labels also followed supplied wording. These are supported encounters, not independent mastery.",
+          "comparison": "not_comparable",
+          "reason": "Current familiar-topic retrieval supports L3 established, not demonstrated breadth and flexible idiomatic paraphrase for L4. Session21 reading/film/partner language and tonight animal/learning language offer different lexical opportunities. No matched delayed independent reuse proves a small gain.",
+          "confidence": "medium",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "mixed",
+            "preparation_seconds": null,
+            "turn_indices": [
+              29,
+              36,
+              38,
+              54,
+              85,
+              91,
+              95,
+              114,
+              235
+            ],
+            "comparison_session": 21,
+            "comparison_conditions": "Different domains, definitions and questionnaire wording prevent matched lexical comparison with Session21. Word recognition immediately after explanation is not delayed independent retrieval.",
+            "next_observation": "Look for one context-appropriate use of cozy or take charge in a later original explanation without immediately preceding model wording."
+          }
+        },
+        "Grammar control": {
+          "basis": "Meaning-bearing spontaneous clauses with ASR uncertainty",
+          "display_summary_ja": "日常の出来事と学び方を節でつなぎ、時間が限られるから効率を重視する理由を伝えた。細かな冠詞・前置詞は音声未確認。",
+          "observed": "Connected a personal narrative, contrast and reason using simple and some linked clauses. The station narrative and familiar/explain definition retain original ASR forms. Questionnaire item grammar and the supported respect paraphrase are excluded as independent production.",
+          "comparison": "not_comparable",
+          "reason": "L3 established reflects repeated clear meaning in simple and some connected constructions. Stable accurate control of varied constructions needed for L4 was not established. Different tense/contrast opportunities and unreviewed function words prevent an accuracy-change claim or confirmed recurring-error count.",
+          "confidence": "medium",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "mixed",
+            "preparation_seconds": null,
+            "turn_indices": [
+              27,
+              38,
+              42,
+              46,
+              85,
+              91,
+              95
+            ],
+            "comparison_session": 21,
+            "comparison_conditions": "Session21 general comparisons/conditions versus tonight narrative/definitions are different opportunities; neither session has reviewed spontaneous audio for tiny-word accuracy.",
+            "next_observation": "Observe a familiar clause pattern and independent self-repair naturally; verify actual audio before counting ASR-sensitive errors."
+          }
+        },
+        "Interaction & repair": {
+          "basis": "Independent clarification and control of scope",
+          "display_summary_ja": "過去の履歴まで確認する範囲を指定し、cozy・take chargeや質問の意味を確認。背景音声を除外し、会話の終了も自分で決めた。",
+          "observed": "Specified older cross-project history rather than recent examples, requested word meanings and simpler explanations, identified unrelated YouTube audio, and directed transitions and closure. The supported respect paraphrase checks comprehension but does not prove independent lexical mastery.",
+          "comparison": "stable",
+          "reason": "L4 strong is supported by repeated independent scope clarification and direction, also documented in Session21. L5 flexible pragmatic adaptation across partners was not sufficiently tested. Assistant repetitions and ambiguous questionnaire guidance are separate conversation-quality issues, not learner deficits.",
+          "confidence": "high",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "spontaneous",
+            "support": "independent",
+            "preparation_seconds": null,
+            "turn_indices": [
+              23,
+              54,
+              60,
+              69,
+              71,
+              79,
+              127,
+              138,
+              174,
+              192,
+              194,
+              233,
+              235,
+              241,
+              245,
+              252,
+              254,
+              309
+            ],
+            "comparison_session": 21,
+            "comparison_conditions": "Both sessions contain learner-led scope correction, word/intent checks and transitions. Assistant-caused confusion differs; compare successful direction, not number of clarification markers.",
+            "next_observation": "Allow a substantive explanation to develop and answer the intended scope directly, with fewer repeated confirmation prompts."
+          }
+        },
+        "Pronunciation": {
+          "basis": "No independent recording or direct sound/prosody review this evening",
+          "display_summary_ja": "今回は独立した録音も音・韻律の直接レビューも取得していないためN/A。午前の音読測定や過去Lを今回へ転用しない。",
+          "observed": "This evening was a voice conversation captured as transcript segments only. No independent audio file was collected or analyzed, and no reliable direct review of vowels/consonants, stress, rhythm, linking or intonation is available.",
+          "comparison": "not_comparable",
+          "reason": "N/A is a missing current audio assessment, not zero or decline. Morning Session21 reading measurements and historical Session12 L3 established (legacy limited evidence) are separate. ASR spellings of names and words cannot establish pronunciation correctness.",
+          "confidence": "high",
+          "provenance": {
+            "rubric_version": "whole-session-v3",
+            "task_kind": "not_observed",
+            "support": "unknown",
+            "preparation_seconds": null,
+            "turn_indices": [],
+            "comparison_session": 21,
+            "comparison_conditions": "No comparable current audio evidence. Session21 had separate reading measurements, not a new holistic sound/prosody rating.",
+            "next_observation": "If a recording is supplied, evaluate the complete file within verified audio capabilities and state any remaining evidence limits."
+          }
+        }
+      },
+      "recent_change_review": {
+        "version": "recent-change-v1",
+        "compact_summary": "自分の理由・具体例と範囲指定を再現。独立した新語運用の改善は未確認。",
+        "summary": "午前も夜も、自分の主張に理由や具体的内容を加え、必要な会話範囲を自分で調整できた。この行動の再現は確認できる。新語を助けなしで使いやすくなったか、文法が正確になったかは未確認で、同じLを停滞と読まない。",
+        "observations": [
+          {
+            "metric": "Task achievement",
+            "behavior": "主張に自分の理由と具体例を加える",
+            "earlier": {
+              "session": 21,
+              "turn_indices": [
+                146,
+                159
+              ],
+              "observation": "映画は状況が見えるので会話に使いやすいと説明。casual・technical・privateの話題例を挙げ、相手と機会が必要と結論付けた。"
+            },
+            "current": {
+              "session": 22,
+              "turn_indices": [
+                85,
+                91,
+                95
+              ],
+              "observation": "理解を自分で説明できることと定義。効率を好む一方で休憩を具体例に挙げ、時間が限られることを理由にした。"
+            },
+            "comparison_conditions": "Immediately preceding same-day Session21: familiar personal viewpoints after conversational prompts, no measured preparation. Topic and question structure differ; compare independent ideas and reasons, not speed or overall task difficulty.",
+            "decision": "stable",
+            "confidence": "medium",
+            "next_observation": "主張・理由・個人の具体例を、自然な議論で一つの説明へ自分からつなぐ。"
+          },
+          {
+            "metric": "Interaction & repair",
+            "behavior": "欲しい回答の範囲を自分で指定する",
+            "earlier": {
+              "session": 21,
+              "turn_indices": [
+                126,
+                128,
+                134
+              ],
+              "observation": "長期全体ではなく、会話間の最近の小さな改善を知りたいと指定した。"
+            },
+            "current": {
+              "session": 22,
+              "turn_indices": [
+                60,
+                69,
+                71
+              ],
+              "observation": "このプロジェクトや最近の例だけでなく、より過去の会話と最古の確認可能な記録を求めた。"
+            },
+            "comparison_conditions": "直前の同日Session21と比較。どちらも自力の範囲指定で事前準備は未測定。Astraの回答不足を補う負担や回数は能力の改善率にしない。",
+            "decision": "stable",
+            "confidence": "high",
+            "next_observation": "意図が最初に伝わるようAstraが範囲を尊重し、その後の内容ある議論を見る。"
+          },
+          {
+            "metric": "Lexical resource",
+            "behavior": "新しく出会った語の独立した再利用",
+            "earlier": {
+              "session": 21,
+              "turn_indices": [
+                161
+              ],
+              "observation": "obstacleは直前のAstraの語に続いて使われたため、独立再利用とは数えない。"
+            },
+            "current": {
+              "session": 22,
+              "turn_indices": [
+                54,
+                114,
+                235
+              ],
+              "observation": "cozy・take chargeの意味を確認し、statisticallyを説明直後に使った。後日の独立使用はまだ観察していない。"
+            },
+            "comparison_conditions": "語と題材が異なり、どちらも直前の提示・説明の影響がある。遅延した独立再利用の同条件例がなく、習得や改善を比較できない。",
+            "decision": "unconfirmed",
+            "confidence": "medium",
+            "next_observation": "次の普通の会話でcozyかtake chargeが自分の説明に自然に現れるか観察する。"
+          }
+        ]
+      },
+      "conversation_quality": {
+        "status": "source-backed manual audit",
+        "source": "learning-records/transcripts/2026-10-11-session-02.jsonl",
+        "observations": [
+          {
+            "kind": "question_led_casual_talk_and_flattened_nuance",
+            "assistant_turns": [
+              40,
+              43,
+              45,
+              47,
+              49,
+              51,
+              53,
+              92,
+              94
+            ],
+            "learner_turns": [
+              42,
+              50,
+              52,
+              91,
+              95
+            ],
+            "note": "Repeated short acknowledgments and questions limited substantive exchange. The learner explicitly valued breaks, so the assistant should engage with that nuance rather than reducing it to an efficiency slogan."
+          },
+          {
+            "kind": "questionnaire_language_and_administration_support",
+            "assistant_turns": [
+              175,
+              190,
+              191,
+              193,
+              195,
+              238,
+              240,
+              242,
+              248
+            ],
+            "learner_turns": [
+              174,
+              192,
+              194,
+              233,
+              235,
+              241,
+              245,
+              252,
+              254
+            ],
+            "note": "Explanations sometimes guided a response rather than neutrally clarifying wording, and item21 was repeated after already being counted. Numeric responses and supplied item sentences are not independent English-task evidence; administrative burden is not a learner deficit."
+          },
+          {
+            "kind": "visual_format_mismatch",
+            "assistant_turns": [
+              136,
+              137
+            ],
+            "learner_turns": [
+              133,
+              138
+            ],
+            "note": "An evidence map was presented, but the learner indicated the visual/image format was not satisfactory and chose to move on. Do not count rejecting that format as task failure."
+          }
+        ],
+        "unmeasured": [
+          "spontaneous_audio_timing",
+          "individual_sounds_and_prosody",
+          "population_personality_rank",
+          "intelligence_score"
+        ]
+      },
+      "assessment_summary": {
+        "observed_success": {
+          "turn_index": 95,
+          "quote": "time... is limited. So I want to use... it... practically... efficiently, too",
+          "meaning_ja": "効率を重視する理由を自分の言葉で伝え、直前に休憩の価値も例で説明した。"
+        },
+        "limitations_ja": "会話5観点の根拠は自発的な説明と対話行動。個別アンケート回答・心理結果を公開せず、数字の回答や説明直後の語を能力向上に数えない。今回は録音の取得・直接発音レビューなし。",
+        "next_targets": [
+          "In an ordinary discussion, connect your main point, one reason and one specific personal example."
+        ]
+      },
+      "pronunciation_evidence": {
+        "task_kind": "spontaneous",
+        "purpose": "conversation",
+        "direct_audio_processed": false,
+        "holistic_level_assigned": false,
+        "holistic_audio_review": false,
+        "assessment_status": "not_assessed_no_current_audio",
+        "analysis_method": "Transcript review only; no current audio analysis",
+        "limitations": "No independent recording was collected. Individual sounds, stress, rhythm, linking, intonation and delivery timing cannot be inferred from ASR. Session21 audio measurements and historical scores remain separate."
+      },
+      "evidence_quote": "Yeah, so I think, time... is limited. So I want to use... it... practically... efficiently, too",
+      "evidence_quote_origin": "Original learner ASR segment95, preserved including restarts; no sound or tiny-word error inference.",
+      "evidence_note_ja": "自分の学び方・効率と休憩の価値を理由と例で説明し、話す範囲も自力で調整。直前との行動の再現は確認、新語の独立使用や文法精度の改善は未確認。今回は新しい発音測定も資格目安の更新もない。",
+      "evidence_note": "Fresh descriptor check based on substantive narrative and viewpoints, with source-paired recent observations. Questionnaire scores are not English scores. Similar own reasons and scope clarification recur; delayed lexical reuse and grammar accuracy gains are unconfirmed. No current audio rating or official-test update."
     }
   ],
   "test_score_estimates": {
