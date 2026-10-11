@@ -52,7 +52,7 @@ Look first at the immediately preceding session and then, when needed, the neare
 
 Use `observed_gain`, `stable`, `mixed`, `observed_loss`, or `unconfirmed`. Stable requires comparable evidence of similar performance; it is not the default when a number stays unchanged. One fair pair supports only a narrowly described observed difference, not a sustained trend or mastery. Confirm persistence in another independent later session before claiming consistent growth. Do not infer daily gains, construct decimal scores, or select flattering comparison partners. No demonstration opportunity and no error found are different observations.
 
-Where counts are genuinely verified, record successful attempts and opportunities, not errors alone. Do not compare raw error totals across unequal output or task complexity. Transcript-only ASR uncertainties do not become confirmed grammar errors, speech durations or word-search counts. Read-aloud timing remains a separate measurement and cannot establish spontaneous-speaking progress. Pronunciation remains N/A under the existing pause.
+Where counts are genuinely verified, record successful attempts and opportunities, not errors alone. Do not compare raw error totals across unequal output or task complexity. Transcript-only ASR uncertainties do not become confirmed grammar errors, speech durations or word-search counts. Read-aloud timing remains a separate measurement and cannot establish spontaneous-speaking progress. Evaluate every recording under the current recording policy below; assign a holistic Pronunciation level when its audio evidence supports the rubric.
 
 New sessions carry this structure in `progress.json`:
 
@@ -78,12 +78,16 @@ For the five assessable conversation dimensions, connect an actual utterance or 
 
 Lead the report with one observed success, the limitation or reason for a stable/withheld rating, and one or two next practice targets. A clearer explanation, self-repair, or independently reused expression can be meaningful without a level increase. If no success or change is established, say it is unconfirmed rather than inventing one. Keep ASR matching and pace as method-labeled measurements, not pronunciation percentages, L ratings, or examination scores. Apply this policy to new reports without silently rescoring history.
 
-### Temporary pause on new holistic Pronunciation ratings (2026-10-05)
+### Evaluate every recording (2026-10-11)
 
-At Yuki's request, suspend new holistic Pronunciation L1–L5 ratings and within-level stages until a reliable direct audio review method is verified and resumption is agreed with Yuki. Keep the Pronunciation dimension in the data as N/A, with the reason that holistic assessment is paused because of the review-method limitation. Continue assessing the other five dimensions independently when their evidence is sufficient.
+Yuki's instruction to evaluate whenever a recording is made supersedes the 2026-10-05 blanket pause. Proceed with evaluation on every recorded session without requesting permission again to resume. Use the entire recording unless Yuki specifies a different scope; technical segmentation must still cover the full file.
+
+After capture and quality checks, use the available audio review methods to judge each supported dimension and return findings, evidence, confidence, strengths and actionable improvements where supported. A list of measurements or N/A alone does not complete the request. Assign the L1–L5 holistic level and within-level stage when actual sound and prosody evidence supports the existing rubric. Document the method and coverage of any automatic score; never invent sound judgments or convert ASR confidence, pace, waveform or pitch alone into a holistic pronunciation score.
+
+If some dimensions cannot be evaluated, provide the work completed and explicitly identify the remaining audio assessment and missing capability. Do not claim full evaluation completion from limited measurements or rename missing evidence as a completed assessment. Verify available methods before inviting another recording, and test any improved method on the existing recording first. Recording length by itself is not a reason to substitute an excerpt or request a new recording.
 
 N/A is neither zero nor a low rating. Do not use an unmeasured pronunciation value in an overall score or describe the other five dimensions as a complete assessment including pronunciation. Preserve past ratings and identify their historical evidence limits separately; do not rescore or remove history under this policy.
 
-Local pace, pauses, recording quality, and ASR results may still be reported as limited measurements, not sound-accuracy ratings. Before requesting another recording for a holistic rating, test the review method on existing audio. New software or an automatic score alone does not establish valid sound/prosody review. Any external audio transfer still requires the explicit approval specified in AGENTS.md.
+Local pace, pauses, recording quality, and ASR results support findings within their measured scope. They do not by themselves establish sound accuracy or complete the holistic review. Any external audio transfer still requires the explicit approval specified in AGENTS.md.
 
 For each dimension, show the current rating or N/A, the previous rating, the comparison decision, one evidence sentence, and a limitation when relevant. Explain specifically why a rating remained unchanged. Do not imply that six unchanged numbers prove no learning, or that a richer conversation alone proves a level increase. If the evidence is mixed, say so plainly and give the next observation that would resolve it.
