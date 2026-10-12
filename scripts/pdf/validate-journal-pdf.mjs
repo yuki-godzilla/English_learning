@@ -1,3 +1,4 @@
+import { pdfChapterOrder } from '../lib/learning-plan.mjs';
 /** Postflight validation for the integrated Current Learning Journal PDF. */
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -103,15 +104,22 @@ for (const [index, [width, height]] of inventory.page_sizes.entries()) {
   if (Math.abs(width - 595.28) > 3 || Math.abs(height - 841.89) > 3) fail(`Page ${index + 1} is not A4 (${width.toFixed(1)} × ${height.toFixed(1)} pt)`);
 }
 
-const expectedOutlines = [
-  "Cover",
-  "Session Index",
-  ...latest.map((session) => `Session ${session.session} — ${session.title}`),
-  "English Growth & Evaluation",
-  "Expression Bank",
-  "Vocabulary Bank",
-  "Pronunciation & Speaking Bank",
-];
+const expectedOutlines = pdfChapterOrder(sessions).map(chapter => chapter.title);
+if (JSON.stringify(inventory.outlines) !== JSON.stringify(expectedOutlines)) fail('PDF chapters are not in learning-first order');
+function chapterRange(title) {
+  const start = inventory.outline_pages[title];
+  if (!Number.isInteger(start) || start < 0) return null;
+  const next = Object.values(inventory.outline_pages).filter(p => p > start);
+  return [start, next.length ? Math.min(...next) : inventory.pages];
+}
+const briefRange = chapterRange('Learning Brief');
+if (!briefRange || briefRange[1] - briefRange[0] !== 1) fail('Learning Brief must fit one readable page');
+const summaryRange = chapterRange('English Growth & Evaluation');
+if (!summaryRange || summaryRange[1] - summaryRange[0] > 2) fail('Current growth summary exceeds two pages');
+for (const label of ['今回の収穫', '内容面の持ち帰り', '次に使う表現', '5分復習', '次回の重点', '評価範囲']) {
+  if (!normalized(inventory.page_texts[0]).includes(normalized(label))) fail(`Learning Brief role missing: ${label}`);
+}
+
 for (const title of expectedOutlines) {
   if (!inventory.outlines.includes(title)) fail(`PDF bookmark is missing: ${title}`);
 }
@@ -127,7 +135,7 @@ const normalizedText = normalized(inventory.text);
 for (const requiredText of ["WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "RAW EVIDENCE COVERAGE", "ESTIMATED EXTERNAL-TEST RANGES"]) {
   if (!normalizedText.includes(normalized(requiredText))) fail(`Static Growth content is missing: ${requiredText}`);
 }
-const growthStart = inventory.outline_pages['English Growth & Evaluation'];
+const growthStart = inventory.outline_pages['Growth Evidence & Methods'];
 const expressionStart = inventory.outline_pages['Expression Bank'];
 if (growthStart < 0 || expressionStart <= growthStart) fail("Growth-to-Bank page boundary could not be identified");
 else {

@@ -134,6 +134,8 @@
     text-transform: uppercase;
   }
   .recall-answer { color: #1f2937 !important; padding-top: 3mm; }
+  /* Recall answers are learning text, not 9.6pt metadata inherited from details. */
+  .md-typeset .recall-answer, .md-typeset .recall-answer p { font-size: 10.5pt !important; line-height: 1.5; }
   .recall-answer::before {
     content: "Answer";
     display: block;

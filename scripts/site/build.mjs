@@ -1,3 +1,4 @@
+import { buildLearningBrief } from '../lib/learning-plan.mjs';
 import fs from "node:fs/promises";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
@@ -288,10 +289,10 @@ function latestRows(rows, sessionNumber, limit) {
 }
 
 const bankLedger = JSON.parse(await fs.readFile(path.join(recordsRoot, 'resources/bank-ledger.json'), 'utf8'));
-function recallCard(summary, answer, key) {
+function recallCard(summary, answer, key, identityOverride = null) {
   const bank = key.startsWith('expression-') ? 'expressions' : key.startsWith('vocabulary-') ? 'vocabulary' : key.startsWith('speaking-') ? 'speaking' : null;
   const plainKey = key.replace(/^[^-]+-/, '');
-  const identity = bankLedger.items.find(item => item.bank === bank && normalizeKey(item.key) === plainKey)?.id;
+  const identity = identityOverride ?? bankLedger.items.find(item => item.bank === bank && normalizeKey(item.key) === plainKey)?.id;
   return `<details class="recall-card" data-recall-id="${escapeHtml(identity ?? key)}" data-legacy-recall-id="${escapeHtml(key)}">
   <summary>${summary}</summary>
   <div class="recall-answer">${answer}
@@ -310,7 +311,16 @@ const latestSessionTracker = trackerByNumber.get(latestDefinition.session);
 const latestTracker = latestSessionTracker
   ?? [...tracker.sessions].sort((a, b) => b.session - a.session)[0];
 if (!latestTracker) throw new Error("learning-records/progress.json has no evaluation sessions");
-const latestWinText = latestSessionTracker?.evidence_note_ja ?? latestDefinition.remember;
+const learningBrief = buildLearningBrief(journal, tracker, bankLedger);
+const latestWinText = learningBrief.success;
+const activePlanMarkup = `<section class="active-learning-plan"><h2>現在の重点</h2><p>${escapeHtml(learningBrief.planningNote)}</p>${tracker.learning_plan.goals.map(g => `<article class="learning-card"><h3>${escapeHtml(g.title)}</h3><p>${escapeHtml(g.success_look_for)}</p><p><strong>Astra:</strong> ${escapeHtml(g.assistant_action)}</p></article>`).join('')}<p>学習した語の数ではなく、自分の意味で使えた場面を確認します。復習の自己申告と後日の独立使用は別です。</p></section>`;
+function activeRecallCards(limit = 5) {
+  return learningBrief.items.slice(0, limit).map(item => recallCard(
+    escapeHtml(item.recall_prompt),
+    `<p><strong>${escapeHtml(item.expression)}</strong></p><p>${escapeHtml(item.detail)}</p><p class="card-meta">Bankの学習用表現。独立使用・習得の証拠ではありません。 ${escapeHtml(item.source)}</p><p>別の場面: ${escapeHtml(item.transfer_context)}</p>`,
+    `${{expressions:'expression',vocabulary:'vocabulary',speaking:'speaking'}[item.bank]}-${normalizeKey(item.expression)}`, item.id,
+  )).join('\n');
+}
 const latestExpressions = latestRows(expressionRows, latestDefinition.session, 2);
 const latestVocabulary = latestRows(vocabularyRows, latestDefinition.session, 1);
 const latestSpeaking = latestRows(speakingRows, latestDefinition.session, 1);
@@ -323,17 +333,8 @@ const reviewExpressions = [latestExpressions[0], olderExpression].filter(Boolean
 const reviewVocabulary = priorityVocabulary ? [priorityVocabulary] : [];
 const reviewSpeaking = latestSpeaking[0] ?? speakingRows[0];
 
-const homeReviewCards = [
-  ...reviewExpressions.map((row) => recallCard(escapeHtml(truncate(row[1], 70)), `<strong>${escapeHtml(stripMarkdown(row[0]))}</strong>`, `expression-${normalizeKey(row[0])}`)),
-  ...reviewVocabulary.map((row) => recallCard(`この語を説明できますか？ ${escapeHtml(stripMarkdown(row[0]).split("/")[0])}`, inlineMarkdown(row[1]), `vocabulary-${normalizeKey(row[0])}`)),
-  ...(reviewSpeaking ? [recallCard(`声に出す：${escapeHtml(stripMarkdown(reviewSpeaking[0]))}`, inlineMarkdown(reviewSpeaking[1]), `speaking-${normalizeKey(reviewSpeaking[0])}`)] : []),
-].join("\n");
-
-const homePromptCard = recallCard(
-  "60秒で話す",
-  `<strong>${escapeHtml(latestDefinition.prompt)}</strong><br>Main point → reason → example → conclusion の順で話します。`,
-  `prompt-${latestDefinition.id}`,
-);
+const homeReviewCards = activeRecallCards(2);
+const homePromptCard = '<p class="card-meta">一つだけ思い出せれば十分。場面に合う長さで話し、復唱や固定課題は強制しません。</p>';
 
 assertGeneratedPath(outputRoot);
 await fs.rm(outputRoot, { recursive: true, force: true });
@@ -346,7 +347,7 @@ hide:
 ---
 
 <section class="learning-hero">
-  <div class="learning-kicker">Yuki × Chappy English Journal</div>
+  <div class="learning-kicker">Yuki × Astra English Journal</div>
   <h1>話したことを、次に話せる英語へ。</h1>
   <p>会話を読み返し、表現を思い出し、成長を実感するための学習ホームです。</p>
   <div class="learning-actions">
@@ -370,6 +371,8 @@ hide:
   <strong>今回できたこと</strong><br>
   ${escapeHtml(redactLearnerText(firstSentence(latestWinText)))}
 </div>
+
+${activePlanMarkup}
 
 ## 今日の5分復習
 
@@ -483,7 +486,7 @@ function sessionRecallCards(session) {
   for (const row of latestRows(speakingRows, session.session, 1)) {
     cards.push(recallCard(`声に出す：${escapeHtml(stripMarkdown(row[0]))}`, inlineMarkdown(row[1]), `speaking-${normalizeKey(row[0])}`));
   }
-  cards.push(recallCard("このテーマを60秒で話す", `<strong>${escapeHtml(session.prompt)}</strong><br>Main point → reason → example → conclusion`, `prompt-${session.id}`));
+  cards.push(recallCard("任意：自分の言葉で説明する", `<strong>${escapeHtml(session.prompt)}</strong><br>目的に合う長さで話す練習です。固定課題の測定や習得の証拠とは分けます。`, `prompt-${session.id}`));
   return cards.join("\n");
 }
 
@@ -570,6 +573,12 @@ hide:
 
 <div class="recall-tools"><button type="button" data-recall-export>復習履歴を保存</button> <label>別端末の履歴を取り込む <input type="file" accept="application/json" data-recall-import></label><p data-recall-message aria-live="polite">日数の連続記録は競いません。今日は一つ思い出せれば十分です。</p></div>
 
+${activePlanMarkup}
+
+## 今使う5つの表現・語彙
+
+${activeRecallCards()}
+
 ## 今日の復習候補（最大5項目）
 
 <div data-due-queue>${[
@@ -590,9 +599,9 @@ ${reviewVocabulary.map((row) => recallCard(`${escapeHtml(stripMarkdown(row[0]).s
 
 ${latestSpeaking.map((row) => recallCard(escapeHtml(stripMarkdown(row[0])), inlineMarkdown(row[1]), `speaking-${normalizeKey(row[0])}`)).join("\n")}
 
-## 4. 60秒で話す
+## 4. 任意の短い説明
 
-${recallCard("最新テーマを60秒で話す", `<strong>${escapeHtml(latestDefinition.prompt)}</strong><br>Main point → reason → example → conclusion`, `prompt-${latestDefinition.id}`)}
+${recallCard("自分の場面で説明してみる", `<strong>${escapeHtml(latestDefinition.prompt)}</strong><br>場面に合う内容・長さで話します。追加録音や固定課題は必須ではありません。`, `prompt-${latestDefinition.id}`)}
 
 ## Bankを探す
 
@@ -759,13 +768,12 @@ const recentEvidenceFor = (metric) => { const e = [...recentEvidence].reverse().
 const changeLabels = {observed_gain:'この行動で前進を観察',stable:'同程度の再現',mixed:'混在',observed_loss:'この行動で後退を観察',unconfirmed:'変化は未確認'};
 const changeReview = latestTracker.recent_change_review;
 const recentChangeMarkup = changeReview ? `<article class="before-now"><strong>RECENT CHANGE · 最近の比較</strong><p>${escapeHtml(changeReview.compact_summary ?? changeReview.summary)}</p><p>${changeReview.observations.map(o => `${o.earlier ? `S${o.earlier.session}` : '以前の例なし'} → S${o.current.session} · ${escapeHtml(metricJa[o.metric])}: ${escapeHtml(changeLabels[o.decision])}（${{high:'高',medium:'中',low:'低'}[o.confidence]}確度）`).join('<br>')}</p></article>` : '';
-const grammarCardLabel = Number.isInteger(latestTracker.ratings['Grammar control']) ? 'NEXT BOTTLENECK' : 'EVIDENCE LIMIT';
+const grammarCardLabel = Number.isInteger(latestTracker.ratings['Grammar control']) ? 'OBSERVED GRAMMAR' : 'EVIDENCE LIMIT';
 const grammarCardText = Number.isInteger(latestTracker.ratings['Grammar control'])
   ? firstSentence(recentEvidenceFor('Grammar control'), 65)
   : recentEvidenceFor('Grammar control');
-const reportPracticeTargets = latestTracker.assessment_summary?.next_targets?.length
-  ? latestTracker.assessment_summary.next_targets.join(' ')
-  : '語が詰まったら日本語へ移る前に短い英語で言い換え、長い説明はmain pointを先に置く。';
+const reportPracticeTargets = learningBrief.goal;
+
 const grammarFocus = (latestTracker.pattern_observations?.length ? latestTracker.pattern_observations : [{ pattern: 'Grammar control', status: '未細分化', note: recentEvidenceFor('Grammar control') }])
   .map(item => `<div class="grammar-row"><strong>${escapeHtml(item.pattern)}</strong><span>${escapeHtml(item.status)}</span><small>${escapeHtml(item.note)}</small></div>`).join("\n");
 const estimateTableRows = Object.entries(testDefinitions).map(([testId, definition]) => {
@@ -780,6 +788,8 @@ hide:
 ---
 
 # English Growth Dashboard
+
+<p class="growth-intro">現行計画: ${escapeHtml(tracker.learning_plan.updated_on)}設定。新規S23からwhole-session-v4、S22以前は旧基準のまま保持。基準をまたぐ点数差は自動で上達・低下としません。</p>
 
 <p class="growth-intro">最新評価 S${latestTracker.session} · 回収済み発話 S${rawSessions[0]?.session ?? '—'}–S${latestRawSession?.session ?? '—'}。個人学習用の観察値で、公式試験結果ではありません。</p>
 
