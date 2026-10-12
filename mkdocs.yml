@@ -1,4 +1,4 @@
-site_name: Yuki × Chappy English Journal
+site_name: Yuki × Astra English Journal
 site_description: 会話を振り返り、英語を使い直し、成長を実感するための学習記録
 site_url: https://yuki-godzilla.github.io/English_learning/
 docs_dir: .generated-site-docs
@@ -82,4 +82,4 @@ nav:
   - 成長: progress/index.md
   - 資料: library/index.md
 
-copyright: 学習記録 · Yuki × Chappy
+copyright: 学習記録 · Yuki × Astra
