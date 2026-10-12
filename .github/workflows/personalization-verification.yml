@@ -1,0 +1,27 @@
+name: Personalization verification
+
+on:
+  push:
+    branches:
+      - codex/personalized-learning-20261012
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tracked source
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Archive tracked files only
+        run: git archive --format=zip HEAD --output="$RUNNER_TEMP/english-learning-source.zip"
+      - name: Upload verification source
+        uses: actions/upload-artifact@v4
+        with:
+          name: personalization-source
+          path: ${{ runner.temp }}/english-learning-source.zip
+          retention-days: 1
+          if-no-files-found: error
