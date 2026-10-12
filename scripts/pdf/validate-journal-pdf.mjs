@@ -132,7 +132,7 @@ for (const action of inventory.actions) {
 if (/(?:file:\/\/\/[a-z]:|\b[a-z]:\\Users\\)/i.test(inventory.text)) fail("PDF text exposes a local Windows path");
 
 const normalizedText = normalized(inventory.text);
-for (const requiredText of ["WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "RAW EVIDENCE COVERAGE", "ESTIMATED EXTERNAL-TEST RANGES"]) {
+for (const requiredText of ["WHERE I AM NOW", "HOW MY SPEAKING IS CHANGING", "WHAT TO WORK ON NEXT", "RAW EVIDENCE COVERAGE", "SESSION-BY-SESSION FINGERPRINT", "ESTIMATED EXTERNAL-TEST RANGES"]) {
   if (!normalizedText.includes(normalized(requiredText))) fail(`Static Growth content is missing: ${requiredText}`);
 }
 const growthStart = inventory.outline_pages['Growth Evidence & Methods'];

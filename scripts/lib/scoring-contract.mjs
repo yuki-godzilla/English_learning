@@ -1,4 +1,7 @@
 import { V4_FIRST_SESSION, SUPPORT_KINDS, ASSESSMENT_STATUSES } from './learning-plan.mjs';
+const validTurnReferences = (ids, available) => Array.isArray(ids)
+  && ids.every(id => Number.isInteger(id) && available.has(id))
+  && new Set(ids).size === ids.length;
 /** New records need traceable observations; legacy scores remain unchanged. */
 export function validateScoringEvidence(session, metrics, turnIds) {
   const errors = [];
@@ -10,7 +13,7 @@ export function validateScoringEvidence(session, metrics, turnIds) {
     if (!p || p.rubric_version !== (v4 ? 'whole-session-v4' : 'whole-session-v3')) { errors.push(`${metric}: missing rubric version`); continue; }
     if (!['spontaneous', 'read_aloud', 'mixed', 'not_observed'].includes(p.task_kind) || !['independent', 'prompted', 'modelled', 'mixed', 'unknown'].includes(p.support)) errors.push(`${metric}: missing task/support conditions`);
     if (!Object.hasOwn(p, 'preparation_seconds') || (p.preparation_seconds !== null && (!Number.isFinite(p.preparation_seconds) || p.preparation_seconds < 0))) errors.push(`${metric}: preparation must be measured or null`);
-    if (!Array.isArray(p.turn_indices) || p.turn_indices.some(id => !turnIds.has(id))) errors.push(`${metric}: invalid transcript references`);
+    if (!validTurnReferences(p.turn_indices, turnIds)) errors.push(`${metric}: invalid transcript references`);
     if (Number.isInteger(session.ratings?.[metric]) && !p.turn_indices?.length && !p.alternative_evidence) errors.push(`${metric}: no evidence reference`);
     if (evidence.comparison !== 'not_comparable' && (!Number.isInteger(p.comparison_session) || p.comparison_session >= session.session || !p.comparison_conditions)) errors.push(`${metric}: unsupported comparison`);
     if (!p.next_observation) errors.push(`${metric}: missing next observation`);
@@ -39,7 +42,7 @@ export function validateRecentChangeReview(session, metrics, turnsBySession) {
   const decisions = new Set(['observed_gain', 'stable', 'mixed', 'observed_loss', 'unconfirmed']);
   const checkReference = (ref, current) => {
     if (!ref || !Number.isInteger(ref.session) || (current ? ref.session !== session.session : ref.session >= session.session) || !ref.observation?.trim()) return false;
-    if (!Array.isArray(ref.turn_indices) || ref.turn_indices.some(id => !turnsBySession.get(ref.session)?.has(id))) return false;
+    if (!validTurnReferences(ref.turn_indices, turnsBySession.get(ref.session) ?? new Set())) return false;
     return ref.turn_indices.length > 0 || Boolean(ref.alternative_evidence?.trim());
   };
   for (const o of review.observations) {
@@ -47,6 +50,33 @@ export function validateRecentChangeReview(session, metrics, turnsBySession) {
     if (!checkReference(o.current, true)) errors.push('invalid current change reference');
     if (o.earlier !== null ? !checkReference(o.earlier, false) : o.decision !== 'unconfirmed') errors.push('invalid earlier change reference');
     if (o.metric === 'Pronunciation' && o.decision !== 'unconfirmed' && session.pronunciation_evidence?.holistic_audio_review !== true) errors.push('pronunciation change requires direct holistic review');
+  }
+  return errors;
+}
+
+/** Conversation-quality references identify responsibility without changing learner ratings. */
+export function validateConversationQuality(session, turnSpeakers, expectedSource) {
+  const quality = session.conversation_quality;
+  if (!quality) return [];
+  const errors = [];
+  if (expectedSource && quality.source !== expectedSource) errors.push('conversation quality: source does not match the session transcript');
+  if (!Array.isArray(quality.observations)) return [...errors, 'conversation quality: observations must be an array'];
+  for (const [index, observation] of quality.observations.entries()) {
+    const label = `conversation quality observation ${index + 1}`;
+    for (const [field, speaker] of [['assistant_turns', 'chappy'], ['learner_turns', 'yuki']]) {
+      const ids = observation?.[field];
+      if (!Array.isArray(ids)) {
+        errors.push(`${label}: ${field} must be an array`);
+        continue;
+      }
+      if (new Set(ids).size !== ids.length) errors.push(`${label}: duplicate ${field} references`);
+      for (const id of ids) {
+        if (!Number.isInteger(id) || !turnSpeakers.has(id)) errors.push(`${label}: ${field} has a missing or invalid turn ${id}`);
+        else if (turnSpeakers.get(id) !== speaker) errors.push(`${label}: ${field} turn ${id} must refer to ${speaker}`);
+      }
+    }
+    if (Array.isArray(observation?.assistant_turns) && Array.isArray(observation?.learner_turns)
+      && observation.assistant_turns.length + observation.learner_turns.length === 0) errors.push(`${label}: at least one transcript reference is required`);
   }
   return errors;
 }

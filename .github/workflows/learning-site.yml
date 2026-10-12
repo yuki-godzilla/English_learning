@@ -61,6 +61,22 @@ jobs:
       - name: Build and validate learning site
         run: npm run check
 
+      - name: Install UI verification browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify mobile, desktop, themes and review history
+        env:
+          UI_CHECK_MANAGED_BROWSER: "1"
+        run: npm run ui:check
+
+      - name: Upload UI verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: learning-ui-verification
+          path: tmp/browser-qa
+          if-no-files-found: ignore
+
       - name: Configure GitHub Pages
         if: github.event_name == 'workflow_dispatch' && inputs.publish
         uses: actions/configure-pages@v5
