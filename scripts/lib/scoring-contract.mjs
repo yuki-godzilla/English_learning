@@ -1,3 +1,4 @@
+import { V4_FIRST_SESSION, SUPPORT_KINDS, ASSESSMENT_STATUSES } from './learning-plan.mjs';
 /** New records need traceable observations; legacy scores remain unchanged. */
 export function validateScoringEvidence(session, metrics, turnIds) {
   const errors = [];
@@ -5,7 +6,8 @@ export function validateScoringEvidence(session, metrics, turnIds) {
   for (const metric of metrics) {
     const evidence = session.metric_evidence?.[metric];
     const p = evidence?.provenance;
-    if (!p || p.rubric_version !== 'whole-session-v3') { errors.push(`${metric}: missing rubric version`); continue; }
+    const v4 = session.session >= V4_FIRST_SESSION;
+    if (!p || p.rubric_version !== (v4 ? 'whole-session-v4' : 'whole-session-v3')) { errors.push(`${metric}: missing rubric version`); continue; }
     if (!['spontaneous', 'read_aloud', 'mixed', 'not_observed'].includes(p.task_kind) || !['independent', 'prompted', 'modelled', 'mixed', 'unknown'].includes(p.support)) errors.push(`${metric}: missing task/support conditions`);
     if (!Object.hasOwn(p, 'preparation_seconds') || (p.preparation_seconds !== null && (!Number.isFinite(p.preparation_seconds) || p.preparation_seconds < 0))) errors.push(`${metric}: preparation must be measured or null`);
     if (!Array.isArray(p.turn_indices) || p.turn_indices.some(id => !turnIds.has(id))) errors.push(`${metric}: invalid transcript references`);
@@ -13,6 +15,17 @@ export function validateScoringEvidence(session, metrics, turnIds) {
     if (evidence.comparison !== 'not_comparable' && (!Number.isInteger(p.comparison_session) || p.comparison_session >= session.session || !p.comparison_conditions)) errors.push(`${metric}: unsupported comparison`);
     if (!p.next_observation) errors.push(`${metric}: missing next observation`);
     if (metric === 'Pronunciation' && Number.isInteger(session.ratings?.[metric]) && session.pronunciation_evidence?.holistic_audio_review !== true) errors.push('Pronunciation: holistic audio review required');
+    if (v4) {
+      if (!Array.isArray(p.support_kinds) || p.support_kinds.some(k => !SUPPORT_KINDS.includes(k))) errors.push(`${metric}: explicit support kinds required`);
+      if (!p.task_goal?.trim()) errors.push(`${metric}: actual communication purpose required`);
+      if (!ASSESSMENT_STATUSES.includes(evidence.assessment_status)) errors.push(`${metric}: assessment status required`);
+      if (Number.isInteger(session.ratings?.[metric]) && evidence.assessment_status !== 'observed') errors.push(`${metric}: incomplete observation cannot have a score`);
+      if (evidence.comparison !== 'not_comparable' && p.comparison_session < V4_FIRST_SESSION && !p.rubric_comparison_note?.trim()) errors.push(`${metric}: cross-version comparison needs explanation`);
+      if (metric === 'Fluency & coherence') {
+        if (typeof evidence.scope?.coherence_checked !== 'boolean' || typeof evidence.scope?.delivery_checked !== 'boolean') errors.push(`${metric}: separate coherence/delivery scope required`);
+        if (Number.isInteger(session.ratings?.[metric]) && (!evidence.scope?.coherence_checked || !evidence.scope?.delivery_checked)) errors.push(`${metric}: integrated rating requires coherence and delivery evidence`);
+      }
+    }
   }
   return errors;
 }

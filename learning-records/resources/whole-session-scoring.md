@@ -1,6 +1,22 @@
-# Whole-session scoring protocol (effective from Session 16)
+# Whole-session scoring protocol (v6.0; v4 evidence contract from Session 23)
 
-## Traceable evidence contract v3 (new ratings from Session 17)
+## Fair task, support and measurement contract v4 (new ratings from Session 23)
+
+Historical Sessions 1–22 and their evidence remain unchanged. New Sessions use `provenance.rubric_version = "whole-session-v4"`. The base descriptor table is `progress.json.metric_rubrics`; current overrides are in `rubric_versions.whole-session-v4.descriptor_overrides`. Task achievement follows the actual purpose, not a universal four-part speech. Ordinary follow-up questions do not make learner-origin content dependent.
+
+Each metric records `provenance.support_kinds` as an array of `conversation_prompt`, `structure_cue`, `lexical_cue`, `model_supplied`, or `unknown`. Empty means no support observed, not unknown. The legacy `support` summary remains for compatibility. State which support affects this metric; a normal question alone does not lower independence.
+
+Each metric also records `assessment_status`: `observed`, `not_observed`, `insufficient_evidence`, or `technical_incomplete`. A number requires observed, sufficiently supported evidence. Distinguish no opportunity, incomplete evidence and a missing technical capability; never substitute zero or a carried-forward score.
+
+For Fluency & coherence, record `scope.coherence_checked` and `scope.delivery_checked`. An integrated L needs both. Text-only coherence may have a useful qualitative finding, but cannot be capped at L3 and presented as a full delivery assessment. Missing sound/timing evidence is a measurement limit, not demonstrated low ability. For pronunciation, retain the entire-recording policy and direct sound/prosody evidence requirement below; intelligibility and the learner's goals matter, not accent removal alone.
+
+A comparison across rubric versions must record `provenance.rubric_comparison_note`; a changed descriptor is not automatic improvement or decline. A fixed probe is optional, not a prerequisite to recognizing growth in natural conversation. Use comparable probes roughly every 2–4 weeks and a different-topic transfer check roughly every 6–8 weeks when useful; keep their conditions and conclusions separate.
+
+For expression reuse, `progress.json.learning_plan.reuse_observations` distinguishes `model_repetition`, `cued_use`, `independent_practice`, `delayed_independent_use`, and `transfer_use`. Each observation needs an existing Bank ID, current session and learner turn references, introduction session, support kinds, and a concrete evidence note. Delayed/transfer use requires a later calendar day, not an immediate repetition; transfer additionally identifies a changed context. Do not turn self-reported confidence or one successful use into mastery.
+
+The report leads with a source-backed success, a content takeaway, one or two existing expressions, recall prompts, one next focus, and a brief evidence-scope line. Detailed reasons, all scores, historical trends and non-official exam estimates stay traceable in the reference section. Current planning must not be represented as a historical accomplishment. Technical incomplete assessment remains visible at the front. Preserve every original note and Bank item.
+
+## Traceable evidence contract v3 (historical Sessions 17–22)
 
 Each metric_evidence keeps basis / observed / comparison / reason / confidence and adds provenance:
 
@@ -38,7 +54,7 @@ This protocol supplements the L1–L5 rubric in `progress.json`. It applies afte
 
 For retrospective re-evaluation, prefer the raw transcript over polished Journal wording. Never reconstruct a missing historical transcript from summaries or model-generated prose. Redactions such as `[REDACTED_WORK_INFO]` are treated as missing lexical content, not learner errors. Transcript timing is usable only when trustworthy timestamps are preserved; plain text alone cannot establish pause duration or WPM.
 
-The separate fixed spontaneous-speaking probe can provide finer evidence for task achievement, fluency, lexis, and grammar. Interaction still needs dialogue; pronunciation still needs suitable direct audio review. Compare probe observations only under materially similar conditions, and wait for at least two observations before claiming a trend.
+The separate fixed spontaneous-speaking probe can provide finer evidence for task achievement, fluency, lexis, and grammar. Interaction still needs dialogue; pronunciation still needs suitable direct audio review. Compare probe observations only under materially similar conditions, and two observations may show one limited difference; persistence needs later independent evidence before claiming a trend.
 
 ## Reporting rule
 
@@ -54,7 +70,7 @@ Use `observed_gain`, `stable`, `mixed`, `observed_loss`, or `unconfirmed`. Stabl
 
 Where counts are genuinely verified, record successful attempts and opportunities, not errors alone. Do not compare raw error totals across unequal output or task complexity. Transcript-only ASR uncertainties do not become confirmed grammar errors, speech durations or word-search counts. Read-aloud timing remains a separate measurement and cannot establish spontaneous-speaking progress. Evaluate every recording under the current recording policy below; assign a holistic Pronunciation level when its audio evidence supports the rubric.
 
-New sessions carry this structure in `progress.json`:
+New sessions retain this recent-change structure in `progress.json` (separate from the v4 per-metric contract):
 
 ```json
 {"version":"recent-change-v1","summary":"A concise answer about recent change, including an unconfirmed result when appropriate.","observations":[{"metric":"Task achievement","behavior":"Develop a point with an independent reason","earlier":{"session":20,"turn_indices":[1],"observation":"Schema example only; use real preserved evidence."},"current":{"session":21,"turn_indices":[1],"observation":"Schema example only; use real preserved evidence."},"comparison_conditions":"Explain task, familiarity, preparation, support and capture comparability, plus the reason for selecting the earlier session.","decision":"unconfirmed","confidence":"low","next_observation":"One specific natural opportunity to check again."}]}

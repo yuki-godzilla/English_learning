@@ -1,3 +1,4 @@
+import { validateLearningPlan, resolveActiveItems } from '../lib/learning-plan.mjs';
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -55,6 +56,9 @@ const requiredFeedbackPolicies = [
   "feedback-policy: wrap-up-focus-1-or-2-v1",
   "feedback-policy: no-forced-repeat-v1",
   "feedback-policy: recent-change-review-v1",
+  "feedback-policy: personalized-learning-cycle-v1",
+  "feedback-policy: fair-support-and-measurement-v1",
+  "feedback-policy: learning-first-report-v1",
 ];
 for (const policy of requiredFeedbackPolicies) {
   if (!agentsRules.includes(policy)) fail(`Runtime conversation policy is missing: ${policy}`);
@@ -86,7 +90,7 @@ for (const [index, session] of journal.sessions.entries()) {
 if (!Array.isArray(progress.sessions) || !progress.sessions.length) fail("Progress data has no sessions");
 const withinLevelStages = new Set(["emerging", "established", "strong"]);
 const scoringProtocol = progress.scoring_protocol;
-if (!scoringProtocol || scoringProtocol.effective_from_session !== 16 || typeof scoringProtocol.resource !== "string" || !await exists(path.join(root, scoringProtocol.resource))) {
+if (!scoringProtocol || scoringProtocol.effective_from_session !== 23 || scoringProtocol.provenance_contract?.version !== "whole-session-v4" || typeof scoringProtocol.resource !== "string" || !await exists(path.join(root, scoringProtocol.resource))) {
   fail("Whole-session scoring protocol is missing or invalid");
 }
 const comparisonStates = new Set(["improved", "stable", "mixed", "declined", "not_comparable"]);
@@ -169,6 +173,8 @@ for (const requiredImage of ["media/progress/english-growth-evidence-dashboard.p
 
 const bankRowsByName = {};
 const bankLedger = JSON.parse(await fs.readFile(path.join(recordsRoot, 'resources/bank-ledger.json'), 'utf8'));
+for (const message of validateLearningPlan(progress, bankLedger, turnsBySession)) fail(message);
+try { resolveActiveItems(journal, progress.learning_plan, bankLedger); } catch (error) { fail(error.message); }
 const bankIds = new Set();
 for (const item of bankLedger.items) {
   if (bankIds.has(item.id) || !/^(expressions|vocabulary|speaking)-[a-f0-9]{16}$/.test(item.id)) fail(`Invalid or duplicate Bank ID: ${item.id}`);

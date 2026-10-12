@@ -1,5 +1,13 @@
 # 保守ガイド
 
+## v6.0 学習・評価・レポートの変更
+
+- 方針はAGENTS.md、機械可読な現行計画はprogress.jsonのlearning_plan。Bank本文を計画へ複製せず、既存IDを参照する。初期計画は2026-10-12設定、Session 23からであり新しいSession・習得履歴ではない。
+- Session 23以降はwhole-session-v4。通常の質問と構成・単語・完成英文の支援を区別し、統合流暢さには意味と音声の両方の確認が必要。履歴は旧契約のまま保存し、基準切替を明示する。
+- PDFはLearning Brief、最新1回、短いGrowth、全Index、残りの直近2回、Growth Evidence & Methods、全3 Banksの順。冒頭ページは既存の成功と現在の計画を分け、全ページ確認を省略しない。
+- 今回のような方針・実装変更では検証PDFを作っても学習Sessionを追加せず、自動メール送信もしない。
+- `npm run test:unit`には計画ID参照、独立再利用の条件、v3/v4切替、text-only統合評価の保留、PDF章順と既存データ不変の回帰検証を含む。
+
 ## v5.0 レポートの安全な発行
 
 1. Git状態とremoteを確認し、安全なときだけpull。正本と必要な匿名化済み根拠を更新。

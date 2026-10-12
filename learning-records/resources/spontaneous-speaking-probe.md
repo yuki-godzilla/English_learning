@@ -6,10 +6,14 @@ Purpose: track changes in word retrieval and connected speaking within a broad L
 
 > Explain to a colleague who does not work in software how an IoT device and a cloud service work together. Describe one benefit for users and one trade-off an engineer must consider.
 
+## Cadence and transfer
+
+Use this anchor task optionally about every 2–4 weeks, not every session. Declining it is not failure and does not block evidence-based progression from natural conversation. About every 6–8 weeks, a different-topic explanation can test transfer when useful. Mark it as a different prompt and report it separately; do not mix unlike prompts into the same timing trend. The first observation is only a baseline, two are one comparison, and a sustained trend requires further evidence.
+
 ## Conditions
 
 - Use the same prompt for each comparable observation. Give 15 seconds to think, then record one unprepared response of about 60 seconds. Do not read a prepared script.
-- Chappy does not interrupt, translate, correct, or supply words until Yuki says the response is finished. Record whether any interruption or assistance nevertheless occurred.
+- Astra does not interrupt, translate, correct, or supply words until Yuki says the response is finished. Record whether any interruption or assistance nevertheless occurred.
 - Yuki controls recording. Keep audio and intermediate analysis in `tmp/pronunciation-recordings/`; do not publish or email them.
 - Record task kind as `spontaneous`, purpose as `evaluation`, prompt ID, actual preparation and response duration, and whether the response was one take. A changed condition makes the observation non-comparable until explained.
 
@@ -25,9 +29,9 @@ Use one object per session in `speaking_probe.observations` with `session`, `dat
 | `elapsed_seconds` | Speaking response duration, including internal pauses but excluding setup and trailing recorder time. |
 | `long_pauses_ge_1s` | Internal pauses at least one second, excluding normal sentence-boundary pauses when clearly appropriate. Report per 100 words only when word count is verified. |
 | `word_search_episodes` | Clearly evidenced searches for an expression (for example, an explicit request for a word or an abandoned phrase). Silence alone is not sufficient evidence. Report per 100 words only when word count is verified. |
-| `successful_paraphrases` | Times Yuki conveyed a missing idea with different words without Chappy supplying the answer. |
+| `successful_paraphrases` | Times Yuki conveyed a missing idea with different words without Astra supplying the answer. |
 | `idea_units_completed` | Count of the three requested ideas: how the parts work together, one user benefit, one engineering trade-off. This is not a pronunciation score. |
 | `support` | Any hints, interruption, translation, or other assistance during the answer. |
 | `evidence_confidence` | `high`, `medium`, or `low`, with a reason if audio or transcript quality limits interpretation. |
 
-Compare only observations with the same prompt and materially similar conditions. Describe direction and uncertainty, not a fabricated composite score. Improvement in one measure does not automatically change the L-level; use repeated evidence from both this probe and natural conversation. The first recording establishes a baseline and cannot by itself prove improvement.
+Compare only observations with the same prompt and materially similar conditions. Describe direction and uncertainty, not a fabricated composite score. Improvement in one measure does not automatically change the L-level; use repeated purpose-matched evidence; this probe supplements but is not required alongside natural conversation. The first recording establishes a baseline and cannot by itself prove improvement.
