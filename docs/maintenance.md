@@ -71,6 +71,10 @@ npm run pdf:setup
 
 `.nvmrc`をNodeの基準版とします。Codex同梱Nodeが同じ版なら利用できます。別のターミナルで`node --version`が異なる場合は、Node管理ツールで`.nvmrc`に合わせてください。PDF生成は`.venv-pdf`を優先し、`requirements/pdf.txt`で依存を再現します。Chrome/Edge/Chromiumが標準場所にない場合は`JOURNAL_PDF_BROWSER`、既存Python環境を使う場合は`JOURNAL_PDF_PYTHON`を指定できます。
 
+画面検証は`npm ci`で固定版Playwrightを準備し、通常のChrome/Edgeで`npm run ui:check`を実行します。CIなどで管理ブラウザーを使う場合は`npx playwright install --with-deps chromium`後に`UI_CHECK_MANAGED_BROWSER=1`を指定します。ライト・ダーク、390px・1440px、印刷、現在の復習候補、2タブの同時更新を検証し、証拠はGit対象外の`tmp/browser-qa/`へ保存します。
+
+復習履歴はv2 JSON互換を保ち、元の日時・自己申告を統合してAsia/Tokyoの日数から次回目安を再計算します。同日の操作は別日の練習実績にしません。現行Chrome/EdgeのWeb Locksでタブ更新を直列化します。Web Locksがない古いブラウザーは更新直前の再読込・統合に対応しますが、完全同時の複数プロセス書込みまでは保証しません。保存失敗時は元データを上書きせず、画面内の履歴をexportします。
+
 ## 日常コマンド
 
 ```powershell
@@ -109,7 +113,7 @@ npm run report:assets
 3. Journalの目次、5分復習、成長説明、必要な学習バンクを更新する。
 4. `progress.json`の6観点を独立に判断し、根拠不足はN/Aとする。
 5. `npm run report:assets`で正式グラフと台帳のSHA-256を更新・確認する。
-6. `npm run check`、統合Journal PDFの全ページ確認、メール送信を完了し、意図した差分だけをcommit / pushする。
+6. `npm run check`、統合Journal PDFの全ページ確認を完了し、意図した差分だけをcommit / pushする。`report:state -- verify-send`で一致を確認してからメールを送信する。
 
 raw transcriptは公開リポジトリへpushされます。検証コマンドは既知のメール・認証情報・勤務先名などを止めますが、機密情報をすべて検出できるわけではありません。元の発話、redaction範囲、coverageの`partial`理由を公開前に必ず確認します。
 

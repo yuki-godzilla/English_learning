@@ -141,7 +141,7 @@
       "provenance": {
         "schema_version": 1,
         "inputs": {
-          "learning-records/progress.json": "5b71d00cba7481fdfc303f42149b3bc7d4ffbbbeaf6502529e748926165ccc37",
+          "learning-records/progress.json": "6ae637a8c2b3be233ee9f3d0468f8206eeb54b7792b0c85a8b2ff56024379874",
           "scripts/charts/generate.mjs": "309c4855b99ae16a96765a8a8c5bbc5b6c476ef05fb0b480141375ba6f1096c2",
           "scripts/lib/evidence.mjs": "865a1bb9ee8c852df94a43b53bf60fa38302d1cf4791f6e4ec4d57619ba73b16",
           "scripts/charts/skill-timeline.mjs": "7caee448c48a58f75f89e7e9ccb5edfd0acdc886d3c0ed79cd8dc06bec6451b7"
@@ -160,7 +160,7 @@
       "provenance": {
         "schema_version": 1,
         "inputs": {
-          "learning-records/progress.json": "5b71d00cba7481fdfc303f42149b3bc7d4ffbbbeaf6502529e748926165ccc37",
+          "learning-records/progress.json": "6ae637a8c2b3be233ee9f3d0468f8206eeb54b7792b0c85a8b2ff56024379874",
           "scripts/charts/generate.mjs": "309c4855b99ae16a96765a8a8c5bbc5b6c476ef05fb0b480141375ba6f1096c2",
           "scripts/lib/evidence.mjs": "865a1bb9ee8c852df94a43b53bf60fa38302d1cf4791f6e4ec4d57619ba73b16",
           "scripts/charts/skill-timeline.mjs": "7caee448c48a58f75f89e7e9ccb5edfd0acdc886d3c0ed79cd8dc06bec6451b7"

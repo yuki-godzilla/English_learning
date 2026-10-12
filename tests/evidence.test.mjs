@@ -1,9 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { projectRoot, recordsRoot } from '../scripts/lib/project.mjs';
 import { speechMode, selectComparisonWindows, buildReportModel, pronunciationBasis } from '../scripts/lib/evidence.mjs';
 import { analyzeYukiTurns } from '../scripts/transcripts/analyze.mjs';
 import { tableRows } from '../scripts/lib/markdown-table.mjs';
-import { validateScoringEvidence, validateRecentChangeReview } from '../scripts/lib/scoring-contract.mjs';
+import { validateScoringEvidence, validateRecentChangeReview, validateConversationQuality } from '../scripts/lib/scoring-contract.mjs';
 import { skillTimeline, timelineLabelIndices } from '../scripts/charts/skill-timeline.mjs';
 const turn = (text, source='voice_asr', index=1) => ({ type:'turn',speaker:'yuki',source,text,index });
 test('timeline keeps latest label without overlapping an adjacent regular tick', () => {
@@ -62,4 +65,66 @@ test('recent-change contract does not rewrite historical records or grant audio 
   const o={metric:'Pronunciation',behavior:'Sound clarity',earlier:{session:20,turn_indices:[],alternative_evidence:'Historical note, limited',observation:'Prior note'},current:{session:21,turn_indices:[1],observation:'Recording processed'},comparison_conditions:'Different readings',decision:'observed_gain',confidence:'low',next_observation:'Direct review'};
   const s={session:21,recent_change_review:{version:'recent-change-v1',summary:'Claim',observations:[o]}};
   assert.match(validateRecentChangeReview(s,['Pronunciation'],new Map([[21,new Set([1])]])).join(' '),/holistic/);
+});
+
+const qualityFixture = () => ({conversation_quality:{source:'learning-records/transcripts/example.jsonl',observations:[{kind:'scope_mismatch',assistant_turns:[1],learner_turns:[2],note:'Astra answered a different scope; Yuki clarified it.'}]}});
+const qualitySpeakers = new Map([[1,'chappy'],[2,'yuki'],[3,'chappy']]);
+test('conversation-quality evidence keeps responsibility with the actual speaker', () => {
+  const s=qualityFixture(),o=s.conversation_quality.observations[0];
+  assert.deepEqual(validateConversationQuality(s,qualitySpeakers,s.conversation_quality.source),[]);
+  o.assistant_turns=[2];o.learner_turns=[1];
+  const errors=validateConversationQuality(s,qualitySpeakers,s.conversation_quality.source).join(' ');
+  assert.match(errors,/assistant_turns turn 2 must refer to chappy/);
+  assert.match(errors,/learner_turns turn 1 must refer to yuki/);
+});
+test('conversation-quality references reject missing, duplicate and wrong-session evidence', () => {
+  for (const id of [99,1.5,'1']) {
+    const s=qualityFixture();s.conversation_quality.observations[0].assistant_turns=[id];
+    assert.match(validateConversationQuality(s,qualitySpeakers).join(' '),/missing or invalid turn/);
+  }
+  for (const field of ['assistant_turns','learner_turns']) {
+    const s=qualityFixture(),o=s.conversation_quality.observations[0];
+    o[field]=[o[field][0],o[field][0]];
+    assert.match(validateConversationQuality(s,qualitySpeakers).join(' '),new RegExp(`duplicate ${field}`));
+    delete o[field];
+    assert.match(validateConversationQuality(s,qualitySpeakers).join(' '),new RegExp(`${field} must be an array`));
+  }
+  const s=qualityFixture();
+  assert.match(validateConversationQuality(s,qualitySpeakers,'learning-records/transcripts/another-session.jsonl').join(' '),/source does not match/);
+  s.conversation_quality.observations[0].assistant_turns=[];s.conversation_quality.observations[0].learner_turns=[];
+  assert.match(validateConversationQuality(s,qualitySpeakers).join(' '),/at least one transcript reference/);
+});
+test('a quality observation may concern one speaker and may reuse a turn in a different observation', () => {
+  assert.deepEqual(validateConversationQuality({},new Map()),[]);
+  const s=qualityFixture();s.conversation_quality.observations[0].learner_turns=[];
+  s.conversation_quality.observations.push({kind:'repetitive_question',assistant_turns:[1],learner_turns:[],note:'The same turn also repeated an earlier question.'});
+  assert.deepEqual(validateConversationQuality(s,qualitySpeakers),[]);
+});
+test('scoring and recent-change references cannot duplicate evidence or admit assistant turns', () => {
+  const s={session:17,ratings:{Grammar:3},metric_evidence:{Grammar:{comparison:'not_comparable',provenance:{rubric_version:'whole-session-v3',task_kind:'spontaneous',support:'independent',preparation_seconds:null,turn_indices:[2],next_observation:'Another explanation'}}}};
+  const learnerIds=new Set([...qualitySpeakers].filter(([,speaker])=>speaker==='yuki').map(([id])=>id));
+  assert.deepEqual(validateScoringEvidence(s,['Grammar'],learnerIds),[]);
+  for (const ids of [[1],[2,2],[2.5]]) {
+    s.metric_evidence.Grammar.provenance.turn_indices=ids;
+    assert.match(validateScoringEvidence(s,['Grammar'],learnerIds).join(' '),/invalid transcript references/);
+  }
+  const o={metric:'Grammar',behavior:'Self-repair',earlier:null,current:{session:21,turn_indices:[2,2],observation:'A current repair'},comparison_conditions:'No earlier comparison',decision:'unconfirmed',confidence:'medium',next_observation:'Another independent repair'};
+  const recent={session:21,recent_change_review:{version:'recent-change-v1',summary:'Current observation, change unconfirmed',observations:[o]}};
+  assert.match(validateRecentChangeReview(recent,['Grammar'],new Map([[21,learnerIds]])).join(' '),/invalid current change reference/);
+  o.current.turn_indices=[1];
+  assert.match(validateRecentChangeReview(recent,['Grammar'],new Map([[21,learnerIds]])).join(' '),/invalid current change reference/);
+});
+test('saved quality observations resolve to the transcript and correct speakers', async () => {
+  const progress=JSON.parse(await fs.readFile(path.join(recordsRoot,'progress.json'),'utf8'));
+  const coverage=JSON.parse(await fs.readFile(path.join(recordsRoot,'transcripts/coverage.json'),'utf8'));
+  let checked=0;
+  for (const s of progress.sessions.filter(s=>s.conversation_quality)) {
+    const entry=coverage.sessions.find(c=>c.session_number===s.session);
+    const source=`learning-records/transcripts/${entry.file}`;
+    const rows=(await fs.readFile(path.join(projectRoot,source),'utf8')).trim().split(/\r?\n/).map(JSON.parse);
+    const speakers=new Map(rows.filter(t=>t.type==='turn').map(t=>[t.index,t.speaker]));
+    assert.deepEqual(validateConversationQuality(s,speakers,source),[],`Session ${s.session}`);
+    checked+=s.conversation_quality.observations.length;
+  }
+  assert.ok(checked>0);
 });

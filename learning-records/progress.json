@@ -871,7 +871,7 @@
         "observations":[
           {"kind":"assistant_language_mismatch","assistant_turns":[172,174,176,200,217,218],"learner_turns":[175],"note":"The assistant answered partly in Japanese when the learner wanted English; this is an assistant-side mismatch."},
           {"kind":"assistant_evaluation_design_mismatch","assistant_turns":[194,248,245,256,257,267],"learner_turns":[243,246,253,258,260,262,264],"note":"The assistant requested two readings without a method capable of a reliable holistic L-level; later clarified the limits. Do not attribute this to learner pronunciation."},
-          {"kind":"assistant_misunderstanding","assistant_turns":[154,156,308,310,312,314],"learner_turns":[153,155,307,309,311,313],"note":"Voice/ASR misunderstandings required repair; no sound-level error is inferred."}
+          {"kind":"assistant_misunderstanding","assistant_turns":[153,155,308,310,312,314],"learner_turns":[154,156,307,309,311,313],"note":"Voice/ASR misunderstandings required repair; no sound-level error is inferred."}
         ],
         "unmeasured":["conversational_audio_timing","holistic_pronunciation","overall_question_balance"]
       },
@@ -1596,7 +1596,7 @@
           {
             "kind": "question_led_casual_talk_and_flattened_nuance",
             "assistant_turns": [
-              40,
+              39,
               43,
               45,
               47,

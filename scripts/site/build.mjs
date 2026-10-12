@@ -289,11 +289,11 @@ function latestRows(rows, sessionNumber, limit) {
 }
 
 const bankLedger = JSON.parse(await fs.readFile(path.join(recordsRoot, 'resources/bank-ledger.json'), 'utf8'));
-function recallCard(summary, answer, key, identityOverride = null) {
+function recallCard(summary, answer, key, identityOverride = null, initiallyHidden = false) {
   const bank = key.startsWith('expression-') ? 'expressions' : key.startsWith('vocabulary-') ? 'vocabulary' : key.startsWith('speaking-') ? 'speaking' : null;
   const plainKey = key.replace(/^[^-]+-/, '');
   const identity = identityOverride ?? bankLedger.items.find(item => item.bank === bank && normalizeKey(item.key) === plainKey)?.id;
-  return `<details class="recall-card" data-recall-id="${escapeHtml(identity ?? key)}" data-legacy-recall-id="${escapeHtml(key)}">
+  return `<details class="recall-card" data-recall-id="${escapeHtml(identity ?? key)}" data-legacy-recall-id="${escapeHtml(key)}"${initiallyHidden ? ' hidden' : ''}>
   <summary>${summary}</summary>
   <div class="recall-answer">${answer}
     <div class="recall-rating" aria-label="この端末での復習状態">
@@ -313,28 +313,26 @@ const latestTracker = latestSessionTracker
 if (!latestTracker) throw new Error("learning-records/progress.json has no evaluation sessions");
 const learningBrief = buildLearningBrief(journal, tracker, bankLedger);
 const latestWinText = learningBrief.success;
-const activePlanMarkup = `<section class="active-learning-plan"><h2>現在の重点</h2><p>${escapeHtml(learningBrief.planningNote)}</p>${tracker.learning_plan.goals.map(g => `<article class="learning-card"><h3>${escapeHtml(g.title)}</h3><p>${escapeHtml(g.success_look_for)}</p><p><strong>Astra:</strong> ${escapeHtml(g.assistant_action)}</p></article>`).join('')}<p>学習した語の数ではなく、自分の意味で使えた場面を確認します。復習の自己申告と後日の独立使用は別です。</p></section>`;
-function activeRecallCards(limit = 5) {
-  return learningBrief.items.slice(0, limit).map(item => recallCard(
+const activePlanMarkup = `<details class="learning-disclosure active-learning-plan"><summary>現在の重点と計画を確認する</summary><p>${escapeHtml(learningBrief.planningNote)}</p>${tracker.learning_plan.goals.map(g => `<article class="learning-card"><h3>${escapeHtml(g.title)}</h3><p>${escapeHtml(g.success_look_for)}</p><p><strong>Astra:</strong> ${escapeHtml(g.assistant_action)}</p></article>`).join('')}<p>学習した語の数ではなく、自分の意味で使えた場面を確認します。復習の自己申告と後日の独立使用は別です。</p></details>`;
+
+/** One due item at a time; the full active set remains the selection pool. */
+export function practiceQueueMarkup(items) {
+  const cards = items.map((item, index) => recallCard(
     escapeHtml(item.recall_prompt),
     `<p><strong>${escapeHtml(item.expression)}</strong></p><p>${escapeHtml(item.detail)}</p><p class="card-meta">Bankの学習用表現。独立使用・習得の証拠ではありません。 ${escapeHtml(item.source)}</p><p>別の場面: ${escapeHtml(item.transfer_context)}</p>`,
-    `${{expressions:'expression',vocabulary:'vocabulary',speaking:'speaking'}[item.bank]}-${normalizeKey(item.expression)}`, item.id,
+    `${{expressions:'expression',vocabulary:'vocabulary',speaking:'speaking'}[item.bank]}-${normalizeKey(item.expression)}`, item.id, index > 0,
   )).join('\n');
+  return `<div data-due-queue data-practice-primary data-recall-limit="1" data-recall-empty="今日の復習候補はありません。必要なら現在の表現・語彙を見返せます。ここで終えて大丈夫です。">${cards}<p class="practice-empty" data-recall-queue-message hidden aria-live="polite"></p><p class="practice-storage-message" data-recall-message aria-live="polite"></p><div class="practice-recovery" data-recall-recovery hidden><button type="button" class="learning-action secondary" data-recall-export>履歴をファイルに保存</button></div></div>`;
 }
-const latestExpressions = latestRows(expressionRows, latestDefinition.session, 2);
-const latestVocabulary = latestRows(vocabularyRows, latestDefinition.session, 1);
-const latestSpeaking = latestRows(speakingRows, latestDefinition.session, 1);
-const olderExpression = expressionRows.find((row) => {
-  const sessionNumber = sourceSessionNumber(row[2]);
-  return sessionNumber && sessionNumber !== latestDefinition.session;
-});
-const priorityVocabulary = vocabularyRows.find((row) => /要復習|Review Priority/i.test(stripMarkdown(row[1]))) ?? latestVocabulary[0];
-const reviewExpressions = [latestExpressions[0], olderExpression].filter(Boolean);
-const reviewVocabulary = priorityVocabulary ? [priorityVocabulary] : [];
-const reviewSpeaking = latestSpeaking[0] ?? speakingRows[0];
 
-const homeReviewCards = activeRecallCards(2);
-const homePromptCard = '<p class="card-meta">一つだけ思い出せれば十分。場面に合う長さで話し、復唱や固定課題は強制しません。</p>';
+/** A complete reference view, without a second queue or duplicate rating controls. */
+export function activeCatalogueMarkup(items) {
+  return `<details id="active-items" class="learning-disclosure practice-catalogue" data-active-items><summary>今使う${items.length}件の表現・語彙を見返す</summary><p>答えを見て確認する資料です。全件を練習する必要はありません。</p><div class="active-reference-list">${items.map(item => {
+    const sessionId = item.sourceAnchor?.match(/^session-(\d{4}-\d{2}-\d{2}-\d{2})$/)?.[1];
+    const source = sessionId ? `<a href="../sessions/${sessionId}/">${escapeHtml(item.source)}</a>` : escapeHtml(item.source);
+    return `<article class="learning-card" data-active-bank-item="${escapeHtml(item.id)}"><h3 lang="en">${escapeHtml(item.expression)}</h3><p>${escapeHtml(item.detail)}</p><p><strong>自分の場面:</strong> ${escapeHtml(item.recall_prompt)}</p><p><strong>別の場面:</strong> ${escapeHtml(item.transfer_context)}</p><p class="card-meta">${source} · Bankの学習用表現。独立使用・習得の実績とは区別します。</p></article>`;
+  }).join('\n')}</div></details>`;
+}
 
 assertGeneratedPath(outputRoot);
 await fs.rm(outputRoot, { recursive: true, force: true });
@@ -349,11 +347,13 @@ hide:
 <section class="learning-hero">
   <div class="learning-kicker">Yuki × Astra English Journal</div>
   <h1>話したことを、次に話せる英語へ。</h1>
-  <p>会話を読み返し、表現を思い出し、成長を実感するための学習ホームです。</p>
-  <div class="learning-actions">
-    <a class="learning-action" href="sessions/${latestDefinition.id}/">最新セッションを振り返る</a>
-    <a class="learning-action secondary" href="review/">5分復習を始める</a>
-  </div>
+  <p>今日は一つ、自分の場面で使ってみる。</p>
+</section>
+
+<section class="practice-start"><h2>今日の一つ</h2><p>場面を思い浮かべて英語で話し、答えを開きます。ここで終えて大丈夫です。</p>
+${practiceQueueMarkup(learningBrief.items)}
+<p class="practice-plan-note">${escapeHtml(learningBrief.planningNote)}</p>
+<a href="review/#active-items">今使う表現・語彙と復習履歴を見る →</a>
 </section>
 
 ## Continue Learning
@@ -373,12 +373,6 @@ hide:
 </div>
 
 ${activePlanMarkup}
-
-## 今日の5分復習
-
-${homeReviewCards}
-
-${homePromptCard}
 
 ## 学習の全体像
 
@@ -567,41 +561,19 @@ hide:
 
 # 今日の5分復習
 
-読むだけで終わらず、いったん思い出してから答えを開くページです。
+<section class="practice-start"><p>一つだけ、場面を思い浮かべて英語で話し、答えを開きます。ここで終えて大丈夫です。</p>
+${practiceQueueMarkup(learningBrief.items)}
+<p class="practice-plan-note">${escapeHtml(learningBrief.planningNote)}</p>
+</section>
 
-復習状態はこの端末のブラウザだけに保存します。Gitや別端末へは送信しません。
-
-<div class="recall-tools"><button type="button" data-recall-export>復習履歴を保存</button> <label>別端末の履歴を取り込む <input type="file" accept="application/json" data-recall-import></label><p data-recall-message aria-live="polite">日数の連続記録は競いません。今日は一つ思い出せれば十分です。</p></div>
+${activeCatalogueMarkup(learningBrief.items)}
 
 ${activePlanMarkup}
 
-## 今使う5つの表現・語彙
-
-${activeRecallCards()}
-
-## 今日の復習候補（最大5項目）
-
-<div data-due-queue>${[
-  ...expressionRows.map(row => recallCard(escapeHtml(truncate(row[1],80)), `<strong>${escapeHtml(stripMarkdown(row[0]))}</strong>`, `expression-${normalizeKey(row[0])}`)),
-  ...vocabularyRows.map(row => recallCard(escapeHtml(stripMarkdown(row[0])), inlineMarkdown(row[1]), `vocabulary-${normalizeKey(row[0])}`)),
-  ...speakingRows.map(row => recallCard(escapeHtml(stripMarkdown(row[0])), inlineMarkdown(row[1]), `speaking-${normalizeKey(row[0])}`)),
-].join('\n')}</div>
-
-## 1. 表現を思い出す
-
-${reviewExpressions.map((row) => recallCard(escapeHtml(truncate(row[1], 80)), `<strong>${escapeHtml(stripMarkdown(row[0]))}</strong>`, `expression-${normalizeKey(row[0])}`)).join("\n")}
-
-## 2. 語彙を説明する
-
-${reviewVocabulary.map((row) => recallCard(`${escapeHtml(stripMarkdown(row[0]).split("/")[0])} はどんな意味？`, inlineMarkdown(row[1]), `vocabulary-${normalizeKey(row[0])}`)).join("\n")}
-
-## 3. 声に出す
-
-${latestSpeaking.map((row) => recallCard(escapeHtml(stripMarkdown(row[0])), inlineMarkdown(row[1]), `speaking-${normalizeKey(row[0])}`)).join("\n")}
-
-## 4. 任意の短い説明
-
-${recallCard("自分の場面で説明してみる", `<strong>${escapeHtml(latestDefinition.prompt)}</strong><br>場面に合う内容・長さで話します。追加録音や固定課題は必須ではありません。`, `prompt-${latestDefinition.id}`)}
+<details class="learning-disclosure"><summary>復習履歴を保存・別端末へ移す</summary>
+<p>履歴はこの端末のブラウザだけに保存します。Gitや別端末へは自動送信しません。別端末へ移すときは履歴ファイルを保存して取り込みます。</p>
+<div class="recall-tools"><button type="button" data-recall-export>復習履歴を保存</button> <label>別端末の履歴を取り込む <input type="file" accept="application/json" data-recall-import></label><p>日数の連続記録は競いません。復習の自己申告は習得の認定ではありません。</p></div>
+</details>
 
 ## Bankを探す
 
@@ -655,6 +627,19 @@ const withinLevelStageJa = {
   established: "安定",
   strong: "強い",
 };
+
+/** Text alternative to the complete chart, including every missing assessment. */
+export function levelHistoryMarkup(sessions, metrics, definitions = new Map()) {
+  const ordered = [...sessions].sort((a, b) => b.session - a.session);
+  return `<div class="growth-history-screen"><details class="learning-disclosure level-history"><summary>全SessionのL・段階を文字で見る</summary><p>N/Aは未測定です。過去値で埋めず、当時の基準のまま表示します。見たい観点を開いてください。</p>${metrics.map(metric => `<details class="level-history-metric"><summary>${escapeHtml(metricJa[metric] ?? metric)}</summary><table class="level-history-table"><caption>${escapeHtml(metricJa[metric] ?? metric)}の全履歴</caption><thead><tr><th scope="col">Session・日付</th><th scope="col">L</th><th scope="col">段階</th></tr></thead><tbody>${ordered.map(session => {
+    const value = session.ratings?.[metric];
+    const observed = Number.isInteger(value);
+    const definition = definitions.get(session.session);
+    const label = definition ? `<a href="../sessions/${escapeHtml(definition.id)}/">S${session.session}</a>` : `S${session.session}`;
+    const stage = observed ? withinLevelStageJa[session.within_level_stage?.[metric]] ?? '段階未記録' : '未測定';
+    return `<tr data-history-session="${session.session}" data-history-metric="${escapeHtml(metric)}"><th scope="row">${label}<span class="history-date">${escapeHtml(session.date)}</span></th><td>${observed ? `L${value}` : 'N/A'}</td><td>${escapeHtml(stage)}</td></tr>`;
+  }).join('')}</tbody></table></details>`).join('')}</details></div>`;
+}
 
 
 const rawSessions = speakingAnalytics.sessions;
@@ -801,6 +786,8 @@ ${changeReview ? '' : `<div class="growth-three-cards">
   <article><strong>${grammarCardLabel}</strong><p>${escapeHtml(grammarCardText)}</p></article>
 </div>`}
 ${recentChangeMarkup || `<div class="before-now"><strong>INITIAL → CURRENT</strong><p>${escapeHtml(reportModel.initialSummary)}</p></div>`}
+${levelHistoryMarkup(tracker.sessions, tracker.qualitative_metrics, sessionDefinitionByNumber)}
+<p class="growth-chart-expand"><a href="../assets/generated/english-growth-evidence-dashboard.png">推移グラフを拡大して見る →</a></p>
 <figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="全履歴の6観点評価。今回の発音: ${ratingLabel(latestTracker, 'Pronunciation')}。過去の最終記録 S${lastPronunciation?.session ?? '—'}は現基準の音声総合審査と区別。" loading="lazy"></a><figcaption>横軸はSession、縦軸はL評価。N/Aは欠測、線で補間しません。発音の過去値は旧基準・限定根拠を含みます。段階は形成中 / 安定 / 強い。</figcaption></figure>
 </section>
 

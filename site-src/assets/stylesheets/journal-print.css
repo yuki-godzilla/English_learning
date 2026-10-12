@@ -1,6 +1,6 @@
 /* A separate, high-contrast A4 reading surface for the exported Journal. */
 @media print {
-  .recall-tools, [data-due-queue] { display: none !important; }
+  .recall-tools, [data-due-queue], .growth-history-screen, .growth-chart-expand { display: none !important; }
   @page { size: A4; margin: 16mm 14mm 18mm; }
 
   :root,
@@ -15,6 +15,8 @@
     --learning-warm: #b45309;
     --learning-surface: #f7f9fc;
     --learning-border: #cbd5e1;
+    --learning-insight-surface: #ecfdf5;
+    --learning-insight-text: #1f2937;
   }
 
   html, body, .md-container, .md-main, .md-main__inner, .md-content {
@@ -161,7 +163,8 @@
   .growth-three-cards { grid-template-columns: repeat(3,minmax(0,1fr)) !important; gap: 2mm !important; margin: 2mm 0 !important; }
   .growth-three-cards article { padding: 1.2mm 2mm !important; background: #f7f9fc !important; break-inside: avoid; }
   .growth-three-cards p, .before-now p, .growth-insight p, .controlled-flow p { font-size: 10.5pt !important; line-height: 1.35 !important; }
-  .before-now, .growth-insight { padding: 2mm 3mm !important; margin: 2mm 0 !important; break-inside: avoid; }
+  .before-now, .growth-insight { padding: 2mm 3mm !important; margin: 2mm 0 !important; break-inside: avoid; background: #ecfdf5 !important; color: #1f2937 !important; }
+  .md-typeset .before-now p, .md-typeset .growth-insight p { color: #1f2937 !important; }
   .growth-trend, .growth-estimates { margin: 2mm 0 !important; }
   .growth-trend figcaption, .growth-estimates figcaption { display: none !important; }
   .comparison-header { display: none !important; }
@@ -179,7 +182,23 @@
   .grammar-row { grid-template-columns: 1fr auto !important; gap: 1mm !important; padding: .5mm 1.5mm !important; font-size: 10.5pt !important; break-inside: avoid; }
   .grammar-row small { grid-column: 1/-1; }
   .grammar-row small { font-size: 10.5pt !important; }
-  .growth-page--next .fingerprint-heading, .growth-page--next .fingerprint-grid, .growth-page--next .fingerprint-grid + .growth-caveat { display: none !important; }
+  .growth-page--next .fingerprint-heading { margin: 2mm 0 1mm !important; }
+  .growth-page--next .fingerprint-grid { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 2mm !important; margin: 2mm 0 !important; }
+  .fingerprint-card { padding: 1.5mm !important; background: #f7f9fc !important; color: #1f2937 !important; }
+  .fingerprint-card h3 { margin: .5mm 0 !important; font-size: 11.5pt !important; }
+  .fingerprint-value { font-size: 12pt !important; line-height: 1.2 !important; }
+  .fingerprint-card p { margin: 1mm 0 !important; font-size: 10.5pt !important; line-height: 1.35 !important; }
+  .fingerprint-card .card-meta { font-size: 8.5pt !important; }
+  .fingerprint-sparkline { display: block !important; width: 100% !important; height: 14mm !important; margin-top: 1mm !important; }
+  .fingerprint-label { font-size: 26px !important; }
+  .growth-page--next .fingerprint-grid + .growth-caveat { margin: 1mm 0 !important; line-height: 1.3 !important; }
+  .growth-page--next .controlled-flow p, .growth-page--next .growth-three-cards p { margin: 0 !important; line-height: 1.3 !important; }
+  .growth-page--next .controlled-flow article { padding: .5mm 2mm !important; }
+  .growth-page--next .growth-three-cards article { padding: .7mm 2mm !important; }
+  .growth-page--next > h3:not(.fingerprint-heading):not(.estimate-heading) { margin: 2mm 0 1mm !important; }
+  .growth-page--next .grammar-tracker { grid-template-columns: 1fr !important; }
+  .growth-page--next .grammar-row small { line-height: 1.3 !important; }
+  .growth-page--next .grammar-tracker + .growth-caveat { margin: 1mm 0 !important; line-height: 1.3 !important; }
   .scatter-figure, .fingerprint-card, .habit-card { break-inside: avoid; }
   .scatter-legend { color: #1f2937 !important; font-size: 10.5pt !important; }
   .scatter-legend strong { color: #1d5fa7 !important; }

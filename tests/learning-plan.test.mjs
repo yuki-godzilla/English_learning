@@ -14,8 +14,20 @@ const journal = await loadJournal();
 const hash = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const clone = value => structuredClone(value);
 
-test('v6 migration preserves the approved historical assessments and exam estimates', () => {
-  assert.equal(hash(progress.sessions.filter(s=>s.session<=22)), '270f646eebbbd030458800c3ce58133b7dffd4a9f45a59c5a4b64d4a0ee76987');
+test('approved quality-reference repairs preserve every other historical assessment field and exam estimate', () => {
+  const historical=clone(progress.sessions.filter(s=>s.session<=22));
+  const s18=historical.find(s=>s.session===18).conversation_quality.observations.find(o=>o.kind==='assistant_misunderstanding');
+  const s22=historical.find(s=>s.session===22).conversation_quality.observations.find(o=>o.kind==='question_led_casual_talk_and_flattened_nuance');
+  // Only these source-verified role/index corrections are allowed through the historical hash.
+  assert.deepEqual(s18.assistant_turns,[153,155,308,310,312,314]);
+  assert.deepEqual(s18.learner_turns,[154,156,307,309,311,313]);
+  assert.deepEqual(s22.assistant_turns,[39,43,45,47,49,51,53,92,94]);
+  s18.assistant_turns[0]=154;s18.assistant_turns[1]=156;
+  s18.learner_turns[0]=153;s18.learner_turns[1]=155;
+  s22.assistant_turns[0]=40;
+  assert.equal(hash(historical), '270f646eebbbd030458800c3ce58133b7dffd4a9f45a59c5a4b64d4a0ee76987');
+  const assessments=progress.sessions.filter(s=>s.session<=22).map(s=>({session:s.session,ratings:s.ratings,within_level_stage:s.within_level_stage,metric_evidence:s.metric_evidence,pronunciation_evidence:s.pronunciation_evidence,assessment_summary:s.assessment_summary,evidence_quote:s.evidence_quote,evidence_quote_origin:s.evidence_quote_origin,evidence_note_ja:s.evidence_note_ja,evidence_note:s.evidence_note}));
+  assert.equal(hash(assessments), '03c1b3503f75597c3da16503dc1e826e54dc60395de321ebc445bec1f51b2957');
   // Historical exam estimates are intentionally not recalculated by this migration.
   assert.equal(hash(progress.test_score_estimates.estimate_sessions.filter(s=>s.session<=22)), 'eaea9716d23b73421ed28d55a25da52981718884fe70d29f713b7808a543062f');
 });
