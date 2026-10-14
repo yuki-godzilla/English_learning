@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { projectRoot, recordsRoot } from '../scripts/lib/project.mjs';
+import { limitedPronunciationAssessment, limitedPronunciationHtml } from '../scripts/lib/report-presentation.mjs';
+import { loadJournal } from '../scripts/lib/journal-parser.mjs';
 
 // Generate the real learner-facing Markdown once. This writes derived views only.
 const { practiceQueueMarkup, activeCatalogueMarkup, levelHistoryMarkup } = await import('../scripts/site/build.mjs');
@@ -11,6 +13,7 @@ const generated = file => fs.readFile(path.join(projectRoot, '.generated-site-do
 const home = await generated('index.md');
 const review = await generated('review/index.md');
 const growth = await generated('progress/index.md');
+const journal = await loadJournal();
 const fixtureItems = count => Array.from({ length: count }, (_, i) => ({
   id: `expressions-${(i + 1).toString(16).padStart(16, '0')}`,
   bank: 'expressions', expression: `Example ${i + 1}`, detail: 'Synthetic reference, not a learning event.',
@@ -53,6 +56,41 @@ test('current growth pairs grades with concrete evidence and distinguishes cover
   const deltas=[...growth.matchAll(/class="comparison-change">([^<]*)</g)].map(m=>m[1]);
   assert.ok(deltas.length>0);assert.ok(deltas.every(text=>!/%|↓|↑/.test(text)));
   assert.match(growth,/推定履歴の最終更新は 2026-09-27（S17）/);
+});
+
+test('completed audio reviews reach their Daily Notes and the current overview without repeating canonical prose', async()=>{
+  const reviews=progress.sessions.filter(session=>limitedPronunciationAssessment(session,progress.assessment_policy));
+  const current=progress.sessions.find(session=>session.session===Math.max(...journal.sessions.map(item=>item.session)));
+  assert.equal((growth.match(/data-audio-review-session=/g) ?? []).length,reviews.length);
+  for(const session of reviews) {
+    const definition=journal.sessions.find(item=>item.session===session.session);
+    const page=await generated(`sessions/${definition.id}.md`);
+    const canonical=definition.raw.includes('<!-- local-pronunciation-review: local-gopt-consensus-v1 -->');
+    if(canonical) {
+      assert.ok(!page.includes('class="local-pronunciation-assessment"'));
+      assert.ok(page.includes(session.pronunciation_assessment.summary_ja));
+    } else assert.ok(page.includes(limitedPronunciationHtml(session,progress.assessment_policy)));
+    assert.ok(growth.includes(`data-audio-review-session="${session.session}"`));
+  }
+  if(limitedPronunciationAssessment(current,progress.assessment_policy)) {
+    assert.ok(growth.includes(limitedPronunciationHtml(current,progress.assessment_policy)));
+    assert.match(growth,/モデル上の音素適合/);
+    assert.match(growth,/総合Lには換算しません/);
+    assert.match(growth,/今回の総合発音Lは未判定。音素の限定評価は別欄に掲載/);
+    assert.ok(!growth.includes('今回の発音: N/A'));
+    assert.ok(growth.indexOf('class="local-pronunciation-assessment"')<growth.indexOf('HOW MY SPEAKING IS CHANGING'));
+  } else assert.ok(!growth.includes('class="local-pronunciation-assessment"'));
+  if(reviews.length) {
+    const validation=JSON.parse(await fs.readFile(path.join(projectRoot,progress.assessment_policy.adopted_local_pronunciation_method.validation_source),'utf8'));
+    const benchmark=validation.selection_evidence.human_benchmark;
+    assert.match(growth,new RegExp(`公開${benchmark.recordings}録音`));
+    for(const key of ['asr_word_match_proxy','negative_greedy_phone_error','ctc_gop_sa_mean','gopt_mean_phone_prediction']) {
+      assert.ok(growth.includes(benchmark.utterance_level_pearson_r[key].toFixed(3)));
+    }
+    for(const phrase of ['録音ごとの平均人手音素評価','探索的な小規模比較','GOPT開発・評価内','成人の日本語母語話者への独立検証はありません','外部音声APIへの送信や総合Lへの換算は行いません']) {
+      assert.ok(growth.includes(phrase));
+    }
+  }
 });
 
 test('every allowed active-set size is selectable without duplicate first-page options', () => {

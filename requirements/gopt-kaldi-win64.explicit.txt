@@ -1,0 +1,16 @@
+# Native Windows CPU Kaldi environment, public conda-forge packages; SHA-256 pinned.
+@EXPLICIT
+https://conda.anaconda.org/conda-forge/win-64/dlfcn-win32-1.4.2-hac47afa_0.conda#2a9baf44fbbdc1fcd45f24dd81c79240c040925687772355a5e240d5bdd14dbf
+https://conda.anaconda.org/conda-forge/win-64/icu-78.3-h5112557_2.conda#75c549b55b673e15de8785a8e5dd85bca7eb612eee0ff4dc8d7bdaa15eacbdbb
+https://conda.anaconda.org/conda-forge/win-64/kaldi-5.5.1172-cpu_hf03c2bf_5.conda#35038fdb1bab7814e2bd07a58c15f201802f95617799ad31620752bc6fd0d2a0
+https://conda.anaconda.org/conda-forge/win-64/libblas-3.11.0-11_h0adab6e_openblas.conda#64bf8d49bdd385193c68b56b0a11a256f1d7fa5711edfc9e9c7bcbf2ca25f636
+https://conda.anaconda.org/conda-forge/win-64/libcblas-3.11.0-11_h2a8eebe_openblas.conda#b7a1abf138480021b741460f357ac31440715d93fada2c2dad7e2e178bf4d202
+https://conda.anaconda.org/conda-forge/win-64/liblapack-3.11.0-11_hd232482_openblas.conda#0021c607d065b309d5fd19b48f0ebaf94ef3a680feecc3a728ab15900746efa8
+https://conda.anaconda.org/conda-forge/win-64/liblapacke-3.11.0-11_hbb0e6ff_openblas.conda#b43500116edf7d1eaef89d4e7ea8cea186603fd65e5855acb75a29dc5e4e62f9
+https://conda.anaconda.org/conda-forge/win-64/libopenblas-0.3.34-pthreads_h952cde7_2.conda#138056f68cf8f92cb1830fe1ed950d70856cc840f5f4b2569f9e849cb109bf7e
+https://conda.anaconda.org/conda-forge/win-64/libzlib-1.3.2-hfd05255_3.conda#0629c2cc0404d3bb29d6baa7b4ba62da80797015e86de050db81ea5a07050527
+https://conda.anaconda.org/conda-forge/win-64/openfst-1.8.4-hc790b64_1.conda#09a1e1fc8d96b146b653782955175815b19091105fd5f653cd4114ebf0ca12c2
+https://conda.anaconda.org/conda-forge/win-64/ucrt-10.0.26100.0-h57928b3_0.conda#3005729dce6f3d3f5ec91dfc49fc75a0095f9cd23bab49efb899657297ac91a5
+https://conda.anaconda.org/conda-forge/win-64/vc-14.5-ha367084_41.conda#35444c55a92e2f7f7ba26bc70f81e56e52344f7d064c0fd4b40a46a58517b79c
+https://conda.anaconda.org/conda-forge/win-64/vc14_runtime-14.51.36247-habf1de7_41.conda#4e4cb599cdc41bf2109d1464c127b5bcbddf548ce3e322e612afb691338b48f8
+https://conda.anaconda.org/conda-forge/win-64/vcomp14-14.51.36247-habf1de7_41.conda#731e043390c9457299484d39e427221fc868a9249540a498a5a4f6456c7744d1

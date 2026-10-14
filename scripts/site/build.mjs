@@ -1,5 +1,5 @@
 import { buildLearningBrief } from '../lib/learning-plan.mjs';
-import { evaluatedMetrics, assessedSessionBody, currentEvidenceNote, qualitativeObservations, reportChartProgress, assessmentExample } from '../lib/report-presentation.mjs';
+import { evaluatedMetrics, assessedSessionBody, currentEvidenceNote, qualitativeObservations, reportChartProgress, assessmentExample, limitedPronunciationAssessment, limitedPronunciationHtml } from '../lib/report-presentation.mjs';
 import fs from "node:fs/promises";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
@@ -125,6 +125,10 @@ function removeSection(markdown, headingPattern, nextHeadingPattern) {
 }
 
 const tracker = JSON.parse(await fs.readFile(path.join(recordsRoot, "progress.json"), "utf8"));
+const pronunciationValidationSource=tracker.assessment_policy?.adopted_local_pronunciation_method?.validation_source;
+const pronunciationValidation=typeof pronunciationValidationSource==='string'
+  && /^learning-records\/resources\/[a-z0-9-]+\.json$/.test(pronunciationValidationSource)
+  ? JSON.parse(await fs.readFile(path.join(root,pronunciationValidationSource),'utf8')) : null;
 const mediaManifest = JSON.parse(await fs.readFile(path.join(recordsRoot, "media-manifest.json"), "utf8"));
 const journal = await loadJournal();
 const speakingAnalytics = await analyzeTranscripts();
@@ -501,6 +505,8 @@ for (const [index, session] of sessionDefinitions.entries()) {
   const trackerSession = trackerByNumber.get(session.session);
   const rawBody = currentBodies.get(session.session);
   if (!rawBody) throw new Error(`No Journal content found for Session ${session.session}`);
+  const pronunciationSupplement = rawBody.includes('<!-- local-pronunciation-review: local-gopt-consensus-v1 -->')
+    ? '' : limitedPronunciationHtml(trackerSession, tracker.assessment_policy);
   const cleanedBody = assessedSessionBody(cleanSessionBody(rawBody, session), trackerSession, tracker.assessment_policy, latestDefinition.session);
   const media = mediaBySession.get(session.session) ?? [];
   const body = placeSessionMedia(cleanedBody, session, media);
@@ -524,6 +530,8 @@ ${reportContentsMarkup('../../')}
   <article class="learning-card learning-card--growth"><div class="card-meta">Growth</div><h3>今回できたこと</h3><p>${escapeHtml(redactLearnerText(firstSentence(trackerSession?.evidence_note_ja ?? session.remember)))}</p></article>
   ${trackerSession?.evidence_quote ? `<article class="learning-card learning-card--context"><div class="card-meta">My English in Context</div><h3>発話の記録</h3><p lang="en">${escapeHtml(redactLearnerText(truncate(trackerSession.evidence_quote, 190)))}</p></article>` : ""}
 </div>
+
+${pronunciationSupplement}
 
 ## 今すぐ復習
 
@@ -752,6 +760,25 @@ const evidenceStrength = comparisonReady && earlierSpeech.sessions.length >= 2 &
 const distributionRows = recentSpeech.buckets.filter(b => b.label !== '0' || b.count > 0).map((bucket) => `<div class="distribution-row"><span>${bucket.label} words</span><span class="distribution-bar"><i style="width:${bucket.percent ?? 0}%"></i></span><strong>${bucket.percent ?? 'N/A'}%</strong></div>`).join("\n");
 const coverageRows = rawSessions.map((session) => `<div class="coverage-item"><strong>S${session.session}</strong><span class="coverage-bar"><i style="width:${Math.round(session.usable_segment_ratio * 100)}%"></i></span><span>${Math.round(session.usable_segment_ratio * 100)}%</span><em>${session.coverage_band.toUpperCase()}</em></div>`).join("\n");
 const currentEvaluatedMetrics = evaluatedMetrics(latestTracker, tracker.qualitative_metrics, tracker.assessment_policy);
+const currentPronunciationChartNote=limitedPronunciationAssessment(latestTracker,tracker.assessment_policy)
+  && !currentEvaluatedMetrics.includes('Pronunciation')
+  ? '今回の総合発音Lは未判定。音素の限定評価は別欄に掲載。'
+  : `今回の発音: ${ratingLabel(latestTracker,'Pronunciation')}。`;
+const completedAudioReviews = tracker.sessions.map(session => ({session, assessment: limitedPronunciationAssessment(session, tracker.assessment_policy)}))
+  .filter(item => item.assessment).sort((a,b) => b.session.session-a.session.session);
+const pronunciationBenchmark=pronunciationValidation?.selection_evidence?.human_benchmark;
+const comparisonMethods=[['asr_word_match_proxy','ASR一致'],['negative_greedy_phone_error','greedy音素'],['ctc_gop_sa_mean','CTC GOP-SA'],['gopt_mean_phone_prediction','GOPT']];
+const benchmarkCorrelations=pronunciationBenchmark?.utterance_level_pearson_r;
+const pronunciationSelectionMarkup=completedAudioReviews.length && Number.isInteger(pronunciationBenchmark?.recordings)
+  && comparisonMethods.every(([key])=>Number.isFinite(benchmarkCorrelations?.[key]))
+  ? `<p class="growth-caveat local-pronunciation-method"><strong>方式選定:</strong> SpeechOcean762の公開${pronunciationBenchmark.recordings}録音で、録音ごとの平均人手音素評価との相関rは${comparisonMethods.map(([key,label])=>`${label} ${benchmarkCorrelations[key].toFixed(3)}`).join('、')}。GOPTを主方式に採用しました。探索的な小規模比較で、GOPT開発・評価内の資料です。成人の日本語母語話者への独立検証はありません。録音の処理はPC内で行い、外部音声APIへの送信や総合Lへの換算は行いません。</p>` : '';
+const pronunciationHistoryMarkup = completedAudioReviews.length ? `<section class="local-pronunciation-history"><h3>保存録音の音素評価</h3>
+${pronunciationSelectionMarkup}
+<p class="growth-caveat">再評価日: ${[...new Set(completedAudioReviews.map(item => item.assessment.reviewed_on))].map(escapeHtml).join('・')}。GOPTを主方式、CTC GOP-SAを補助とするモデル上の音素適合。音読と自発発話を混ぜた上達率や総合Lには換算しません。</p>
+<table class="estimate-table"><thead><tr><th>Session・録音日</th><th>評価した範囲</th><th>確認した要点</th><th>確度</th></tr></thead><tbody>${completedAudioReviews.map(({session,assessment}) => {
+  const duration=assessment.evidence_refs.reduce((sum,ref)=>sum+ref.duration_seconds,0);
+  return `<tr data-audio-review-session="${session.session}"><th scope="row">S${session.session}<br>${escapeHtml(session.date)}</th><td>${assessment.task_kind==='read_aloud'?'音読':'自発発話'} ${assessment.evidence_refs.length}録音<br>全${duration.toFixed(1)}秒</td><td>${escapeHtml(firstSentence(assessment.summary_ja,160))}</td><td>${assessment.confidence==='medium'?'中':'低'}</td></tr>`;
+}).join('')}</tbody></table></section>` : '';
 const profileRows = currentEvaluatedMetrics.map((metric) => {
   const observed = latestObservedByMetric.get(metric);
   const level = latestTracker.ratings[metric];
@@ -794,6 +821,8 @@ ${reportContentsMarkup('../')}
 
 <section class="growth-page growth-page--now">${currentEvaluatedMetrics.length ? `<h2>WHERE I AM NOW <small>現在の英語力</small></h2><div class="profile-grid">${profileRows}</div>` : ''}
 <p class="growth-caveat">${escapeHtml(currentEvidenceNote(latestTracker,tracker.qualitative_metrics,tracker.assessment_policy))}</p>
+${limitedPronunciationHtml(latestTracker, tracker.assessment_policy)}
+${pronunciationHistoryMarkup}
 ${changeReview ? '' : `<div class="growth-three-cards">
   <article><strong>STRENGTHS</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Interaction & repair"), 65))}</p></article>
   <article><strong>DEVELOPING</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Fluency & coherence"), 65))}</p></article>
@@ -803,7 +832,7 @@ ${recentChangeMarkup || `<div class="before-now"><strong>INITIAL → CURRENT</st
 ${levelHistoryMarkup(reportChartProgress(tracker).sessions, tracker.qualitative_metrics, sessionDefinitionByNumber)}
 <p class="growth-caveat">S23以降は評価方法・確認範囲を選別しています。今回の数値評価は${currentEvaluatedMetrics.length}観点で、過去の6観点との数の違いや欠測は能力低下を示しません。残りの平均を総合点として計算し直していません。</p>
 <p class="growth-chart-expand"><a href="../assets/generated/english-growth-evidence-dashboard.png">推移グラフを拡大して見る →</a></p>
-<figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="全履歴の6観点評価。今回の発音: ${ratingLabel(latestTracker, 'Pronunciation')}。過去の最終記録 S${lastPronunciation?.session ?? '—'}は現基準の音声総合審査と区別。" loading="lazy"></a><figcaption>横軸はSession、縦軸はL評価。N/Aは欠測、線で補間しません。発音の過去値は旧基準・限定根拠を含みます。段階は形成中 / 安定 / 強い。</figcaption></figure>
+<figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="全履歴の6観点評価。${escapeHtml(currentPronunciationChartNote)}過去の最終記録 S${lastPronunciation?.session ?? '—'}は現基準の音声総合審査と区別。" loading="lazy"></a><figcaption>横軸はSession、縦軸はL評価。N/Aは欠測、線で補間しません。発音の過去値は旧基準・限定根拠を含みます。段階は形成中 / 安定 / 強い。</figcaption></figure>
 </section>
 
 <section class="growth-page growth-page--change"><h2>HOW MY SPEAKING IS CHANGING <small>発話記録の変化 · 補助指標</small></h2>

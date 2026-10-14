@@ -9,6 +9,7 @@ import { loadJournal } from "../lib/journal-parser.mjs";
 import { tableRows as sharedTableRows } from '../lib/markdown-table.mjs';
 import { projectRoot as root } from "../lib/project.mjs";
 import { findPdfBrowser, findPdfPython } from "../pdf/runtime.mjs";
+import { compactGrowthAudioHtml } from '../pdf/pronunciation-print.mjs';
 
 const chrome = findPdfBrowser();
 const python = findPdfPython();
@@ -23,6 +24,9 @@ const candidatePath = path.join(scratchDir, 'candidate.pdf');
 const siteRoot = path.join(root, "site");
 const journal = await loadJournal();
 const progress = JSON.parse(await fs.readFile(path.join(root, 'learning-records/progress.json'), 'utf8'));
+const audioValidationSource=progress.assessment_policy?.adopted_local_pronunciation_method?.validation_source;
+const audioValidation=typeof audioValidationSource==='string'&&/^learning-records\/resources\/[a-z0-9-]+\.json$/.test(audioValidationSource)
+  ? JSON.parse(await fs.readFile(path.join(root,audioValidationSource),'utf8')) : null;
 const ledger = JSON.parse(await fs.readFile(path.join(root, 'learning-records/resources/bank-ledger.json'), 'utf8'));
 const learningBrief = buildLearningBrief(journal, progress, ledger);
 const sessions = [...journal.sessions].sort((a, b) => b.date.localeCompare(a.date) || b.session - a.session);
@@ -52,9 +56,12 @@ function removeLocalLinkTargets(html) {
     .replace(/\s+href=(['"])file:[^'"]+\1/i, ""));
 }
 
-function makeStaticPrintHtml(html, { questionLabels = false, staticDisclosures = false } = {}) {
+function makeStaticPrintHtml(html, { questionLabels = false, staticDisclosures = false, omitRepeatedAudioReview = false } = {}) {
   let output = removeLocalLinkTargets(html)
     .replace(/<details\b(?![^>]*\bopen\b)([^>]*)>/gi, "<details$1 open>");
+  if (omitRepeatedAudioReview) {
+    output=compactGrowthAudioHtml(output,progress,audioValidation);
+  }
   if (questionLabels) {
     output = output.replace(/<details class="recall-card" open>\s*<summary>/gi, '<details class="recall-card" open><summary><span class="print-question-label">Question</span>');
   }
@@ -71,6 +78,10 @@ function makeStaticPrintHtml(html, { questionLabels = false, staticDisclosures =
     .print-disclosure { margin: 4mm 0; padding: 4mm; background: #f7f9fc; border: 1px solid #cbd5e1; break-inside: avoid; }
     .print-disclosure-title { margin: 0 0 3mm !important; color: #163a5f !important; font-size: 12.5pt !important; }
     .print-disclosure-body { color: #1f2937; }
+    .md-typeset .local-pronunciation-print-table { display: table !important; width: 100% !important; table-layout: fixed !important; border-collapse: collapse !important; margin: 1mm 0 !important; }
+    .md-typeset .local-pronunciation-print-table th, .md-typeset .local-pronunciation-print-table td { font-size: 10.5pt !important; line-height: 1.25 !important; padding: .8mm 1.5mm !important; border: 1px solid #cbd5e1; vertical-align: top; }
+    .md-typeset .local-pronunciation-print-table tbody th { background: #f7f9fc !important; color: #1f2937 !important; }
+    .md-typeset .local-pronunciation-print-note { margin: 1mm 0 !important; font-size: 10.5pt !important; line-height: 1.25 !important; }
   </style></head>`);
 }
 
@@ -203,7 +214,7 @@ try {
 
   const growthPath = path.join(siteRoot, "progress", "index.html");
   const growthPrintPath = path.join(siteRoot, "progress", "journal-print.html");
-  await fs.writeFile(growthPrintPath, makeStaticPrintHtml(await fs.readFile(growthPath, "utf8"), { staticDisclosures: true }), "utf8");
+  await fs.writeFile(growthPrintPath, makeStaticPrintHtml(await fs.readFile(growthPath, "utf8"), { staticDisclosures: true, omitRepeatedAudioReview: true }), "utf8");
   temporarySitePaths.push(growthPrintPath);
 
   const coverPath = path.join(scratchDir, "cover.html");

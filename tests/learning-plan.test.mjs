@@ -26,6 +26,8 @@ test('approved quality-reference repairs preserve every other historical assessm
   s18.assistant_turns[0]=154;s18.assistant_turns[1]=156;
   s18.learner_turns[0]=153;s18.learner_turns[1]=155;
   s22.assistant_turns[0]=40;
+  // Authorized later audio reviews are additive; every original historical field stays protected.
+  for (const session of historical) delete session.pronunciation_assessment;
   assert.equal(hash(historical), '270f646eebbbd030458800c3ce58133b7dffd4a9f45a59c5a4b64d4a0ee76987');
   const assessments=progress.sessions.filter(s=>s.session<=22).map(s=>({session:s.session,ratings:s.ratings,within_level_stage:s.within_level_stage,metric_evidence:s.metric_evidence,pronunciation_evidence:s.pronunciation_evidence,assessment_summary:s.assessment_summary,evidence_quote:s.evidence_quote,evidence_quote_origin:s.evidence_quote_origin,evidence_note_ja:s.evidence_note_ja,evidence_note:s.evidence_note}));
   assert.equal(hash(assessments), '03c1b3503f75597c3da16503dc1e826e54dc60395de321ebc445bec1f51b2957');

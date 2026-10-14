@@ -1,0 +1,49 @@
+[
+  {
+    "filename": "librispeech-chain.tar.gz",
+    "url": "https://kaldi-asr.org/models/13/0013_librispeech_v1_chain.tar.gz",
+    "sha256": "47cb7cc2fbe91c7a60fd3d46266c3d459bd766aaffa1dfad789ef57875f1be01",
+    "extract_to": "librispeech-chain"
+  },
+  {
+    "filename": "librispeech-extractor.tar.gz",
+    "url": "https://kaldi-asr.org/models/13/0013_librispeech_v1_extractor.tar.gz",
+    "sha256": "431e44aa6c5efdd76566199ffb96e14a3052e025a8c6ee495eb66703663850a7",
+    "extract_to": "librispeech-extractor"
+  },
+  {
+    "filename": "gopt-model.py",
+    "url": "https://raw.githubusercontent.com/YuanGongND/gopt/bed909daf8eca035095871e51642525acc5b9b55/src/models/gopt.py",
+    "sha256": "e63a178f5d32221ebc1233a4fe32dc12a092f804360b1782a6159d3185b3be34"
+  },
+  {
+    "filename": "gopt-librispeech.pth",
+    "url": "https://raw.githubusercontent.com/YuanGongND/gopt/bed909daf8eca035095871e51642525acc5b9b55/pretrained_models/gopt_librispeech/best_audio_model.pth",
+    "sha256": "ab07451e51648f9d2455505a51055b20ac4ad7921d771ccc5170ff486a826259"
+  },
+  {
+    "filename": "mfcc_hires.conf",
+    "url": "https://raw.githubusercontent.com/kaldi-asr/kaldi/f4007661023b98b8081fd875029f0dee62242fd1/egs/gop_speechocean762/s5/conf/mfcc_hires.conf",
+    "sha256": "ad36416bce0ac9edfb0fdf9df61e128cf44d6e574cf0c681bf95f4677b3b5d72"
+  },
+  {
+    "filename": "librispeech-lexicon.txt",
+    "url": "https://www.openslr.org/resources/11/librispeech-lexicon.txt",
+    "sha256": "d722bc29908cd338ae738edd70f61826a6fca29aaa704a9493f0006773f79d71"
+  },
+  {
+    "filename": "cmudict.dict",
+    "url": "https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict",
+    "sha256": "81917843c7f44ce2b094ac63873c2c7a4cf802040792c455ba3ca406891c3d22"
+  },
+  {
+    "filename": "so-train-text",
+    "url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/train/text",
+    "sha256": "32073dd72e20edb4ad051b7b49979d5cab4c2158c2d6396a08e3dfad6ad9ffe1"
+  },
+  {
+    "filename": "so-text-phone",
+    "url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/resource/text-phone",
+    "sha256": "39ee4fc8719775c082e2ce563d3818306eb1c1a98f97077241cdc110a57c319d"
+  }
+]

@@ -2,7 +2,7 @@
   "assessment_policy": {
     "version": "environment-evidence-v1",
     "effective_from_session": 23,
-    "environment_reviewed_on": "2026-10-14",
+    "environment_reviewed_on": "2026-10-15",
     "history_policy": "preserve_without_rescoring",
     "selection_rule": "Verified method + completed evidence review + appropriate independent task + supported rubric scope. Unknown capability/evidence excludes an assessed result. Internal unavailable states stay explicit.",
     "capabilities": {
@@ -17,16 +17,18 @@
       "standardized_listening_task_review": false,
       "standardized_writing_task_review": false,
       "standardized_speaking_task_review": false,
-      "exact_audio_wording_review": false
+      "exact_audio_wording_review": false,
+      "local_phoneme_assessment": true
     },
     "method_origins": {
       "contextual_text_review": "local",
       "written_text_review": "local",
       "recording_quality_measurement": "local",
       "asr_timing_measurement": "local",
-      "pitch_measurement": "local"
+      "pitch_measurement": "local",
+      "local_phoneme_assessment": "local"
     },
-    "capability_evidence": "Contextual learner/assistant ASR text is available. PyAV, faster-whisper and Praat verify decode/quality/transcription/timing/pitch only. No verified direct sound/prosody reviewer or spontaneous full-conversation delivery review. Task-specific examination evidence has not been collected.",
+    "capability_evidence": "Local original GOPT/Kaldi phoneme predictions with full-source PCM/hash coverage, three segmented frontend settings, exact-word timing health gates and CTC GOP-SA support were verified on six retained recordings. Whisper/Praat measure quality and ASR timing. This supports bounded model phoneme-fit findings, not holistic pronunciation/prosody or spontaneous delivery; relevant examination tasks remain uncollected.",
     "evidence_reviews": {
       "23": {
         "Task achievement": {
@@ -311,7 +313,17 @@
     },
     "overall_rule": "No fixed six-dimension overall score when any required dimension is missing. Do not re-average a changing subset or convert it to exam scores.",
     "exam_estimate_rule": "No new current projection without a named method, reviewed relevant skill task, comparable conditions and all required verified methods. Dated prior estimates and user-reported results remain historical references.",
-    "numeric_contract_from_session": 24
+    "numeric_contract_from_session": 24,
+    "adopted_local_pronunciation_method": {
+      "version": "local-gopt-consensus-v1",
+      "method": "local_phoneme_assessment",
+      "validation_source": "learning-records/resources/pronunciation-method-validation.json",
+      "adopted_on": "2026-10-15",
+      "scope": "phoneme_accuracy_only",
+      "primary": "GOPT",
+      "secondary": "CTC GOP-SA",
+      "quality": "Whisper/Praat"
+    }
   },
   "methodology": {
     "name": "Exam-informed, evidence-based English conversation tracking",
@@ -851,7 +863,65 @@
       "evidence_quote": "If defining requirements is perfect, I can hand it off to AI ... setting checkpoints by a human is important in this AI era.",
       "evidence_quote_origin": "Spontaneous explanation in the realtime conversation; pauses and restarts lightly regularized.",
       "evidence_note_ja": "GPT-6 Astraの公式記事を音読し、内容を要約・確認しながら、AIの自律性、要件定義、人のチェックポイント、表面から見えないbackendリスクについて自分の立場を理由付きで議論した。誤解が生じた場面では記事を続けるよう明確に軌道修正し、autonomy、requirement、checkpointなどの専門語を確認して再利用した。停止・繰り返し・文法の揺れは残るためFluency・Lexical・GrammarはL3、結論と理由を展開したTask achievementと自発的に会話を修正したInteraction & repairはL4とする。本人も以前より英語がかなりスムーズに出る実感を報告しており、長い技術議論を維持した観察事実と合わせてL3内の流暢さの前進として記録する。36.05秒の直接音声は音割れなく、発話部分27.87秒、認識速度約123.6語/分、文章一致率94.1%だったため、Pronunciationは保守的にL3とする。標準60秒課題と異なるため、発音の過去差は判定しない。",
-      "evidence_note": "Read the official GPT-6 Astra material and sustained a technical discussion about AI autonomy, requirements, human checkpoints, and hidden backend risks, giving reasons for a personal position. Explicitly redirected the conversation when it drifted and reused technical terms after checking them. Pauses, repetitions, word searches, and grammatical instability keep fluency, lexis, and grammar at L3; independently developing the conclusion and repairing the interaction support L4 for task achievement and interaction. The learner also reports that English is coming out much more smoothly, which is recorded as within-level fluency progress alongside the observed sustained discussion. A direct 36.05-second recording showed no clipping, 27.87 seconds of active speech, about 123.6 recognized words per minute, and a 94.1% word-match ratio, supporting a conservative L3 pronunciation rating. Because the passage differs from the standard 60-second task, no pronunciation change is inferred."
+      "evidence_note": "Read the official GPT-6 Astra material and sustained a technical discussion about AI autonomy, requirements, human checkpoints, and hidden backend risks, giving reasons for a personal position. Explicitly redirected the conversation when it drifted and reused technical terms after checking them. Pauses, repetitions, word searches, and grammatical instability keep fluency, lexis, and grammar at L3; independently developing the conclusion and repairing the interaction support L4 for task achievement and interaction. The learner also reports that English is coming out much more smoothly, which is recorded as within-level fluency progress alongside the observed sustained discussion. A direct 36.05-second recording showed no clipping, 27.87 seconds of active speech, about 123.6 recognized words per minute, and a 94.1% word-match ratio, supporting a conservative L3 pronunciation rating. Because the passage differs from the standard 60-second task, no pronunciation change is inferred.",
+      "pronunciation_assessment": {
+        "version": "local-gopt-consensus-v1",
+        "status": "assessed_limited",
+        "method": "local_phoneme_assessment",
+        "reviewed_on": "2026-10-15",
+        "task_kind": "read_aloud",
+        "capture_purpose": "evaluation",
+        "scope": "phoneme_accuracy_only",
+        "evidence_refs": [
+          {
+            "id": "session12-20260906",
+            "sha256": "286cb6e8b4960b35ab1e3507d1b41f28c428c1b17399efc02a55cbab4b62cba5",
+            "duration_seconds": 36.0533125,
+            "coverage_seconds": 36.0533125,
+            "source_unchanged": true,
+            "all_audio_processed": true
+          }
+        ],
+        "summary_ja": "保存音読の全36.1秒を再解析。codingとsupportは、分割長・前処理を変えた3設定で音素適合が安定し、CTCの補助確認も支持した。モデル名の認識の揺れを発音の誤りとは扱わない。",
+        "strengths_ja": [
+          "coding（約7.9〜8.3秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。",
+          "support（約21.2〜21.7秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。"
+        ],
+        "review_points_ja": [
+          "GPT-6 Astraなどの固有名詞・数字は辞書の読み方と実発話の不確実性があるため、今回の矯正対象から除外。旧L3は当時の限定根拠の履歴として保持する。"
+        ],
+        "practice_chunks": [
+          "support practical work"
+        ],
+        "confidence": "medium",
+        "reference_confidence": "verified",
+        "selected_findings": [
+          {
+            "evidence_id": "session12-20260906",
+            "word": "coding",
+            "reference_word_index": 11,
+            "start_seconds": 7.92,
+            "end_seconds": 8.3,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          },
+          {
+            "evidence_id": "session12-20260906",
+            "word": "support",
+            "reference_word_index": 38,
+            "start_seconds": 21.2,
+            "end_seconds": 21.68,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          }
+        ],
+        "coverage_note_ja": "全音声を処理。原文の全語を正しく発音したという判定ではなく、対応と支持が安定した語だけを所見に採用。",
+        "limitations": [
+          "No holistic L or exam-score conversion.",
+          "Stress, rhythm, linking and intonation correctness are not assessed.",
+          "No confirmed pronunciation errors or compulsory correction are inferred from model outputs."
+        ]
+      }
     },
     {
       "session": 13,
@@ -1032,7 +1102,65 @@
       "evidence_quote": "What's similar service in AWS?",
       "evidence_quote_origin": "Spontaneous learner question in the realtime transcript; punctuation regularized.",
       "evidence_note_ja": "Pub/Subの公式記事を音読し、synchronousとparallelizeの意味を確認したうえで、AWSの近いサービスを自発的に質問した。読みたい対象が記事であることを明確に訂正し、レポートへ図と表の両方を入れる希望も伝えた。技術的な目的達成と対話修復はL4・強い、会話の流れと語彙はL3・強い、文法はL3・安定を維持する。標準音読の録音はローカル処理できたが、ASR一致率を発音得点に換算せず、個別音・強勢・リズムを信頼して直接聴取評価できていないため、今回のPronunciationはN/A。前回からの流暢さの増減は固定の自発発話課題が未実施で判定保留。",
-      "evidence_note": "Read the official Pub/Sub overview, asked about synchronous and parallelize, then independently requested the closest AWS service. Corrected the reading target to the browser article and specified a diagram and table for the report. Retain strong L4 for task achievement and interaction, strong L3 for fluency and lexis, and established L3 for grammar. The standard read-aloud recording was locally processed, but ASR word matching is not converted into a pronunciation score; individual sounds, stress, and rhythm were not reliably reviewed directly, so this session's pronunciation is N/A. A change in spontaneous fluency cannot be established without the fixed probe."
+      "evidence_note": "Read the official Pub/Sub overview, asked about synchronous and parallelize, then independently requested the closest AWS service. Corrected the reading target to the browser article and specified a diagram and table for the report. Retain strong L4 for task achievement and interaction, strong L3 for fluency and lexis, and established L3 for grammar. The standard read-aloud recording was locally processed, but ASR word matching is not converted into a pronunciation score; individual sounds, stress, and rhythm were not reliably reviewed directly, so this session's pronunciation is N/A. A change in spontaneous fluency cannot be established without the fixed probe.",
+      "pronunciation_assessment": {
+        "version": "local-gopt-consensus-v1",
+        "status": "assessed_limited",
+        "method": "local_phoneme_assessment",
+        "reviewed_on": "2026-10-15",
+        "task_kind": "read_aloud",
+        "capture_purpose": "evaluation",
+        "scope": "phoneme_accuracy_only",
+        "evidence_refs": [
+          {
+            "id": "session16-20260926",
+            "sha256": "8e8540fd8a0ab64d5867637a4eb4193b3a325f68824ec780cc5e628bd97a3153",
+            "duration_seconds": 50.304,
+            "coverage_seconds": 50.304,
+            "source_unchanged": true,
+            "all_audio_processed": true
+          }
+        ],
+        "summary_ja": "標準音読の全50.3秒を再解析。stableとchangingでモデル上の音素適合が安定していた。従来の語一致率や速度だけの説明から、音素を扱う根拠付きの所見へ更新した。",
+        "strengths_ja": [
+          "stable（約35.8〜36.1秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。",
+          "changing（約2.5〜2.9秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。"
+        ],
+        "review_points_ja": [
+          "低い出力があっても、短い音素境界や許容される母音の違いを除けない箇所は誤りとしない。今回は矯正必須の改善点を確定していない。"
+        ],
+        "practice_chunks": [
+          "a stable supply"
+        ],
+        "confidence": "medium",
+        "reference_confidence": "verified",
+        "selected_findings": [
+          {
+            "evidence_id": "session16-20260926",
+            "word": "stable",
+            "reference_word_index": 64,
+            "start_seconds": 35.82,
+            "end_seconds": 36.12,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          },
+          {
+            "evidence_id": "session16-20260926",
+            "word": "changing",
+            "reference_word_index": 2,
+            "start_seconds": 2.48,
+            "end_seconds": 2.88,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          }
+        ],
+        "coverage_note_ja": "全音声を処理。原文の全語を正しく発音したという判定ではなく、対応と支持が安定した語だけを所見に採用。",
+        "limitations": [
+          "No holistic L or exam-score conversion.",
+          "Stress, rhythm, linking and intonation correctness are not assessed.",
+          "No confirmed pronunciation errors or compulsory correction are inferred from model outputs."
+        ]
+      }
     },
     {
       "session": 17,
@@ -1198,7 +1326,74 @@
       "evidence_quote":"Okay. Today's article is difficult for me because I am not professional this field. About this field. Right",
       "evidence_quote_origin":"Learner's spontaneous voice ASR turn 171, unchanged; later self-used 'I'm familiar with that' at turn 209.",
       "evidence_note_ja":"未知の宇宙記事について語彙負荷を説明し、身近なITのパスキーへ変更した。説明前に分野理解を確認することと、発音評価では自動認識と総合聴取を分けることを要求した。TaskとInteractionはL4・強い、FluencyとLexicalはL3・強い、GrammarはL3・安定。六通話の条件は前回と異なるため改善率は判定しない。音読2本を処理したが総合聴取が不足し、今回のPronunciationはN/A。",
-      "evidence_note":"Explained why the unfamiliar space article was too difficult, redirected to familiar IT and passkeys, and demanded a distinction between automated speech diagnostics and a dependable holistic pronunciation judgment. Strong L4 task and interaction, strong L3 fluency and lexis, established L3 grammar; no matched task for rate-of-change claims. Two local read-aloud files were processed but no holistic listening supported a new pronunciation level, so this session is N/A."
+      "evidence_note":"Explained why the unfamiliar space article was too difficult, redirected to familiar IT and passkeys, and demanded a distinction between automated speech diagnostics and a dependable holistic pronunciation judgment. Strong L4 task and interaction, strong L3 fluency and lexis, established L3 grammar; no matched task for rate-of-change claims. Two local read-aloud files were processed but no holistic listening supported a new pronunciation level, so this session is N/A.",
+      "pronunciation_assessment": {
+        "version": "local-gopt-consensus-v1",
+        "status": "assessed_limited",
+        "method": "local_phoneme_assessment",
+        "reviewed_on": "2026-10-15",
+        "task_kind": "read_aloud",
+        "capture_purpose": "evaluation",
+        "scope": "phoneme_accuracy_only",
+        "evidence_refs": [
+          {
+            "id": "session18-20261005-passkeys",
+            "sha256": "cbdc3cc0434a59aa008c11499132f8010c4d7a6de9c61452b33584487491f0ce",
+            "duration_seconds": 86.2506875,
+            "coverage_seconds": 86.2506875,
+            "source_unchanged": true,
+            "all_audio_processed": true
+          },
+          {
+            "id": "session18-20261005-cloud",
+            "sha256": "d8c196773ed5857341642d84eda189cfac071545c7caf237bf587c0ee86bbad3",
+            "duration_seconds": 84.5866875,
+            "coverage_seconds": 84.5866875,
+            "source_unchanged": true,
+            "all_audio_processed": true
+          }
+        ],
+        "summary_ja": "PasskeysとCloud documentsの2録音、全170.8秒を再解析。reliableとsyncで音素適合が安定していた。一括処理で崩れた時刻対応は修正後に検証し、その失敗による低出力をYukiの発音評価へ採用していない。",
+        "strengths_ja": [
+          "Passkeys: reliable（約61.7〜62.2秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。",
+          "Cloud documents: sync（約17.2〜17.7秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。"
+        ],
+        "review_points_ja": [
+          "一部の参照語は語時刻との対応を確認できず、具体的な音の所見から除外。2本の原文・長さが異なるため、録音間の優劣や能力変化を判定しない。"
+        ],
+        "practice_chunks": [
+          "a reliable way",
+          "keep them in sync"
+        ],
+        "confidence": "medium",
+        "reference_confidence": "verified",
+        "selected_findings": [
+          {
+            "evidence_id": "session18-20261005-passkeys",
+            "word": "reliable",
+            "reference_word_index": 106,
+            "start_seconds": 61.73,
+            "end_seconds": 62.17,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          },
+          {
+            "evidence_id": "session18-20261005-cloud",
+            "word": "sync",
+            "reference_word_index": 37,
+            "start_seconds": 17.2,
+            "end_seconds": 17.72,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          }
+        ],
+        "coverage_note_ja": "全音声を処理。原文の全語を正しく発音したという判定ではなく、対応と支持が安定した語だけを所見に採用。",
+        "limitations": [
+          "No holistic L or exam-score conversion.",
+          "Stress, rhythm, linking and intonation correctness are not assessed.",
+          "No confirmed pronunciation errors or compulsory correction are inferred from model outputs."
+        ]
+      }
     },
     {
       "session":19,"date":"2026-10-05",
@@ -1635,7 +1830,66 @@
       "evidence_quote":"Yeah, watching movies... I can... understand the situation that people are doing, uh... So... Yeah, I did it practically in conversation directly. Yeah, it's easy to ...practice... impractically",
       "evidence_quote_origin":"Original learner ASR segment146, preserved including restarts and uncertain word forms; no pronunciation or tiny-word error inference.",
       "evidence_note_ja":"映画では場面が見えるため表現を会話へつなげやすいと理由を説明し、話題の種類ではなく相手と機会が必要だと具体化した。採点は各記述から新規に判断し、前回と同じ数値でも理由を記録。自力の理由説明・範囲指定の再現は確認したが、小さな語彙・文法改善や停滞は確定できない。次回は自然な議論で主張・理由・具体例を一つにつなぐ。",
-      "evidence_note":"Own reasons and specific conversational needs were communicated. Scores were freshly descriptor-checked; no forced increase or historical rescoring. Recent source-paired explanations and scope management recur at a similar level, while lexical/grammar change is unconfirmed. Full read-aloud audio measurements are separate; holistic pronunciation remains N/A and test estimates are not updated."
+      "evidence_note":"Own reasons and specific conversational needs were communicated. Scores were freshly descriptor-checked; no forced increase or historical rescoring. Recent source-paired explanations and scope management recur at a similar level, while lexical/grammar change is unconfirmed. Full read-aloud audio measurements are separate; holistic pronunciation remains N/A and test estimates are not updated.",
+      "pronunciation_assessment": {
+        "version": "local-gopt-consensus-v1",
+        "status": "assessed_limited",
+        "method": "local_phoneme_assessment",
+        "reviewed_on": "2026-10-15",
+        "task_kind": "read_aloud",
+        "capture_purpose": "practice",
+        "scope": "phoneme_accuracy_only",
+        "evidence_refs": [
+          {
+            "id": "session21-20261011",
+            "sha256": "a0040f83aa11dd1cb6e3c758c2bffd7e4fb38e9f13b21153063804becbb91a7b",
+            "duration_seconds": 354.9226875,
+            "coverage_seconds": 354.9226875,
+            "source_unchanged": true,
+            "all_audio_processed": true
+          }
+        ],
+        "summary_ja": "記事全体の音読354.9秒を再解析。skillとtalkingでモデル上の音素適合が安定していた。収録時のpractice条件を保持し、他回のevaluationとの点数比較や成長率には使わない。",
+        "strengths_ja": [
+          "skill（約50.5〜50.7秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。",
+          "talking（約202.9〜203.5秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。"
+        ],
+        "review_points_ja": [
+          "pronunciation accuracy付近の低出力は、短い音素境界と設定差の影響が残る要確認箇所。特定の音の誤り・減点・矯正課題には採用しない。"
+        ],
+        "practice_chunks": [
+          "a skill like driving",
+          "talking in English"
+        ],
+        "confidence": "medium",
+        "reference_confidence": "verified",
+        "selected_findings": [
+          {
+            "evidence_id": "session21-20261011",
+            "word": "skill",
+            "reference_word_index": 97,
+            "start_seconds": 50.45,
+            "end_seconds": 50.73,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          },
+          {
+            "evidence_id": "session21-20261011",
+            "word": "talking",
+            "reference_word_index": 398,
+            "start_seconds": 202.94,
+            "end_seconds": 203.5,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          }
+        ],
+        "coverage_note_ja": "全音声を処理。原文の全語を正しく発音したという判定ではなく、対応と支持が安定した語だけを所見に採用。",
+        "limitations": [
+          "No holistic L or exam-score conversion.",
+          "Stress, rhythm, linking and intonation correctness are not assessed.",
+          "No confirmed pronunciation errors or compulsory correction are inferred from model outputs."
+        ]
+      }
     },
     {
       "session": 22,
@@ -2453,7 +2707,65 @@
       "evidence_quote": " No, no, no, no, Chris Evans, no. Uh, what was the name of movie? Dear, dear is... There, the-s-some names. Sorry, is- Story is Mm... the One boy- Write the letter for... Himself... and At the library, other boy... Read it After that, the other boy... suicide. Th-the main character, the boy, lies and lies. The story is bigger. Yeah, like this story",
       "evidence_quote_origin": "Original learner voice ASR turn174; plot description, not an exact source synopsis or verified grammar/pronunciation sample.",
       "evidence_note_ja": "借りる理由・作業の具体例・映画の筋と判断を自分の内容で伝え、会話の難度・方向を調整。Lは今回の目的と根拠から判定し、旧版との数値差を上達率にしない。全音読の限定解析は完了、総合発音と自発会話のdeliveryは未完了。資格目安は更新しない。",
-      "evidence_note": "Fresh whole-session-v4 descriptor review, source-backed familiar-purpose successes and scope repair. No confirmed small grammar errors, delayed Bank mastery, spontaneous delivery or holistic pronunciation measurement."
+      "evidence_note": "Fresh whole-session-v4 descriptor review, source-backed familiar-purpose successes and scope repair. No confirmed small grammar errors, delayed Bank mastery, spontaneous delivery or holistic pronunciation measurement.",
+      "pronunciation_assessment": {
+        "version": "local-gopt-consensus-v1",
+        "status": "assessed_limited",
+        "method": "local_phoneme_assessment",
+        "reviewed_on": "2026-10-15",
+        "task_kind": "read_aloud",
+        "capture_purpose": "evaluation",
+        "scope": "phoneme_accuracy_only",
+        "evidence_refs": [
+          {
+            "id": "session23-20261014",
+            "sha256": "42d1cdb27bc31d3f29423a42ba2163c232670117ed2b953db479d7fcb85c7ecf",
+            "duration_seconds": 266.9013125,
+            "coverage_seconds": 266.9013125,
+            "source_unchanged": true,
+            "all_audio_processed": true
+          }
+        ],
+        "summary_ja": "保存音読の全266.9秒を再解析。finishとmodelは3設定で安定した音素適合を示し、CTCの補助確認も支持した。この方法で矯正が必要と確定できる箇所は得られていない。",
+        "strengths_ja": [
+          "finish（約228.5〜229.0秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。",
+          "model（約81.4〜81.9秒）は、3設定とCTC補助確認で安定したモデル上の音素適合。"
+        ],
+        "review_points_ja": [
+          "固有名詞・数詞、アクセントによって変わる音、時刻対応が不安定な箇所は誤りとして数えない。安定した低候補がないことは、全音が正しいという証明ではない。"
+        ],
+        "practice_chunks": [
+          "model performance"
+        ],
+        "confidence": "medium",
+        "reference_confidence": "verified",
+        "selected_findings": [
+          {
+            "evidence_id": "session23-20261014",
+            "word": "finish",
+            "reference_word_index": 306,
+            "start_seconds": 228.51,
+            "end_seconds": 229.01,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          },
+          {
+            "evidence_id": "session23-20261014",
+            "word": "model",
+            "reference_word_index": 101,
+            "start_seconds": 81.38,
+            "end_seconds": 81.9,
+            "support": "three frontend settings, healthy word timing, and CTC acoustic support",
+            "kind": "stable_model_phone_fit_not_human_correctness_certification"
+          }
+        ],
+        "coverage_note_ja": "全音声を処理。原文の全語を正しく発音したという判定ではなく、対応と支持が安定した語だけを所見に採用。",
+        "limitations": [
+          "No holistic L or exam-score conversion.",
+          "Stress, rhythm, linking and intonation correctness are not assessed.",
+          "No confirmed pronunciation errors or compulsory correction are inferred from model outputs."
+        ]
+      }
     }
   ],
   "test_score_estimates": {

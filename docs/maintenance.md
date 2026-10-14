@@ -128,6 +128,44 @@ npm run pronunciation:setup
 
 録音、モデル、分析中間物は `tmp/` と `.venv-pronunciation/` に置き、GitやLearning Siteへ含めません。
 
+### GOPT本体のローカル検証
+
+Windows x64 / Python 3.12向けに、CPU版Kaldi、LibriSpeech M13音響モデル・i-vector extractor、元のGOPT学習済み重みを組み合わせた実験用ランナーを用意しています。公開パッケージとモデルのダウンロードはセットアップ時だけ行い、録音を処理するランナーにはダウンロード処理を持たせません。WSLやシステム全体のPATH変更は不要です。
+
+```powershell
+# 既存のpronunciation環境にGOPT用依存を追加。モデルとネイティブ依存はSHA-256で固定。
+npm run pronunciation:gopt:setup
+
+# 保存済み録音と、実際に読む英文のUTF-8ファイルを指定。
+npm run pronunciation:gopt -- -AudioPath "録音の絶対パス" -ReferencePath "英文の絶対パス" -CompareChunking
+
+# ローカル依存を使う入力契約・無音除外・全音素の収録チェック。
+& .\.venv-pronunciation\Scripts\python.exe scripts/pronunciation/gopt/selftest.py
+```
+
+参照文には平文、`reference_text`を持つJSON、共通課題のMarkdownを指定できます。未対応の数値表記・辞書にない語は黙って除外せずエラーにします。記事用に明示した数値の読み方や固有名詞の発音は仮の参照であり、実際の発話、許容される別の読み方との照合が必要です。AI/APIは頭字語として扱います。
+
+出力先は既定で`tmp/pronunciation-comparison/gopt-runs/`です。`run-summary.json`には全録音の処理時間・サンプル数・元ファイルのハッシュ照合を、`predictions-limit50.json`には生のモデル出力を保存します。`-CompareChunking`で同じ特徴量を30音素でも分割し、差を確認できます。全音素を単語境界で分割し、学習時の50位置・84次元へパディングします。訓練時の音素番号と正規化を使い、50音素を超えた部分を切り捨てません。
+
+このランナーは評価方式を比較するためのものです。長い録音の区間平均を、会話全体の発音、流暢さ、イントネーションの確定点やL1〜L5へ自動変換しません。無音に数値が付くことを防ぐため、ほぼゼロの信号は推論前に除外しますが、このゲートだけで雑音と人声を区別できるわけではありません。モデルの回帰値は範囲外もそのまま記録します。
+
+実装は[元のGOPT](https://github.com/YuanGongND/gopt)と[公式の推論手順](https://github.com/YuanGongND/gopt/blob/master/steps_of_inference.md)、[KaldiのGOPレシピ](https://github.com/kaldi-asr/kaldi/tree/master/egs/gop_speechocean762/s5)を参照しています。MFCCのditherは元の設定1を既定にします。同じ音声と参照文の組を厳密に比較する際は`-MfccDither 0`も指定でき、微小ノイズ設定への感度を確認できます。今回の静かな録音ではこの設定差も予測に影響したため、0を自動的に改善設定とは扱いません。現在のKaldi版と元論文の環境は同一ではないため、公開ベンチマークの完全再現とは区別します。音響モデルは[Kaldi M13](https://kaldi-asr.org/models/m13)、音素番号の復元元は[SpeechOcean762](https://github.com/jimbozhang/speechocean762)、辞書は[LibriSpeech](https://www.openslr.org/11/)と[CMUdict](https://github.com/cmusphinx/cmudict)です。
+
+### 正式採用した音素の限定評価（2026-10-15）
+
+`local-gopt-consensus-v1` はGOPTを主方式、CTC GOP-SAを補助、Whisper/Praatを録音品質・語時刻の確認に使います。比較結果と限界は `learning-records/resources/pronunciation-method-validation.json`、各回の所見は `progress.json` の `pronunciation_assessment` に保存します。総合L、資格目安、過去の採点を自動更新しません。
+
+```powershell
+npm run pronunciation:review:setup
+npm run pronunciation:review -- -AudioPath "録音の絶対パス" -ReferencePath "実際に読んだ原文の絶対パス"
+```
+
+通常の `pronunciation:analyze` からも、保存した音読原文がある場合にこの方式を実行します。課題IDが確認できない録音を標準文で採点せず、原文の指定が必要な状態を返します。ASRの認識文は正解原文にしません。
+
+長い録音を一括で強制アラインメントすると、認識語がほぼ一致していても音素が数秒へ集中する失敗が実測されました。このため音声自体を原文の単語境界で30音素までに分割し、40音素とdither 1/0でも検証します。全サンプルを隙間なく含め、時刻の不整合には最低区間長の制約を課し、再配分を記録します。各設定の音素時刻と語時刻の対応を確認できない語は所見から除きます。`pronunciation:gopt` の全録音一括経路は診断用です。
+
+低出力は確認候補で、確定誤発音ではありません。高い出力も人が聞いた正しさの保証ではありません。候補がなければ誤りや追加課題を作らず、モデル上で安定した一般語の音素適合と、確認できない観点を返します。公開レポートへ元音声・全文ASR・中間特徴量・生スコアを載せません。
+
 ## GitHub Pages
 
 `.github/workflows/learning-site.yml` はpushとPull RequestでSite・raw transcript・Node依存の監査を検証し、Windows上でPDFの生成・機械検査も行います。初回公開、公開範囲変更、Pages設定変更、手動デプロイはYukiの明示承認後だけ行います。

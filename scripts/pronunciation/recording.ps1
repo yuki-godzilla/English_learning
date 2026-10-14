@@ -30,6 +30,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'candidate-selection.ps1')
+. (Join-Path $PSScriptRoot 'analysis-routing.ps1')
 
 $projectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $workRoot = Join-Path $projectRoot 'tmp\pronunciation-recordings'
@@ -218,10 +219,10 @@ if ($Action -eq 'Status') {
         localSpeechRecognitionBackend = if ($localModulesReady) { 'faster-whisper' } else { $null }
         analysisProfile = $analysisProfile
         analysisReadiness = if ($analysisProfile -eq 'local_enhanced_ready') {
-            'Local waveform, pitch, pause, timing, and ASR-based intelligibility evidence are available.'
+            'Local quality evidence is available. Analyze also runs the adopted GOPT/CTC phoneme review with a preserved reading reference; run pronunciation:review:setup to prepare its models.'
         }
         else {
-            'Run npm run pronunciation:setup. Until then, record Pronunciation as N/A.'
+            'Run npm run pronunciation:setup and npm run pronunciation:review:setup. Unfinished audio review must remain explicit.'
         }
     }
     exit 0
@@ -235,11 +236,13 @@ if ($Action -eq 'Analyze') {
         throw 'The local pronunciation environment is not ready. Run npm run pronunciation:setup first.'
     }
     $capture = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
-    if ($null -ne $capture.PSObject.Properties['conditions']) {
-        if (-not $PSBoundParameters.ContainsKey('TaskKind')) { $TaskKind = $capture.conditions.taskKind }
-        if (-not $PSBoundParameters.ContainsKey('ExpectedFile')) { $ExpectedFile = $capture.conditions.expectedFile }
-        if (-not $PSBoundParameters.ContainsKey('ExpectedText')) { $ExpectedText = $capture.conditions.expectedText }
-    }
+    $resolved = Resolve-RecordingAnalysisConditions -Capture $capture -BoundParameters $PSBoundParameters `
+        -TaskKind $TaskKind -ExpectedFile $ExpectedFile -ExpectedText $ExpectedText -PromptId $PromptId `
+        -BenchmarkPath (Join-Path $projectRoot 'learning-records\resources\pronunciation-benchmark.md')
+    $TaskKind = $resolved.taskKind
+    $ExpectedFile = $resolved.expectedFile
+    $ExpectedText = $resolved.expectedText
+    $PromptId = $resolved.promptId
     if (-not (Test-Path -LiteralPath (Join-Path $modelPath 'model.bin'))) {
         throw "The local speech model is not ready: $modelPath. Run npm run pronunciation:setup first."
     }
@@ -253,20 +256,35 @@ if ($Action -eq 'Analyze') {
         '--output', $analysisPath,
         '--markdown-output', $analysisMarkdownPath
     )
-    if (-not [string]::IsNullOrWhiteSpace($ExpectedText)) {
+    if ($TaskKind -eq 'read_aloud' -and -not [string]::IsNullOrWhiteSpace($ExpectedText)) {
         $arguments += @('--expected-text', $ExpectedText)
     }
-    else {
-        if ([string]::IsNullOrWhiteSpace($ExpectedFile) -and $TaskKind -eq 'read_aloud') {
-            $ExpectedFile = Join-Path $projectRoot 'learning-records\resources\pronunciation-benchmark.md'
-        }
+    elseif ($TaskKind -eq 'read_aloud') {
         if (-not [string]::IsNullOrWhiteSpace($ExpectedFile)) {
             $arguments += @('--expected-file', $ExpectedFile)
         }
     }
 
-    & $venvPython @arguments
-    exit $LASTEXITCODE
+    Invoke-RecordingAnalysisStep -Step { & $venvPython @arguments }
+
+    # The adopted phoneme review needs the actual preserved reading reference.
+    # Recognition text must never become the target pronunciation by accident.
+    if (-not $resolved.runPhonemeReview) {
+        Write-JsonResult -Value @{
+            status = if ($TaskKind -eq 'spontaneous') { 'quality_analysis_complete_spontaneous_audio' } else { 'quality_analysis_complete_phoneme_review_requires_reference' }
+            taskKind = $TaskKind
+            reason = if ($TaskKind -eq 'spontaneous') { 'This spontaneous recording received quality measurements only. Read-aloud phoneme scoring was not applied.' } else { 'Phoneme review requires the preserved read-aloud reference. Supply ExpectedText or ExpectedFile for this recording.' }
+            qualityEvidence = $analysisPath
+            holisticPronunciationRated = $false
+        }
+        exit 0
+    }
+    if (-not [string]::IsNullOrWhiteSpace($ExpectedText)) {
+        $ExpectedFile = Join-Path $workRoot ('review-reference-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff') + '.txt')
+        [System.IO.File]::WriteAllText($ExpectedFile, $ExpectedText, [System.Text.UTF8Encoding]::new($false))
+    }
+    Invoke-RecordingAnalysisStep -Step { & (Join-Path $PSScriptRoot 'review.ps1') -AudioPath $capture.capturedPath -ReferencePath $ExpectedFile }
+    exit 0
 }
 
 if ($Action -eq 'Start') {
@@ -390,10 +408,12 @@ Copy-Item -LiteralPath ([string]$selected.path) -Destination $capturePath
 
 $captured = Get-Item -LiteralPath $capturePath
 $sha256 = Get-Sha256Hex -Path $capturePath
+if (-not $PSBoundParameters.ContainsKey('PromptId')) { $PromptId = 'unknown-reference' }
 $conditions = @{ taskKind = $TaskKind; purpose = $Purpose; promptId = $PromptId; expectedFile = $ExpectedFile; expectedText = $ExpectedText }
 if (Test-Path -LiteralPath $StatePath) {
     $savedState = Get-Content -Raw -LiteralPath $StatePath | ConvertFrom-Json
     foreach ($key in @($conditions.Keys)) {
+        if ($key -in @('expectedText', 'expectedFile') -and ($PSBoundParameters.ContainsKey('ExpectedText') -or $PSBoundParameters.ContainsKey('ExpectedFile'))) { continue }
         if ($null -ne $savedState.PSObject.Properties[$key] -and -not $PSBoundParameters.ContainsKey($key)) { $conditions[$key] = $savedState.$key }
     }
 }

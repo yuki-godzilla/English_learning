@@ -1,0 +1,425 @@
+{
+  "version": "local-gopt-consensus-v1",
+  "reviewed_on": "2026-10-15",
+  "purpose_ja": "学習評価値とは別の、ローカル音素評価方式の選定・検証記録。",
+  "approved_scope": "phoneme_accuracy_only",
+  "roles": {
+    "primary": "GOPT",
+    "secondary": "CTC GOP-SA",
+    "quality": "Whisper/Praat"
+  },
+  "selection_decision_ja": "この環境の比較では人手音素評価との対応が最も強かったGOPTを主方式に採用し、別モデルのCTC GOP-SAを補助確認に使う。Whisper/Praatは参照の調査・録音品質等の測定に使う。方式の一致だけで人間の確認済み誤発音と扱わない。",
+  "audio_processing": {
+    "local_inference_only": true,
+    "external_audio_api_used": false,
+    "external_audio_transfer": false
+  },
+  "model_contract": {
+    "gopt_revision": "bed909daf8eca035095871e51642525acc5b9b55",
+    "gopt_weights_sha256": "ab07451e51648f9d2455505a51055b20ac4ad7921d771ccc5170ff486a826259",
+    "strict_state_dict_keys": 79,
+    "input_feature_dimension": 84,
+    "fixed_padded_phone_length": 50,
+    "canonical_phone_vocabulary": 39,
+    "normalization_mean": 3.203,
+    "normalization_std": 4.045,
+    "kaldi": "5.5.1172 cpu_hf03c2bf_5",
+    "torch": "2.14.1+cpu",
+    "primary_mfcc_dither": 1,
+    "primary_chunk_phone_limit": 30,
+    "sensitivity_chunk_phone_limit": 40,
+    "ctc_model": {
+      "name": "wav2vec2-lv-60-espeak-cv-ft INT8 ONNX",
+      "revision": "c69750f5043e5e1f8a71ab95dd3b98338c280c92",
+      "sha256": "74174710e34035bbb7f611601d016c32fc575de7a6f53b1078107dc10a84e7ae"
+    },
+    "public_assets": [
+      {
+        "filename": "librispeech-chain.tar.gz",
+        "url": "https://kaldi-asr.org/models/13/0013_librispeech_v1_chain.tar.gz",
+        "sha256": "47cb7cc2fbe91c7a60fd3d46266c3d459bd766aaffa1dfad789ef57875f1be01",
+        "extract_to": "librispeech-chain"
+      },
+      {
+        "filename": "librispeech-extractor.tar.gz",
+        "url": "https://kaldi-asr.org/models/13/0013_librispeech_v1_extractor.tar.gz",
+        "sha256": "431e44aa6c5efdd76566199ffb96e14a3052e025a8c6ee495eb66703663850a7",
+        "extract_to": "librispeech-extractor"
+      },
+      {
+        "filename": "gopt-model.py",
+        "url": "https://raw.githubusercontent.com/YuanGongND/gopt/bed909daf8eca035095871e51642525acc5b9b55/src/models/gopt.py",
+        "sha256": "e63a178f5d32221ebc1233a4fe32dc12a092f804360b1782a6159d3185b3be34"
+      },
+      {
+        "filename": "gopt-librispeech.pth",
+        "url": "https://raw.githubusercontent.com/YuanGongND/gopt/bed909daf8eca035095871e51642525acc5b9b55/pretrained_models/gopt_librispeech/best_audio_model.pth",
+        "sha256": "ab07451e51648f9d2455505a51055b20ac4ad7921d771ccc5170ff486a826259"
+      },
+      {
+        "filename": "mfcc_hires.conf",
+        "url": "https://raw.githubusercontent.com/kaldi-asr/kaldi/f4007661023b98b8081fd875029f0dee62242fd1/egs/gop_speechocean762/s5/conf/mfcc_hires.conf",
+        "sha256": "ad36416bce0ac9edfb0fdf9df61e128cf44d6e574cf0c681bf95f4677b3b5d72"
+      }
+    ],
+    "model_padded_phone_length": 50,
+    "chunking": "Audio is split at canonical word boundaries before native feature extraction; every original PCM sample is preserved."
+  },
+  "selection_evidence": {
+    "human_benchmark": {
+      "corpus": "SpeechOcean762 official test partition",
+      "selection_ja": "人手totalスコア順位の四分位ごとに6件、乱数seed 20261015、話者ごと1録音。推論前に選定。",
+      "selection_seed": 20261015,
+      "recordings": 24,
+      "speakers": 24,
+      "duration_seconds": 86.894,
+      "phone_labels": 431,
+      "utterance_level_target": "one mean human phoneme-accuracy label per recording",
+      "utterance_level_pearson_r": {
+        "asr_word_match_proxy": 0.673668104703584,
+        "negative_greedy_phone_error": 0.5952915423204447,
+        "ctc_gop_sa_mean": 0.734054636968684,
+        "gopt_mean_phone_prediction": 0.910747099290098,
+        "native_kaldi_mean_gop": 0.6634715753148209
+      },
+      "phone_level_target": "431 human phoneme-accuracy labels on the original 0-to-2 scale",
+      "phone_level_pearson_r": {
+        "gopt_phone_prediction": 0.6934288240381992,
+        "native_kaldi_gop": 0.34794352155552916
+      },
+      "gopt_phone_mae": 0.1357014853827085,
+      "gopt_phone_mse": 0.08278999306001329,
+      "independent_external_corpus": false,
+      "statistic_interpretation_ja": "Pearson相関は同じラベル粒度で比較した記述値であり正解率ではない。音素単位と録音平均の相関を混同しない。",
+      "selected_public_recordings": [
+        {
+          "id": "020270005",
+          "audio_sha256": "b7813a30c931246aba3d66bda7a44cad84c4962f04f86cb0f3f615d8e94d4b12",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER2027/020270005.WAV"
+        },
+        {
+          "id": "095580099",
+          "audio_sha256": "5105aff1f2bd7a0a66562bd4cbd2c1ee41a446a899f05cf02ee05650e45d4518",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER9558/095580099.WAV"
+        },
+        {
+          "id": "004570268",
+          "audio_sha256": "766b752164a2874197217c95d3d40cd8f73f396dabc20cad17d73afd7d9289ba",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER0457/004570268.WAV"
+        },
+        {
+          "id": "096180004",
+          "audio_sha256": "bdab7053819f1bbed024193e43906cb3cd735daf63d02ce422441c7659a951b5",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER9618/096180004.WAV"
+        },
+        {
+          "id": "096120010",
+          "audio_sha256": "397707da6077e8594174c7a1c58c3750e70260526aa0ff4c062361e9fb40bad3",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER9612/096120010.WAV"
+        },
+        {
+          "id": "069020065",
+          "audio_sha256": "28428721191cc609529c430bfc0900f7083847c59c0ffd8a5a49a256cf0dcd94",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER6902/069020065.WAV"
+        },
+        {
+          "id": "012280243",
+          "audio_sha256": "cdcb4398e47156f9b0ba4fd26388afa89674130c06d62502339fa41103898bc0",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER1228/012280243.WAV"
+        },
+        {
+          "id": "000920040",
+          "audio_sha256": "55f61077835aceb0e4788b3424938c15a0d93e6ff585d8f70cf0bd301dd4fea6",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER0092/000920040.WAV"
+        },
+        {
+          "id": "000490047",
+          "audio_sha256": "96e77785b03c1e8884c4d739d1651a88a2a9a7bec742555f2ea48f4dece61c0b",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER0049/000490047.WAV"
+        },
+        {
+          "id": "024380116",
+          "audio_sha256": "9862b5fafeb75712a4eb8d36248f66203cc7af796d2985ab9432b217cd83d922",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER2438/024380116.WAV"
+        },
+        {
+          "id": "011860264",
+          "audio_sha256": "d4360d29519c7251a4c447290675171a7d5ffcf99833f7f0d3b7c80d4691cf6f",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER1186/011860264.WAV"
+        },
+        {
+          "id": "001140104",
+          "audio_sha256": "c7664facfe49664a3559161c5a9c251d2ad83ac67abae124668d722fad8bd7d9",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER0114/001140104.WAV"
+        },
+        {
+          "id": "023270214",
+          "audio_sha256": "34483820299ac452876462730942b8d56c10a4fa6443322caa0ec972bf3acf51",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER2327/023270214.WAV"
+        },
+        {
+          "id": "036310159",
+          "audio_sha256": "fc0e3258513b872b63032cbe36cd8e1bdbd0b1770bdc2ce9a186b6c927f39add",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER3631/036310159.WAV"
+        },
+        {
+          "id": "014080337",
+          "audio_sha256": "283ad4c6fcb7ad0b4d199e5e1ca8cd67cdfd45d833d92f37d8e0058be91cc8ac",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER1408/014080337.WAV"
+        },
+        {
+          "id": "024480335",
+          "audio_sha256": "3e43b9143b6863002887163dd65227f869837744222d636ae4798cdef9249c14",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER2448/024480335.WAV"
+        },
+        {
+          "id": "034120012",
+          "audio_sha256": "ec19d37f992698cf19921a54d2f9e64bb9a3cc24999494b5b226f2821fb69cf3",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER3412/034120012.WAV"
+        },
+        {
+          "id": "050390048",
+          "audio_sha256": "073cb30416446d1f4d6fbe9e4cbaf7488491f5565a29a72e0e14c8f1560c8f00",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER5039/050390048.WAV"
+        },
+        {
+          "id": "024880041",
+          "audio_sha256": "8d1610609f4ee2d15489b297ed63b5ffc903dfce77a394b24b1b28ac5007506c",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER2488/024880041.WAV"
+        },
+        {
+          "id": "010300003",
+          "audio_sha256": "68af688e1565a42b21aaf18046290d6ae74848903c6b333c7c33831cbb9be9b2",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER1030/010300003.WAV"
+        },
+        {
+          "id": "012920254",
+          "audio_sha256": "3af7ac59b237ed04a9344df326f83c555c2b1e8c58febbdefd70128339229a97",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER1292/012920254.WAV"
+        },
+        {
+          "id": "001200103",
+          "audio_sha256": "17cd5f9f3c7c8daeed7414142c3bd3eab1979b4a2aa61fc8c349e0ce53ed23c5",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER0120/001200103.WAV"
+        },
+        {
+          "id": "090880018",
+          "audio_sha256": "7f3e4e8d3e4b8204a7b8d6e50aadfcb79a247b560db770b9d49d47a7549a4fc5",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER9088/090880018.WAV"
+        },
+        {
+          "id": "095550027",
+          "audio_sha256": "3f111e88f37b2476e95accbbcba0793a99b4b1d3c1c74026f08b2c7051334f42",
+          "source_url": "https://raw.githubusercontent.com/jimbozhang/speechocean762/main/WAVE/SPEAKER9555/095550027.WAV"
+        }
+      ]
+    },
+    "synthetic_controls": {
+      "voice": "Microsoft Zira Desktop, offline synthesis",
+      "audio_files": 9,
+      "contrasts": 12,
+      "matching_reference_preference_counts": {
+        "Whisper small.en + Praat": 8,
+        "Wav2Vec2 greedy phonemes": 8,
+        "CTC GOP-SA": 12,
+        "GOPT + Kaldi": 11
+      },
+      "independent_human_samples": false,
+      "interpretation_ja": "1合成音声・3音の対比について正しい参照をより高く選んだ数。人の誤発音や実運用の精度を測ったものではない。"
+    }
+  },
+  "calibration": {
+    "status": "post_hoc_exploratory_candidate_threshold",
+    "candidate_rule": "GOPT raw phone prediction < 1.4",
+    "comparison_label_rule": "human mean phone accuracy < 1.5 (original 0-to-2 label scale)",
+    "evaluated_phone_labels": 431,
+    "candidate_count": 18,
+    "candidate_and_lower_human_label_count": 15,
+    "candidate_without_lower_human_label_count": 3,
+    "lower_human_label_total_count": 32,
+    "lower_human_label_not_selected_count": 17,
+    "candidate_lower_label_fraction": 0.8333333333333334,
+    "candidate_lower_label_percent": 83.33333333333333,
+    "lower_human_label_coverage_fraction": 0.46875,
+    "independent_held_out_threshold_validation": false,
+    "interpretation_ja": "同じ公開24録音の結果を見てから設定した確認候補の閾値。18候補中15音素が人手ラベル1.5未満だった（83.3%）。一方、人手ラベル1.5未満の32音素中17音素は拾えず、捕捉は46.9%だった。これは事後校正の記述で、誤発音検出精度・将来の的中率・対象学習者への精度保証ではない。高い出力も正しい発音の証明ではない。",
+    "use_ja": "元音声・参照語・発音変種・アラインメントを確認する候補の選別だけに使う。GOP-SAの補助所見と分割・前処理感度を併記し、この閾値だけで誤りや練習必須項目を確定しない。"
+  },
+  "saved_recording_sensitivity": {
+    "reviewed_on": "2026-10-15",
+    "saved_files": 7,
+    "unique_recordings": 6,
+    "sessions": [
+      12,
+      16,
+      18,
+      21,
+      23
+    ],
+    "total_unique_seconds": 879.0186875,
+    "total_unique_samples_16khz": 14064299,
+    "canonical_phones": 6168,
+    "settings": [
+      "audio30-dither1",
+      "audio30-dither0",
+      "audio40-dither1"
+    ],
+    "source_hashes_unchanged": true,
+    "concatenated_segment_pcm_matches_decoded_source": true,
+    "segmentation_counts": {
+      "audio30": 224,
+      "audio40": 167
+    },
+    "zero_frame_segments_rejected": true,
+    "minimum_segment_duration_rule": "max(0.25 seconds, 0.03 seconds per canonical phone), globally constrained boundary projection",
+    "whole_file_alignment_failure_ja": "長い録音の一括対応でS18/S21の音素時刻が大きくずれた。題名を含む原文の補正、音声分割、時刻gateを併用して改善を確認。分割だけの因果効果とは断定しない。崩れた処理の低出力は学習者評価から除外。",
+    "recordings": [
+      {
+        "id": "session12-20260906",
+        "session": 12,
+        "capture_purpose": "evaluation",
+        "seconds": 36.0533125,
+        "canonical_phone_count": 289,
+        "reference_word_count": 69,
+        "all_settings_timing_healthy_word_count": 62,
+        "phone_setting_span_median": 0.023059964179992676,
+        "phone_setting_span_p90": 0.09806318283081046,
+        "selected_examples": [
+          "coding",
+          "support"
+        ],
+        "confirmed_pronunciation_errors": 0
+      },
+      {
+        "id": "session16-20260926",
+        "session": 16,
+        "capture_purpose": "evaluation",
+        "seconds": 50.304,
+        "canonical_phone_count": 419,
+        "reference_word_count": 86,
+        "all_settings_timing_healthy_word_count": 79,
+        "phone_setting_span_median": 0.020294666290283203,
+        "phone_setting_span_p90": 0.10703887939453123,
+        "selected_examples": [
+          "stable",
+          "changing"
+        ],
+        "confirmed_pronunciation_errors": 0
+      },
+      {
+        "id": "session18-20261005-passkeys",
+        "session": 18,
+        "capture_purpose": "evaluation",
+        "seconds": 86.2506875,
+        "canonical_phone_count": 560,
+        "reference_word_count": 150,
+        "all_settings_timing_healthy_word_count": 138,
+        "phone_setting_span_median": 0.01897817850112915,
+        "phone_setting_span_p90": 0.07647618055343632,
+        "selected_examples": [
+          "reliable"
+        ],
+        "confirmed_pronunciation_errors": 0
+      },
+      {
+        "id": "session18-20261005-cloud",
+        "session": 18,
+        "capture_purpose": "evaluation",
+        "seconds": 84.5866875,
+        "canonical_phone_count": 622,
+        "reference_word_count": 166,
+        "all_settings_timing_healthy_word_count": 142,
+        "phone_setting_span_median": 0.02614504098892212,
+        "phone_setting_span_p90": 0.21430768966674796,
+        "selected_examples": [
+          "sync"
+        ],
+        "confirmed_pronunciation_errors": 0
+      },
+      {
+        "id": "session21-20261011",
+        "session": 21,
+        "capture_purpose": "practice",
+        "seconds": 354.9226875,
+        "canonical_phone_count": 2612,
+        "reference_word_count": 675,
+        "all_settings_timing_healthy_word_count": 600,
+        "phone_setting_span_median": 0.022840440273284912,
+        "phone_setting_span_p90": 0.1202775597572327,
+        "selected_examples": [
+          "skill",
+          "talking"
+        ],
+        "confirmed_pronunciation_errors": 0
+      },
+      {
+        "id": "session23-20261014",
+        "session": 23,
+        "capture_purpose": "evaluation",
+        "seconds": 266.9013125,
+        "canonical_phone_count": 1666,
+        "reference_word_count": 353,
+        "all_settings_timing_healthy_word_count": 280,
+        "phone_setting_span_median": 0.03128683567047119,
+        "phone_setting_span_p90": 0.17803025245666504,
+        "selected_examples": [
+          "finish",
+          "model"
+        ],
+        "confirmed_pronunciation_errors": 0
+      }
+    ],
+    "interpretation_ja": "全録音の処理完了と、すべての語の発音正誤判定完了は異なる。ASRは分割にも使うため、時刻一致は独立の精度検証ではない。時刻対応・設定安定性・CTC補助確認を通った語だけを所見に採用。低候補がないことを全音正解としない。異なる課題・practice/evaluationは能力推移へ変換しない。"
+  },
+  "reporting_rules": {
+    "result_kind": "assessed_limited",
+    "display_scope_ja": "モデル上の音素適合",
+    "holistic_pronunciation_L_conversion": false,
+    "prosody_correctness_assessed": false,
+    "exam_score_conversion": false,
+    "raw_model_score_as_percentage": false,
+    "whole_recording_required": true,
+    "speaker_and_reference_uncertainty_must_be_stated": true,
+    "history_ja": "新方式の評価日を付けて限定レビューを追記する。当時のL・段階・旧根拠・資格推定を上書きせず、現在の直接測定値と混同しない。"
+  },
+  "limitations": [
+    "小規模で層別選定した24録音。全テストセットの論文再現ではなく、順位差の統計的有意性を主張しない。",
+    "SpeechOcean762はGOPTの開発・評価に使われたコーパス。独立の外部コーパスや日本人成人学習者への検証ではない。",
+    "同一録音内の音素は独立標本ではない。431という音素数を独立話者数・独立検証数に置き換えない。",
+    "GOPTのraw出力は回帰値で0〜2の学習範囲を超える場合がある。正解確率や誤発音率に変換しない。",
+    "分割長、MFCC dither、録音レベル、参照文と辞書変種、固有名詞・数詞・弱形、強制アラインメントの影響を受ける。変動は能力変化ではない。",
+    "無音からもモデル値が出るため入力ゲートが必要。近無音の除外は、人の発話・話者・発音品質の確認にはならない。",
+    "総合発音、強勢、リズム、つながり、抑揚、自然会話のdelivery、資格スコアの判定は採用範囲に含めない。",
+    "GOPTとGOP-SAの一致は補助的な一致であり、人が聞いた確認や誤りの確定を意味しない。"
+  ],
+  "references": [
+    {
+      "title": "GOPT official source and pretrained models",
+      "url": "https://github.com/YuanGongND/gopt"
+    },
+    {
+      "title": "SpeechOcean762 official resource",
+      "url": "https://www.openslr.org/101/"
+    },
+    {
+      "title": "SpeechOcean762 source repository",
+      "url": "https://github.com/jimbozhang/speechocean762"
+    },
+    {
+      "title": "Kaldi GOP recipe",
+      "url": "https://github.com/kaldi-asr/kaldi/tree/f4007661023b98b8081fd875029f0dee62242fd1/egs/gop_speechocean762/s5"
+    },
+    {
+      "title": "Kaldi M13 Librispeech acoustic model",
+      "url": "https://kaldi-asr.org/models/m13"
+    },
+    {
+      "title": "Wav2Vec2 phoneme model",
+      "url": "https://huggingface.co/facebook/wav2vec2-lv-60-espeak-cv-ft"
+    },
+    {
+      "title": "GOP-SA research source",
+      "url": "https://arxiv.org/html/2507.16838v1"
+    }
+  ]
+}

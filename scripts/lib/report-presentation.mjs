@@ -1,3 +1,5 @@
+import { limitedPronunciationAssessment, validateLocalPronunciationAssessments } from './local-pronunciation.mjs';
+export { localPronunciationEligibility, limitedPronunciationAssessment, limitedPronunciationHtml, validateLocalPronunciationAssessments } from './local-pronunciation.mjs';
 /** Available methods and actual evidence are separate gates, both fail closed. */
 export function requiredDescriptorComponents(metric, level) {
   const common={
@@ -110,7 +112,7 @@ export function qualitativeObservations(session, policy) {
 }
 
 export function validateAssessmentPolicy(progress, turnsBySession, modes = new Map(), sources = new Map()) {
-  const policy=progress.assessment_policy, errors=[];
+  const policy=progress.assessment_policy, errors=validateLocalPronunciationAssessments(progress);
   if (policy?.version !== 'environment-evidence-v1') return ['missing environment/evidence assessment policy'];
   if (!policy.environment_reviewed_on || policy.history_policy !== 'preserve_without_rescoring') errors.push('assessment policy: date/history boundary required');
   for (const [number,reviews] of Object.entries(policy.evidence_reviews ?? {})) {
@@ -162,9 +164,9 @@ export function examEstimateEligibility(review, policy) {
 
 /** Hide unassessed placeholders in reader copies, preserving canonical history. */
 export function assessedSessionBody(markdown, session, policy, currentSession) {
-  const showPronunciation=session?.session === currentSession
+  const showPronunciation=Boolean(limitedPronunciationAssessment(session,policy)) || (session?.session === currentSession
     ? evaluatedMetrics(session,['Pronunciation'],policy).length > 0
-    : Number.isInteger(session?.ratings?.Pronunciation);
+    : Number.isInteger(session?.ratings?.Pronunciation));
   let output=markdown;
   if (!showPronunciation) {
     output=output.replace(/^### [^\r\n]*(?:発音・スピーキング|Pronunciation)[^\r\n]*\r?\n[\s\S]*?(?=^#{1,3} |$(?![\s\S]))/gm,'');

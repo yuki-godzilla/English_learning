@@ -1,5 +1,5 @@
 import { pdfChapterOrder } from '../lib/learning-plan.mjs';
-import { pdfContents, PDF_CHAPTER_LINK_PREFIX, evaluatedMetrics } from '../lib/report-presentation.mjs';
+import { pdfContents, PDF_CHAPTER_LINK_PREFIX, evaluatedMetrics, limitedPronunciationAssessment } from '../lib/report-presentation.mjs';
 /** Postflight validation for the integrated Current Learning Journal PDF. */
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -145,6 +145,15 @@ if (summaryRange) {
   for (const metric of progress.qualitative_metrics.filter(m=>!evaluatedMetrics(current,progress.qualitative_metrics,progress.assessment_policy).includes(m))) {
     if (normalized(summary).includes(normalized(metric))) fail(`Current evaluation displays an unassessed metric: ${metric}`);
   }
+  const audioReview=limitedPronunciationAssessment(current,progress.assessment_policy);
+  if(audioReview) {
+    for(const text of [audioReview.summary_ja,...audioReview.strengths_ja,...audioReview.review_points_ja,...audioReview.practice_chunks]) {
+      if(!normalized(summary).includes(normalized(text))) fail('Current evaluation omits completed local audio findings or practice');
+    }
+    for(const text of ['音素の評価','モデル上の音素適合','確度','総合Lはこの評価の対象外']) {
+      if(!normalized(summary).includes(normalized(text))) fail(`Current evaluation omits the bounded audio scope: ${text}`);
+    }
+  }
 }
 for (const label of ['今回の収穫', '内容面の持ち帰り', '次に使う表現', '5分復習', '次回の重点', '評価範囲']) {
   if (!normalized(inventory.page_texts[0]).includes(normalized(label))) fail(`Learning Brief role missing: ${label}`);
@@ -171,6 +180,29 @@ if (growthStart < 0 || expressionStart <= growthStart) fail("Growth-to-Bank page
 else {
   const growthPages = expressionStart - growthStart;
   if (growthPages > 4) fail(`Growth section uses ${growthPages} pages; maximum target is 4 without shrinking body text`);
+  const methods=normalized(inventory.page_texts.slice(growthStart,expressionStart).join('\n'));
+  const audioReviews=progress.sessions.filter(session=>limitedPronunciationAssessment(session,progress.assessment_policy));
+  if(audioReviews.length && !methods.includes(normalized('保存録音の音素評価'))) fail('Methods omits the saved-recording audio review history');
+  if(audioReviews.length) {
+    const validationSource=progress.assessment_policy.adopted_local_pronunciation_method.validation_source;
+    const validation=JSON.parse(await fs.readFile(path.join(root,validationSource),'utf8'));
+    const benchmark=validation.selection_evidence.human_benchmark;
+    for(const text of [`公開${benchmark.recordings}録音`,'録音ごとの平均人手音素評価','探索的な小規模比較','GOPT開発・評価内','成人の日本語母語話者への独立検証はありません','外部音声APIへの送信や総合Lへの換算は行いません']) {
+      if(!methods.includes(normalized(text))) fail(`Methods omits the local-method validation scope: ${text}`);
+    }
+    for(const key of ['asr_word_match_proxy','negative_greedy_phone_error','ctc_gop_sa_mean','gopt_mean_phone_prediction']) {
+      if(!methods.includes(normalized(benchmark.utterance_level_pearson_r[key].toFixed(3)))) fail(`Methods omits the method-comparison result: ${key}`);
+    }
+  }
+  for(const session of audioReviews) {
+    const review=session.pronunciation_assessment;
+    const duration=review.evidence_refs.reduce((sum,ref)=>sum+ref.duration_seconds,0);
+    const expectedRow=[`S${session.session}`,review.capture_purpose==='practice'?'練習':'',`${duration.toFixed(1)}秒`,
+      review.evidence_refs.length>1?`${review.evidence_refs.length}本`:'',...(review.selected_findings??[]).map(item=>item.word)].join(' ');
+    if(!methods.includes(normalized(expectedRow))) {
+      fail(`Methods omits the completed local audio review for Session ${session.session}`);
+    }
+  }
   for (let index = growthStart; index < expressionStart; index += 1) {
     if ((inventory.page_texts[index] ?? "").trim().length < 120) fail(`Growth page ${index + 1} appears nearly empty or orphaned`);
   }

@@ -1,4 +1,4 @@
-import { evaluatedMetrics, currentEvidenceNote, metricNameJa, confidenceNameJa, assessmentExample, supportNameJa } from './report-presentation.mjs';
+import { evaluatedMetrics, currentEvidenceNote, metricNameJa, confidenceNameJa, assessmentExample, supportNameJa, limitedPronunciationHtml } from './report-presentation.mjs';
 /** Current planning and learner-facing views; never infer proficiency or mastery. */
 import { tableRows, normalizeBankKey } from './markdown-table.mjs';
 
@@ -180,6 +180,7 @@ ${evaluatedMetrics(latest, progress.qualitative_metrics, progress.assessment_pol
 </tbody></table>` : ''}
 <p class="note">今回評価した観点だけを表示。Lは個人学習用。旧基準の観察値を新基準で再採点していません。</p>
 <p class="note">${escapeHtml(currentEvidenceNote(latest,progress.qualitative_metrics,progress.assessment_policy))}</p>
+${limitedPronunciationHtml(latest,progress.assessment_policy)}
 ${changes.length ? '<h2>以前 → 今回 → 判断</h2>' : ''}
 ${changes.map(o=>`<div class="panel"><p><strong>${escapeHtml(o.behavior)}</strong> · ${escapeHtml(decisions[o.decision] ?? '未確認')}（確度 ${confidenceNameJa(o.confidence)}）</p><p>以前${o.earlier ? ` S${o.earlier.session} · ${progress.sessions.find(s=>s.session===o.earlier.session)?.date ?? ''}: ${escapeHtml(o.earlier.observation)}` : ': 比較できる例なし'}</p><p>今回 S${o.current.session} · ${escapeHtml(latest.date)}: ${escapeHtml(o.current.observation)}</p></div>`).join('')}
 <p class="note">比較は記録にある本人の行動に限定。題材・支援・基準が異なり、点数差を改善率にはしません。提示文の使用と後日の自力再利用は別に扱います。</p>

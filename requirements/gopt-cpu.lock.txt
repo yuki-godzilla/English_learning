@@ -1,0 +1,8 @@
+# Additional packages for the existing pronunciation Python 3.12 environment.
+# Base dependencies remain pinned by pronunciation.lock.txt.
+torch==2.14.1+cpu
+networkx==3.6.1
+sympy==1.14.0
+mpmath==1.3.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
