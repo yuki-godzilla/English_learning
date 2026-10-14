@@ -1,6 +1,15 @@
 {
   "schema_version": 1,
   "sessions": [
+    {
+      "session_number": 23,
+      "session_id": "2026-10-14-01",
+      "date": "2026-10-14",
+      "status": "partial",
+      "file": "2026-10-14-session-01.jsonl",
+      "usable_recovered_ratio": 1,
+      "reason": "All 187 original realtime voice segments (75 learner, 112 assistant) across four same-day connections preserved through closure. No redaction was required after full content review. Audio and typed/backend messages are excluded; ASR uncertainty, interrupted segments and restarts remain. Two article readings and supplied-language practice are separately annotated and excluded from spontaneous statistics. Ratio means usable recovered learner segments, not complete session audio."
+    },
     {"session_number":22,"session_id":"2026-10-11-02","date":"2026-10-11","status":"partial","file":"2026-10-11-session-02.jsonl","usable_recovered_ratio":0.659,"reason":"All 310 available original voice segments including 126 learner segments were preserved in source order through closure. 83 learner segments remain unredacted; personal questionnaire responses/results and two background YouTube segments were explicitly redacted for public privacy. No audio, typed/backend messages or separately recorded reading are included. ASR segmentation and interruptions remain. Supplied-word repetition is separately annotated; numerical responses are excluded from English production. This ratio describes usable recovered learner segments, not full-session audio completeness."},
     { "session_number": 21, "session_id": "2026-10-11-01", "date": "2026-10-11", "status": "partial", "file": "2026-10-11-session-01.jsonl", "usable_recovered_ratio": 1, "reason": "All 199 available original voice segments across same-day reconnects were preserved through the final sign-off, including 83 learner segments. No redaction was required after content review. Audio, typed/backend messages and the separately recorded full British Council article reading are excluded; ASR segmentation, incomplete phrases and interruptions remain. Reading-title and prompted-name repetition segments are annotated separately. The ratio describes usable recovered learner segments, not full-session audio completeness." },
     { "session_number": 20, "session_id": "2026-10-10-01", "date": "2026-10-10", "status": "partial", "file": "2026-10-10-session-01.jsonl", "usable_recovered_ratio": 0.99, "reason": "All 243 available original voice segments across two same-day calls were recovered in source order, including 105 learner segments. One personal-health phrase was explicitly redacted. Audio and typed/backend messages are excluded; interrupted utterances and ASR segmentation remain. Article-reading segments are annotated separately and excluded from spontaneous-speaking statistics. This ratio describes usable recovered learner segments, not full-session audio completeness." },

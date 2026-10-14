@@ -8,6 +8,7 @@
 
 - [今日の5分復習](#journal-five-minute-review)
 - [英会話セッション](#journal-sessions)
+  - [Session 23 — 借りて試す道具とSelenium、映画の人物への見方](#session-2026-10-14-01)
   - [Session 22 — 動物カフェの休日と、自分の学び方を英語で説明する](#session-2026-10-11-02)
   - [Session 21 — 読書と会話をつなぐ方法、最近の小さな成長を見える評価へ](#session-2026-10-11-01)
   - [Session 20 — 野球で切り替える時間と欧州の持続可能な交通](#session-2026-10-10-01)
@@ -41,7 +42,7 @@
 
 ## 現在の重点（2026年10月12日設定 / Session 23から）
 
-**目的に合う説明を一つにまとめること**と、**別の日に既存表現を自力で使うこと**を、最初の2〜4週間の重点にします。これは今後の計画で、過去のセッションで達成したという記録ではありません。
+**目的に合う説明を一つにまとめること**と、**別の日に既存表現を自力で使うこと**を、最初の2〜4週間の重点にします。10月14日のSession 23から試行を始めます。既存5件を継続する現在の計画で、過去の成果・習得を追加したものではありません。今回の未観察を未達成にしません。
 
 まず一つだけ選び、下の答えを隠して話してみます。「自分にとって、よい休日とは何か」「最近難しいと感じたこと」「気分を切り替えられる趣味と理由」「居心地のよい場所」「誰かが先頭に立った場面」のうち、今日話したいものを選べます。英語を借りて一文作る練習と、別の日の会話で自力で使えたことは分けて確認します。
 
@@ -49,171 +50,88 @@
 
 ## 最近の会話から復習する
 
+**今回の収穫:** 映画の題名がなくても筋を説明し、人物への見方に理由を添えた。借りる道具とXPath作業でも具体例を使えた。
+
+**内容面の持ち帰り:** 買う前に借りて試す利点。要素の位置が動く画面では、一意性と安定性を分けて考える。
+
 <details>
-<summary>自分にとっての「理解」を説明する</summary>
+<summary>買う前に試せる利点を、自分の場面で説明する</summary>
 
-**For me, understanding something means being able to explain it in my own words.**
+**Borrowing makes it easier to try something before buying it.**
 
-Yukiが話した学び方をAstraが整理した練習用モデル。実際の発話はSession 22 turn85に保存してあり、この完成文を独立して話せたという記録ではない。**Chunk:** For me, ... means ...
+turn16・18の意図から整理したAstraのモデル。実発話の確定誤りへの訂正や、完成文の独立使用ではない。**Chunk:** try something before buying it
 
 </details>
 
 <details>
-<summary>分からない表現の意味を確認する</summary>
+<summary>登場人物が過去にできた別の行動を述べる</summary>
 
-**Could you explain what “take charge” means?**
+**He could have stopped earlier.**
 
-Session 22 turn235の意味確認から作った学習用モデル。意味を尋ねた行動は確認済みだが、冠詞・語順の確定誤りへの訂正ではない。**take charge** は先頭に立って判断・進行を引き受けること。
-
-</details>
-
-<details>
-<summary>午前と夜で確認できたことを分ける</summary>
-
-午前は映画の場面が会話の手掛かりになる理由を説明し、夜は休憩の価値と効率を重視する理由を説明した。自分の理由・具体例を加える行動は再現できた。新語をより容易に使えるようになったか、文法がより正確になったかは未確認。次は自然な議論で主張・理由・具体例を一つの説明につなぐ。
+turn181の意図に対してAstraがturn182で示したモデル。Yukiの完成文の独立使用ではない。**Chunk:** could have + past participle
 
 </details>
 
-<details>
-<summary>人とのつながりを作る難しさを伝える</summary>
+答えを隠して思い出せたら、自分が買う前に試したい物、または最近見た人物の選択に置き換える。全件消化・復唱・追加録音は必要ない。**次回の重点:** 一つの意見に理由と必要な具体例を添える。
 
-**I find it hard to make friends online.**
-
-Yukiの意図からAstraが整理した学習用モデル。ASRの “hardness” を確定誤りと採点したものではなく、独立再利用の証拠でもない。**Chunk:** find it hard to ...
-
-</details>
-
-<details>
-<summary>今日の成功と最近の改善を分ける</summary>
-
-映画は状況が見えるので、表現を会話へつなげやすいと自分で説明した。前回も趣味の価値に理由を加えたため、理由説明の再現は確認できる。最近もっと容易・正確に説明できるようになったかは未確認。次は自然な議論で、主張と理由に具体例を一つ添える。
-
-</details>
-
-<details>
-<summary>趣味が仕事と別の世界であることを伝える</summary>
-
-**Baseball helps me switch off because it's a totally different world from work.**
-
-今日のYukiの説明からAriaが作ったモデル文。自分で独立して再利用できた証拠ではない。仕事への教訓につなげず、別の人・別の会話があるという意図を保つ。
-
-</details>
-
-<details>
-<summary>野球を始めた時期を説明する</summary>
-
-**I started playing baseball when I started working.**
-
-実際の話の意味を保った練習案。確定した反復誤りへの訂正ではなく、使いやすい **started playing ... when ...** のチャンク。
-
-</details>
-
-<details>
-<summary>記事で原因と詳しい検討を読み取る</summary>
-
-**stemmed from** = came from / resulted from（〜に由来した）
-
-**under increasing scrutiny** = being examined more closely（より詳しく調べられるようになっている）
-
-意味を確認した語。次回は短い記事の主旨と自分の見方を、理由を一つ添えて話す。今回の音読だけでは独立した表現運用や発音の習得を判定しない。
-
-</details>
-
-<details>
-<summary>レポートがどう変わるか、具体的に尋ねる</summary>
-
-**How will the report change?**
-
-実際の質問意図から整理した学習用表現。ASR断片を確定した文法誤りとして採点したものではない。
-
-</details>
-
-<details>
-<summary>発音だけでなく、評価全体へ変更の範囲を広げる</summary>
-
-**I mean the whole evaluation, not only pronunciation.**
-
-今回自分で伝えた “Not only pronunciation” を、一文で使いやすくした練習案。
-
-</details>
-
-<details>
-<summary>新しい分野に入る前に、自分の理解度を確認してもらう</summary>
-
-**Before we start, could you check how familiar I am with this field?**
-
-</details>
-
-<details>
-<summary>専門的すぎる記事から、身近なITへ話題を変える</summary>
-
-**This article is interesting, but it's a little too technical for me. Could we switch to an IT topic?**
-
-</details>
-
-<details>
-<summary>発音評価の方法と根拠を確かめる</summary>
-
-**Is this evaluation method reliable? What can it actually measure?**
-
-</details>
-
-<details>
-<summary>物理モデルとAIの組合せを尋ねる</summary>
-
-**How do they combine physics and AI to make predictions?**
-
-</details>
-
-<details>
-<summary>天気予報の産業面への関心を伝える</summary>
-
-**I'm interested in how weather forecasts affect industry, especially solar and wind power.**
-
-</details>
-
-<details>
-<summary>記事に根拠があるか確認する</summary>
-
-**Does the article actually say that?**
-
-</details>
-
-<details>
-<summary>Pub/SubをAWSに対応づけて説明する</summary>
-
-**Amazon SNS is the closest match for broadcasting; SNS with SQS supports independent processing.**
-
-</details>
-
-<details>
-<summary>非同期を一言で説明する</summary>
-
-**Asynchronous means the sender does not have to wait for the receiver to finish.**
-
-</details>
-
-<details>
-<summary>AWSの近いサービスを尋ねる</summary>
-
-**Which AWS service is most similar to Pub/Sub?**
-
-</details>
-
-<details>
-<summary>評価の読み方を確認する</summary>
-
-**An unchanged level does not necessarily mean I have stopped improving.**
-
-今回は6観点を個別に見直し、数値だけでなく観察できた行動と比較の限界も確認する。
-
-</details>
-
-[目次へ戻る](#journal-contents)
+**評価範囲:** 会話内容はASRの根拠から確認。全音読の限定解析は完了、総合発音と自発会話のdeliveryは技術的未完了。
 
 <a id="journal-sessions"></a>
 
 # 英会話セッション / Sessions
+
+<!-- session-meta: {"session_number":23,"session_id":"2026-10-14-01","date":"2026-10-14","title":"借りて試す道具とSelenium、映画の人物への見方","tags":["Daily Life","AI / Tech","Test Automation","Movies","Pronunciation"],"remember":"具体例で目的を伝える。録音の限定測定と音・韻律の判断を分ける。","prompt":"What could the character have done differently, and why does that matter to you?"} -->
+<a id="session-2026-10-14-01"></a>
+
+## 2026年10月14日（水）— 借りて試す道具とSelenium、映画の人物への見方
+
+### 今日の要点
+
+- **確認できた成功:** ソーダメーカーで「買う前に試す」を具体化し、XPath作業の負担を説明。映画の題名を忘れても筋を伝え、Evanへの判断に「もっと早く止められた」という理由を添えた。
+- **最近の変化:** S22に続き、自分の理由・具体例と範囲指定を再現。語彙・文法の細かな改善、既存表現の後日の独立再利用は未確認。
+- **評価の未完了:** 全266.90秒の音読の限定解析は完了。個別音・強勢・リズム・つながり・抑揚の直接レビューと、自発会話のdelivery確認は未完了。これは手段の制約で、能力低下ではない。
+
+### 話題別メモとYukiの意見
+
+**借りて試せる図書館の道具。** [CPLのLibrary of Things](https://www.chipublib.org/news/library-of-things/)を画面で確認し、記事全体を音読した（turn10・14）。買うときは考えることが増えるが、借りるなら試すハードルが低いと説明し、ソーダメーカーを例に挙げた（16・18）。Astraのモデル後の練習（20）は、独立した後日再利用とは分ける。追加の復唱は不要と伝え、次の節へ進んだ（22・26）。
+
+**AI記事と録音。** 最新AIニュースを希望し、[GoogleのGemini 4 Argon紹介記事](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/)のタイトル、提供開始・料金とベンチマーク、四つの用途、工学の導入、最初のChromeの例まで読んだ（65）。当初の短い範囲より広く読み、記事全体の読了とは扱わない。性能・効果は紹介記事の企業側の主張で、独立検証ではない。録音はYukiが開始・停止し、保存確認を先に求めた（67）。総合発音レビューの不足を確認した後、その直接レビューは後に回して会話を続けると希望した（83〜89）。追加録音や外部送信は行わない。
+
+**Seleniumと動く表。** Codexを通常、Claudeを時々コーディング支援に使うと説明した（91・95）。Webテストで短く書いたXPathを多数探す作業が、反復的で退屈・時間がかかるという具体的な負担を示した（107・114・122）。操作に応じて行・列が動く履歴表では、意図した要素を一意に指す必要があり、指定方法は実装する技術者にも依存すると考えた（124・126・128・130）。[Selenium公式のlocator指針](https://www.selenium.dev/documentation/test_practices/encouraged/locators/)を確認し、XPathの短さだけでなく、属性の安定性と位置への依存を区別した。ユーザーのコードを実際にレビュー・変更したわけではない。
+
+**映画の人物と判断。** 最初の抽象的な「plot twistとsmall choices」は難しいと伝え、英語力を考えた具体的な話題を求めた（146・169）。刺激がほしいときと、考えたいときで好みが変わり、両方に魅力があるという自分の見方を示した（154・156）。名前のずれを、少年の手紙、別の少年、その死、広がる嘘という筋で修復し、[Dear Evan Hansen](https://www.universal-music.co.jp/dear-evan-hansen/about/)を特定できた（174）。怒りや同情というAstraの選択肢だけに収めず、考えは分かるが行動には賛成できず、もっと早く止められたと述べた（177・179・181）。筋の細部はYukiの記憶の説明で、正確な公式あらすじとして保存しない。
+
+### 役立つ英語
+
+**Borrowing makes it easier to try something before buying it.** — Yukiの内容から整理した学習用モデル。**He could have stopped earlier.** — turn182のAstraのモデル。両方とも完成文の独立使用や、確定した反復誤りへの訂正ではない。Expression Bankへ2件、Vocabulary Bankへ意味を確認した**plot twist**を1件追加。Pronunciation & Speaking Bankは追加なし。
+
+### 発音・スピーキング
+
+**全録音の限定解析完了／総合Pronunciationは技術的未完了。** 今日9:09の新しい録音を一意に取り込み、全266.90秒を正常にデコード。ファイルは安定し、音割れの検出値は0。ASRは記事の終点まで拾った。録音本体・中間物は非公開の一時領域に保持する。
+
+ASRによる読みの範囲は約1.97〜264.01秒。356個の時刻付き認識語単位から、間を含め約81.5語単位／分（正規化した文字列では348語）。認識と分かち方の誤差を含み、自発会話の流暢さや「ペースが一定」の根拠ではない。タイトルから本文への約5.37秒、工学の見出し後の約2.35秒は内容の切替と対応し、ためらいとは断定しない。記事以外のAstraの応答はASRに現れないが、話者分離・直接聴取がないため背景音声は完全には除外できない。
+
+peak −21.93 dBFS、全体RMS −42.18 dBFS。音量閾値を−42／−48／−54 dBFSへ変えると静かな区間は57.3／37.9／32.3%、内部0.5秒以上の区間は104／65／57件へ変化した。小さい声も含み得るため、無音率・語探し・ためらいの件数として採点しない。ピッチはmedian127.72Hz、P10〜P90が108.99〜160.31Hz、範囲6.68半音という補助測定のみで、抑揚の適切さを示さない。
+
+個別音・強勢・リズム・linking・reduction・イントネーションの正しさは未確認。先の「steady pacing」「six million-line」のlinkingと「multi-steps」の指摘は、保存音声で裏付けた所見にはしない。ASRの “him thought” や “more earlier” も確定した文法誤りではない。過去S12のL3・安定は旧基準・限定根拠の別記録で、今回へ転用しない。
+
+### 成長メモ
+
+S22は理解・効率を理由と例で説明し、今回は道具・仕事・映画で自分の具体的な内容を示した。範囲指定も再現した。話題・支援・測定範囲が異なるため、細かな精度の改善や停滞は未確認。S23からv4で目的に応じた達成を評価し、自発会話のcoherenceとdeliveryを分ける。Lや段階の差とN/Aを、そのまま上達・後退と解釈しない。
+
+Astraの応答が遅く、考えすぎだとYukiが指摘した（133）。次回は、**短く直接に応答し、英語力に合う具体的で簡単な入口を一つ提案して、説明が終わる余地を残す**。質問だけの往復、繰り返す確認・復唱、未確認の音への訂正を減らし、Yukiの修復負担を能力の減点へ転嫁しない。
+
+### 次回
+
+最近の本・映画で気になった人物の行動を一つ、意見と理由に必要な具体例を添えて話す。現在の2重点と既存5件を継続し、モデルを先に言わず自然な再利用の余地を作る。強制の復唱・録音・クイズは行わない。
+
+### Sources
+
+[CPL](https://www.chipublib.org/news/library-of-things/) / [Google（企業側の主張）](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/) / [Selenium](https://www.selenium.dev/documentation/test_practices/encouraged/locators/) / [Universal](https://www.universal-music.co.jp/dear-evan-hansen/about/)
+
+- 生の音声文字起こし187区間はraw evidence archiveへ保存（partial）。音声・backend本文は含まない。音読・供給文の練習は自発発話統計から分離。
+
+[目次へ戻る](#journal-contents)
 
 <!-- session-meta: {"session_number":22,"session_id":"2026-10-11-02","date":"2026-10-11","title":"動物カフェの休日と、自分の学び方を英語で説明する","tags":["Daily Life","Learning","Reflection","Vocabulary","Assessment"],"remember":"理解は自分の言葉で説明できること。会話の印象・自己評価・統計的な比較を分ける。","prompt":"What does understanding something mean to you?"} -->
 <a id="session-2026-10-11-02"></a>
@@ -2438,9 +2356,9 @@ Why: 改善点には work on / focus on が自然。
 ## できるようになったこと
 
 **過去の最終発音記録（旧基準・限定根拠）： [Session 12（2026年9月6日）](#session-2026-09-06-01)**
-**最新の会話評価： [Session 22（2026年10月11日・夜）](#session-2026-10-11-02)**
+**最新の会話評価： [Session 23（2026年10月14日）](#session-2026-10-14-01)**
 
-- 今回の成功は、理解を「自分で説明できること」と定義し、効率を好むが休憩にも価値があると自分の例・理由を加えたこと。午前との理由説明・範囲指定の再現を確認した。新語の独立した使用や文法精度の改善は未確認。同じ点数を停滞の証拠にしない。
+- 今回の成功は、映画の題名がなくても具体的な筋を説明し、人物への判断に理由を添えたこと。借りる道具・XPath作業でも具体例を使い、難度と方向を調整した。理由説明と範囲指定を再現し、細かな精度・定着の改善は未確認。
 
 - 未知の分野に入る前の予備知識確認を求め、記事の難度が合わないときは身近なITへ話題を切り替えられる。発音評価についても測定と判定の違いを問い直した。
 - 旅行など身近な話題から、AI・エネルギー・文化のような抽象的なテーマまで、意見と理由をつないで話せる。
@@ -2454,7 +2372,7 @@ Why: 改善点には work on / focus on が自然。
 - GCP Pub/Subの技術記事を英語で読み、分からない語を確認したうえで、既知のAWSのSNS・SQSとの対応を質問できる。欲しい図と表、読む記事、採点の根拠も自分から指定できる。
 - 週末の計画を具体的に説明し、AI天気予報を日常の便利さから発電産業への影響へ広げられる。記事が実際に主張している範囲を確認し、Chappyの言いすぎを問い直した。
 - 回収済みraw transcriptの自発発話だけを比較する記述的な図を更新した。今回の長い記事音読・混合区間は除外している。設定相談、身近な趣味、専門記事の応答では発話機会が異なり、同条件の固定課題もまだないため、マーカー数や区間長から能力の改善率・低下を主張しない。
-- 直接録音では、技術英文を聞き取りやすい速度で読み、モデル名や複合語の練習点を音声根拠から絞り込める。
+- 過去の直接録音の所見は当時の限定根拠として保持。今回の音読は全区間を限定解析したが、音・韻律の直接レビューは未完了。
 
 ## 全履歴の再監査 / Retrospective Audit
 
@@ -2470,28 +2388,26 @@ Why: 改善点には work on / focus on が自然。
 
 ## Current Snapshot
 
-| 評価観点 | 現在 | 会話で確認できたこと |
-|---|---:|---|
-| **Task achievement** | **L4・形成中 / Session 22** | 休日と学び方を自分の理由・具体例で説明。午前同様の内容貢献を確認。問いかけ後の短い説明で、無促進の長い構成・未知分野の柔軟さは未確認。 |
-| **Fluency & coherence** | **L3・安定 / Session 22** | 出来事と理由の意味の軸を、言い直しても維持。午前同様のつながりを確認。会話の速度・間は未測定。 |
-| **Lexical resource** | **L3・安定 / Session 22** | sleepy・scared・familiar・efficientlyで様子と考えを伝えた。新語の提示直後の使用は独立再利用に数えず、題材差で最近の変化は比較不能。 |
-| **Grammar control** | **L3・安定 / Session 22** | 単純な文と一部の節をつないで意味を伝えた。L4の複数構文の安定した精度は未確認。質問紙の文とASRの細かな語から改善率を作らない。 |
-| **Interaction & repair** | **L4・強い / Session 22** | 過去履歴の範囲、語の意味、表示形式、背景音声、終了を自分で指定。午前と同じ自力の範囲調整を確認。L5の柔軟な含意調整は未確認。 |
-| **Pronunciation** | **N/A / 今回 Session 22** | 今夜の独立録音・直接音声レビューなし。午前Session 21の音読測定と過去Session 12 L3・安定は別の根拠。 |
+| 観点 | 今回 S23 | 前回 S22 | 判断と範囲 |
+|---|---|---|---|
+| Task achievement | L4・安定 | L4・形成中 | 複数の身近な目的を自分の具体的な内容で達成。v4の目的基準による判定で、段階差を改善率にしない。 |
+| Fluency & coherence | N/A | L3・安定 | coherenceの所見あり。自発会話のdeliveryが技術的未完了。旧点からの低下ではない。 |
+| Lexical resource | L3・強い | L3・安定 | 具体的な語と映画の筋の言い換え。題材差により精度・定着の改善は未確認。 |
+| Grammar control | L3・安定 | L3・安定 | 理由・条件・順序の意味を伝える能力を再現。細かなASR語形は要確認。 |
+| Interaction & repair | L4・強い | L4・強い | 範囲・難度・名前の誤解を自発的に調整。修復負担の件数は採点しない。 |
+| Pronunciation | N/A | N/A | 全音読の限定解析は完了、総合音・韻律レビューは技術的未完了。 |
 
-## 最近の小さな変化
-
-同日のSession 21から22では、自分の理由・具体例を加えることと、欲しい回答の範囲を自分で明確にすることを再確認した。新語の独立した再利用や文法精度の小さな改善は未確認。具体的な「以前 → 今回 → 判断」は[Session 22](#session-2026-10-11-02)にまとめた。今回の成功、同程度の再現、改善の未確認は別の結論で、同じLだけでは停滞を示さない。題材・支援・取得条件を確認し、採点を今回の根拠から判断し直している。
+S22の理由説明・範囲指定を、S23でも別の身近な内容で再現した。L・段階は今回の根拠から判断し直し、版の違い、題材・支援・収録条件を明示する。小さな文法精度の変化や、既存Bank表現の独立した再利用は未確認。
 
 ## 発音の測定状況
 
-過去の最終Pronunciation数値はSession 12の **L3・安定** です。旧手順・限定根拠の評価で、新しい総合聴取とは区別し、再採点していません。Session 18の音読2本とSession 21の全記事354.92秒のローカル測定は、それぞれの回の補助情報。Session 21の約116.5認識語/分や固定閾値の静かな区間は、発音正確率・自発会話の進歩ではありません。最新Session 22は独立した録音・直接音声レビューなしでN/A。現行方針では録音を取得した回は全録音を評価し、確認できた観点と手段の制約を明示します。録音本体は公開しません。
+過去の最終Pronunciation数値はSession 12の **L3・安定**。旧手順・限定根拠として保持し、再採点しない。最新S23は全266.90秒を限定解析し、品質・ASR時刻・閾値感度・ピッチを確認したが、総合音・韻律レビューは技術的未完了。音読の約81.5認識語単位／分と閾値以下の時間を、自発会話の流暢さやためらい率へ転用しない。S18・S21の録音測定も別課題であり、速度の単純比較はしない。Yukiは直接レビューを後に回すと希望した。既存録音を保持し、追加録音・外部送信は自動で行わない。録音本体は公開しない。
 
 ## 成長グラフ
 
-[![Session 1からSession 22までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
+[![Session 1からSession 23までの英語力成長グラフ](media/progress/english-growth-evidence-dashboard.png)](media/progress/english-growth-evidence-dashboard.png)
 
-Session 1から22までの6指標を、横軸Session・縦軸Lで表示します。同じL内の **形成中・安定・強い** はマーカー形状で区別し、N/Aは欠測として補間しません。Session 19の保留やSession 20〜22の身近な話に限る段階は各回の観察範囲で、能力低下やN/Aからの上昇を証明しません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点や形状は公式試験の精密な尺度ではありません。
+Session 1から23までの6指標を、横軸Session・縦軸Lで表示します。同じL内の **形成中・安定・強い** はマーカー形状で区別し、N/Aは欠測として補間しません。Session 19の保留やSession 20〜23の各段階は課題・支援・測定範囲を伴う観察値です。S23のFluency N/Aはv4の統合測定範囲の不足で、能力低下ではありません。Session 8・12の発音点は旧基準・限定根拠として灰色で表示します。点や形状は公式試験の精密な尺度ではありません。
 
 ## 次に伸ばすこと
 
@@ -2502,6 +2418,8 @@ Session 1から22までの6指標を、横軸Session・縦軸Lで表示します
 ## 評価セッションを開く
 
 各リンク先には、その回の評価根拠と次の練習があります。
+
+- [Session 23 — 借りて試す道具とSelenium、映画の人物への見方](#session-2026-10-14-01) — 理由・具体例と範囲指定を再現。全音読の限定解析完了、総合発音・自発会話deliveryは未完了。v4境界とASRの精度限界を区別。
 
 - [Session 22 — 動物カフェの休日と、自分の学び方を英語で説明する](#session-2026-10-11-02) — 自分の理由・例と範囲指定を午前との対で再確認。新語の独立運用・文法精度の改善は未確認。質問紙の数字は英語の採点から除外し、個別回答・心理面の結果を公開しない。今夜の直接発音評価なし。
 - [Session 21 — 読書と会話をつなぐ方法、最近の小さな成長を見える評価へ](#session-2026-10-11-01) — 今回の各採点を基準から見直し、直前の具体例と比較。理由説明・範囲指定の再現を確認、小さな語彙・文法改善は未確認。全音読の限定測定は完了、総合発音はN/A。
@@ -2554,6 +2472,13 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-expression-bank"></a>
 
 # 表現バンク / Expression Bank
+
+## 2026年10月14日 — Session 23
+
+| Expression | Meaning / Usage / Example | Source |
+|---|---|---|
+| **Borrowing makes it easier to try something before buying it.** | 買う前に借りて試す利点。turn16・18の意図からAstraが整理した学習用モデルで、確定誤りの訂正・独立使用ではない。**Chunk:** try something before buying it | [Session 23](#session-2026-10-14-01) |
+| **He could have stopped earlier.** | 過去にできた別の行動を述べる。turn181の意図に対してAstraがturn182で示したモデルで、Yukiの完成文の独立使用ではない。**Chunk:** could have + past participle | [Session 23](#session-2026-10-14-01) |
 
 ## 2026年10月11日 — Session 22
 
@@ -2727,6 +2652,12 @@ L1からL5は、**Strong support → Supported → Mostly independent → Indepe
 <a id="journal-vocabulary-bank"></a>
 
 # 語彙バンク / Vocabulary Bank
+
+## 2026年10月14日 — Session 23
+
+| Word / IPA / POS | Meaning / Usage / Example | Source |
+|---|---|---|
+| **plot twist** noun phrase | **意味:** 物語の予想外の展開。**Plain English:** an unexpected change in a story. turn148の意味確認から保存。**Example:** An unexpected plot twist changes how we see the character. 例はAstraの学習用モデル。説明後の議論を、後日の独立使用・定着としない。 | [Session 23](#session-2026-10-14-01) |
 
 ## 2026年10月11日 — Session 22
 

@@ -513,7 +513,7 @@ description: "${escapeHtml(session.remember)}"
 <div class="learning-grid">
   <article class="learning-card learning-card--remember"><div class="card-meta">Remember</div><h3>話したこと</h3><p>${escapeHtml(session.remember)}</p></article>
   <article class="learning-card learning-card--growth"><div class="card-meta">Growth</div><h3>今回できたこと</h3><p>${escapeHtml(redactLearnerText(firstSentence(trackerSession?.evidence_note_ja ?? session.remember)))}</p></article>
-  ${trackerSession?.evidence_quote ? `<article class="learning-card learning-card--context"><div class="card-meta">My English in Context</div><h3>発話の記録（修正前）</h3><p lang="en">${escapeHtml(redactLearnerText(truncate(trackerSession.evidence_quote, 190)))}</p></article>` : ""}
+  ${trackerSession?.evidence_quote ? `<article class="learning-card learning-card--context"><div class="card-meta">My English in Context</div><h3>発話の記録</h3><p lang="en">${escapeHtml(redactLearnerText(truncate(trackerSession.evidence_quote, 190)))}</p></article>` : ""}
 </div>
 
 ## 今すぐ復習

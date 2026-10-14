@@ -15,7 +15,7 @@ export function skillTimeline(progress) {
     const y = l => top + 190 - (l - 1) * 30;
     const grid = [1,2,3,4,5].map(l => `<path d="M${x(0)},${y(l)}H${x(sessions.length-1)}" stroke="#cbd5e1"/><text x="${left+8}" y="${y(l)+5}">L${l}</text>`).join('');
     const version = s => s.metric_evidence?.[metric]?.provenance?.rubric_version ?? 'whole-session-v3';
-    const boundaries = sessions.map((s,n) => n > 0 && version(s) !== version(sessions[n-1]) ? `<g><title>Rubric boundary: ${escape(version(s))}; not an automatic proficiency change</title><path d="M${(x(n-1)+x(n))/2},${top+62}V${y(1)+10}" stroke="#6b7280" stroke-dasharray="4 4"/><text x="${(x(n-1)+x(n))/2}" y="${top+80}" font-size="18">v4</text></g>` : '').join('');
+    const boundaries = sessions.map((s,n) => n > 0 && version(s) !== version(sessions[n-1]) ? `<g><title>Rubric boundary: ${escape(version(s))}; not an automatic proficiency change</title><path d="M${(x(n-1)+x(n))/2},${top+62}V${y(1)+10}" stroke="#6b7280" stroke-dasharray="4 4"/><text x="${(x(n-1)+x(n))/2-4}" y="${top+80}" text-anchor="end" font-size="18">v4</text></g>` : '').join('');
     const marks = sessions.map((s, n) => {
       const value = s.ratings[metric], prior = sessions[n-1]?.ratings[metric];
       if (!Number.isInteger(value)) return `<text x="${x(n)}" y="${y(1)+22}" text-anchor="middle" fill="#4b5563">×</text>`;

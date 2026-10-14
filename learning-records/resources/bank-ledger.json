@@ -2,6 +2,21 @@
   "schema_version": 1,
   "description": "Accepted item identity ledger; content remains solely in journal.md. Retire only with reason and existing merged_into key.",
   "items": [
+    {
+      "id": "vocabulary-b68c19e962036256",
+      "bank": "vocabulary",
+      "key": "plot twist noun phrase"
+    },
+    {
+      "id": "expressions-f4183bfa29b794d0",
+      "bank": "expressions",
+      "key": "he could have stopped earlier."
+    },
+    {
+      "id": "expressions-7daef3cdc5211bf5",
+      "bank": "expressions",
+      "key": "borrowing makes it easier to try something before buying it."
+    },
     {"id":"expressions-caa9c26b70eed98c","bank":"expressions","key":"for me, understanding something means being able to explain it in my own words."},
     {"id":"expressions-35b4426bf736705a","bank":"expressions","key":"could you explain what \"take charge\" means?"},
     {"id":"vocabulary-e4c970a738b7b1de","bank":"vocabulary","key":"cozy / cosy /ˈkoʊ.zi/ adjective"},

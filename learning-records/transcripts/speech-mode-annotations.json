@@ -30,6 +30,30 @@
     { "session_number": 12, "turn_index": 131, "speech_mode": "read_aloud", "evidence": "Reads the article's What's new section." },
     { "session_number": 12, "turn_index": 141, "speech_mode": "read_aloud", "evidence": "Reads the prompting best-practices excerpt." },
     { "session_number": 14, "turn_index": 51, "speech_mode": "repetition", "evidence": "Repeats the suggested phrase after an explicit prompt." },
-    { "session_number": 16, "turn_index": 147, "speech_mode": "read_aloud", "evidence": "Reads the Pub/Sub overview article; the whole mixed segment is excluded conservatively." }
+    { "session_number": 16, "turn_index": 147, "speech_mode": "read_aloud", "evidence": "Reads the Pub/Sub overview article; the whole mixed segment is excluded conservatively." },
+    {
+      "session_number": 23,
+      "turn_index": 14,
+      "speech_mode": "read_aloud",
+      "evidence": "Learner announces reading at turn12; this segment contains the CPL article and closing read-completion signal."
+    },
+    {
+      "session_number": 23,
+      "turn_index": 20,
+      "speech_mode": "repetition",
+      "evidence": "Prompted practice reformulation after assistant-supplied complete model at turn19; excluded from spontaneous comparison, not claimed exact repetition or independent delayed reuse."
+    },
+    {
+      "session_number": 23,
+      "turn_index": 65,
+      "speech_mode": "read_aloud",
+      "evidence": "Google article reading and completion signal; independently saved full audio is a read_aloud/evaluation task, not spontaneous speaking."
+    },
+    {
+      "session_number": 23,
+      "turn_index": 146,
+      "speech_mode": "repetition",
+      "evidence": "Repeats assistant question wording from turn145 then adds difficulty clarification; mixed segment excluded from spontaneous statistics."
+    }
   ]
 }

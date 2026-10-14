@@ -88,7 +88,7 @@ export function buildLearningBrief(journal, progress, ledger) {
     planDate: plan?.updated_on ?? null,
     planningNote: plan && latest.session < plan.effective_from_session
       ? `現在の計画（${plan.updated_on}設定 / Session ${plan.effective_from_session}から）。過去の成果・習得を追加したものではありません。`
-      : '復習の提案と、今回の実際の成果は別に記録します。',
+      : '復習の提案と、今回の実際の成果は別に記録します。過去の成果・習得を追加したものではありません。',
     scope: unfinished.length ? `評価未完了: ${unfinished.join(' / ')}。完了済みとは扱いません。`
       : recordedAudio ? `保存済みSession ${latest.session}の評価を表示。音声の確認範囲は詳細資料に記載。`
       : `保存済みSession ${latest.session}の記録に基づく。今回の直接音声による総合発音評価はありません。`,
