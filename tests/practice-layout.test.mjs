@@ -44,6 +44,16 @@ test('storage warning is beside primary practice and recovery starts hidden on b
     assert.match(page, /<div class="practice-recovery" data-recall-recovery hidden><button[^>]*data-recall-export/);
   }
 });
+test('current growth pairs grades with concrete evidence and distinguishes coverage from ability change',()=>{
+  assert.equal((growth.match(/class="profile-evidence"/g) ?? []).length,3);
+  assert.match(growth,/実発話 turn 174・177・181 · 確度 中/);
+  assert.match(growth,/2026-10-14 · 回収済み発話/);
+  assert.match(growth,/過去の6観点との数の違いや欠測は能力低下を示しません/);
+  assert.match(growth,/残りの平均を総合点として計算し直していません/);
+  const deltas=[...growth.matchAll(/class="comparison-change">([^<]*)</g)].map(m=>m[1]);
+  assert.ok(deltas.length>0);assert.ok(deltas.every(text=>!/%|↓|↑/.test(text)));
+  assert.match(growth,/推定履歴の最終更新は 2026-09-27（S17）/);
+});
 
 test('every allowed active-set size is selectable without duplicate first-page options', () => {
   for (const count of [5, 6, 7, 8]) {

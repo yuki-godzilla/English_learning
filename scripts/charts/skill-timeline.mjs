@@ -27,7 +27,8 @@ export function skillTimeline(progress) {
       return `${line}<g><title>S${s.session}: ${escape(ratingLabel(s,metric))}</title>${shape}</g>`;
     }).join('');
     const labels = timelineLabelIndices(sessions.length).map(n => `<text x="${x(n)}" y="${top+239}" text-anchor="middle" font-size="24">${sessions[n].session}</text>`).join('');
-    return `<g><text x="${left+8}" y="${top+20}" font-weight="700" font-size="26">${escape(metric)}</text><text x="${left+8}" y="${top+49}" font-size="24">今回 S${latest.session}: ${escape(ratingLabel(latest,metric))}</text>${grid}${boundaries}${marks}${labels}</g>`;
+    const latestLabel=Number.isInteger(latest.ratings[metric]) ? `今回 S${latest.session}: ${ratingLabel(latest,metric)}` : '過去の評価履歴';
+    return `<g><text x="${left+8}" y="${top+20}" font-weight="700" font-size="26">${escape(metric)}</text><text x="${left+8}" y="${top+49}" font-size="24">${escape(latestLabel)}</text>${grid}${boundaries}${marks}${labels}</g>`;
   }).join('');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><style>text{font-family:'Yu Gothic',Meiryo,Arial,sans-serif;fill:#1f2937;font-size:24px}</style><rect width="100%" height="100%" fill="white"/>${panels}<text x="32" y="566" font-size="24">横軸: Session　 ○ 形成中 / ● 安定 / ◆ 強い　× N/A（未測定）　破線: 評価基準の変更</text><text x="32" y="596" font-size="24">発音の灰色点は旧基準・限定根拠。個人学習用の観察値であり、公式試験スコアではありません。</text></svg>`;
 }

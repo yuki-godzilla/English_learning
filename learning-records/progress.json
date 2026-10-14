@@ -1,4 +1,318 @@
 {
+  "assessment_policy": {
+    "version": "environment-evidence-v1",
+    "effective_from_session": 23,
+    "environment_reviewed_on": "2026-10-14",
+    "history_policy": "preserve_without_rescoring",
+    "selection_rule": "Verified method + completed evidence review + appropriate independent task + supported rubric scope. Unknown capability/evidence excludes an assessed result. Internal unavailable states stay explicit.",
+    "capabilities": {
+      "contextual_text_review": true,
+      "written_text_review": true,
+      "recording_quality_measurement": true,
+      "asr_timing_measurement": true,
+      "pitch_measurement": true,
+      "spontaneous_delivery_review": false,
+      "holistic_pronunciation_review": false,
+      "standardized_reading_task_review": false,
+      "standardized_listening_task_review": false,
+      "standardized_writing_task_review": false,
+      "standardized_speaking_task_review": false,
+      "exact_audio_wording_review": false
+    },
+    "method_origins": {
+      "contextual_text_review": "local",
+      "written_text_review": "local",
+      "recording_quality_measurement": "local",
+      "asr_timing_measurement": "local",
+      "pitch_measurement": "local"
+    },
+    "capability_evidence": "Contextual learner/assistant ASR text is available. PyAV, faster-whisper and Praat verify decode/quality/transcription/timing/pitch only. No verified direct sound/prosody reviewer or spontaneous full-conversation delivery review. Task-specific examination evidence has not been collected.",
+    "evidence_reviews": {
+      "23": {
+        "Task achievement": {
+          "method": "contextual_text_review",
+          "completed": true,
+          "rubric_scope_supported": true,
+          "source": "learning-records/transcripts/2026-10-14-session-01.jsonl",
+          "source_kind": "voice_asr",
+          "turn_indices": [
+            16,
+            18,
+            107,
+            174,
+            177,
+            181
+          ],
+          "evidence_confidence": "medium",
+          "independent_content": true,
+          "asr_ambiguity_excluded": true,
+          "display_scope_ja": "目的に必要な主張・理由・具体例の伝達",
+          "result_kind": "numeric_assessment",
+          "descriptor_coverage": {
+            "rubric_version": "whole-session-v4",
+            "level": 4,
+            "stage": "established",
+            "descriptor": "その場の目的に必要な内容を自力で伝え、相手に応じて説明・例・確認を選べる。通常の会話質問だけでは支援依存としない。",
+            "components": {
+              "purpose_content": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  16,
+                  18,
+                  107,
+                  174,
+                  177,
+                  181
+                ]
+              },
+              "support_attribution": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  16,
+                  18,
+                  107,
+                  174,
+                  177,
+                  181
+                ]
+              },
+              "independent_purpose_development": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  16,
+                  18,
+                  107,
+                  174,
+                  177,
+                  181
+                ]
+              }
+            }
+          },
+          "example_turn_indices": [
+            174,
+            177,
+            181
+          ]
+        },
+        "Lexical resource": {
+          "method": "contextual_text_review",
+          "completed": true,
+          "rubric_scope_supported": true,
+          "source": "learning-records/transcripts/2026-10-14-session-01.jsonl",
+          "source_kind": "voice_asr",
+          "turn_indices": [
+            16,
+            18,
+            107,
+            154,
+            156,
+            174
+          ],
+          "evidence_confidence": "medium",
+          "independent_content": true,
+          "asr_ambiguity_excluded": true,
+          "display_scope_ja": "自分の内容の具体語と、題名を忘れた場面の言い換え。提示語・モデル文・音読は除外",
+          "result_kind": "numeric_assessment",
+          "descriptor_coverage": {
+            "rubric_version": "whole-session-v4",
+            "level": 3,
+            "stage": "strong",
+            "descriptor": "身近な話題に必要な語彙を使い、確認・言い換えで意図を伝えられる。",
+            "components": {
+              "contextual_vocabulary": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  16,
+                  18,
+                  107,
+                  154,
+                  156,
+                  174
+                ]
+              },
+              "learner_origin": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  16,
+                  18,
+                  107,
+                  154,
+                  156,
+                  174
+                ]
+              },
+              "support_attribution": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  16,
+                  18,
+                  107,
+                  154,
+                  156,
+                  174
+                ]
+              }
+            }
+          },
+          "example_turn_indices": [
+            16,
+            174
+          ]
+        },
+        "Grammar control": {
+          "method": "contextual_text_review",
+          "completed": true,
+          "rubric_scope_supported": false,
+          "source": "learning-records/transcripts/2026-10-14-session-01.jsonl",
+          "source_kind": "voice_asr",
+          "turn_indices": [
+            16,
+            107,
+            154,
+            156,
+            174,
+            177,
+            181
+          ],
+          "evidence_confidence": "medium",
+          "independent_content": true,
+          "asr_ambiguity_excluded": true,
+          "display_scope_ja": "文字起こしの文脈から確認した意味伝達の観察。本人が発した細かな語形の正確さ・誤り率・文法Lはこの所見から採点しない。",
+          "result_kind": "qualitative_observation",
+          "descriptor_coverage": {
+            "rubric_version": "whole-session-v4",
+            "level": 3,
+            "stage": "established",
+            "descriptor": "単純な文と一部の複雑な文を使い、誤りがあっても意味は明確。",
+            "components": {
+              "learner_constructions": {
+                "verified": false,
+                "evidence_type": "verified_wording",
+                "turn_indices": [
+                  16,
+                  107,
+                  154,
+                  156,
+                  174,
+                  177,
+                  181
+                ]
+              },
+              "grammatical_form_accuracy": {
+                "verified": false,
+                "evidence_type": "verified_wording",
+                "turn_indices": [
+                  16,
+                  107,
+                  154,
+                  156,
+                  174,
+                  177,
+                  181
+                ]
+              }
+            }
+          },
+          "observation_ja": "買う条件、好みが変わる理由、映画の出来事の順をつなぎ、意図が分かる説明をした。"
+        },
+        "Interaction & repair": {
+          "method": "contextual_text_review",
+          "completed": true,
+          "rubric_scope_supported": true,
+          "source": "learning-records/transcripts/2026-10-14-session-01.jsonl",
+          "source_kind": "voice_asr",
+          "turn_indices": [
+            22,
+            26,
+            52,
+            67,
+            83,
+            85,
+            105,
+            137,
+            169,
+            174
+          ],
+          "evidence_confidence": "medium",
+          "independent_content": true,
+          "asr_ambiguity_excluded": true,
+          "display_scope_ja": "本人による範囲・難度・誤解の修復。音声の間や相手側の修復件数は採点しない",
+          "result_kind": "numeric_assessment",
+          "descriptor_coverage": {
+            "rubric_version": "whole-session-v4",
+            "level": 4,
+            "stage": "strong",
+            "descriptor": "自発的に質問・確認・言い直しを行い、話題を展開できる。",
+            "components": {
+              "learner_interaction": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  22,
+                  26,
+                  52,
+                  67,
+                  83,
+                  85,
+                  105,
+                  137,
+                  169,
+                  174
+                ]
+              },
+              "support_attribution": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  22,
+                  26,
+                  52,
+                  67,
+                  83,
+                  85,
+                  105,
+                  137,
+                  169,
+                  174
+                ]
+              },
+              "independent_direction_repair": {
+                "verified": true,
+                "evidence_type": "contextual_meaning",
+                "turn_indices": [
+                  22,
+                  26,
+                  52,
+                  67,
+                  83,
+                  85,
+                  105,
+                  137,
+                  169,
+                  174
+                ]
+              }
+            }
+          },
+          "example_turn_indices": [
+            26,
+            169,
+            174
+          ]
+        }
+      }
+    },
+    "overall_rule": "No fixed six-dimension overall score when any required dimension is missing. Do not re-average a changing subset or convert it to exam scores.",
+    "exam_estimate_rule": "No new current projection without a named method, reviewed relevant skill task, comparable conditions and all required verified methods. Dated prior estimates and user-reported results remain historical references.",
+    "numeric_contract_from_session": 24
+  },
   "methodology": {
     "name": "Exam-informed, evidence-based English conversation tracking",
     "status": "Current policy v6.0 applies from Session 23. Historical observations through Session 22 remain unchanged. Every recording receives an evidence-bounded review; no blanket pause. Conversation success, recent change, audio measurements, and historical ratings remain distinct.",

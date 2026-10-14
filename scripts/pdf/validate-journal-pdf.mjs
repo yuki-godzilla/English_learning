@@ -1,7 +1,9 @@
 import { pdfChapterOrder } from '../lib/learning-plan.mjs';
+import { pdfContents, PDF_CHAPTER_LINK_PREFIX, evaluatedMetrics } from '../lib/report-presentation.mjs';
 /** Postflight validation for the integrated Current Learning Journal PDF. */
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
+import fs from 'node:fs/promises';
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
 import { tableRows as sharedTableRows } from '../lib/markdown-table.mjs';
@@ -56,7 +58,9 @@ actions = []
 widgets = 0
 page_sizes = []
 texts = []
-for page in reader.pages:
+links = []
+page_ids = {page.indirect_reference.idnum: index for index, page in enumerate(reader.pages)}
+for page_index, page in enumerate(reader.pages):
     page_sizes.append([float(page.mediabox.width), float(page.mediabox.height)])
     texts.append(page.extract_text() or "")
     annotations = page.get("/Annots") or []
@@ -65,6 +69,12 @@ for page in reader.pages:
         if str(annotation.get("/Subtype", "")) == "/Widget":
             widgets += 1
         action = annotation.get("/A")
+        dest = annotation.get("/Dest")
+        if dest is None and action and str(action.get_object().get("/S", "")) == "/GoTo":
+            dest = action.get_object().get("/D")
+        if dest is not None:
+            target = page_ids.get(getattr(dest[0], "idnum", None), -1) if isinstance(dest, list) else -1
+            links.append({"page":page_index,"target":target})
         if action:
             action = action.get_object()
             action_type = str(action.get("/S", ""))
@@ -83,6 +93,7 @@ print(json.dumps({
     "actions": actions,
     "widgets": widgets,
     "page_texts": texts,
+    "links": links,
     "text": "\n".join(texts),
 }, ensure_ascii=False))
 `;
@@ -96,6 +107,7 @@ const inventory = JSON.parse(execFileSync(python, ["-c", inspector, pdfPath], {
 const journal = await loadJournal();
 const sessions = [...journal.sessions].sort((a, b) => b.date.localeCompare(a.date) || b.session - a.session);
 const latest = sessions.slice(0, 3);
+const progress=JSON.parse(await fs.readFile(path.join(root,'learning-records/progress.json'),'utf8'));
 const failures = [];
 const fail = (message) => failures.push(message);
 
@@ -106,6 +118,17 @@ for (const [index, [width, height]] of inventory.page_sizes.entries()) {
 
 const expectedOutlines = pdfChapterOrder(sessions).map(chapter => chapter.title);
 if (JSON.stringify(inventory.outlines) !== JSON.stringify(expectedOutlines)) fail('PDF chapters are not in learning-first order');
+const chapters=pdfChapterOrder(sessions);
+const expectedContents=pdfContents(latest[0].id).map(item=>inventory.outline_pages[chapters.find(c=>c.label===item.label)?.title]);
+const firstPageTargets=inventory.links.filter(l=>l.page===0&&l.target!==0).map(l=>l.target);
+if (JSON.stringify(firstPageTargets.sort((a,b)=>a-b)) !== JSON.stringify(expectedContents.sort((a,b)=>a-b))) fail('First-page contents do not link to all expected chapter pages');
+for (const item of pdfContents(latest[0].id)) {
+  const number=inventory.outline_pages[chapters.find(c=>c.label===item.label)?.title]+1;
+  if (!normalized(inventory.page_texts[0]).includes(normalized(`${item.title} p.${number}`))) fail(`Printed contents page number is missing/wrong: ${item.title}`);
+}
+for (const link of inventory.links) if (link.target < 0 || link.target >= inventory.pages) fail(`Broken internal PDF link from page ${link.page+1}`);
+for (let page=0;page<inventory.pages;page++) if (!inventory.links.some(l=>l.page===page&&l.target===0)) fail(`Page ${page+1} has no return-to-contents link`);
+if (inventory.uris.some(uri=>uri.startsWith(PDF_CHAPTER_LINK_PREFIX))) fail('Export-only contents URLs were not converted to internal PDF links');
 function chapterRange(title) {
   const start = inventory.outline_pages[title];
   if (!Number.isInteger(start) || start < 0) return null;
@@ -116,6 +139,13 @@ const briefRange = chapterRange('Learning Brief');
 if (!briefRange || briefRange[1] - briefRange[0] !== 1) fail('Learning Brief must fit one readable page');
 const summaryRange = chapterRange('English Growth & Evaluation');
 if (!summaryRange || summaryRange[1] - summaryRange[0] > 2) fail('Current growth summary exceeds two pages');
+if (summaryRange) {
+  const summary=inventory.page_texts.slice(...summaryRange).join('\n');
+  const current=progress.sessions.find(s=>s.session===latest[0].session);
+  for (const metric of progress.qualitative_metrics.filter(m=>!evaluatedMetrics(current,progress.qualitative_metrics,progress.assessment_policy).includes(m))) {
+    if (normalized(summary).includes(normalized(metric))) fail(`Current evaluation displays an unassessed metric: ${metric}`);
+  }
+}
 for (const label of ['今回の収穫', '内容面の持ち帰り', '次に使う表現', '5分復習', '次回の重点', '評価範囲']) {
   if (!normalized(inventory.page_texts[0]).includes(normalized(label))) fail(`Learning Brief role missing: ${label}`);
 }

@@ -1,4 +1,5 @@
 import { buildLearningBrief, learningBriefHtml, growthSummaryHtml, pdfChapterOrder } from '../lib/learning-plan.mjs';
+import { PDF_CHAPTER_LINK_PREFIX, pdfChapterLink, pdfContents } from '../lib/report-presentation.mjs';
 /** Create one print-ready PDF containing the current English Journal. */
 import { execFileSync } from "node:child_process";
 import fs from "node:fs/promises";
@@ -147,7 +148,7 @@ ${tableBody}
 
 function sessionIndexHtml() {
   const rows = sessions.map((session) => `<tr>
-    <td class="session-number"><strong>Session ${session.session}</strong></td>
+    <td class="session-number">${latestDailyNotes.some(note => note.session === session.session) ? `<a href="${pdfChapterLink(`session-${session.id}`)}"><strong>Session ${session.session}</strong></a>` : `<strong>Session ${session.session}</strong>`}</td>
     <td>${escapeHtml(session.date)}</td>
     <td class="session-title">${escapeHtml(session.title)}</td>
     <td>${escapeHtml(session.remember)}</td>
@@ -206,7 +207,8 @@ try {
   temporarySitePaths.push(growthPrintPath);
 
   const coverPath = path.join(scratchDir, "cover.html");
-  await fs.writeFile(coverPath, learningBriefHtml(learningBrief), "utf8");
+  const contents = pdfContents(latestDailyNotes[0].id).map(item => ({...item, href: pdfChapterLink(item.label)}));
+  await fs.writeFile(coverPath, learningBriefHtml(learningBrief, contents), "utf8");
   const growthSummaryPath = path.join(scratchDir, "growth-summary.html");
   await fs.writeFile(growthSummaryPath, growthSummaryHtml(progress, learningBrief), "utf8");
 
@@ -230,11 +232,7 @@ try {
   };
   const pages = pdfChapterOrder(sessions).map(chapter => ({...chapter, path: chapterPaths[chapter.label]}));
 
-  const inputs = [];
-  for (const page of pages) {
-    await fs.access(page.path);
-    const pdfPath = path.join(scratchDir, `${page.label}.pdf`);
-    console.log(`Rendering PDF chapter: ${page.title}`);
+  function renderChapter(page, pdfPath) {
     execFileSync(chrome, [
       "--headless=new",
       "--disable-gpu",
@@ -248,11 +246,29 @@ try {
       `--print-to-pdf=${pdfPath}`,
       pathToFileURL(page.path).href,
     ], { stdio: "pipe", windowsHide: true, timeout: 120000 });
-    inputs.push({ path: pdfPath, title: page.title });
+  }
+  const inputs = [];
+  for (const page of pages) {
+    await fs.access(page.path);
+    const pdfPath = path.join(scratchDir, `${page.label}.pdf`);
+    console.log(`Rendering PDF chapter: ${page.title}`);
+    renderChapter(page,pdfPath);
+    inputs.push({ path: pdfPath, title: page.title, label: page.label });
   }
 
+  // Once pagination is known, print page numbers alongside the clickable links.
+  const countPages = paths => JSON.parse(execFileSync(python,['-c',
+    'import json,sys; from pypdf import PdfReader; print(json.dumps([len(PdfReader(p).pages) for p in json.loads(sys.argv[1])]))',
+    JSON.stringify(paths)],{encoding:'utf8',windowsHide:true}));
+  const chapterCounts=countPages(inputs.map(input=>input.path));
+  let offset=1;
+  const chapterStarts=new Map(inputs.map((input,index)=>{const start=offset;offset+=chapterCounts[index];return [input.label,start];}));
+  await fs.writeFile(coverPath,learningBriefHtml(learningBrief,contents.map(item=>({...item,title:`${item.title} · p.${chapterStarts.get(item.label)}`}))),'utf8');
+  renderChapter(pages[0],inputs[0].path);
+  if (countPages([inputs[0].path])[0]!==chapterCounts[0]) throw new Error('Printed contents changed the cover page count; chapter numbering is unsafe.');
+
   const manifestPath = path.join(scratchDir, "merge-manifest.json");
-  await fs.writeFile(manifestPath, JSON.stringify({ inputs }, null, 2), "utf8");
+  await fs.writeFile(manifestPath, JSON.stringify({ inputs, linkPrefix: PDF_CHAPTER_LINK_PREFIX }, null, 2), "utf8");
   const merger = String.raw`
 from io import BytesIO
 from pathlib import Path
@@ -260,6 +276,8 @@ import json
 import sys
 
 from pypdf import PdfReader, PdfWriter
+from pypdf.annotations import Link
+from pypdf.generic import ArrayObject, NameObject
 from reportlab.lib.colors import HexColor
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
@@ -268,22 +286,42 @@ from reportlab.pdfgen import canvas
 output = Path(sys.argv[1])
 manifest = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
 writer = PdfWriter()
+chapter_starts = {}
 for entry in manifest["inputs"]:
     reader = PdfReader(entry["path"])
     start_page = len(writer.pages)
+    chapter_starts[entry["label"]] = start_page
     for page in reader.pages:
         writer.add_page(page)
     writer.add_outline_item(entry["title"], start_page)
+
+for page in writer.pages:
+    for reference in page.get("/Annots") or []:
+        annotation = reference.get_object()
+        action = annotation.get("/A")
+        if not action:
+            continue
+        uri = str(action.get_object().get("/URI", ""))
+        if not uri.startswith(manifest["linkPrefix"]):
+            continue
+        label = uri[len(manifest["linkPrefix"]):]
+        if label not in chapter_starts:
+            raise RuntimeError(f"Unknown PDF chapter link: {label}")
+        annotation.pop(NameObject("/A"))
+        annotation[NameObject("/Dest")] = ArrayObject([
+            writer.pages[chapter_starts[label]].indirect_reference, NameObject("/Fit")])
 
 for index, page in enumerate(writer.pages, start=1):
     overlay_buffer = BytesIO()
     overlay = canvas.Canvas(overlay_buffer, pagesize=A4)
     overlay.setFillColor(HexColor("#4B5563"))
     overlay.setFont("Helvetica", 8.5)
+    overlay.drawString(14 * mm, 8 * mm, "Contents")
     overlay.drawRightString(A4[0] - 14 * mm, 8 * mm, str(index))
     overlay.save()
     overlay_buffer.seek(0)
     page.merge_page(PdfReader(overlay_buffer).pages[0], over=True)
+    writer.add_annotation(index - 1, Link(rect=(14 * mm, 7 * mm, 29 * mm, 11 * mm), target_page_index=0))
     page.compress_content_streams()
 
 writer.add_metadata({

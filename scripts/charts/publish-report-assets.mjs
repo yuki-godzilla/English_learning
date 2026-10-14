@@ -36,7 +36,7 @@ const requiredAssets = [
     path: "learning-records/media/progress/english-growth-evidence-dashboard.png",
     role: "English growth dashboard",
     alt: `Session 1からSession ${latestSession.session}までの英語力成長グラフ`,
-    caption: `progress.jsonから生成したSession 1〜${latestSession.session}の英語力推移。L1〜L5と同一L内の段階を表示。発音の過去記録S${pronunciationSessions || 'なし'}は限定的な旧評価を含み、現基準の直接総合審査とは区別する。N/Aは欠測。`,
+    caption: `progress.jsonから生成したSession 1〜${latestSession.session}の英語力推移。L1〜L5と同一L内の段階を表示。S23以降は環境・記述子・証拠の選別を通る結果だけ作図し、他は欠測とする。保存した元の採点履歴は保持。発音の過去記録S${pronunciationSessions || 'なし'}は限定的な旧評価を含み、現基準の直接総合審査とは区別する。`,
   },
   {
     path: "learning-records/media/progress/english-test-score-estimate-trends.png",

@@ -5,6 +5,7 @@ import { copyFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { projectRoot as root, recordsRoot } from "../lib/project.mjs";
 import { skillTimeline } from './skill-timeline.mjs';
+import { reportChartProgress } from '../lib/report-presentation.mjs';
 
 const require = createRequire(import.meta.url);
 const sharp = require("sharp");
@@ -69,7 +70,7 @@ for (let index = 1; index < sessions.length; index += 1) {
 }
 
 
-const svg = skillTimeline(data);
+const svg = skillTimeline(reportChartProgress(data));
 
 await mkdir(path.dirname(outputPath), { recursive: true });
 await sharp(Buffer.from(svg)).png().toFile(outputPath);

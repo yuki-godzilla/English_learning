@@ -8,6 +8,7 @@ import { loadJournal } from '../scripts/lib/journal-parser.mjs';
 import { validateLearningPlan, resolveActiveItems, buildLearningBrief, learningBriefHtml, growthSummaryHtml, pdfChapterOrder } from '../scripts/lib/learning-plan.mjs';
 import { validateScoringEvidence } from '../scripts/lib/scoring-contract.mjs';
 import { skillTimeline } from '../scripts/charts/skill-timeline.mjs';
+import { evaluatedMetrics, pdfChapterLink, pdfContents } from '../scripts/lib/report-presentation.mjs';
 const progress = JSON.parse(await fs.readFile(path.join(recordsRoot,'progress.json'),'utf8'));
 const ledger = JSON.parse(await fs.readFile(path.join(recordsRoot,'resources/bank-ledger.json'),'utf8'));
 const journal = await loadJournal();
@@ -95,10 +96,32 @@ test('brief derives success from saved evidence and separates new planning', () 
   assert.match(html,/5分復習/);assert.match(growthSummaryHtml(progress,b),/以前 → 今回 → 判断/);
   assert.equal(hash(p),before);
 });
-test('technical incomplete work is visible on the first page', () => {
+test('current reader presentation omits unfinished assessments but retains their evidence state', () => {
   const p=clone(progress);p.sessions.at(-1).metric_evidence.Pronunciation.assessment_status='technical_incomplete';
-  const html=learningBriefHtml(buildLearningBrief(journal,p,ledger));
-  assert.match(html,/class="warning"/);assert.match(html,/評価未完了/);
+  const before=hash(p), brief=buildLearningBrief(journal,p,ledger);
+  assert.ok(brief.unfinished.includes('Pronunciation'));
+  const html=learningBriefHtml(brief,pdfContents(journal.sessions[0].id).map(i=>({...i,href:pdfChapterLink(i.label)})));
+  assert.doesNotMatch(html,/class="warning"|評価未完了|Pronunciation/);
+  const summary=growthSummaryHtml(p,brief);
+  assert.doesNotMatch(summary,/<td>Pronunciation<\/td>|<td>Fluency &amp; coherence<\/td>|<td>N\/A<\/td>/);
+  assert.equal(hash(p),before);
+});
+test('reflection starts with one existing item and current assessments show behavior, references and confidence', () => {
+  const brief=buildLearningBrief(journal,progress,ledger), before=hash(progress);
+  const html=learningBriefHtml(brief);
+  assert.equal((html.match(/class="english"/g) ?? []).length,1);
+  assert.ok(html.includes(brief.items[0].recall_prompt));assert.ok(!html.includes(brief.items[1].recall_prompt));
+  assert.match(html,/ここで終えて大丈夫/);assert.match(html,/買う前に借りて試す利点/);
+  const summary=growthSummaryHtml(progress,brief);
+  assert.match(summary,/確認した行動・根拠/);assert.match(summary,/実発話 turn/);assert.match(summary,/確度/);
+  assert.match(summary,/2026-10-11/);assert.match(summary,/2026-10-14/);
+  assert.match(summary,/点数差を改善率にはしません/);assert.equal(hash(progress),before);
+});
+test('no numeric evidence produces no empty current-evaluation table or comparison heading',()=>{
+  const p=clone(progress);p.assessment_policy.capabilities={};
+  const html=growthSummaryHtml(p,buildLearningBrief(journal,p,ledger));
+  assert.doesNotMatch(html,/<table|CURRENT ABILITY|以前 → 今回 → 判断/);
+  assert.match(html,/SESSION REFLECTION/);
 });
 test('PDF keeps latest three, all-index and all Banks but puts learning first', () => {
   const chapters=pdfChapterOrder(journal.sessions);

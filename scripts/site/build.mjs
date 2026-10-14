@@ -1,4 +1,5 @@
 import { buildLearningBrief } from '../lib/learning-plan.mjs';
+import { evaluatedMetrics, assessedSessionBody, currentEvidenceNote, qualitativeObservations, reportChartProgress, assessmentExample } from '../lib/report-presentation.mjs';
 import fs from "node:fs/promises";
 import path from "node:path";
 import { loadJournal } from "../lib/journal-parser.mjs";
@@ -350,6 +351,8 @@ hide:
   <p>今日は一つ、自分の場面で使ってみる。</p>
 </section>
 
+${reportContentsMarkup('')}
+
 <section class="practice-start"><h2>今日の一つ</h2><p>場面を思い浮かべて英語で話し、答えを開きます。ここで終えて大丈夫です。</p>
 ${practiceQueueMarkup(learningBrief.items)}
 <p class="practice-plan-note">${escapeHtml(learningBrief.planningNote)}</p>
@@ -490,11 +493,15 @@ function sessionNavigation(index) {
   return `<nav class="session-navigation" aria-label="前後のセッション">${newer ? `<a href="../${newer.id}/">← 新しい記録<br><strong>Session ${newer.session}</strong></a>` : "<span></span>"}${older ? `<a href="../${older.id}/">古い記録 →<br><strong>Session ${older.session}</strong></a>` : ""}</nav>`;
 }
 
+function reportContentsMarkup(prefix) {
+  return `<nav class="report-contents" aria-label="レポート目次"><strong>目次</strong><a href="${prefix}progress/">評価・成長</a><a href="${prefix}review/vocabulary/">Vocabulary Bank</a><a href="${prefix}review/expressions/">Expression Bank</a><a href="${prefix}review/speaking/">Speaking Bank</a><a href="${prefix}sessions/">全セッション</a></nav>`;
+}
+
 for (const [index, session] of sessionDefinitions.entries()) {
   const trackerSession = trackerByNumber.get(session.session);
   const rawBody = currentBodies.get(session.session);
   if (!rawBody) throw new Error(`No Journal content found for Session ${session.session}`);
-  const cleanedBody = cleanSessionBody(rawBody, session);
+  const cleanedBody = assessedSessionBody(cleanSessionBody(rawBody, session), trackerSession, tracker.assessment_policy, latestDefinition.session);
   const media = mediaBySession.get(session.session) ?? [];
   const body = placeSessionMedia(cleanedBody, session, media);
   const page = `---
@@ -504,7 +511,9 @@ description: "${escapeHtml(session.remember)}"
 
 # ${escapeHtml(session.title)}
 
-<div class="session-meta">Session ${session.session} · ${formatDateJa(session.date)} · ${trackerSession?.ratings?.Pronunciation == null ? "Pronunciation N/A" : `Pronunciation L${trackerSession.ratings.Pronunciation}`}</div>
+<div class="session-meta">Session ${session.session} · ${formatDateJa(session.date)}${(session.session === latestDefinition.session ? evaluatedMetrics(trackerSession, ['Pronunciation'], tracker.assessment_policy).length : Number.isInteger(trackerSession?.ratings?.Pronunciation)) ? ` · Pronunciation L${trackerSession.ratings.Pronunciation}` : ''}</div>
+
+${reportContentsMarkup('../../')}
 
 <div class="learning-tags">${session.tags.map((tag) => `<span class="learning-tag">${escapeHtml(tag)}</span>`).join("")}</div>
 
@@ -732,7 +741,7 @@ const comparisonRows = comparisonReady ? comparisonDefinitions.map(([key, label,
   const x1 = Math.max(3, Math.min(97, before / max * 94));
   const x2 = Math.max(3, Math.min(97, after / max * 94));
   const maintained = index >= 4 && before > 0 && Math.abs(after - before) / before < 0.15;
-  const change = after === before ? "同値" : maintained ? "小変動" : `${after < before ? "↓" : "↑"} ${before ? Math.round(Math.abs(after - before) / before * 100) : "—"}%`;
+  const change = after === before ? "同値" : maintained ? "小変動" : after < before ? "減少" : "増加";
   return `<div class="comparison-row"><div class="comparison-name"><strong>${escapeHtml(label)}</strong><small>${escapeHtml(note)}</small></div><span class="comparison-before">${before} <small>${unit}</small></span><div class="delta-track" aria-label="Earlier ${before}, Recent ${after}"><span class="delta-line" style="left:${Math.min(x1, x2)}%;width:${Math.abs(x2 - x1)}%"></span><span class="delta-dot delta-dot--earlier" style="left:${x1}%"></span><span class="delta-dot delta-dot--recent" style="left:${x2}%"></span></div><span class="comparison-after">${after} <small>${unit}</small></span><span class="comparison-change">${change}</span></div>`;
 }).join("\n") : "<p>比較に十分な自発発話データがありません。</p>";
 const outputStable = comparisonReady && Math.abs(recentSpeech.mean_words_per_segment - earlierSpeech.mean_words_per_segment) / earlierSpeech.mean_words_per_segment < 0.15;
@@ -742,24 +751,27 @@ const insightJa = "回収済みASRの記述的な差です。話題・支援・�
 const evidenceStrength = comparisonReady && earlierSpeech.sessions.length >= 2 && recentSpeech.sessions.length >= 2 ? "MODERATE" : "LOW";
 const distributionRows = recentSpeech.buckets.filter(b => b.label !== '0' || b.count > 0).map((bucket) => `<div class="distribution-row"><span>${bucket.label} words</span><span class="distribution-bar"><i style="width:${bucket.percent ?? 0}%"></i></span><strong>${bucket.percent ?? 'N/A'}%</strong></div>`).join("\n");
 const coverageRows = rawSessions.map((session) => `<div class="coverage-item"><strong>S${session.session}</strong><span class="coverage-bar"><i style="width:${Math.round(session.usable_segment_ratio * 100)}%"></i></span><span>${Math.round(session.usable_segment_ratio * 100)}%</span><em>${session.coverage_band.toUpperCase()}</em></div>`).join("\n");
-const profileRows = tracker.qualitative_metrics.map((metric) => {
+const currentEvaluatedMetrics = evaluatedMetrics(latestTracker, tracker.qualitative_metrics, tracker.assessment_policy);
+const profileRows = currentEvaluatedMetrics.map((metric) => {
   const observed = latestObservedByMetric.get(metric);
   const level = latestTracker.ratings[metric];
   const history = observed && observed.session !== latestTracker.session ? ` / 過去 S${observed.session} ${ratingLabel(observed, metric)}${metric === 'Pronunciation' && pronunciationBasis(observed) === 'legacy_limited' ? '（旧基準・限定根拠）' : ''}` : '';
-  return `<div class="profile-row ${levelClass(level)}"><span>${escapeHtml(metricJa[metric])}</span><strong>${ratingLabel(latestTracker, metric)}</strong><small>今回 S${latestTracker.session}${history}</small></div>`;
+  const example=assessmentExample(latestTracker,metric,tracker.assessment_policy);
+  return `<div class="profile-row ${levelClass(level)}"><span>${escapeHtml(metricJa[metric])}</span><strong>${ratingLabel(latestTracker, metric)}</strong><small>今回 S${latestTracker.session}${history}</small><p class="profile-evidence">${escapeHtml(example.text)}<br><span>実発話 turn ${example.turns.join('・')} · 確度 ${escapeHtml(example.confidence)}</span></p></div>`;
 }).join("\n");
 const recentEvidence = tracker.sessions.slice(-5).flatMap((session) => Object.entries(session.metric_evidence ?? {}).map(([metric, evidence]) => ({ metric, evidence, session: session.session })));
 const recentEvidenceFor = (metric) => { const e = [...recentEvidence].reverse().find(item => item.metric === metric && item.evidence?.observed)?.evidence; return e?.display_summary_ja ?? e?.observed ?? '比較可能な記述はありません。'; };
 const changeLabels = {observed_gain:'この行動で前進を観察',stable:'同程度の再現',mixed:'混在',observed_loss:'この行動で後退を観察',unconfirmed:'変化は未確認'};
 const changeReview = latestTracker.recent_change_review;
-const recentChangeMarkup = changeReview ? `<article class="before-now"><strong>RECENT CHANGE · 最近の比較</strong><p>${escapeHtml(changeReview.compact_summary ?? changeReview.summary)}</p><p>${changeReview.observations.map(o => `${o.earlier ? `S${o.earlier.session}` : '以前の例なし'} → S${o.current.session} · ${escapeHtml(metricJa[o.metric])}: ${escapeHtml(changeLabels[o.decision])}（${{high:'高',medium:'中',low:'低'}[o.confidence]}確度）`).join('<br>')}</p></article>` : '';
+const recentChangeMarkup = changeReview ? `<article class="before-now"><strong>RECENT CHANGE · 最近の比較</strong><p>${escapeHtml(changeReview.compact_summary ?? changeReview.summary)}</p><p>${changeReview.observations.filter(o => currentEvaluatedMetrics.includes(o.metric)).map(o => `${o.earlier ? `S${o.earlier.session}` : '以前の例なし'} → S${o.current.session} · ${escapeHtml(metricJa[o.metric])}: ${escapeHtml(changeLabels[o.decision])}（${{high:'高',medium:'中',low:'低'}[o.confidence]}確度）`).join('<br>')}</p></article>` : '';
 const grammarCardLabel = Number.isInteger(latestTracker.ratings['Grammar control']) ? 'OBSERVED GRAMMAR' : 'EVIDENCE LIMIT';
 const grammarCardText = Number.isInteger(latestTracker.ratings['Grammar control'])
   ? firstSentence(recentEvidenceFor('Grammar control'), 65)
   : recentEvidenceFor('Grammar control');
 const reportPracticeTargets = learningBrief.goal;
 
-const grammarFocus = (latestTracker.pattern_observations?.length ? latestTracker.pattern_observations : [{ pattern: 'Grammar control', status: '未細分化', note: recentEvidenceFor('Grammar control') }])
+const grammarObservation=qualitativeObservations(latestTracker,tracker.assessment_policy).find(o=>o.metric==='Grammar control');
+const grammarFocus = (latestTracker.pattern_observations?.length ? latestTracker.pattern_observations : grammarObservation ? [{ pattern: '構文による意味伝達', status: '質的観察', note: `${grammarObservation.text} ${grammarObservation.scope}` }] : [])
   .map(item => `<div class="grammar-row"><strong>${escapeHtml(item.pattern)}</strong><span>${escapeHtml(item.status)}</span><small>${escapeHtml(item.note)}</small></div>`).join("\n");
 const estimateTableRows = Object.entries(testDefinitions).map(([testId, definition]) => {
   const evidence = latestEstimateFor(testId);
@@ -774,24 +786,27 @@ hide:
 
 # English Growth Dashboard
 
+${reportContentsMarkup('../')}
+
 <p class="growth-intro">現行計画: ${escapeHtml(tracker.learning_plan.updated_on)}設定。新規S23からwhole-session-v4、S22以前は旧基準のまま保持。基準をまたぐ点数差は自動で上達・低下としません。</p>
 
-<p class="growth-intro">最新評価 S${latestTracker.session} · 回収済み発話 S${rawSessions[0]?.session ?? '—'}–S${latestRawSession?.session ?? '—'}。個人学習用の観察値で、公式試験結果ではありません。</p>
+<p class="growth-intro">最新評価 S${latestTracker.session} · ${escapeHtml(latestTracker.date)} · 回収済み発話 S${rawSessions[0]?.session ?? '—'}–S${latestRawSession?.session ?? '—'}。個人学習用の観察値で、公式試験結果ではありません。</p>
 
-<section class="growth-page growth-page--now"><h2>WHERE I AM NOW <small>現在の英語力</small></h2>
-<div class="profile-grid">${profileRows}</div>
+<section class="growth-page growth-page--now">${currentEvaluatedMetrics.length ? `<h2>WHERE I AM NOW <small>現在の英語力</small></h2><div class="profile-grid">${profileRows}</div>` : ''}
+<p class="growth-caveat">${escapeHtml(currentEvidenceNote(latestTracker,tracker.qualitative_metrics,tracker.assessment_policy))}</p>
 ${changeReview ? '' : `<div class="growth-three-cards">
   <article><strong>STRENGTHS</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Interaction & repair"), 65))}</p></article>
   <article><strong>DEVELOPING</strong><p>${escapeHtml(firstSentence(recentEvidenceFor("Fluency & coherence"), 65))}</p></article>
   <article><strong>${grammarCardLabel}</strong><p>${escapeHtml(grammarCardText)}</p></article>
 </div>`}
 ${recentChangeMarkup || `<div class="before-now"><strong>INITIAL → CURRENT</strong><p>${escapeHtml(reportModel.initialSummary)}</p></div>`}
-${levelHistoryMarkup(tracker.sessions, tracker.qualitative_metrics, sessionDefinitionByNumber)}
+${levelHistoryMarkup(reportChartProgress(tracker).sessions, tracker.qualitative_metrics, sessionDefinitionByNumber)}
+<p class="growth-caveat">S23以降は評価方法・確認範囲を選別しています。今回の数値評価は${currentEvaluatedMetrics.length}観点で、過去の6観点との数の違いや欠測は能力低下を示しません。残りの平均を総合点として計算し直していません。</p>
 <p class="growth-chart-expand"><a href="../assets/generated/english-growth-evidence-dashboard.png">推移グラフを拡大して見る →</a></p>
 <figure class="figure-frame growth-trend"><a href="../assets/generated/english-growth-evidence-dashboard.png"><img src="../assets/generated/english-growth-evidence-dashboard.png" alt="全履歴の6観点評価。今回の発音: ${ratingLabel(latestTracker, 'Pronunciation')}。過去の最終記録 S${lastPronunciation?.session ?? '—'}は現基準の音声総合審査と区別。" loading="lazy"></a><figcaption>横軸はSession、縦軸はL評価。N/Aは欠測、線で補間しません。発音の過去値は旧基準・限定根拠を含みます。段階は形成中 / 安定 / 強い。</figcaption></figure>
 </section>
 
-<section class="growth-page growth-page--change"><h2>HOW MY SPEAKING IS CHANGING <small>話し方の変化</small></h2>
+<section class="growth-page growth-page--change"><h2>HOW MY SPEAKING IS CHANGING <small>発話記録の変化 · 補助指標</small></h2>
 <p>固定基準 Earlier: ${earlierSpeech.sessions.map(n => `S${n}`).join(' + ') || '比較待ち'} · Recent: ${recentSpeech.sessions.map(n => `S${n}`).join(' + ') || '比較待ち'}。各群80%以上・自発15区間以上の別々の2回。音読・入力・復唱等は除外。</p>
 <div class="comparison-header"><span>EARLIER</span><span>BEFORE → NOW</span><span>RECENT</span></div>
 <div class="comparison-chart">${comparisonRows}</div>
@@ -805,15 +820,14 @@ ${levelHistoryMarkup(tracker.sessions, tracker.qualitative_metrics, sessionDefin
 </section>
 
 <section class="growth-page growth-page--next"><h2>WHAT TO WORK ON NEXT <small>次の重点</small></h2>
-<div class="controlled-flow"><article><strong>COMMUNICATION</strong><p>${escapeHtml(firstSentence(recentEvidenceFor('Task achievement'), 95))}</p></article><span>↓</span><article><strong>AUTOMATICITY · OBSERVED COUNTS</strong><p>${escapeHtml(reportModel.automaticity)}能力の自動採点ではありません。</p></article><span>↓</span><article><strong>CONTROLLED ACCURACY</strong><p>${escapeHtml(firstSentence(recentEvidenceFor('Grammar control'), 95))}</p></article></div>
+<div class="controlled-flow"><article><strong>COMMUNICATION</strong><p>${escapeHtml(firstSentence(recentEvidenceFor('Task achievement'), 95))}</p></article><span>↓</span><article><strong>AUTOMATICITY · OBSERVED COUNTS</strong><p>${escapeHtml(reportModel.automaticity)}能力の自動採点ではありません。</p></article><span>↓</span><article><strong>MEANING & CONSTRUCTION</strong><p>${escapeHtml(firstSentence(grammarObservation?.text ?? recentEvidenceFor('Grammar control'), 95))}</p></article></div>
 <div class="growth-three-cards"><article><strong>HABIT · TRACK</strong><p>Planning fillersと“you know”。減少そのものを目標にせず、考える間と会話の自然さを一緒に確認する。</p></article><article><strong>STRENGTH · KEEP</strong><p>自発的なself-repairと話題の軌道修正。修復能力は強み、過度な修復負荷だけを観察する。</p></article><article><strong>TARGET · PRACTISE</strong><p>${escapeHtml(reportPracticeTargets)}</p></article></div>
-<h3>GRAMMAR EVIDENCE · 観察範囲</h3>
-<div class="grammar-tracker">${grammarFocus}</div>
-<p class="growth-caveat">状態はJournal・Wrap-upで確認された質的な重点。ASRの短い機能語や語尾から自動エラー率を作らず、1例だけで「再発」や「改善」を断定しません。</p>
+${grammarFocus ? `<h3>GRAMMAR EVIDENCE · 構文の質的観察</h3><div class="grammar-tracker">${grammarFocus}</div><p class="growth-caveat">ASRの短い機能語や語尾から自動エラー率を作らず、1例だけで「再発」や「改善」を断定しません。</p>` : ''}
 <h3 class="fingerprint-heading">SESSION-BY-SESSION FINGERPRINT <small>補助指標</small></h3>
 ${speakingFingerprintMarkup}
 <p class="growth-caveat">${escapeHtml(reportModel.fillerSummary)}減少だけで上達とは判定しません。LOW coverage点は白抜き。各点の詳細はSiteでhoverできます。</p>
 <h3 class="estimate-heading">ESTIMATED EXTERNAL-TEST RANGES</h3>
+<p class="growth-caveat">新しい資格推定は行っていません。推定履歴の最終更新は ${escapeHtml(tracker.test_score_estimates.as_of_date)}（S${tracker.test_score_estimates.as_of_session}）。各試験は下の最終根拠Session・確度付きの過去参考値です。</p>
 <figure class="figure-frame growth-estimates"><a href="../assets/generated/english-test-score-estimate-trends.png"><img src="../assets/generated/english-test-score-estimate-trends.png" alt="各資格の最新推定レンジ。試験ごとに別尺度、最終根拠Sessionと確度を併記。" loading="lazy"></a><figcaption>公式試験の結果ではありません。推定レンジを横線で示し、本人申告の実績値とは分離。各試験の尺度・測定時点が違うため、横位置を試験間で比較しません。</figcaption></figure>
 <table class="estimate-table"><thead><tr><th>試験</th><th>推定レンジ</th><th>最終根拠</th><th>確度</th></tr></thead><tbody>${estimateTableRows}</tbody></table>
 <p class="growth-caveat">これは受験結果ではなく学習用目安です。Listening / Reading / Writingなど新しく測っていない技能は最終根拠Sessionを据え置き、試験間で横棒の位置を比較しません。</p>

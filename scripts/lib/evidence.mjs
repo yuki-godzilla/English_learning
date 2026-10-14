@@ -1,4 +1,5 @@
 /** Shared, conservative interpretation. Never changes a learner's ratings. */
+import { evaluatedMetrics } from './report-presentation.mjs';
 export const stages = { emerging: '形成中', established: '安定', strong: '強い' };
 export function ratingLabel(session, metric) {
   const value = session?.ratings?.[metric];
@@ -12,7 +13,7 @@ export function buildReportModel(progress, analytics) {
   const latest = progress.sessions.at(-1);
   const previous = progress.sessions.at(-2);
   const first = progress.sessions[0];
-  const metrics = progress.qualitative_metrics.map(metric => ({
+  const metrics = evaluatedMetrics(latest, progress.qualitative_metrics, progress.assessment_policy).map(metric => ({
     metric, current: ratingLabel(latest, metric), previous: ratingLabel(previous, metric),
     first: ratingLabel(first, metric), evidence: latest.metric_evidence?.[metric] ?? null,
     lastObserved: [...progress.sessions].reverse().find(s => Number.isInteger(s.ratings?.[metric])),

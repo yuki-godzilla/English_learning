@@ -1,6 +1,6 @@
 /* A separate, high-contrast A4 reading surface for the exported Journal. */
 @media print {
-  .recall-tools, [data-due-queue], .growth-history-screen, .growth-chart-expand { display: none !important; }
+  .recall-tools, [data-due-queue], .growth-history-screen, .growth-chart-expand, .report-contents, .profile-evidence { display: none !important; }
   @page { size: A4; margin: 16mm 14mm 18mm; }
 
   :root,

@@ -1,3 +1,4 @@
+import { evaluatedMetrics, currentEvidenceNote, metricNameJa, confidenceNameJa, assessmentExample, supportNameJa } from './report-presentation.mjs';
 /** Current planning and learner-facing views; never infer proficiency or mastery. */
 import { tableRows, normalizeBankKey } from './markdown-table.mjs';
 
@@ -80,7 +81,7 @@ export function buildLearningBrief(journal, progress, ledger) {
   return {
     session: latest.session, date: latest.date, title: latest.title,
     success: assessment.assessment_summary?.observed_success?.meaning_ja ?? '今回の成功は、保存済みの根拠からまだ特定されていません。',
-    takeaway: latest.remember,
+    takeaway: journal.sections.review.match(/\*\*内容面の持ち帰り:\*\*\s*([^\r\n]+)/)?.[1] ?? latest.remember,
     change: assessment.recent_change_review?.compact_summary ?? assessment.recent_change_review?.summary ?? '最近の変化を公平に比べる根拠は未確認です。',
     items: resolveActiveItems(journal, plan, ledger),
     goal: plan?.goals?.[0]?.title ?? assessment.assessment_summary?.next_targets?.[0] ?? '次の会話で重点を一つ選びます。',
@@ -122,6 +123,15 @@ p { margin:1.6mm 0; }
 .english { font-size:12pt; color:#163a5f; font-weight:700; }
 .note { color:#4b5563; font-size:10.5pt; }
 .warning { padding:3mm; border:1px solid #b45309; }
+.journal-contents { padding:2mm 3mm; margin:2mm 0 3mm; border:1px solid #cbd5e1; background:#f7f9fc; break-inside:avoid; }
+.journal-contents > div { display:grid; grid-template-columns:1fr 1fr; gap:1mm 4mm; margin-top:1mm; }
+.journal-contents a { color:#1d5fa7; text-decoration:underline; }
+.assessment-table { table-layout:fixed; }
+.assessment-table th:nth-child(1) { width:22%; }
+.assessment-table th:nth-child(2) { width:17%; }
+.assessment-table th:nth-child(3) { width:49%; }
+.assessment-table th:nth-child(4) { width:12%; }
+.evidence-reference { color:#4b5563; font-size:8.5pt; }
 table { border-collapse:collapse; width:100%; font-size:10.5pt; }
 th { background:#163a5f; color:white; text-align:left; }
 th,td { padding:2mm; border:1px solid #cbd5e1; vertical-align:top; }
@@ -130,13 +140,13 @@ tr { break-inside:avoid; } thead { display:table-header-group; }
 function documentHtml(title, body) {
   return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>${escapeHtml(title)}</title><style>${printCss}</style></head><body>${body}</body></html>`;
 }
-export function learningBriefHtml(brief) {
-  const items = brief.items.slice(0, 2);
+export function learningBriefHtml(brief, contents = []) {
+  const items = brief.items.slice(0, 1);
   return documentHtml('Learning Brief', `
 <div class="kicker">YUKI × ASTRA · LEARNING BRIEF</div>
 <h1>次の会話へ持ち帰る一枚</h1>
 <p class="note">Session ${brief.session} · ${escapeHtml(brief.date)} · ${escapeHtml(brief.title)}</p>
-${brief.unfinished.length ? `<p class="warning">${escapeHtml(brief.scope)}</p>` : ''}
+${contents.length ? `<nav class="journal-contents" aria-label="目次"><strong>目次 · クリックして移動</strong><div>${contents.map(item => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.title)}</a>`).join('')}</div></nav>` : ''}
 <h2>今回の収穫</h2><p>${escapeHtml(brief.success)}</p>
 <h2>内容面の持ち帰り</h2><p>${escapeHtml(brief.takeaway)}</p>
 <h2>次に使う表現</h2>
@@ -144,9 +154,10 @@ ${items.map(item => `<div class="panel"><p class="english" lang="en">${escapeHtm
 <p class="note">Bankの学習用表現。完成文の独立使用・習得の実績とは区別します。</p>
 <h2>5分復習 · 例文を隠して一つだけ</h2>
 ${items.map((item, i) => `<p>${i + 1}. ${escapeHtml(item.recall_prompt)}</p>`).join('')}
+<p class="note">自分の場面で一文にできたら、ここで終えて大丈夫です。別の候補はStudy Bankへ。</p>
 <h2>次回の重点</h2><p><strong>${escapeHtml(brief.goal)}</strong></p><p>Astra: ${escapeHtml(brief.assistantAction)}</p>
 <p class="note">${escapeHtml(brief.planningNote)}</p>
-<p class="note">評価範囲: ${escapeHtml(brief.scope)}</p>
+<p class="note">評価範囲: 保存済みSession ${brief.session}の発話と文脈から確認できた結果を掲載。</p>
 `);
 }
 
@@ -156,21 +167,23 @@ export function growthSummaryHtml(progress, brief) {
   const label = (s, metric) => Number.isInteger(s?.ratings?.[metric]) ? `L${s.ratings[metric]} / ${{emerging:'形成中',established:'安定',strong:'強い'}[s.within_level_stage?.[metric]] ?? '段階未記録'}` : 'N/A';
   const decisions = { observed_gain:'この行動で前進',stable:'同程度を再確認',mixed:'混在',observed_loss:'この行動で後退',unconfirmed:'変化は未確認' };
   const allChanges = latest.recent_change_review?.observations ?? [];
+  const currentMetrics=evaluatedMetrics(latest,progress.qualitative_metrics,progress.assessment_policy);
   // Select by the declared learning priorities, never by positive/negative result.
   const priorities = ['Task achievement', 'Lexical resource', 'Grammar control', 'Fluency & coherence', 'Interaction & repair', 'Pronunciation'];
-  const changes = [...allChanges].sort((a,b) => priorities.indexOf(a.metric)-priorities.indexOf(b.metric)).slice(0,2);
+  const changes = allChanges.filter(o=>currentMetrics.includes(o.metric)).sort((a,b) => priorities.indexOf(a.metric)-priorities.indexOf(b.metric)).slice(0,2);
   const rubric = Object.values(latest.metric_evidence ?? {}).map(e=>e.provenance?.rubric_version).find(Boolean) ?? '旧記録';
   return documentHtml('English Growth & Evaluation', `
-<div class="kicker">CURRENT ABILITY · SUCCESS · RECENT CHANGE</div><h1>現在地と、次の一歩</h1>
+<div class="kicker">${currentMetrics.length ? 'CURRENT ABILITY · SUCCESS · RECENT CHANGE' : 'SESSION REFLECTION'}</div><h1>${currentMetrics.length ? '現在地と、次の一歩' : '今回の振り返りと、次の一歩'}</h1>
 <p>保存済み Session ${latest.session} · ${escapeHtml(latest.date)} · ${escapeHtml(rubric)}</p>
-<table><thead><tr><th>観点</th><th>今回</th><th>前回${previous ? ` S${previous.session}` : ''}</th></tr></thead><tbody>
-${progress.qualitative_metrics.map(metric=>`<tr><td>${escapeHtml(metric)}</td><td>${label(latest,metric)}</td><td>${label(previous,metric)}</td></tr>`).join('')}
-</tbody></table>
-<p class="note">Lは個人学習用。N/Aは欠測で、0点・能力低下・前回点の維持ではありません。旧基準の観察値を新基準で再採点していません。</p>
-<h2>今回できたこと</h2><p>${escapeHtml(brief.success)}</p>
-<h2>以前 → 今回 → 判断</h2>
-${changes.map(o=>`<div class="panel"><p><strong>${escapeHtml(o.behavior)}</strong> · ${escapeHtml(decisions[o.decision] ?? '未確認')}</p><p>以前${o.earlier ? ` S${o.earlier.session}: ${escapeHtml(o.earlier.observation)}` : ': 比較できる例なし'}</p><p>今回 S${o.current.session}: ${escapeHtml(o.current.observation)}</p></div>`).join('') || `<p>${escapeHtml(brief.change)}</p>`}
+${currentMetrics.length ? `<table class="assessment-table"><thead><tr><th>観点</th><th>今回</th><th>確認した行動・根拠</th><th>確度</th></tr></thead><tbody>
+${evaluatedMetrics(latest, progress.qualitative_metrics, progress.assessment_policy).map(metric=>{const example=assessmentExample(latest,metric,progress.assessment_policy);return `<tr><td><strong>${escapeHtml(metricNameJa[metric] ?? metric)}</strong></td><td>${label(latest,metric)}</td><td>${escapeHtml(example.text)}<br><span class="evidence-reference">実発話 turn ${example.turns.join('・')} · ${escapeHtml(supportNameJa(latest,metric))}</span></td><td>${escapeHtml(example.confidence)}</td></tr>`;}).join('')}
+</tbody></table>` : ''}
+<p class="note">今回評価した観点だけを表示。Lは個人学習用。旧基準の観察値を新基準で再採点していません。</p>
+<p class="note">${escapeHtml(currentEvidenceNote(latest,progress.qualitative_metrics,progress.assessment_policy))}</p>
+${changes.length ? '<h2>以前 → 今回 → 判断</h2>' : ''}
+${changes.map(o=>`<div class="panel"><p><strong>${escapeHtml(o.behavior)}</strong> · ${escapeHtml(decisions[o.decision] ?? '未確認')}（確度 ${confidenceNameJa(o.confidence)}）</p><p>以前${o.earlier ? ` S${o.earlier.session} · ${progress.sessions.find(s=>s.session===o.earlier.session)?.date ?? ''}: ${escapeHtml(o.earlier.observation)}` : ': 比較できる例なし'}</p><p>今回 S${o.current.session} · ${escapeHtml(latest.date)}: ${escapeHtml(o.current.observation)}</p></div>`).join('')}
+<p class="note">比較は記録にある本人の行動に限定。題材・支援・基準が異なり、点数差を改善率にはしません。提示文の使用と後日の自力再利用は別に扱います。</p>
 <p class="note">重点の説明・再利用に沿って最大2件を表示。全比較の条件と確度は詳細記録へ。</p>
-<h2>次に確認すること</h2><p>${escapeHtml(brief.goal)}</p><p class="note">${escapeHtml(brief.scope)} 詳しい条件・確度・推移・資格目安は「Growth Evidence & Methods」へ。</p>
+<h2>次に確認すること</h2><p>${escapeHtml(brief.goal)}</p><p class="note">詳しい条件・確度・推移・資格目安は「Growth Evidence & Methods」へ。</p>
 `);
 }

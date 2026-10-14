@@ -134,17 +134,17 @@
       "status": "generated",
       "role": "English growth dashboard",
       "alt": "Session 1からSession 23までの英語力成長グラフ",
-      "caption": "progress.jsonから生成したSession 1〜23の英語力推移。L1〜L5と同一L内の段階を表示。発音の過去記録S8・12は限定的な旧評価を含み、現基準の直接総合審査とは区別する。N/Aは欠測。",
+      "caption": "progress.jsonから生成したSession 1〜23の英語力推移。L1〜L5と同一L内の段階を表示。S23以降は環境・記述子・証拠の選別を通る結果だけ作図し、他は欠測とする。保存した元の採点履歴は保持。発音の過去記録S8・12は限定的な旧評価を含み、現基準の直接総合審査とは区別する。",
       "creator": "Generated from learning-records/progress.json",
       "license": "Project generated",
-      "sha256": "b1ca5506740dd372249b8fceb9c13ddb174848bc5c353cc6529888fb0fb429ca",
+      "sha256": "5da72319117f4eefbf4ebdb357f10bd4c81641b9b8cfbfa83ac66a96de179371",
       "provenance": {
         "schema_version": 1,
         "inputs": {
-          "learning-records/progress.json": "9d1e68f8662b69bf84c5555901b241763e8025ea0085a66fac54c357a3ad234f",
-          "scripts/charts/generate.mjs": "309c4855b99ae16a96765a8a8c5bbc5b6c476ef05fb0b480141375ba6f1096c2",
-          "scripts/lib/evidence.mjs": "865a1bb9ee8c852df94a43b53bf60fa38302d1cf4791f6e4ec4d57619ba73b16",
-          "scripts/charts/skill-timeline.mjs": "69631fbe3e9f7b9ee2552d11848d40c8e1041fb2009a81b94853d4a5a56bed7e"
+          "learning-records/progress.json": "8caa8e903eec23e8c2b79cd1045e11365f2f2b99e0bf3263b89f58a24c2443e6",
+          "scripts/charts/generate.mjs": "e80a453cad9de0bede562e8a12a1f44ba105338fcc7f3a016d14926e2d03f8d2",
+          "scripts/lib/evidence.mjs": "3c864025ec0121d04b18be2a18f7b7d263a12ea440deaeb417b9621d686e9b10",
+          "scripts/charts/skill-timeline.mjs": "cce251765568c28fc696a2529ecac4fbdc37ae52614460718442a5a22211be86"
         }
       }
     },
@@ -160,10 +160,10 @@
       "provenance": {
         "schema_version": 1,
         "inputs": {
-          "learning-records/progress.json": "9d1e68f8662b69bf84c5555901b241763e8025ea0085a66fac54c357a3ad234f",
-          "scripts/charts/generate.mjs": "309c4855b99ae16a96765a8a8c5bbc5b6c476ef05fb0b480141375ba6f1096c2",
-          "scripts/lib/evidence.mjs": "865a1bb9ee8c852df94a43b53bf60fa38302d1cf4791f6e4ec4d57619ba73b16",
-          "scripts/charts/skill-timeline.mjs": "69631fbe3e9f7b9ee2552d11848d40c8e1041fb2009a81b94853d4a5a56bed7e"
+          "learning-records/progress.json": "8caa8e903eec23e8c2b79cd1045e11365f2f2b99e0bf3263b89f58a24c2443e6",
+          "scripts/charts/generate.mjs": "e80a453cad9de0bede562e8a12a1f44ba105338fcc7f3a016d14926e2d03f8d2",
+          "scripts/lib/evidence.mjs": "3c864025ec0121d04b18be2a18f7b7d263a12ea440deaeb417b9621d686e9b10",
+          "scripts/charts/skill-timeline.mjs": "cce251765568c28fc696a2529ecac4fbdc37ae52614460718442a5a22211be86"
         }
       }
     },

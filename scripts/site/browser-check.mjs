@@ -5,6 +5,7 @@ import http from 'node:http';
 import path from 'node:path';
 import { projectRoot as root } from '../lib/project.mjs';
 import { findPdfBrowser } from '../pdf/runtime.mjs';
+import { loadJournal } from '../lib/journal-parser.mjs';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const out = path.join(root, 'tmp/browser-qa');
@@ -23,6 +24,7 @@ const server = http.createServer(async (req, res) => {
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const base = 'http://127.0.0.1:' + server.address().port;
 const failures = [], results = [];
+const latestSession=(await loadJournal()).sessions.sort((a,b)=>b.date.localeCompare(a.date)||b.session-a.session)[0];
 let browser;
 
 // Alpha colors must be composited before judging actual screen contrast.
@@ -50,7 +52,7 @@ try {
     try {
       const page = await context.newPage();
       page.on('pageerror', error => failures.push(error.message));
-      for (const route of ['progress/', 'review/', '']) {
+      for (const route of ['progress/', 'review/', '', `sessions/${latestSession.id}/`]) {
         await page.goto(base + '/' + route, { waitUntil: 'networkidle' });
         await page.evaluate(theme => document.body.setAttribute('data-md-color-scheme', theme), theme);
         await page.locator('img').evaluateAll(images => images.forEach(img => img.loading = 'eager'));
@@ -58,7 +60,7 @@ try {
         const name = (route.replaceAll('/', '') || 'home') + '-' + width + '-' + theme;
         await page.screenshot({ path: path.join(out, name + '.png'), fullPage: true });
         if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 2)) failures.push(name + ': horizontal overflow');
-        const screen = await textChecks(page, '.before-now p,.growth-insight p');
+        const screen = await textChecks(page, '.before-now p,.growth-insight p,.profile-evidence,.profile-evidence span,.report-contents a');
         let firstPracticeTop = null;
         for (const c of screen) if (c.ratio < 4.5) failures.push(name + ' screen contrast: ' + JSON.stringify(c));
         if (route === 'review/' || route === '') {
@@ -86,6 +88,16 @@ try {
         if (route === 'progress/' && await page.locator('.fingerprint-grid .fingerprint-card:visible').count() !== 4) failures.push(name + ': supplemental print sparklines missing');
         results.push({ route, width, theme, first_practice_top: firstPracticeTop, screen_min_contrast: screen.length ? Math.min(...screen.map(c => c.ratio)) : null, screen_text_nodes: screen.length, print_text_nodes: print.length });
         await page.emulateMedia({ media: 'screen' });
+        if (route === `sessions/${latestSession.id}/`) {
+          const contents=page.locator('.report-contents');
+          if (await contents.locator('a').count()!==5) failures.push(name+': report contents incomplete');
+          for (const [text,target] of [['Vocabulary Bank','/review/vocabulary/'],['評価・成長','/progress/']]) {
+            await contents.getByRole('link',{name:text,exact:true}).click();
+            await page.waitForURL('**'+target);
+            if (await page.locator('.md-content h1').count()!==1) failures.push(name+': contents target has no report heading');
+            await page.goto(base+'/'+route,{waitUntil:'networkidle'});
+          }
+        }
       }
     } finally { await context.close(); }
   }

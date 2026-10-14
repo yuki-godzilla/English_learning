@@ -1,4 +1,5 @@
 import { validateLearningPlan, resolveActiveItems } from '../lib/learning-plan.mjs';
+import { evaluatedMetrics, validateAssessmentPolicy, examEstimateEligibility } from '../lib/report-presentation.mjs';
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -160,9 +161,19 @@ if (!speakingProbe || speakingProbe.prompt_id !== "spontaneous-iot-explanation-v
 }
 
 const latestProgress = progress.sessions?.at(-1);
+const modeData=JSON.parse(await fs.readFile(path.join(recordsRoot,'transcripts/speech-mode-annotations.json'),'utf8'));
+const evidenceModes=new Map(modeData.annotations.map(a=>[`${a.session_number}/${a.turn_index}`,a.speech_mode]));
+for (const message of validateAssessmentPolicy(progress,turnsBySession,evidenceModes,new Map([...transcriptEvidenceBySession].map(([n,e])=>[n,e.source])))) fail(message);
+for (const entry of progress.test_score_estimates?.estimate_sessions ?? []) {
+  if (entry.session < progress.scoring_protocol.effective_from_session) continue;
+  for (const [testId, estimate] of Object.entries(entry.estimates ?? {})) {
+    if (!examEstimateEligibility(estimate.evidence_review,progress.assessment_policy)) fail(`Session ${entry.session}: unsupported new examination estimate ${testId}`);
+  }
+}
 if (latestProgress) {
   const stageJa = { emerging: "形成中", established: "安定", strong: "強い" };
-  for (const [metric, rating] of Object.entries(latestProgress.ratings ?? {})) {
+  for (const metric of evaluatedMetrics(latestProgress,progress.qualitative_metrics,progress.assessment_policy)) {
+    const rating=latestProgress.ratings[metric];
     const expected = rating == null ? "N/A" : `L${rating}`;
     const metricRow = sharedTableRows(journal.sections.growth, { bankOnly: false }).find(row => row[0].replace(/[*_`]/g, '') === metric);
     if (!metricRow || !metricRow[1].includes(ratingLabel(latestProgress, metric))) fail(`Growth current row does not match ${metric}: ${ratingLabel(latestProgress, metric)}`);
